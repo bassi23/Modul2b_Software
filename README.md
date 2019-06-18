@@ -23,8 +23,24 @@ Ist der Sensor falsch angeschlossen wird der Messwert, den das Programm erhält 
 
 Man kann die einzelnen Stationen auswählen. In den Stationen kann man oben auswählen welche Messwerte angezeigt werden sollen (höchstens 2 gleichzeitig). 
 
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild4.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild2.png)
 
-# Daten speichern
+# Bereits integriert
 
-momentan noch nicht. Kommt noch.
+ - Erkennen ob der Sensor richtig angeschlossen ist
+ - richtige Verkabelung
+ - y-Achsenskalierung
+ - Zeitachsenskalierung (grob)
+ - Reset Button
+ 
+ 
+ - Station 1
+ - Station 4
+ 
+# to do
+
+ - Einstellungen hinzufügen
+ - Station 2 + 3
+ - Daten speichern
+ - Zeitskala (Wechsel zwischen Sekunden/Minuten/Stunden unten rechts)
+ 
