@@ -52,5 +52,5 @@ Man kann die einzelnen Stationen auswählen. In den Stationen kann man oben ausw
  - Station 2 + 3
  - Daten speichern
  - Zeitskala (Wechsel zwischen Sekunden/Minuten/Stunden unten rechts)
-
+- Aktualisierungsintervall einstellen
  
