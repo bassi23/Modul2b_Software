@@ -1233,7 +1233,7 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       max = 10;
     } else if (name == "TVOC in ppb") {
-      max = 10;
+      max = 100;
     }
   } else if (y == 2) {
     if (name == "Temperatur in °C") {
@@ -1245,7 +1245,7 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       max = 20;
     } else if (name == "TVOC in ppb") {
-      max = 20;
+      max = 500;
     }
   } else if (y == 3) {
     if (name == "Temperatur in °C") {
@@ -1257,7 +1257,7 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       max = 50;
     } else if (name == "TVOC in ppb") {
-      max = 50;
+      max = 1000;
     }
   } else if (y == 4) {
     if (name == "Temperatur in °C") {
@@ -1269,7 +1269,7 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       max = 200;
     } else if (name == "TVOC in ppb") {
-      max = 100;
+      max = 10000;
     }
   }
   //////////////////// Minimum und Maximum definieren ENDE ////////////////////////////
@@ -1315,10 +1315,10 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("15", pos_x, 307);
       text("20", pos_x, 207);
     } else if (name == "TVOC in ppb") {
-      text("2", pos_x, 507);
-      text("4", pos_x, 407);
-      text("6", pos_x, 307);
-      text("8", pos_x, 207);
+      text("20", pos_x, 507);
+      text("40", pos_x, 407);
+      text("60", pos_x, 307);
+      text("80", pos_x, 207);
     }
   } else if (y == 2) {
     if (name == "Temperatur in °C") {
@@ -1342,10 +1342,10 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("30", pos_x, 307);
       text("40", pos_x, 207);
     } else if (name == "TVOC in ppb") {
-      text("4", pos_x, 507);
-      text("8", pos_x, 407);
-      text("12", pos_x, 307);
-      text("16", pos_x, 207);
+      text("100", pos_x, 507);
+      text("200", pos_x, 407);
+      text("300", pos_x, 307);
+      text("400", pos_x, 207);
     }
   } else if (y == 3) {
     if (name == "Temperatur in °C") {
@@ -1369,10 +1369,10 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("45", pos_x, 307);
       text("60", pos_x, 207);
     } else if (name == "TVOC in ppb") {
-      text("10", pos_x, 507);
-      text("20", pos_x, 407);
-      text("30", pos_x, 307);
-      text("40", pos_x, 207);
+      text("200", pos_x, 507);
+      text("400", pos_x, 407);
+      text("600", pos_x, 307);
+      text("800", pos_x, 207);
     }
   } else if (y == 4) {
     if (name == "Temperatur in °C") {
@@ -1396,10 +1396,10 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("60", pos_x, 307);
       text("80", pos_x, 207);
     } else if (name == "TVOC in ppb") {
-      text("20", pos_x, 507);
-      text("40", pos_x, 407);
-      text("60", pos_x, 307);
-      text("80", pos_x, 207);
+      text("2000", pos_x, 507);
+      text("4000", pos_x, 407);
+      text("6000", pos_x, 307);
+      text("8000", pos_x, 207);
     }
   }
   ////////////////// Zwischenlinien definieren ENDE ////////////////////////////
