@@ -124,6 +124,12 @@ void draw() {
     if (two_three.isClicked()) {
       page = 2.5;
     }
+    if(three.isClicked()){
+      page = 3; 
+    }
+    if(two.isClicked()){
+     page = 2; 
+    }
     if (four.isClicked()) {
       page = 4;
     }
@@ -186,7 +192,6 @@ void sicher() {
   sicher_ja.show();
   sicher_nein.show();
 }
-
 
 class button {
   float x, y, dx, dy, textOffset;
@@ -270,7 +275,6 @@ class button {
     }
   }
 }
-
 
 float[] scd_temperature_data = new float[9999999];
 float[] scd_humidity_data =new float[9999999];
@@ -641,12 +645,123 @@ void onlyTwo2(CheckBox check, String state1, String state2, String state3) {
   }
 }
 
-void MenschSensor(){
-    two_three.active = false;
+void MenschSensor() {
+  SGP_check.show();
+  two_three.active = false;
   four.active = false;
   one.active = false;
   settings.active = false;
+  up1.show();
+  down1.show();
+  up2.show();
+  down2.show();
+  left1.show();
+  right1.show();
+  reset.show();
+  // Zeichne den Hintergrund
+  fill(255);
+  stroke(0);
+  rect(175, 100, 930, 500);
+  stroke(100, 100);
+  if (y_scale[0] != 0 || y_scale[1] != 0) {
+    for (int i = 0; i < 4; i++) {
+      line(175, 200 + 100*i, 1105, 200 + 100*i);
+    }
+  }
+
+
+
+
+
+  if (up1.isClicked()) {
+    y_scale[0] += 1;
+    if (y_scale[0] > 4) {
+      y_scale[0] = 0;
+    }
+  }
+
+  if (down1.isClicked()) {
+    y_scale[0] -= 1;
+    if (y_scale[0] < 0) {
+      y_scale[0] = 4;
+    }
+  }
+
+  if (up2.isClicked()) {
+    y_scale[1] += 1;
+    if (y_scale[1] > 4) {
+      y_scale[1] = 0;
+    }
+  }
+
+  if (down2.isClicked()) {
+    y_scale[1] -= 1;
+    if (y_scale[1] < 0) {
+      y_scale[1] = 4;
+    }
+  }
+
+  if (left1.isClicked()) {
+    x_scale -= 1;
+    if (x_scale < 0) {
+      x_scale =  10;
+    }
+  }
+
+  if (right1.isClicked()) {
+    x_scale += 1;
+    if (x_scale > 10) {
+      x_scale = 0;
+    }
+  }
+  fill(0);
+  text(x_scale, 500, 600);
+
+  String intervall = "";
+  if (x_scale == 0) {
+    intervall = "Zeige alle Messwerte";
+  } else if (x_scale == 1) {
+    intervall = "Zeige die letzen 60 Sekunden";
+  } else if (x_scale == 2) {
+    intervall = "Zeige die letzen 180 Sekunden";
+  } else if (x_scale == 3) {
+    intervall = "Zeige die letzen 360 Sekunden";
+  } else if (x_scale == 4) {
+    intervall = "Zeige die letzen 12 Minuten";
+  } else if (x_scale == 5) {
+    intervall = "Zeige die letzen 60 Minuten";
+  } else if (x_scale == 6) {
+    intervall = "Zeige die letzen 180 Minuten";
+  } else if (x_scale == 7) {
+    intervall = "Zeige die letzen 360 Minuten";
+  } else if (x_scale == 8) {
+    intervall = "Zeige die letzen 12 Stunden";
+  } else if (x_scale == 9) {
+    intervall = "Zeige die letzen 24 Stunden";
+  } else if (x_scale == 10) {
+    intervall = "Zeige die letzen 72 Stunden";
+  }
+  text(intervall, 690, 690);
+
+
+
+  //Welche Graphen sollen angezeigt werden?
+  boolean eco2 = SGP_check.getState("eCO2");
+  boolean tvoc = SGP_check.getState("TVOC");
+
+  if (eco2 && tvoc) {
+    graph(sgp_eco2_data, "eCO2 in ppm", x_scale, y_scale, true);
+    graph(sgp_tvoc_data, "TVOC in ppb", x_scale, y_scale, false);
+  } else if (eco2) {
+    graph(sgp_eco2_data, "eCO2 in ppm", x_scale, y_scale, true);
+  } else if (tvoc) {
+    graph(sgp_tvoc_data, "TVOC in ppb", x_scale, y_scale, true);
+  }
+
+
+  fill(0);
 }
+
 
 void Station2Oder3(){
   two_three.active = false;
@@ -664,11 +779,122 @@ void Station2Oder3(){
 }
 
 void TVOC_Duelle() {
+  SGP_check.show();
   two_three.active = false;
   four.active = false;
   one.active = false;
   settings.active = false;
+  up1.show();
+  down1.show();
+  up2.show();
+  down2.show();
+  left1.show();
+  right1.show();
+  reset.show();
+  // Zeichne den Hintergrund
+  fill(255);
+  stroke(0);
+  rect(175, 100, 930, 500);
+  stroke(100, 100);
+  if (y_scale[0] != 0 || y_scale[1] != 0) {
+    for (int i = 0; i < 4; i++) {
+      line(175, 200 + 100*i, 1105, 200 + 100*i);
+    }
+  }
+
+
+
+
+
+  if (up1.isClicked()) {
+    y_scale[0] += 1;
+    if (y_scale[0] > 4) {
+      y_scale[0] = 0;
+    }
+  }
+
+  if (down1.isClicked()) {
+    y_scale[0] -= 1;
+    if (y_scale[0] < 0) {
+      y_scale[0] = 4;
+    }
+  }
+
+  if (up2.isClicked()) {
+    y_scale[1] += 1;
+    if (y_scale[1] > 4) {
+      y_scale[1] = 0;
+    }
+  }
+
+  if (down2.isClicked()) {
+    y_scale[1] -= 1;
+    if (y_scale[1] < 0) {
+      y_scale[1] = 4;
+    }
+  }
+
+  if (left1.isClicked()) {
+    x_scale -= 1;
+    if (x_scale < 0) {
+      x_scale =  10;
+    }
+  }
+
+  if (right1.isClicked()) {
+    x_scale += 1;
+    if (x_scale > 10) {
+      x_scale = 0;
+    }
+  }
+  fill(0);
+  text(x_scale, 500, 600);
+
+  String intervall = "";
+  if (x_scale == 0) {
+    intervall = "Zeige alle Messwerte";
+  } else if (x_scale == 1) {
+    intervall = "Zeige die letzen 60 Sekunden";
+  } else if (x_scale == 2) {
+    intervall = "Zeige die letzen 180 Sekunden";
+  } else if (x_scale == 3) {
+    intervall = "Zeige die letzen 360 Sekunden";
+  } else if (x_scale == 4) {
+    intervall = "Zeige die letzen 12 Minuten";
+  } else if (x_scale == 5) {
+    intervall = "Zeige die letzen 60 Minuten";
+  } else if (x_scale == 6) {
+    intervall = "Zeige die letzen 180 Minuten";
+  } else if (x_scale == 7) {
+    intervall = "Zeige die letzen 360 Minuten";
+  } else if (x_scale == 8) {
+    intervall = "Zeige die letzen 12 Stunden";
+  } else if (x_scale == 9) {
+    intervall = "Zeige die letzen 24 Stunden";
+  } else if (x_scale == 10) {
+    intervall = "Zeige die letzen 72 Stunden";
+  }
+  text(intervall, 690, 690);
+
+
+
+  //Welche Graphen sollen angezeigt werden?
+  boolean eco2 = SGP_check.getState("eCO2");
+  boolean tvoc = SGP_check.getState("TVOC");
+
+  if (eco2 && tvoc) {
+    graph(sgp_eco2_data, "eCO2 in ppm", x_scale, y_scale, true);
+    graph(sgp_tvoc_data, "TVOC in ppb", x_scale, y_scale, false);
+  } else if (eco2) {
+    graph(sgp_eco2_data, "eCO2 in ppm", x_scale, y_scale, true);
+  } else if (tvoc) {
+    graph(sgp_tvoc_data, "TVOC in ppb", x_scale, y_scale, true);
+  }
+
+
+  fill(0);
 }
+
 
 void checkConnection() {
   if (index > 3) {
@@ -1000,42 +1226,50 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
   } else if (y == 1) {
     if (name == "Temperatur in °C") {
       max = 20;
-    } else if (name == "CO2 in ppm") {
+    } else if (name == "CO2 in ppm" || name == "eCO2 in ppm") {
       max = 500;
     } else if (name == "relative Luftfeuchte in %") {
       max = 25;
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       max = 10;
+    } else if (name == "TVOC in ppb") {
+      max = 10;
     }
   } else if (y == 2) {
     if (name == "Temperatur in °C") {
       max = 30;
-    } else if (name == "CO2 in ppm") {
+    } else if (name == "CO2 in ppm" || name == "eCO2 in ppm") {
       max = 1000;
     } else if (name == "relative Luftfeuchte in %") {
       max = 50;
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       max = 20;
+    } else if (name == "TVOC in ppb") {
+      max = 20;
     }
   } else if (y == 3) {
     if (name == "Temperatur in °C") {
       max = 40;
-    } else if (name == "CO2 in ppm") {
+    } else if (name == "CO2 in ppm" || name == "eCO2 in ppm") {
       max = 2000;
     } else if (name == "relative Luftfeuchte in %") {
       max = 75;
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       max = 50;
+    } else if (name == "TVOC in ppb") {
+      max = 50;
     }
   } else if (y == 4) {
     if (name == "Temperatur in °C") {
       max = 50;
-    } else if (name == "CO2 in ppm") {
+    } else if (name == "CO2 in ppm" || name == "eCO2 in ppm") {
       max = 5000;
     } else if (name == "relative Luftfeuchte in %") {
       max = 100;
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       max = 200;
+    } else if (name == "TVOC in ppb") {
+      max = 100;
     }
   }
   //////////////////// Minimum und Maximum definieren ENDE ////////////////////////////
@@ -1065,7 +1299,7 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("8", pos_x, 407);
       text("12", pos_x, 307);
       text("16", pos_x, 207);
-    } else if (name == "CO2 in ppm") {
+    } else if (name == "CO2 in ppm" || name == "eCO2 in ppm") {
       text("100", pos_x, 507);
       text("200", pos_x, 407);
       text("300", pos_x, 307);
@@ -1075,11 +1309,16 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("4", pos_x, 407);
       text("6", pos_x, 307);
       text("8", pos_x, 207);
-    }  else if (name == "relative Luftfeuchte in %") {
+    } else if (name == "relative Luftfeuchte in %") {
       text("5", pos_x, 507);
       text("10", pos_x, 407);
       text("15", pos_x, 307);
       text("20", pos_x, 207);
+    } else if (name == "TVOC in ppb") {
+      text("2", pos_x, 507);
+      text("4", pos_x, 407);
+      text("6", pos_x, 307);
+      text("8", pos_x, 207);
     }
   } else if (y == 2) {
     if (name == "Temperatur in °C") {
@@ -1087,7 +1326,7 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("12", pos_x, 407);
       text("18", pos_x, 307);
       text("24", pos_x, 207);
-    } else if (name == "CO2 in ppm") {
+    } else if (name == "CO2 in ppm"|| name == "eCO2 in ppm") {
       text("200", pos_x, 507);
       text("400", pos_x, 407);
       text("600", pos_x, 307);
@@ -1097,11 +1336,16 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("8", pos_x, 407);
       text("12", pos_x, 307);
       text("16", pos_x, 207);
-    }else if (name == "relative Luftfeuchte in %") {
+    } else if (name == "relative Luftfeuchte in %") {
       text("10", pos_x, 507);
       text("20", pos_x, 407);
       text("30", pos_x, 307);
       text("40", pos_x, 207);
+    } else if (name == "TVOC in ppb") {
+      text("4", pos_x, 507);
+      text("8", pos_x, 407);
+      text("12", pos_x, 307);
+      text("16", pos_x, 207);
     }
   } else if (y == 3) {
     if (name == "Temperatur in °C") {
@@ -1109,7 +1353,7 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("16", pos_x, 407);
       text("24", pos_x, 307);
       text("32", pos_x, 207);
-    } else if (name == "CO2 in ppm") {
+    } else if (name == "CO2 in ppm"|| name == "eCO2 in ppm") {
       text("300", pos_x, 507);
       text("600", pos_x, 407);
       text("900", pos_x, 307);
@@ -1119,11 +1363,16 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("20", pos_x, 407);
       text("30", pos_x, 307);
       text("40", pos_x, 207);
-    }else if (name == "relative Luftfeuchte in %") {
+    } else if (name == "relative Luftfeuchte in %") {
       text("15", pos_x, 507);
       text("30", pos_x, 407);
       text("45", pos_x, 307);
       text("60", pos_x, 207);
+    } else if (name == "TVOC in ppb") {
+      text("10", pos_x, 507);
+      text("20", pos_x, 407);
+      text("30", pos_x, 307);
+      text("40", pos_x, 207);
     }
   } else if (y == 4) {
     if (name == "Temperatur in °C") {
@@ -1131,7 +1380,7 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("20", pos_x, 407);
       text("30", pos_x, 307);
       text("40", pos_x, 207);
-    } else if (name == "CO2 in ppm") {
+    } else if (name == "CO2 in ppm"|| name == "eCO2 in ppm") {
       text("1000", pos_x, 507);
       text("2000", pos_x, 407);
       text("3000", pos_x, 307);
@@ -1141,7 +1390,12 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
       text("80", pos_x, 407);
       text("120", pos_x, 307);
       text("160", pos_x, 207);
-    }else if (name == "relative Luftfeuchte in %") {
+    } else if (name == "relative Luftfeuchte in %") {
+      text("20", pos_x, 507);
+      text("40", pos_x, 407);
+      text("60", pos_x, 307);
+      text("80", pos_x, 207);
+    } else if (name == "TVOC in ppb") {
       text("20", pos_x, 507);
       text("40", pos_x, 407);
       text("60", pos_x, 307);
@@ -1300,7 +1554,6 @@ int time(int sekunden) {
   return t;
 }
 
-
 boolean[] connected = {false, false, false};
 
 
@@ -1437,6 +1690,7 @@ void hauptmenu() {
 
   strokeWeight(1);
 }
+
 
 class station {
   float x;
