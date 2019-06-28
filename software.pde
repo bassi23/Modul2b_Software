@@ -13,11 +13,11 @@ station one, two_three, two, three, four, settings;
 button back, up1, down1, up2, down2, left1, right1;
 
 button reset, sicher_ja, sicher_nein;
+button aktualisierung_right, aktualisierung_left;
 
 button Stationen, Sensoren, zumObermenu;
+button SPS30, SGP30, SCD30;
 
-
-float del = 1;
 float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
@@ -48,9 +48,11 @@ void setup() {
   down1 = new button(70, 155, 30, 50, "down_arrow", 5, true, 20);
   up2 = new button(1210, 100, 30, 50, "up_arrow", 5, true, 20);
   down2 = new button(1210, 155, 30, 50, "down_arrow", 5, true, 20);
-  left1 = new button(570, 670, 50, 30, "left_arrow", 5, true, 20);
-  right1 = new button(630, 670, 50, 30, "right_arrow", 5, true, 20);
+  left1 = new button(620, 670, 50, 30, "left_arrow", 5, true, 20);
+  right1 = new button(680, 670, 50, 30, "right_arrow", 5, true, 20);
 
+  aktualisierung_right = new button(150, 670, 50, 30, "right_arrow", 5, true, 20);
+  aktualisierung_left = new button(90, 670, 50, 30, "left_arrow", 5, true, 20);
 
   //
   reset = new button(1070, 665, 100, 50, "Reset", 5, true, 20);
@@ -62,6 +64,11 @@ void setup() {
   Stationen = new button(100, 100, 500, 400, "Stationen", 5, true, 50);
   Sensoren = new button(650, 100, 500, 400, "Sensoren", 5, true, 50);
   zumObermenu = new button(1110, 640, 150, 75, "Hauptmenü", 5, true, 20);
+
+  //
+  SPS30 = new button(550, 50, 300, 200, "Feinstaub", 5, true, 30);
+  SGP30 = new button(550, 275, 300, 200, "TVOC, eCO2", 5, true, 30);
+  SCD30 = new button(550, 500, 300, 200, "Temperatur,\nLuftfeuchte,\nCO2", -20, true, 30);
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
@@ -160,8 +167,6 @@ void draw() {
   SCD_check.hide();
   SPS_check.hide();
   SGP_check.hide();
-
-
   sicher_ja.hide();
   sicher_nein.hide();
 
@@ -170,13 +175,22 @@ void draw() {
   }
   Datenaufnahme();
   saveData();
-  if (index > 0) {
-    if (Stationen.isClicked()) {
-      page = 0;
-    }
 
-    if (Sensoren.isClicked()) {
-      page = -2;
+  if (Stationen.isClicked()) {
+    page = 0;
+  }
+  if (Sensoren.isClicked()) {
+    page = -2;
+  }
+  if (index > 0) {
+    if (SPS30.isClicked()) {
+      page = -3;
+    }
+    if (SGP30.isClicked()) {
+      page = -4;
+    }
+    if (SCD30.isClicked()) {
+      page = -5;
     }
 
     if (one.isClicked()) {
@@ -199,6 +213,10 @@ void draw() {
 
   if (page == -1) {
     Obermenu();
+    reset.hide();
+    SPS30.hide();
+    SCD30.hide();
+    SGP30.hide();
   } else if (page == 0) {
     hauptmenu();
     zumObermenu.show();
@@ -210,7 +228,8 @@ void draw() {
     three.active = false;
     reset.hide();
   } else if (page == 1) {
-    Feinstaub();
+    //Feinstaub();
+
     zumObermenu.hide();
   } else if (page == 2) {
     MenschSensor();
@@ -229,13 +248,41 @@ void draw() {
   } else if (page == 10) {
     Einstellungen();
     zumObermenu.hide();
-  }else if(page == -2){
-   SensorAuswahl(); 
+  } else if (page == -2) {
+    SensorAuswahl(); 
+    SPS30.show();
+    SCD30.show();
+    SGP30.show();
+    reset.hide();
+  } else if (page == -3) {
+    Feinstaub();
+    SPS30.hide();
+    SCD30.hide();
+    SGP30.hide();
+    Stationen.hide();
+  } else if (page == -4) {
+    TVOC_eCO2();
+    SPS30.hide();
+    SCD30.hide();
+    SGP30.hide();
+    Stationen.hide();
+  } else if (page == -5) {
+    T_H_CO2();
+    SPS30.hide();
+    SCD30.hide();
+    SGP30.hide();
+    Stationen.hide();
   }
 
 
   if (back.isClicked()) {
-    page = 0;
+    if (page > 0) {
+      page = 0;
+    } else if (page < -2) {
+      page =  -2;
+    } else {
+      page = -1;
+    }
   }
   if (reset.isClicked()) {
     reset_bool = true;
@@ -254,6 +301,14 @@ void draw() {
   }
   if (sicher_nein.isClicked()) {
     reset_bool = false;
+  }
+  if (aktualisierung_right.isClicked()) {
+    del += 1;
+  }
+  if (aktualisierung_left.isClicked()) {
+    if (del > 0) {
+      del -= 1;
+    }
   }
 }
 
@@ -412,10 +467,28 @@ float[] sps_pm4_data = new float[9999999];
 float[] sps_pm10_data = new float[9999999];
 float[] sps_pm1_data = new float[9999999];
 float[] zeit = new float[9999999];
+
+float[] zwischenSpeicher_SGP_eCO2 = new float[99999];
+float[] zwischenSpeicher_SGP_TVOC = new float[99999];
+float[] zwischenSpeicher_SCD_T = new float[99999];
+float[] zwischenSpeicher_SCD_H = new float[99999];
+float[] zwischenSpeicher_SCD_CO2 = new float[99999];
+float[] zwischenSpeicher_SPS_PM1 = new float[99999];
+float[] zwischenSpeicher_SPS_PM25 = new float[99999];
+float[] zwischenSpeicher_SPS_PM4 = new float[99999];
+float[] zwischenSpeicher_SPS_PM10 = new float[99999];
+
+
+
+
+
 String Daten = null;
 int index = 0;
 float time = 0;
 float zeroTime = 0;
+int indexZwischenSpeicher = 0;
+
+float del = 0;
 
 void Datenaufnahme() {
   boolean received = false;
@@ -431,32 +504,78 @@ void Datenaufnahme() {
     String[] data = split(Daten, ';');
 
     if (data.length > 8) {
-      scd_temperature_data[index] = float(data[0]);
-      scd_humidity_data[index] = float(data[1]);
-      scd_co2_data[index] = float(data[2]);
 
-      sps_pm1_data[index] = float(data[3]);
-      sps_pm25_data[index] = float(data[4]);
-      sps_pm4_data[index] = float(data[5]);
-      sps_pm10_data[index] = float(data[6]);
-      ////
-      sgp_eco2_data[index] = float(data[7]);
-      sgp_tvoc_data[index] = float(data[8]);
-      ///
+      zwischenSpeicher_SCD_T[indexZwischenSpeicher] = float(data[0]);
+      zwischenSpeicher_SCD_H[indexZwischenSpeicher] = float(data[1]);
+      zwischenSpeicher_SCD_CO2[indexZwischenSpeicher] = float(data[2]);
 
-      if (index > 1) {
-        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + "/alleDaten.csv");
+      zwischenSpeicher_SPS_PM1[indexZwischenSpeicher] = float(data[3]);
+      zwischenSpeicher_SPS_PM25[indexZwischenSpeicher] = float(data[4]);
+      zwischenSpeicher_SPS_PM4[indexZwischenSpeicher] = float(data[5]);
+      zwischenSpeicher_SPS_PM10[indexZwischenSpeicher] = float(data[6]);
+
+      zwischenSpeicher_SGP_eCO2[indexZwischenSpeicher] = float(data[7]);
+      zwischenSpeicher_SGP_TVOC[indexZwischenSpeicher] = float(data[8]);  
+
+
+      indexZwischenSpeicher += 1;
+      zeit[index] = (millis() - zeroTime)/1000;
+
+      if ( millis() - time > 1000*del) {
+        ////
+        scd_temperature_data[index] =0;
+        scd_humidity_data[index] = 0;
+        scd_co2_data[index] = 0;
+        ////
+        sgp_eco2_data[index] = 0;
+        sgp_tvoc_data[index] = 0;
+        ///
+        sps_pm1_data[index] = 0;
+        sps_pm25_data[index] =0;
+        sps_pm4_data[index] = 0;
+        sps_pm10_data[index] = 0;
+
+        for (int i = 0; i < indexZwischenSpeicher; i++) {
+          ////
+          scd_temperature_data[index] += zwischenSpeicher_SCD_T[i];
+          scd_humidity_data[index] += zwischenSpeicher_SCD_H[i];
+          scd_co2_data[index] += zwischenSpeicher_SCD_CO2[i];
+          ////
+          sgp_eco2_data[index] += zwischenSpeicher_SGP_eCO2[i];
+          sgp_tvoc_data[index] += zwischenSpeicher_SGP_TVOC[i];
+          ///
+          sps_pm1_data[index] += zwischenSpeicher_SPS_PM1[i];
+          sps_pm25_data[index] +=zwischenSpeicher_SPS_PM25[i];
+          sps_pm4_data[index] += zwischenSpeicher_SPS_PM4[i];
+          sps_pm10_data[index] += zwischenSpeicher_SPS_PM10[i];
+        }
+
+
+        scd_temperature_data[index] = scd_temperature_data[index]/(indexZwischenSpeicher);
+        scd_humidity_data[index] = scd_humidity_data[index]/(indexZwischenSpeicher);
+        scd_co2_data[index] = scd_co2_data[index]/(indexZwischenSpeicher);
+
+        sgp_eco2_data[index] = sgp_eco2_data[index]/(indexZwischenSpeicher);
+        sgp_tvoc_data[index] = sgp_tvoc_data[index]/(indexZwischenSpeicher);
+
+        sps_pm1_data[index] = sps_pm1_data[index]/(indexZwischenSpeicher);
+        sps_pm25_data[index] = sps_pm25_data[index]/(indexZwischenSpeicher);
+        sps_pm4_data[index] = sps_pm4_data[index]/(indexZwischenSpeicher);
+        sps_pm10_data[index] = sps_pm10_data[index]/(indexZwischenSpeicher);
+
+        indexZwischenSpeicher = 0;
+        index += 1;
+        time = millis();
       }
 
+      if (index > 1) {
+        saveTable(table, "data/new.csv");
+      }
       zeit[index] = (millis() - zeroTime2)/1000;
       if ( millis() - time > 1000*del) {
         index += 1;
         time = millis();
       }
-
-      println(zeit[index]);
-
-
       if (zeit[index] != 0) {
         TableRow newRow = table.addRow();
         for (int i = 0; i < index; i++) {
@@ -472,13 +591,15 @@ void Datenaufnahme() {
           newRow.setFloat("PM4", sps_pm4_data[index]);
           newRow.setFloat("PM10", sps_pm10_data[index]);
         }
-        saveTable(table, "data/new.csv");
+        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+ "/alleDaten.csv");
       }
     } else {
       Daten = null;
     }
   }
 }
+
+
 void Einstellungen(){
   
 }
@@ -503,6 +624,20 @@ void Feinstaub() {
   left1.show();
   right1.show();
   reset.show();
+
+
+  aktualisierung_right.show();
+  aktualisierung_left.show();
+  fill(0);
+  noStroke();
+
+  if (del == 0) {
+    text("Aktualisierungsintervall: Maximum", 220, 692);
+  } else {
+    text("Aktualisierungsintervall: " + nf(del, 0, 0) + " s", 220, 692);
+  }
+
+
 
   onlyTwo(SPS_check, "PM1", "PM2.5", "PM4", "PM10");  //Sorgt dafür, dass man nur zwei Sachen gleichzeitig auswählen kann
   // Zeichne den Hintergrund
@@ -562,7 +697,6 @@ void Feinstaub() {
     }
   }
   fill(0);
-  text(x_scale, 500, 600);
 
   String intervall = "";
   if (x_scale == 0) {
@@ -588,7 +722,7 @@ void Feinstaub() {
   } else if (x_scale == 10) {
     intervall = "Zeige die letzen 72 Stunden";
   }
-  text(intervall, 690, 690);
+  text(intervall, 740, 690);
 
 
 
@@ -615,10 +749,10 @@ void Feinstaub() {
     }
   } else if (pm4) {
     graph(sps_pm4_data, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
-    if(pm10){
+    if (pm10) {
       graph(sps_pm10_data, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
     }
-  }else if(pm10){
+  } else if (pm10) {
     graph(sps_pm10_data, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
   }
 
@@ -661,121 +795,7 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
 }
 
 void Innenraumluft() {
-  SCD_check.show();
-  two_three.active = false;
-  four.active = false;
-  one.active = false;
-  settings.active = false;
-  up1.show();
-  down1.show();
-  up2.show();
-  down2.show();
-  left1.show();
-  right1.show();
-  reset.show();
-  // Zeichne den Hintergrund
-  fill(255);
-  stroke(0);
-  rect(175, 100, 930, 500);
-  stroke(100, 100);
-  if (y_scale[0] != 0 || y_scale[1] != 0) {
-    for (int i = 0; i < 4; i++) {
-      line(175, 200 + 100*i, 1105, 200 + 100*i);
-    }
-  }
-  if (up1.isClicked()) {
-    y_scale[0] += 1;
-    if (y_scale[0] > 4) {
-      y_scale[0] = 0;
-    }
-  }
-
-  if (down1.isClicked()) {
-    y_scale[0] -= 1;
-    if (y_scale[0] < 0) {
-      y_scale[0] = 4;
-    }
-  }
-
-  if (up2.isClicked()) {
-    y_scale[1] += 1;
-    if (y_scale[1] > 4) {
-      y_scale[1] = 0;
-    }
-  }
-
-  if (down2.isClicked()) {
-    y_scale[1] -= 1;
-    if (y_scale[1] < 0) {
-      y_scale[1] = 4;
-    }
-  }
-
-  if (left1.isClicked()) {
-    x_scale -= 1;
-    if (x_scale < 0) {
-      x_scale =  10;
-    }
-  }
-
-  if (right1.isClicked()) {
-    x_scale += 1;
-    if (x_scale > 10) {
-      x_scale = 0;
-    }
-  }
-  fill(0);
-  String intervall = "";
-  if (x_scale == 0) {
-    intervall = "Zeige alle Messwerte";
-  } else if (x_scale == 1) {
-    intervall = "Zeige die letzen 60 Sekunden";
-  } else if (x_scale == 2) {
-    intervall = "Zeige die letzen 180 Sekunden";
-  } else if (x_scale == 3) {
-    intervall = "Zeige die letzen 360 Sekunden";
-  } else if (x_scale == 4) {
-    intervall = "Zeige die letzen 12 Minuten";
-  } else if (x_scale == 5) {
-    intervall = "Zeige die letzen 60 Minuten";
-  } else if (x_scale == 6) {
-    intervall = "Zeige die letzen 180 Minuten";
-  } else if (x_scale == 7) {
-    intervall = "Zeige die letzen 360 Minuten";
-  } else if (x_scale == 8) {
-    intervall = "Zeige die letzen 12 Stunden";
-  } else if (x_scale == 9) {
-    intervall = "Zeige die letzen 24 Stunden";
-  } else if (x_scale == 10) {
-    intervall = "Zeige die letzen 72 Stunden";
-  }
-  text(intervall, 690, 690);
-
-
-  //Welche Graphen sollen angezeigt werden?
-  onlyTwo2(SCD_check, "T", "H", "CO2");
   
-  boolean t = SCD_check.getState("T");
-  boolean co2 = SCD_check.getState("H");
-  boolean hum = SCD_check.getState("CO2");
-
-  if (t) {
-    graph(scd_temperature_data, "Temperatur in °C", x_scale, y_scale, true);
-    if (hum) {
-      graph(scd_humidity_data, "relative Luftfeuchte in %", x_scale, y_scale, false);
-    } else if (co2) {
-      graph(scd_co2_data, "CO2 in ppm", x_scale, y_scale, false);
-    }
-  } else if (hum) {
-    graph(scd_humidity_data, "relative Luftfeuchte in %", x_scale, y_scale, true);
-    if (co2) {
-      graph(scd_co2_data, "CO2 in ppm", x_scale, y_scale, false);
-    }
-  } else if (co2) {
-    graph(scd_co2_data, "CO2 in ppm", x_scale, y_scale, true);
-  }
-
-  fill(0);
 }
 
 
@@ -795,121 +815,9 @@ void onlyTwo2(CheckBox check, String state1, String state2, String state3) {
   }
 }
 
+
 void MenschSensor() {
-  SGP_check.show();
-  two_three.active = false;
-  four.active = false;
-  one.active = false;
-  settings.active = false;
-  up1.show();
-  down1.show();
-  up2.show();
-  down2.show();
-  left1.show();
-  right1.show();
-  reset.show();
-  // Zeichne den Hintergrund
-  fill(255);
-  stroke(0);
-  rect(175, 100, 930, 500);
-  stroke(100, 100);
-  if (y_scale[0] != 0 || y_scale[1] != 0) {
-    for (int i = 0; i < 4; i++) {
-      line(175, 200 + 100*i, 1105, 200 + 100*i);
-    }
-  }
 
-
-
-
-
-  if (up1.isClicked()) {
-    y_scale[0] += 1;
-    if (y_scale[0] > 4) {
-      y_scale[0] = 0;
-    }
-  }
-
-  if (down1.isClicked()) {
-    y_scale[0] -= 1;
-    if (y_scale[0] < 0) {
-      y_scale[0] = 4;
-    }
-  }
-
-  if (up2.isClicked()) {
-    y_scale[1] += 1;
-    if (y_scale[1] > 4) {
-      y_scale[1] = 0;
-    }
-  }
-
-  if (down2.isClicked()) {
-    y_scale[1] -= 1;
-    if (y_scale[1] < 0) {
-      y_scale[1] = 4;
-    }
-  }
-
-  if (left1.isClicked()) {
-    x_scale -= 1;
-    if (x_scale < 0) {
-      x_scale =  10;
-    }
-  }
-
-  if (right1.isClicked()) {
-    x_scale += 1;
-    if (x_scale > 10) {
-      x_scale = 0;
-    }
-  }
-  fill(0);
-  text(x_scale, 500, 600);
-
-  String intervall = "";
-  if (x_scale == 0) {
-    intervall = "Zeige alle Messwerte";
-  } else if (x_scale == 1) {
-    intervall = "Zeige die letzen 60 Sekunden";
-  } else if (x_scale == 2) {
-    intervall = "Zeige die letzen 180 Sekunden";
-  } else if (x_scale == 3) {
-    intervall = "Zeige die letzen 360 Sekunden";
-  } else if (x_scale == 4) {
-    intervall = "Zeige die letzen 12 Minuten";
-  } else if (x_scale == 5) {
-    intervall = "Zeige die letzen 60 Minuten";
-  } else if (x_scale == 6) {
-    intervall = "Zeige die letzen 180 Minuten";
-  } else if (x_scale == 7) {
-    intervall = "Zeige die letzen 360 Minuten";
-  } else if (x_scale == 8) {
-    intervall = "Zeige die letzen 12 Stunden";
-  } else if (x_scale == 9) {
-    intervall = "Zeige die letzen 24 Stunden";
-  } else if (x_scale == 10) {
-    intervall = "Zeige die letzen 72 Stunden";
-  }
-  text(intervall, 690, 690);
-
-
-
-  //Welche Graphen sollen angezeigt werden?
-  boolean eco2 = SGP_check.getState("eCO2");
-  boolean tvoc = SGP_check.getState("TVOC");
-
-  if (eco2 && tvoc) {
-    graph(sgp_eco2_data, "eCO2 in ppm", x_scale, y_scale, true);
-    graph(sgp_tvoc_data, "TVOC in ppb", x_scale, y_scale, false);
-  } else if (eco2) {
-    graph(sgp_eco2_data, "eCO2 in ppm", x_scale, y_scale, true);
-  } else if (tvoc) {
-    graph(sgp_tvoc_data, "TVOC in ppb", x_scale, y_scale, true);
-  }
-
-
-  fill(0);
 }
 
 void Obermenu() {
@@ -936,12 +844,10 @@ void Obermenu() {
   textAlign(CENTER);
   text("Umweltmesstechnik", 640, 50);
 }
+
+
 void SensorAuswahl(){
   back.show();
-  
-  
-  
-  
 }
 
 void Station2Oder3(){
@@ -959,7 +865,12 @@ void Station2Oder3(){
   text("Station 3 - TVOC-Duelle", 670, 250);
 }
 
+
 void TVOC_Duelle() {
+
+}
+
+void TVOC_eCO2() {
   SGP_check.show();
   two_three.active = false;
   four.active = false;
@@ -972,6 +883,17 @@ void TVOC_Duelle() {
   left1.show();
   right1.show();
   reset.show();
+  
+  aktualisierung_right.show();
+  aktualisierung_left.show();
+  fill(0);
+  noStroke();
+  
+  if(del == 0){
+  text("Aktualisierungsintervall: Maximum", 220, 692);
+  }else{
+    text("Aktualisierungsintervall: " + nf(del,0,0) + " s", 220, 692);
+  }
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
@@ -1029,8 +951,6 @@ void TVOC_Duelle() {
     }
   }
   fill(0);
-  text(x_scale, 500, 600);
-
   String intervall = "";
   if (x_scale == 0) {
     intervall = "Zeige alle Messwerte";
@@ -1055,7 +975,8 @@ void TVOC_Duelle() {
   } else if (x_scale == 10) {
     intervall = "Zeige die letzen 72 Stunden";
   }
-  text(intervall, 690, 690);
+  text(intervall, 740, 690);
+  
 
 
 
@@ -1076,7 +997,138 @@ void TVOC_Duelle() {
   fill(0);
 }
 
-void checkConnection() {
+
+void T_H_CO2() {
+  SCD_check.show();
+  two_three.active = false;
+  four.active = false;
+  one.active = false;
+  settings.active = false;
+  up1.show();
+  down1.show();
+  up2.show();
+  down2.show();
+  left1.show();
+  right1.show();
+  reset.show();
+
+
+  aktualisierung_right.show();
+  aktualisierung_left.show();
+  fill(0);
+  noStroke();
+
+  if (del == 0) {
+    text("Aktualisierungsintervall: Maximum", 220, 692);
+  } else {
+    text("Aktualisierungsintervall: " + nf(del, 0, 0) + " s", 220, 692);
+  }
+
+
+  // Zeichne den Hintergrund
+  fill(255);
+  stroke(0);
+  rect(175, 100, 930, 500);
+  stroke(100, 100);
+  if (y_scale[0] != 0 || y_scale[1] != 0) {
+    for (int i = 0; i < 4; i++) {
+      line(175, 200 + 100*i, 1105, 200 + 100*i);
+    }
+  }
+  if (up1.isClicked()) {
+    y_scale[0] += 1;
+    if (y_scale[0] > 4) {
+      y_scale[0] = 0;
+    }
+  }
+
+  if (down1.isClicked()) {
+    y_scale[0] -= 1;
+    if (y_scale[0] < 0) {
+      y_scale[0] = 4;
+    }
+  }
+
+  if (up2.isClicked()) {
+    y_scale[1] += 1;
+    if (y_scale[1] > 4) {
+      y_scale[1] = 0;
+    }
+  }
+
+  if (down2.isClicked()) {
+    y_scale[1] -= 1;
+    if (y_scale[1] < 0) {
+      y_scale[1] = 4;
+    }
+  }
+
+  if (left1.isClicked()) {
+    x_scale -= 1;
+    if (x_scale < 0) {
+      x_scale =  10;
+    }
+  }
+
+  if (right1.isClicked()) {
+    x_scale += 1;
+    if (x_scale > 10) {
+      x_scale = 0;
+    }
+  }
+  fill(0);
+  String intervall = "";
+  if (x_scale == 0) {
+    intervall = "Zeige alle Messwerte";
+  } else if (x_scale == 1) {
+    intervall = "Zeige die letzen 60 Sekunden";
+  } else if (x_scale == 2) {
+    intervall = "Zeige die letzen 180 Sekunden";
+  } else if (x_scale == 3) {
+    intervall = "Zeige die letzen 360 Sekunden";
+  } else if (x_scale == 4) {
+    intervall = "Zeige die letzen 12 Minuten";
+  } else if (x_scale == 5) {
+    intervall = "Zeige die letzen 60 Minuten";
+  } else if (x_scale == 6) {
+    intervall = "Zeige die letzen 180 Minuten";
+  } else if (x_scale == 7) {
+    intervall = "Zeige die letzen 360 Minuten";
+  } else if (x_scale == 8) {
+    intervall = "Zeige die letzen 12 Stunden";
+  } else if (x_scale == 9) {
+    intervall = "Zeige die letzen 24 Stunden";
+  } else if (x_scale == 10) {
+    intervall = "Zeige die letzen 72 Stunden";
+  }
+  text(intervall, 740, 690);
+
+  //Welche Graphen sollen angezeigt werden?
+  onlyTwo2(SCD_check, "T", "H", "CO2");
+
+  boolean t = SCD_check.getState("T");
+  boolean co2 = SCD_check.getState("H");
+  boolean hum = SCD_check.getState("CO2");
+
+  if (t) {
+    graph(scd_temperature_data, "Temperatur in °C", x_scale, y_scale, true);
+    if (hum) {
+      graph(scd_humidity_data, "relative Luftfeuchte in %", x_scale, y_scale, false);
+    } else if (co2) {
+      graph(scd_co2_data, "CO2 in ppm", x_scale, y_scale, false);
+    }
+  } else if (hum) {
+    graph(scd_humidity_data, "relative Luftfeuchte in %", x_scale, y_scale, true);
+    if (co2) {
+      graph(scd_co2_data, "CO2 in ppm", x_scale, y_scale, false);
+    }
+  } else if (co2) {
+    graph(scd_co2_data, "CO2 in ppm", x_scale, y_scale, true);
+  }
+
+  fill(0);
+  
+  void checkConnection() {
   if (index > 3) {
     // Vergleiche die letzten 3 Messwerte. Wenn sie sich nicht ändern, ist der Sensor nicht verbunden
     //SCD30
@@ -1869,6 +1921,7 @@ void hauptmenu() {
 
   strokeWeight(1);
 }
+
 
 class station {
   float x;
