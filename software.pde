@@ -17,6 +17,7 @@ button aktualisierung_right, aktualisierung_left;
 
 button Stationen, Sensoren, zumObermenu;
 button SPS30, SGP30, SCD30;
+button einstellungen;
 
 float page = -1;
 boolean gotSerial = false;
@@ -69,6 +70,9 @@ void setup() {
   SPS30 = new button(550, 50, 300, 200, "Feinstaub", 5, true, 30);
   SGP30 = new button(550, 275, 300, 200, "TVOC, eCO2", 5, true, 30);
   SCD30 = new button(550, 500, 300, 200, "Temperatur,\nLuftfeuchte,\nCO2", -20, true, 30);
+
+  //
+  einstellungen = new button(20, 630, 150, 75, "Einstellungen", 5, true, 20);
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
@@ -168,6 +172,7 @@ void draw() {
   SPS_check.hide();
   SGP_check.hide();
   sicher_ja.hide();
+  einstellungen.hide();
   sicher_nein.hide();
 
   if (page != 0 && page != -1) {
@@ -182,6 +187,8 @@ void draw() {
   if (Sensoren.isClicked()) {
     page = -2;
   }
+
+
   if (index > 0) {
     if (SPS30.isClicked()) {
       page = -3;
@@ -209,10 +216,14 @@ void draw() {
       page = 4;
     }
   }
+  if (einstellungen.isClicked()) {
+    page = 10;
+  }
 
 
   if (page == -1) {
     Obermenu();
+    einstellungen.show();
     reset.hide();
     SPS30.hide();
     SCD30.hide();
@@ -220,6 +231,7 @@ void draw() {
   } else if (page == 0) {
     hauptmenu();
     zumObermenu.show();
+    Sensoren.hide();
     two_three.active = true;
     four.active = true;
     one.active = true;
@@ -229,7 +241,7 @@ void draw() {
     reset.hide();
   } else if (page == 1) {
     //Feinstaub();
-
+    Sensoren.hide();
     zumObermenu.hide();
   } else if (page == 2) {
     MenschSensor();
@@ -246,7 +258,7 @@ void draw() {
     Innenraumluft();
     zumObermenu.hide();
   } else if (page == 10) {
-    Einstellungen();
+    setting();
     zumObermenu.hide();
   } else if (page == -2) {
     SensorAuswahl(); 
@@ -276,10 +288,12 @@ void draw() {
 
 
   if (back.isClicked()) {
-    if (page > 0) {
+    if (page > 0 && page != 10) {
       page = 0;
     } else if (page < -2) {
       page =  -2;
+    } else if (page == 10) {
+      page = -1;
     } else {
       page = -1;
     }
@@ -454,7 +468,6 @@ class button {
     }
   }
 }
-
 float[] scd_temperature_data = new float[9999999];
 float[] scd_humidity_data =new float[9999999];
 float[] scd_co2_data = new float[9999999];
@@ -588,10 +601,13 @@ void Datenaufnahme() {
     }
   }
 }
-void Einstellungen(){
-  
-}
 
+
+void setting(){
+  textSize(20);
+  fill(0);
+  text("Autosave", 300, 300);
+}
 int[] y_scale = {0, 0};
 int x_scale = 0;
 
@@ -781,8 +797,6 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
     check.deactivate(state2);
   }
 }
-
-
 void Innenraumluft() {
   
 }
@@ -832,7 +846,6 @@ void Obermenu() {
   textAlign(CENTER);
   text("Umweltmesstechnik", 640, 50);
 }
-
 
 void SensorAuswahl(){
   back.show();
@@ -1122,33 +1135,67 @@ void T_H_CO2() {
 
 
 void checkConnection() {
-  if (index > 3) {
-    // Vergleiche die letzten 3 Messwerte. Wenn sie sich nicht ändern, ist der Sensor nicht verbunden
-    //SCD30
-    if (scd_temperature_data[index - 3] == scd_temperature_data[index - 2] && scd_temperature_data[index - 3] == scd_temperature_data[index - 1] 
-      && scd_humidity_data[index - 3] == scd_humidity_data[index - 2] && scd_humidity_data[index - 3] == scd_humidity_data[index - 1]
-      && scd_co2_data[index - 3] == scd_co2_data[index - 2] && scd_co2_data[index - 3] == scd_co2_data[index - 1]) {
-      connected[0] = false;
-    } else {
-      connected[0] = true;
+
+  //Kommt auf das Aktualisierungsintervall an. Wenn del == 0 --> vergleiche 10 Werte. Ansonsten 1-3
+  if (del == 0) {
+    if (index > 10) {
+      //SCD30
+      boolean scd_connected = false;
+      if (scd_temperature_data[index - 10] != scd_temperature_data[index-1] || scd_temperature_data[index - 10] != scd_temperature_data[index - 5]) {
+        scd_connected = true;
+      }
+
+      connected[0] = scd_connected;
+
+      //SGP
+      boolean sgp_connected = false;
+
+      if (sgp_tvoc_data[index - 10] != sgp_tvoc_data[index-1] || sgp_tvoc_data[index - 10] != sgp_tvoc_data[index - 5]) {
+        sgp_connected = true;
+      }
+      connected[1] = sgp_connected;
+
+      //SPS
+      boolean sps_connected = false;
+
+      if (sps_pm10_data[index - 10] != sps_pm10_data[index-1] || sps_pm10_data[index - 10] != sps_pm10_data[index - 5]) {
+        sps_connected = true;
+      }
+      connected[2] = sps_connected;
     }
-    //SPS30
-    if (sps_pm1_data[index - 3] == sps_pm1_data[index - 2] && sps_pm1_data[index - 3] == sps_pm1_data[index - 1]
-      && sps_pm25_data[index - 3] == sps_pm25_data[index - 2] && sps_pm25_data[index - 3] == sps_pm25_data[index - 1]
-      && sps_pm4_data[index - 3] == sps_pm4_data[index - 2] && sps_pm4_data[index - 3] == sps_pm4_data[index - 1]
-      && sps_pm10_data[index - 3] == sps_pm10_data[index - 2] && sps_pm10_data[index - 3] == sps_pm10_data[index - 1]) {
-      connected[1] = false;
-    } else {
-      connected[1] = true;
-    }
-    //SGP
-    if (sgp_eco2_data[index - 3] == sgp_eco2_data[index - 2] && sgp_eco2_data[index - 3] == sgp_eco2_data[index - 1]
-      && sgp_tvoc_data[index - 3] == sgp_tvoc_data[index - 2] && sgp_tvoc_data[index - 3] == sgp_tvoc_data[index - 1]) {
-      connected[2] = false;
-    } else {
-      connected[2] = true;
-    }
+  } else if (del == 1 || del == 2 || del == 3) {
+  } else {
   }
+
+
+
+  //  if (index > 3) {
+  //    // Vergleiche die letzten 3 Messwerte. Wenn sie sich nicht ändern, ist der Sensor nicht verbunden
+  //    //SCD30
+  //    if (scd_temperature_data[index - 3] == scd_temperature_data[index - 2] && scd_temperature_data[index - 3] == scd_temperature_data[index - 1] 
+  //      && scd_humidity_data[index - 3] == scd_humidity_data[index - 2] && scd_humidity_data[index - 3] == scd_humidity_data[index - 1]
+  //      && scd_co2_data[index - 3] == scd_co2_data[index - 2] && scd_co2_data[index - 3] == scd_co2_data[index - 1]) {
+  //      connected[0] = false;
+  //    } else {
+  //      connected[0] = true;
+  //    }
+  //    //SPS30
+  //    if (sps_pm1_data[index - 3] == sps_pm1_data[index - 2] && sps_pm1_data[index - 3] == sps_pm1_data[index - 1]
+  //      && sps_pm25_data[index - 3] == sps_pm25_data[index - 2] && sps_pm25_data[index - 3] == sps_pm25_data[index - 1]
+  //      && sps_pm4_data[index - 3] == sps_pm4_data[index - 2] && sps_pm4_data[index - 3] == sps_pm4_data[index - 1]
+  //      && sps_pm10_data[index - 3] == sps_pm10_data[index - 2] && sps_pm10_data[index - 3] == sps_pm10_data[index - 1]) {
+  //      connected[1] = false;
+  //    } else {
+  //      connected[1] = true;
+  //    }
+  //    //SGP
+  //    if (sgp_eco2_data[index - 3] == sgp_eco2_data[index - 2] && sgp_eco2_data[index - 3] == sgp_eco2_data[index - 1]
+  //      && sgp_tvoc_data[index - 3] == sgp_tvoc_data[index - 2] && sgp_tvoc_data[index - 3] == sgp_tvoc_data[index - 1]) {
+  //      connected[2] = false;
+  //    } else {
+  //      connected[2] = true;
+  //    }
+  //  }
 
   if (connected[0]) {
     fill(0, 255, 0);
@@ -1202,7 +1249,6 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
     }
   } else if (x_scale == 1) {
     xValues = time(60);
-    println(xValues);
   } else if (x_scale == 2) {
     xValues = time(180);
   } else if (x_scale == 3) {
@@ -1679,14 +1725,28 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
   }
 
   fill(0);
-  text(nf(ceil(zeit[xValues-1]), 0, 0), 1120, 640);
+   if(zeit[xValues-1] < 360){
+     text("Zeit in Sekunden", 640, 645);
+     text(nf(ceil(zeit[xValues-1]), 0, 0), 1120, 640);
+     
+   }else if(zeit[xValues - 1] < 21600){
+     text("Zeit in Minuten", 640, 645);
+      text(nf(ceil(zeit[xValues-1]/60), 0, 0), 1120, 640);
+   }else{
+     text("Zeit in Stunden", 640, 645);
+     text(nf(ceil(zeit[xValues-1]/3600), 0, 0), 1120, 640);
+   }
+
   //println(zeit[xValues-1]);
 
   textAlign(CORNER);
   if (xValues > 0) {
     for (int i = (index - xValues); i < index - 1; i++) {
-      float x1 = 175 +  (i- (index - xValues))*930/(xValues - 1);
-      float x2 = 175 + (i+1- (index - xValues))*930/(xValues - 1);
+      float x_anfang = zeit[index - xValues];
+      float x_ende = zeit[index - 1];
+      float x_intervall = x_ende - x_anfang;
+      float x1 = 175 + (zeit[i] - x_anfang)*930/x_intervall;
+      float x2 = 175 + (zeit[i+1] - x_anfang)*930/x_intervall;
       float y1 = 600 - 500*(array[i]-min)/(max - min);
       float y2 = 600 - 500*(array[i+1] - min)/(max - min);
       if (array[i] <= max && array[i+1] <= max) {
@@ -1707,16 +1767,20 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
     Einheit = "μg/m³";
   } else if (name == "relative Luftfeuchte in %") {
     Einheit = "%";
+  } else if (name == "TVOC in ppb") {
+    Einheit = "ppb";
+  } else if (name == "eCO2 in ppm") {
+    Einheit = "ppm";
   }
 
 
   textSize(16);
   if (left) {
     fill(255, 0, 0);
-    text("Aktueller Wert: " + array[xValues-1] + " " + Einheit, 50, 50);
+    text("Aktueller Wert: " + nf(array[xValues-1], 0,1).replace(".", ",") + " " + Einheit, 50, 50);
   } else {
     fill(0, 0, 255);
-    text("Aktueller Wert:" + array[xValues-1] + " " + Einheit, 1050, 50);
+    text("Aktueller Wert:" + nf(array[xValues-1],0,1).replace(".", ",") + " " + Einheit, 1050, 50);
   }
 }
 
