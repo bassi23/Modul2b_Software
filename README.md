@@ -76,12 +76,12 @@ Alle Daten werden kontinuierlich als .txt und .csv Datei im Ordner "Messdaten" g
 
 
 # To Do
-[] Zeitachse anpassen \n
-[] Performance verbessern - Autosave deaktivieren?
-[] Schönere Auswahl zwischen Messwerten
-[] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?
-[] Station 1
-[] Station 2
-[] Station 3
-[] Station 4
-[] Einstellungen
+[] Zeitachse anpassen<br>
+[] Performance verbessern - Autosave deaktivieren?<br>
+[] Schönere Auswahl zwischen Messwerten<br>
+[] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?<br>
+[] Station 1<br>
+[] Station 2<br>
+[] Station 3<br>
+[] Station 4<br>
+[] Einstellungen<br>
