@@ -72,6 +72,7 @@ Durch klicken des Reset-Buttons werden alle bisherigen Daten gelöscht. Um siche
 
 Standardmäßig werden nur Daten gespeichert, wenn man auf "zurück" klickt. Man kann aber "autosave" in den Einstellungen aktivieren. Dadurch werden die Messdaten kontinuierlich gespeichert.
 
+Zusätzlich kann man nun auswählen ob überhaupt Daten gespeichert werden sollen, und falls ja, in welchem Format (txt, csv oder beides).
 
 
 
