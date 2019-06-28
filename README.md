@@ -70,14 +70,14 @@ Durch klicken des Reset-Buttons werden alle bisherigen Daten gelöscht. Um siche
 
 # Daten speichern
 
-Alle Daten werden kontinuierlich als .txt und .csv Datei im Ordner "Messdaten" gespeichert.
+Standardmäßig werden nur Daten gespeichert, wenn man auf "zurück" klickt. Man kann aber "autosave" in den Einstellungen aktivieren. Dadurch werden die Messdaten kontinuierlich gespeichert.
 
 
 
 
 # To Do
-[] Zeitachse anpassen<br>
-[] Performance verbessern - Autosave deaktivieren?<br>
+[x] Zeitachse anpassen<br>
+[x] Performance verbessern - Autosave deaktivieren?<br>
 [] Schönere Auswahl zwischen Messwerten<br>
 [] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?<br>
 [] Station 1<br>
