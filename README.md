@@ -76,7 +76,7 @@ Alle Daten werden kontinuierlich als .txt und .csv Datei im Ordner "Messdaten" g
 
 
 # To Do
-[] Zeitachse anpassen
+[] Zeitachse anpassen \n
 [] Performance verbessern - Autosave deaktivieren?
 [] Schönere Auswahl zwischen Messwerten
 [] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?
