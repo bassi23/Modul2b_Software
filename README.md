@@ -3,7 +3,9 @@
 
 Lade die Datei "Arduino_Code" herunter und lade sie auf den Mikrocontroller.
 
-Lade die Datei "Software.pde" und den Ordner "img" mit allen Bildern runter. Erstelle auf deinem PC einen neuen Ordner mit Namen "Software" und verschiebe die Datei und den img Ordner hinein.
+
+
+Lade die Datei "Software.pde" und den Ordner "img" <b>mit allen</b> Bildern runter. Erstelle auf deinem PC einen neuen Ordner mit Namen "Software" und verschiebe die Datei und den img Ordner hinein.
 Öffne die .pde Datei mit Processing und klicke auf "play". Eventuell musst du den COM Port Platz in der Datei wechseln. Momentan wird der 1. COM Port genommen [0].
 
 
