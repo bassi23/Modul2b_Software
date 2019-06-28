@@ -6,8 +6,8 @@ Serial myPort;
 
 Table table;
 
-ControlP5 SPS_control, SGP_control, SCD_control;
-CheckBox SPS_check, SGP_check, SCD_check;
+ControlP5 SPS_control, SGP_control, SCD_control, autosave_control;
+CheckBox SPS_check, SGP_check, SCD_check, autosave;
 
 station one, two_three, two, three, four, settings;
 button back, up1, down1, up2, down2, left1, right1;
@@ -92,7 +92,18 @@ void setup() {
   four = new station(50, 350, false);
   settings = new station(450, 350, false);
 
-
+  autosave_control= new ControlP5(this);
+  autosave = autosave_control.addCheckBox("automatisch_speichern")
+    .setPosition(500, 175)
+    .setColorForeground(color(120))
+    .setColorActive(color(0, 255, 0))
+    .setColorLabel(color(255))
+    .setSize(30, 30)
+    .setItemsPerRow(4)
+    .setSpacingColumn(100)
+    .setSpacingRow(100)
+    .addItem("autosave", 0)
+    .hide();
 
   SPS_control = new ControlP5(this);
   SPS_check = SPS_control.addCheckBox("SPS")
@@ -179,7 +190,13 @@ void draw() {
     back.show();
   }
   Datenaufnahme();
-  saveData();
+
+  boolean auto = autosave.getState("automatisch_speichern");
+  autosave.hide();
+  if (auto) {
+    saveData();
+  }
+
 
   if (Stationen.isClicked()) {
     page = 0;
@@ -216,9 +233,7 @@ void draw() {
       page = 4;
     }
   }
-  if (einstellungen.isClicked()) {
-    page = 10;
-  }
+
 
 
   if (page == -1) {
@@ -259,6 +274,9 @@ void draw() {
     zumObermenu.hide();
   } else if (page == 10) {
     setting();
+    autosave.show();
+    Stationen.hide();
+    Sensoren.hide();
     zumObermenu.hide();
   } else if (page == -2) {
     SensorAuswahl(); 
@@ -288,6 +306,7 @@ void draw() {
 
 
   if (back.isClicked()) {
+    saveData();
     if (page > 0 && page != 10) {
       page = 0;
     } else if (page < -2) {
@@ -323,6 +342,10 @@ void draw() {
     if (del > 0) {
       del -= 1;
     }
+  }
+
+  if (einstellungen.isClicked()) {
+    page = 10;
   }
 }
 
@@ -372,17 +395,41 @@ void saveData() {
 
     Zeit[i] = str(zeit[i]).replace('.', ',');
   }
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SCD/Temperatur.txt", SCD_T);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SCD/Luftfeuchte.txt", SCD_H);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SCD/CO2.txt", SCD_CO2);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SGP/TVOC.txt", SGP_TVOC);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SGP/eCO2.txt", SGP_eCO2);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM1.txt", SPS_PM1);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM25.txt", SPS_PM25);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM4.txt", SPS_PM4);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM10.txt", SPS_PM10);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/Zeit.txt", Zeit);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() + "/SCD/Temperatur.txt", SCD_T);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SCD/Luftfeuchte.txt", SCD_H);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SCD/CO2.txt", SCD_CO2);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SGP/TVOC.txt", SGP_TVOC);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SGP/eCO2.txt", SGP_eCO2);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SPS/PM1.txt", SPS_PM1);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/SPS/PM25.txt", SPS_PM25);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/SPS/PM4.txt", SPS_PM4);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SPS/PM10.txt", SPS_PM10);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/Zeit.txt", Zeit);
+
+  table.clearRows();
+
+  for (int i = 1; i < index+1; i++) {
+    if (zeit[index-1] != 0) {
+      TableRow newRow = table.addRow();
+
+      newRow.setInt("Zeit", i);
+      newRow.setFloat("Zeit", zeit[i]);
+      newRow.setFloat("Temperatur", scd_temperature_data[i-1]);
+      newRow.setFloat("Luftfeuchte", scd_humidity_data[i-1]);
+      newRow.setFloat("CO2", scd_co2_data[i-1]);
+      newRow.setFloat("eCO2", sgp_eco2_data[i-1]);
+      newRow.setFloat("TVOC", sgp_tvoc_data[i-1]);
+      newRow.setFloat("PM1", sps_pm1_data[i-1]);
+      newRow.setFloat("PM2.5", sps_pm25_data[i-1]);
+      newRow.setFloat("PM4", sps_pm4_data[i-1]);
+      newRow.setFloat("PM10", sps_pm10_data[i-1]);
+
+      saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+ "_" + hour() + "_" + minute() +  "/alleDaten.csv");
+    }
+  }
 }
+
+
 class button {
   float x, y, dx, dy, textOffset;
   String text;
@@ -468,6 +515,7 @@ class button {
     }
   }
 }
+
 float[] scd_temperature_data = new float[9999999];
 float[] scd_humidity_data =new float[9999999];
 float[] scd_co2_data = new float[9999999];
@@ -578,35 +626,16 @@ void Datenaufnahme() {
         index += 1;
         time = millis();
         zeit[index] = (millis() - zeroTime2)/1000;
-        if (zeit[index-1] != 0) {
-          TableRow newRow = table.addRow();
-
-          newRow.setInt("Zeit", index);
-          newRow.setFloat("Zeit", zeit[index]);
-          newRow.setFloat("Temperatur", scd_temperature_data[index-1]);
-          newRow.setFloat("Luftfeuchte", scd_humidity_data[index-1]);
-          newRow.setFloat("CO2", scd_co2_data[index-1]);
-          newRow.setFloat("eCO2", sgp_eco2_data[index-1]);
-          newRow.setFloat("TVOC", sgp_tvoc_data[index-1]);
-          newRow.setFloat("PM1", sps_pm1_data[index-1]);
-          newRow.setFloat("PM2.5", sps_pm25_data[index-1]);
-          newRow.setFloat("PM4", sps_pm4_data[index-1]);
-          newRow.setFloat("PM10", sps_pm10_data[index-1]);
-
-          saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+ "/alleDaten.csv");
-        }
       }
     } else {
       Daten = null;
     }
   }
 }
-
-
 void setting(){
-  textSize(20);
+  textSize(30);
   fill(0);
-  text("Autosave", 300, 300);
+  text("Autosave", 300, 200);
 }
 int[] y_scale = {0, 0};
 int x_scale = 0;
@@ -846,6 +875,7 @@ void Obermenu() {
   textAlign(CENTER);
   text("Umweltmesstechnik", 640, 50);
 }
+
 
 void SensorAuswahl(){
   back.show();
