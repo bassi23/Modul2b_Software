@@ -445,7 +445,7 @@ void Datenaufnahme() {
       ///
 
       if (index > 1) {
-        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()/alleDaten.csv");
+        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + "/alleDaten.csv");
       }
 
       zeit[index] = (millis() - zeroTime2)/1000;
