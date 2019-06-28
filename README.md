@@ -20,36 +20,36 @@ Das Programm sieht momentan so aus:
 Man hat die Auswahl zwischen "Stationen" und "Sensoren".
 
 
-<b>Stationen</b>
+<b>Stationen</b><br>
 Hier hat man die Auswahl zwischen den einzelnen Stationen. Das Layout ist an die Aufgaben angepasst. 
-
-<b>Sensoren</b>
+<br>
+<b>Sensoren</b><br>
 Hier hat man die Auswahl zwischen den einzelnen Sensoren. 
-
+<br>
 
 # Stationen
 folgt...
 # Sensoren
 
-Es gibt 3 Buttons, die zu den jeweiligen Sensordaten führen:
+Es gibt 3 Buttons, die zu den jeweiligen Sensordaten führen:<br>
 
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild2.png)
 
 
 ## Sensordaten anzeigen
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild3.png)
-
+<br>
 Oben in der Mitte kann man auswählen welche Sensordaten des jeweiligen Sensors angezeigt werden. Es können höchstens zwei gleichzeitig ausgewählt werden, damit das Programm nicht zu unübersichtlich wird.
 
 ### Achsen skalieren
 
-Man kann die Achsenskalierung ändern. Die Schritte sind dabei vorgegeben.
+Man kann die Achsenskalierung ändern. Die Schritte sind dabei vorgegeben.<br>
 
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild4.png)
 
 ### Aktualisierungsintervall
 
-Der Mikrocontroller sendet die Messwerte ca. alle 0,5 Sekunden an das Programm. Erhöht man das Aktualisierungsintervall, so wird nur der Durchschnitt der Messwerte innerhalb des letzten Aktualisierungsintervall aufgenommen und gespeichert.
+Der Mikrocontroller sendet die Messwerte ca. alle 0,5 Sekunden an das Programm. Erhöht man das Aktualisierungsintervall, so wird nur der Durchschnitt der Messwerte innerhalb des letzten Aktualisierungsintervall aufgenommen und gespeichert.<br>
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild5.png)
 
 Beispiel: Aktualisierungsintervall = 60 Sekunden
@@ -57,14 +57,14 @@ Es werden alle Messwerte innerhalb von 60 Sekunden in einen Zwischenspeicher gel
 
 ### Zeitachse skalieren
 
-Man hat die Auswahl zwischen verschiedenen Zeitabschnitten.
+Man hat die Auswahl zwischen verschiedenen Zeitabschnitten.<br>
 
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild6.png)
 
 
 ### Reset
 
-Durch klicken des Reset-Buttons werden alle bisherigen Daten gelöscht. Um sicherzugehen, dass man nicht aus Versehen darauf geklickt hat, wird man vorher noch gefragt ob man sicher ist.
+Durch klicken des Reset-Buttons werden alle bisherigen Daten gelöscht. Um sicherzugehen, dass man nicht aus Versehen darauf geklickt hat, wird man vorher noch gefragt ob man sicher ist.<br>
 
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild7.png)
 
