@@ -1,8 +1,10 @@
-PImage sps, sgp, scd, nodemcu;
+PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil;
 import processing.serial.*;
 import controlP5.*;
 Serial myPort;
 
+
+Table table;
 
 ControlP5 SPS_control, SGP_control, SCD_control;
 CheckBox SPS_check, SGP_check, SCD_check;
@@ -12,9 +14,11 @@ button back, up1, down1, up2, down2, left1, right1;
 
 button reset, sicher_ja, sicher_nein;
 
+button Stationen, Sensoren, zumObermenu;
+
 
 float del = 1;
-float page = 0;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 void setup() {
@@ -27,26 +31,47 @@ void setup() {
     gotSerial = false;
   }
 
-  back = new button(1175, 665, 100, 50, "zurück", 5, true);
-  up1 = new button(70, 100, 30, 50, "up_arrow", 5, true);
-  down1 = new button(70, 155, 30, 50, "down_arrow", 5, true);
-  up2 = new button(1210, 100, 30, 50, "up_arrow", 5, true);
-  down2 = new button(1210, 155, 30, 50, "down_arrow", 5, true);
-  left1 = new button(570, 670, 50, 30, "left_arrow", 5, true);
-  right1 = new button(630, 670, 50, 30, "right_arrow", 5, true);
+  table = new Table();
+  table.addColumn("Zeit");
+  table.addColumn("Temperatur");
+  table.addColumn("Luftfeuchte");
+  table.addColumn("CO2");
+  table.addColumn("eCO2");
+  table.addColumn("TVOC");
+  table.addColumn("PM1");
+  table.addColumn("PM2.5");
+  table.addColumn("PM4");
+  table.addColumn("PM10");
+
+  back = new button(1175, 665, 100, 50, "zurück", 5, true, 20);
+  up1 = new button(70, 100, 30, 50, "up_arrow", 5, true, 20);
+  down1 = new button(70, 155, 30, 50, "down_arrow", 5, true, 20);
+  up2 = new button(1210, 100, 30, 50, "up_arrow", 5, true, 20);
+  down2 = new button(1210, 155, 30, 50, "down_arrow", 5, true, 20);
+  left1 = new button(570, 670, 50, 30, "left_arrow", 5, true, 20);
+  right1 = new button(630, 670, 50, 30, "right_arrow", 5, true, 20);
 
 
   //
-  reset = new button(1070, 665, 100, 50, "Reset", 5, true);
-  sicher_ja = new button(450, 340, 150, 75, "Ja", 5, true);
-  sicher_nein = new button(700, 340, 150, 75, "Nein", 5, true);
+  reset = new button(1070, 665, 100, 50, "Reset", 5, true, 20);
+  sicher_ja = new button(450, 340, 150, 75, "Ja", 5, true, 20);
+  sicher_nein = new button(700, 340, 150, 75, "Nein", 5, true, 20);
 
 
+  //
+  Stationen = new button(100, 100, 500, 400, "Stationen", 5, true, 50);
+  Sensoren = new button(650, 100, 500, 400, "Sensoren", 5, true, 50);
+  zumObermenu = new button(1110, 640, 150, 75, "Hauptmenü", 5, true, 20);
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
   scd = loadImage("img/scd30.jpg");
   nodemcu = loadImage("img/nodemcu.png");
+  SUSmobil = loadImage("img/SUSmobil.png");
+  DBU = loadImage("img/DBU.png");
+  iPhysicsLab = loadImage("img/iPhysicsLab.png");
+  LMT = loadImage("img/LMT.png");
+  SFZSLS = loadImage("img/SFZSLS.png");
 
 
   one = new station(50, 50, false);
@@ -104,31 +129,67 @@ void setup() {
     .hide();
 }
 
+
+/////////////// Seiteninformationen /////////////////
+
+/////////// -1: Obermenü //////////////
+
+///// 0: Stationsmenü  //////
+
+// 1: Feinstaub
+// 2: Mensch vs Sensor
+// 2.5: Mensch vs Sensor oder TVOC Duelle
+// 3: TVOC Duelle
+// 4: Innenraumluftqualität
+
+////// -2: Sensoren
+
+// -3: SPS
+// -4: SGP
+// -5: SCD
+
+
+
 void draw() {
-  background(240);
+  // background(240);
+  for (int i = 0; i < 720; i++) {
+    stroke(255, 255, 100 + i*155/720);
+    line(0, i, 1280, i);
+  }
+  noStroke();
   SCD_check.hide();
   SPS_check.hide();
   SGP_check.hide();
 
+
   sicher_ja.hide();
   sicher_nein.hide();
 
-  if (page != 0) {
+  if (page != 0 && page != -1) {
     back.show();
   }
   Datenaufnahme();
+  saveData();
   if (index > 0) {
+    if (Stationen.isClicked()) {
+      page = 0;
+    }
+
+    if (Sensoren.isClicked()) {
+      page = -2;
+    }
+
     if (one.isClicked()) {
       page = 1;
     }
     if (two_three.isClicked()) {
       page = 2.5;
     }
-    if(three.isClicked()){
-      page = 3; 
+    if (two.isClicked()) {
+      page = 2;
     }
-    if(two.isClicked()){
-     page = 2; 
+    if (three.isClicked()) {
+      page = 3;
     }
     if (four.isClicked()) {
       page = 4;
@@ -136,28 +197,40 @@ void draw() {
   }
 
 
-  if (page == 0) {
+  if (page == -1) {
+    Obermenu();
+  } else if (page == 0) {
     hauptmenu();
+    zumObermenu.show();
     two_three.active = true;
     four.active = true;
     one.active = true;
     settings.active = true;
     two.active = false;
     three.active = false;
+    reset.hide();
   } else if (page == 1) {
     Feinstaub();
+    zumObermenu.hide();
   } else if (page == 2) {
     MenschSensor();
+    zumObermenu.hide();
   } else if (page == 2.5) {
     Station2Oder3();
+    zumObermenu.hide();
     two.active = true;
     three.active = true;
   } else if (page == 3) {
     TVOC_Duelle();
+    zumObermenu.hide();
   } else if (page == 4) {
     Innenraumluft();
+    zumObermenu.hide();
   } else if (page == 10) {
     Einstellungen();
+    zumObermenu.hide();
+  }else if(page == -2){
+   SensorAuswahl(); 
   }
 
 
@@ -170,10 +243,14 @@ void draw() {
   if (reset_bool) {
     sicher();
   }
+  if (zumObermenu.isClicked()) {
+    page = -1;
+  }
   if (sicher_ja.isClicked()) {
     reset_bool = false; 
     index = 0;
     zeroTime2 = millis();
+    table.clearRows();
   }
   if (sicher_nein.isClicked()) {
     reset_bool = false;
@@ -188,16 +265,63 @@ void sicher() {
   rect(225, 250, 830, 200);
   fill(0);
   textSize(30);
+  textAlign(CORNER);
   text("Bist du sicher, dass du die Daten löschen möchtest?", 250, 300);
   sicher_ja.show();
   sicher_nein.show();
 }
 
+
+
+void saveData() {
+  String[] SCD_T = new String[index];
+  String[] SCD_H = new String[index];
+  String[] SCD_CO2 = new String[index];
+
+  String[] SGP_TVOC = new String[index];
+  String[] SGP_eCO2 = new String[index];
+
+  String[] SPS_PM1 = new String[index];
+  String[] SPS_PM25 = new String[index];
+  String[] SPS_PM4 = new String[index];
+  String[] SPS_PM10 = new String[index];
+
+  String[] Zeit = new String[index];
+
+  for (int i = 0; i < index; i++) {
+    SCD_T[i] = str(scd_temperature_data[i]).replace('.', ',');
+    SCD_H[i] = str(scd_humidity_data[i]).replace('.', ',');
+    SCD_CO2[i] = str(scd_co2_data[i]).replace('.', ',');
+
+    SGP_TVOC[i] = str(sgp_tvoc_data[i]).replace('.', ',');
+    SGP_eCO2[i] = str(sgp_eco2_data[i]).replace('.', ',');
+
+    SPS_PM1[i] = str(sps_pm1_data[i]).replace('.', ',');
+    SPS_PM25[i] = str(sps_pm25_data[i]).replace('.', ',');
+    SPS_PM4[i] = str(sps_pm4_data[i]).replace('.', ',');
+    SPS_PM10[i] = str(sps_pm10_data[i]).replace('.', ',');
+
+    Zeit[i] = str(zeit[i]).replace('.', ',');
+  }
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SCD/Temperatur.txt", SCD_T);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SCD/Luftfeuchte.txt", SCD_H);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SCD/CO2.txt", SCD_CO2);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SGP/TVOC.txt", SGP_TVOC);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SGP/eCO2.txt", SGP_eCO2);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM1.txt", SPS_PM1);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM25.txt", SPS_PM25);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM4.txt", SPS_PM4);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM10.txt", SPS_PM10);
+  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/Zeit.txt", Zeit);
+}
+
+
 class button {
   float x, y, dx, dy, textOffset;
   String text;
   boolean visible;
-  button(float x_, float y_, float dx_, float dy_, String text_, float textOffset_, boolean visible_) {
+  int size;
+  button(float x_, float y_, float dx_, float dy_, String text_, float textOffset_, boolean visible_, int size_) {
     x = x_;
     y = y_;
     dx = dx_;
@@ -205,6 +329,7 @@ class button {
     text = text_;
     textOffset = textOffset_;
     visible = visible_;
+    size = size_;
   }
   void show() {
     visible = true;
@@ -255,6 +380,7 @@ class button {
       line(x + 3*dx/4, y + dy/2, x + dx/2, y + dy/4);
       line(x + 3*dx/4, y + dy/2, x + dx/2, y + 3*dy/4);
     } else {
+      textSize(size);
       text(text, x + dx/2, y + dy/2 + textOffset);
     }
     strokeWeight(1);
@@ -293,42 +419,66 @@ float zeroTime = 0;
 
 void Datenaufnahme() {
   boolean received = false;
-  
+
   if (myPort.available() > 0) {
     Daten = myPort.readStringUntil('\n');
     received = true;
   }
   if (Daten != null && received) {
-    if(index == 0){
-     zeroTime = millis(); 
+    if (index == 0) {
+      zeroTime = millis();
     }
     String[] data = split(Daten, ';');
-    
-    
-    scd_temperature_data[index] = float(data[0]);
-    scd_humidity_data[index] = float(data[1]);
-    scd_co2_data[index] = float(data[2]);
-    
-    sps_pm1_data[index] = float(data[3]);
-    sps_pm25_data[index] = float(data[4]);
-    sps_pm4_data[index] = float(data[5]);
-    sps_pm10_data[index] = float(data[6]);
-    ////
-    sgp_eco2_data[index] = float(data[7]);
-    sgp_tvoc_data[index] = float(data[8]);
-    ///
 
-    
-    zeit[index] = (millis() - zeroTime2)/1000;
-    if ( millis() - time > 1000*del) {
-      index += 1;
-      time = millis();
+    if (data.length > 8) {
+      scd_temperature_data[index] = float(data[0]);
+      scd_humidity_data[index] = float(data[1]);
+      scd_co2_data[index] = float(data[2]);
+
+      sps_pm1_data[index] = float(data[3]);
+      sps_pm25_data[index] = float(data[4]);
+      sps_pm4_data[index] = float(data[5]);
+      sps_pm10_data[index] = float(data[6]);
+      ////
+      sgp_eco2_data[index] = float(data[7]);
+      sgp_tvoc_data[index] = float(data[8]);
+      ///
+
+      if (index > 1) {
+        saveTable(table, "data/new.csv");
+      }
+
+      zeit[index] = (millis() - zeroTime2)/1000;
+      if ( millis() - time > 1000*del) {
+        index += 1;
+        time = millis();
+      }
+
+      println(zeit[index]);
+
+
+      if (zeit[index] != 0) {
+        TableRow newRow = table.addRow();
+        for (int i = 0; i < index; i++) {
+          newRow.setInt("Zeit", index);
+          newRow.setFloat("Zeit", zeit[index]);
+          newRow.setFloat("Temperatur", scd_temperature_data[index]);
+          newRow.setFloat("Luftfeuchte", scd_humidity_data[index]);
+          newRow.setFloat("CO2", scd_co2_data[index]);
+          newRow.setFloat("eCO2", sgp_eco2_data[index]);
+          newRow.setFloat("TVOC", sgp_tvoc_data[index]);
+          newRow.setFloat("PM1", sps_pm1_data[index]);
+          newRow.setFloat("PM2.5", sps_pm25_data[index]);
+          newRow.setFloat("PM4", sps_pm4_data[index]);
+          newRow.setFloat("PM10", sps_pm10_data[index]);
+        }
+        saveTable(table, "data/new.csv");
+      }
+    } else {
+      Daten = null;
     }
-  } else {
-    Daten = null;
   }
 }
-
 void Einstellungen(){
   
 }
@@ -762,6 +912,37 @@ void MenschSensor() {
   fill(0);
 }
 
+void Obermenu() {
+  two_three.active = false;
+  four.active = false;
+  one.active = false;
+  settings.active = false;
+  two.active = false;
+  three.active = false;
+
+
+
+  image(LMT, 200, 600);
+  image(iPhysicsLab, 400, 600);
+  image(DBU, 1100, 550);
+  image(SFZSLS, 700, 600);
+  back.hide();
+
+  Stationen.show();
+  Sensoren.show();
+
+  fill(0);
+  textSize(30);
+  textAlign(CENTER);
+  text("Umweltmesstechnik", 640, 50);
+}
+void SensorAuswahl(){
+  back.show();
+  
+  
+  
+  
+}
 
 void Station2Oder3(){
   two_three.active = false;
@@ -894,7 +1075,6 @@ void TVOC_Duelle() {
 
   fill(0);
 }
-
 
 void checkConnection() {
   if (index > 3) {
@@ -1506,7 +1686,6 @@ void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left)
 
 
 
-
 float minValue(float[] array, int xVals) {
   float min = 99999999;
   int temp = 1;
@@ -1690,7 +1869,6 @@ void hauptmenu() {
 
   strokeWeight(1);
 }
-
 
 class station {
   float x;
