@@ -369,8 +369,6 @@ void saveData() {
   saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/SPS/PM10.txt", SPS_PM10);
   saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/Zeit.txt", Zeit);
 }
-
-
 class button {
   float x, y, dx, dy, textOffset;
   String text;
@@ -566,40 +564,30 @@ void Datenaufnahme() {
         indexZwischenSpeicher = 0;
         index += 1;
         time = millis();
-      }
+        zeit[index] = (millis() - zeroTime2)/1000;
+        if (zeit[index-1] != 0) {
+          TableRow newRow = table.addRow();
 
-      if (index > 1) {
-        saveTable(table, "data/new.csv");
-      }
-      zeit[index] = (millis() - zeroTime2)/1000;
-      if ( millis() - time > 1000*del) {
-        index += 1;
-        time = millis();
-      }
-      if (zeit[index] != 0) {
-        TableRow newRow = table.addRow();
-        for (int i = 0; i < index; i++) {
           newRow.setInt("Zeit", index);
           newRow.setFloat("Zeit", zeit[index]);
-          newRow.setFloat("Temperatur", scd_temperature_data[index]);
-          newRow.setFloat("Luftfeuchte", scd_humidity_data[index]);
-          newRow.setFloat("CO2", scd_co2_data[index]);
-          newRow.setFloat("eCO2", sgp_eco2_data[index]);
-          newRow.setFloat("TVOC", sgp_tvoc_data[index]);
-          newRow.setFloat("PM1", sps_pm1_data[index]);
-          newRow.setFloat("PM2.5", sps_pm25_data[index]);
-          newRow.setFloat("PM4", sps_pm4_data[index]);
-          newRow.setFloat("PM10", sps_pm10_data[index]);
+          newRow.setFloat("Temperatur", scd_temperature_data[index-1]);
+          newRow.setFloat("Luftfeuchte", scd_humidity_data[index-1]);
+          newRow.setFloat("CO2", scd_co2_data[index-1]);
+          newRow.setFloat("eCO2", sgp_eco2_data[index-1]);
+          newRow.setFloat("TVOC", sgp_tvoc_data[index-1]);
+          newRow.setFloat("PM1", sps_pm1_data[index-1]);
+          newRow.setFloat("PM2.5", sps_pm25_data[index-1]);
+          newRow.setFloat("PM4", sps_pm4_data[index-1]);
+          newRow.setFloat("PM10", sps_pm10_data[index-1]);
+
+          saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+ "/alleDaten.csv");
         }
-        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+ "/alleDaten.csv");
       }
     } else {
       Daten = null;
     }
   }
 }
-
-
 void Einstellungen(){
   
 }
@@ -794,6 +782,7 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
   }
 }
 
+
 void Innenraumluft() {
   
 }
@@ -814,7 +803,6 @@ void onlyTwo2(CheckBox check, String state1, String state2, String state3) {
     check.deactivate(state1);
   }
 }
-
 
 void MenschSensor() {
 
@@ -848,6 +836,10 @@ void Obermenu() {
 
 void SensorAuswahl(){
   back.show();
+  
+  
+  
+  
 }
 
 void Station2Oder3(){
@@ -864,7 +856,6 @@ void Station2Oder3(){
   text("Station 2 - Mensch vs. Sensor", 220, 250);
   text("Station 3 - TVOC-Duelle", 670, 250);
 }
-
 
 void TVOC_Duelle() {
 
@@ -1127,8 +1118,10 @@ void T_H_CO2() {
   }
 
   fill(0);
-  
-  void checkConnection() {
+}
+
+
+void checkConnection() {
   if (index > 3) {
     // Vergleiche die letzten 3 Messwerte. Wenn sie sich nicht ändern, ist der Sensor nicht verbunden
     //SCD30
@@ -1178,6 +1171,7 @@ void T_H_CO2() {
   }
   ellipse(820, 80, 50, 50);
 }
+
 
 void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left) {
   // 2. Wenn y-scale == 0 --> Bereich zwischen minimum und Maximum
@@ -1921,7 +1915,6 @@ void hauptmenu() {
 
   strokeWeight(1);
 }
-
 
 class station {
   float x;
