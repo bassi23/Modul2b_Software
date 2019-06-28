@@ -6,8 +6,8 @@ Serial myPort;
 
 Table table;
 
-ControlP5 SPS_control, SGP_control, SCD_control, autosave_control;
-CheckBox SPS_check, SGP_check, SCD_check, autosave;
+ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_control;
+CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat;
 
 station one, two_three, two, three, four, settings;
 button back, up1, down1, up2, down2, left1, right1;
@@ -91,6 +91,23 @@ void setup() {
   three = new station(650, 200, false);
   four = new station(50, 350, false);
   settings = new station(450, 350, false);
+
+
+  dateiformat_control = new ControlP5(this);
+  dateiformat = dateiformat_control.addCheckBox("Dateiformat")
+    .setPosition(500, 225)
+    .setColorForeground(color(120))
+    .setColorActive(color(0, 255, 0))
+    .setColorLabel(color(255))
+    .setSize(30, 30)
+    .setItemsPerRow(4)
+    .setSpacingColumn(100)
+    .setSpacingRow(100)
+    .addItem("txt", 0)
+    .addItem("csv", 0)
+    .hide();
+    
+    dateiformat.activate("csv");
 
   autosave_control= new ControlP5(this);
   autosave = autosave_control.addCheckBox("automatisch_speichern")
@@ -185,6 +202,7 @@ void draw() {
   sicher_ja.hide();
   einstellungen.hide();
   sicher_nein.hide();
+  dateiformat.hide();
 
   if (page != 0 && page != -1) {
     back.show();
@@ -275,6 +293,7 @@ void draw() {
   } else if (page == 10) {
     setting();
     autosave.show();
+    dateiformat.show();
     Stationen.hide();
     Sensoren.hide();
     zumObermenu.hide();
@@ -380,56 +399,66 @@ void saveData() {
 
   String[] Zeit = new String[index];
 
-  for (int i = 0; i < index; i++) {
-    SCD_T[i] = str(scd_temperature_data[i]).replace('.', ',');
-    SCD_H[i] = str(scd_humidity_data[i]).replace('.', ',');
-    SCD_CO2[i] = str(scd_co2_data[i]).replace('.', ',');
 
-    SGP_TVOC[i] = str(sgp_tvoc_data[i]).replace('.', ',');
-    SGP_eCO2[i] = str(sgp_eco2_data[i]).replace('.', ',');
+  boolean txt_bool = dateiformat.getState("txt");
+  boolean csv_bool = dateiformat.getState("csv");
 
-    SPS_PM1[i] = str(sps_pm1_data[i]).replace('.', ',');
-    SPS_PM25[i] = str(sps_pm25_data[i]).replace('.', ',');
-    SPS_PM4[i] = str(sps_pm4_data[i]).replace('.', ',');
-    SPS_PM10[i] = str(sps_pm10_data[i]).replace('.', ',');
 
-    Zeit[i] = str(zeit[i]).replace('.', ',');
+  if (txt_bool || csv_bool) {
+    for (int i = 0; i < index; i++) {
+      SCD_T[i] = str(scd_temperature_data[i]).replace('.', ',');
+      SCD_H[i] = str(scd_humidity_data[i]).replace('.', ',');
+      SCD_CO2[i] = str(scd_co2_data[i]).replace('.', ',');
+
+      SGP_TVOC[i] = str(sgp_tvoc_data[i]).replace('.', ',');
+      SGP_eCO2[i] = str(sgp_eco2_data[i]).replace('.', ',');
+
+      SPS_PM1[i] = str(sps_pm1_data[i]).replace('.', ',');
+      SPS_PM25[i] = str(sps_pm25_data[i]).replace('.', ',');
+      SPS_PM4[i] = str(sps_pm4_data[i]).replace('.', ',');
+      SPS_PM10[i] = str(sps_pm10_data[i]).replace('.', ',');
+
+      Zeit[i] = str(zeit[i]).replace('.', ',');
+    }
   }
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() + "/SCD/Temperatur.txt", SCD_T);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SCD/Luftfeuchte.txt", SCD_H);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SCD/CO2.txt", SCD_CO2);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SGP/TVOC.txt", SGP_TVOC);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SGP/eCO2.txt", SGP_eCO2);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SPS/PM1.txt", SPS_PM1);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/SPS/PM25.txt", SPS_PM25);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/SPS/PM4.txt", SPS_PM4);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SPS/PM10.txt", SPS_PM10);
-  saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/Zeit.txt", Zeit);
 
-  table.clearRows();
+  if (txt_bool) {
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() + "/SCD/Temperatur.txt", SCD_T);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SCD/Luftfeuchte.txt", SCD_H);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SCD/CO2.txt", SCD_CO2);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SGP/TVOC.txt", SGP_TVOC);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SGP/eCO2.txt", SGP_eCO2);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SPS/PM1.txt", SPS_PM1);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/SPS/PM25.txt", SPS_PM25);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/SPS/PM4.txt", SPS_PM4);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" + hour() + "_" + minute() +"/SPS/PM10.txt", SPS_PM10);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "_" +hour() + "_" + minute() + "/Zeit.txt", Zeit);
+  }
 
-  for (int i = 1; i < index+1; i++) {
-    if (zeit[index-1] != 0) {
-      TableRow newRow = table.addRow();
+  if (csv_bool) {
+    table.clearRows();
 
-      newRow.setInt("Zeit", i);
-      newRow.setFloat("Zeit", zeit[i]);
-      newRow.setFloat("Temperatur", scd_temperature_data[i-1]);
-      newRow.setFloat("Luftfeuchte", scd_humidity_data[i-1]);
-      newRow.setFloat("CO2", scd_co2_data[i-1]);
-      newRow.setFloat("eCO2", sgp_eco2_data[i-1]);
-      newRow.setFloat("TVOC", sgp_tvoc_data[i-1]);
-      newRow.setFloat("PM1", sps_pm1_data[i-1]);
-      newRow.setFloat("PM2.5", sps_pm25_data[i-1]);
-      newRow.setFloat("PM4", sps_pm4_data[i-1]);
-      newRow.setFloat("PM10", sps_pm10_data[i-1]);
+    for (int i = 1; i < index+1; i++) {
+      if (zeit[index-1] != 0) {
+        TableRow newRow = table.addRow();
 
-      saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+ "_" + hour() + "_" + minute() +  "/alleDaten.csv");
+        newRow.setInt("Zeit", i);
+        newRow.setFloat("Zeit", zeit[i]);
+        newRow.setFloat("Temperatur", scd_temperature_data[i-1]);
+        newRow.setFloat("Luftfeuchte", scd_humidity_data[i-1]);
+        newRow.setFloat("CO2", scd_co2_data[i-1]);
+        newRow.setFloat("eCO2", sgp_eco2_data[i-1]);
+        newRow.setFloat("TVOC", sgp_tvoc_data[i-1]);
+        newRow.setFloat("PM1", sps_pm1_data[i-1]);
+        newRow.setFloat("PM2.5", sps_pm25_data[i-1]);
+        newRow.setFloat("PM4", sps_pm4_data[i-1]);
+        newRow.setFloat("PM10", sps_pm10_data[i-1]);
+
+        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+ "_" + hour() + "_" + minute() +  "/alleDaten.csv");
+      }
     }
   }
 }
-
-
 class button {
   float x, y, dx, dy, textOffset;
   String text;
@@ -515,7 +544,6 @@ class button {
     }
   }
 }
-
 float[] scd_temperature_data = new float[9999999];
 float[] scd_humidity_data =new float[9999999];
 float[] scd_co2_data = new float[9999999];
@@ -632,11 +660,15 @@ void Datenaufnahme() {
     }
   }
 }
+
 void setting(){
   textSize(30);
   fill(0);
   text("Autosave", 300, 200);
+  text("Speichern als", 250, 250);
+  text(".txt          .csv", 550, 250);
 }
+
 int[] y_scale = {0, 0};
 int x_scale = 0;
 
@@ -826,6 +858,7 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
     check.deactivate(state2);
   }
 }
+
 void Innenraumluft() {
   
 }
@@ -1163,7 +1196,6 @@ void T_H_CO2() {
   fill(0);
 }
 
-
 void checkConnection() {
 
   //Kommt auf das Aktualisierungsintervall an. Wenn del == 0 --> vergleiche 10 Werte. Ansonsten 1-3
@@ -1193,40 +1225,35 @@ void checkConnection() {
       }
       connected[2] = sps_connected;
     }
-  } else if (del == 1 || del == 2 || del == 3) {
   } else {
+      if (index > 3) {
+        // Vergleiche die letzten 3 Messwerte. Wenn sie sich nicht ändern, ist der Sensor nicht verbunden
+        //SCD30
+        if (scd_temperature_data[index - 3] == scd_temperature_data[index - 2] && scd_temperature_data[index - 3] == scd_temperature_data[index - 1] 
+          && scd_humidity_data[index - 3] == scd_humidity_data[index - 2] && scd_humidity_data[index - 3] == scd_humidity_data[index - 1]
+          && scd_co2_data[index - 3] == scd_co2_data[index - 2] && scd_co2_data[index - 3] == scd_co2_data[index - 1]) {
+          connected[0] = false;
+        } else {
+          connected[0] = true;
+        }
+        //SPS30
+        if (sps_pm1_data[index - 3] == sps_pm1_data[index - 2] && sps_pm1_data[index - 3] == sps_pm1_data[index - 1]
+          && sps_pm25_data[index - 3] == sps_pm25_data[index - 2] && sps_pm25_data[index - 3] == sps_pm25_data[index - 1]
+          && sps_pm4_data[index - 3] == sps_pm4_data[index - 2] && sps_pm4_data[index - 3] == sps_pm4_data[index - 1]
+          && sps_pm10_data[index - 3] == sps_pm10_data[index - 2] && sps_pm10_data[index - 3] == sps_pm10_data[index - 1]) {
+          connected[1] = false;
+        } else {
+          connected[1] = true;
+        }
+        //SGP
+        if (sgp_eco2_data[index - 3] == sgp_eco2_data[index - 2] && sgp_eco2_data[index - 3] == sgp_eco2_data[index - 1]
+          && sgp_tvoc_data[index - 3] == sgp_tvoc_data[index - 2] && sgp_tvoc_data[index - 3] == sgp_tvoc_data[index - 1]) {
+          connected[2] = false;
+        } else {
+          connected[2] = true;
+        }
+      }
   }
-
-
-
-  //  if (index > 3) {
-  //    // Vergleiche die letzten 3 Messwerte. Wenn sie sich nicht ändern, ist der Sensor nicht verbunden
-  //    //SCD30
-  //    if (scd_temperature_data[index - 3] == scd_temperature_data[index - 2] && scd_temperature_data[index - 3] == scd_temperature_data[index - 1] 
-  //      && scd_humidity_data[index - 3] == scd_humidity_data[index - 2] && scd_humidity_data[index - 3] == scd_humidity_data[index - 1]
-  //      && scd_co2_data[index - 3] == scd_co2_data[index - 2] && scd_co2_data[index - 3] == scd_co2_data[index - 1]) {
-  //      connected[0] = false;
-  //    } else {
-  //      connected[0] = true;
-  //    }
-  //    //SPS30
-  //    if (sps_pm1_data[index - 3] == sps_pm1_data[index - 2] && sps_pm1_data[index - 3] == sps_pm1_data[index - 1]
-  //      && sps_pm25_data[index - 3] == sps_pm25_data[index - 2] && sps_pm25_data[index - 3] == sps_pm25_data[index - 1]
-  //      && sps_pm4_data[index - 3] == sps_pm4_data[index - 2] && sps_pm4_data[index - 3] == sps_pm4_data[index - 1]
-  //      && sps_pm10_data[index - 3] == sps_pm10_data[index - 2] && sps_pm10_data[index - 3] == sps_pm10_data[index - 1]) {
-  //      connected[1] = false;
-  //    } else {
-  //      connected[1] = true;
-  //    }
-  //    //SGP
-  //    if (sgp_eco2_data[index - 3] == sgp_eco2_data[index - 2] && sgp_eco2_data[index - 3] == sgp_eco2_data[index - 1]
-  //      && sgp_tvoc_data[index - 3] == sgp_tvoc_data[index - 2] && sgp_tvoc_data[index - 3] == sgp_tvoc_data[index - 1]) {
-  //      connected[2] = false;
-  //    } else {
-  //      connected[2] = true;
-  //    }
-  //  }
-
   if (connected[0]) {
     fill(0, 255, 0);
   } else {
@@ -1248,6 +1275,7 @@ void checkConnection() {
   }
   ellipse(820, 80, 50, 50);
 }
+
 
 
 void graph(float[] array, String name, int x_scale, int[] y_scale, boolean left) {
@@ -1872,7 +1900,6 @@ int time(int sekunden) {
   }
   return t;
 }
-
 boolean[] connected = {false, false, false};
 
 
