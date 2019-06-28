@@ -15,44 +15,73 @@ Das Programm sieht momentan so aus:
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild1.png)
 
 
-# Hauptmenü
+# Obermenü
 
-Wenn man mit der Maus über das Bild geht, erscheint die Verkabelung. Oben rechts ist ein Kreis.
+Man hat die Auswahl zwischen "Stationen" und "Sensoren".
 
-grün: richtig verkabelt (dauert ein 1-2 Sekunden zum Aktualisieren)
-rot: nicht richtig.
 
-Wie funktioniert das? 
+<b>Stationen</b>
+Hier hat man die Auswahl zwischen den einzelnen Stationen. Das Layout ist an die Aufgaben angepasst. 
 
-Das Programm bekommt ständig Daten über den COM Port. Es werden die letzten 3 Messwerte verglichen. Stimmen diese alle überein, so werden sie anscheinend nicht mehr aktualisiert, da 3 Mal der exakt gleiche Messwert so gut wie unmöglich ist.
-Ist der Sensor falsch angeschlossen wird der Messwert, den das Programm erhält nicht mehr aktualisiert.
-
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild4.png)
+<b>Sensoren</b>
+Hier hat man die Auswahl zwischen den einzelnen Sensoren. 
 
 
 # Stationen
+folgt...
+# Sensoren
 
-Man kann die einzelnen Stationen auswählen. In den Stationen kann man oben auswählen welche Messwerte angezeigt werden sollen (höchstens 2 gleichzeitig). 
+Es gibt 3 Buttons, die zu den jeweiligen Sensordaten führen:
 
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild2.png)
 
-# Bereits integriert
 
- - Erkennen ob der Sensor richtig angeschlossen ist
- - richtige Verkabelung
- - y-Achsenskalierung
- - Zeitachsenskalierung (grob)
- - Reset Button
- 
- 
- - Station 1
- - Station 4
- 
-# to do
+## Sensordaten anzeigen
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild3.png)
 
- - Einstellungen hinzufügen
- - Station 2 + 3
- - Daten speichern
- - Zeitskala (Wechsel zwischen Sekunden/Minuten/Stunden unten rechts)
-- Aktualisierungsintervall einstellen
- 
+Oben in der Mitte kann man auswählen welche Sensordaten des jeweiligen Sensors angezeigt werden. Es können höchstens zwei gleichzeitig ausgewählt werden, damit das Programm nicht zu unübersichtlich wird.
+
+### Achsen skalieren
+
+Man kann die Achsenskalierung ändern. Die Schritte sind dabei vorgegeben.
+
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild4.png)
+
+### Aktualisierungsintervall
+
+Der Mikrocontroller sendet die Messwerte ca. alle 0,5 Sekunden an das Programm. Erhöht man das Aktualisierungsintervall, so wird nur der Durchschnitt der Messwerte innerhalb des letzten Aktualisierungsintervall aufgenommen und gespeichert.
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild5.png)
+
+Beispiel: Aktualisierungsintervall = 60 Sekunden
+Es werden alle Messwerte innerhalb von 60 Sekunden in einen Zwischenspeicher gelegt und nach Ablauf dieser Zeit ein Mittelwert gebildet. Nur dieser Mittelwert wird dann angezeigt.
+
+### Zeitachse skalieren
+
+Man hat die Auswahl zwischen verschiedenen Zeitabschnitten.
+
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild6.png)
+
+
+### Reset
+
+Durch klicken des Reset-Buttons werden alle bisherigen Daten gelöscht. Um sicherzugehen, dass man nicht aus Versehen darauf geklickt hat, wird man vorher noch gefragt ob man sicher ist.
+
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild7.png)
+
+# Daten speichern
+
+Alle Daten werden kontinuierlich als .txt und .csv Datei im Ordner "Messdaten" gespeichert.
+
+
+
+
+# To Do
+[] Zeitachse anpassen
+[] Performance verbessern - Autosave deaktivieren?
+[] Schönere Auswahl zwischen Messwerten
+[] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?
+[] Station 1
+[] Station 2
+[] Station 3
+[] Station 4
+[] Einstellungen
