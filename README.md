@@ -41,9 +41,9 @@ Hier hat man die Auswahl zwischen den einzelnen Sensoren.
 
 # Stationen
 ## Feinstaubmessung
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub1.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub3.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub4.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_1.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_3.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_4.png)
 # Sensoren
 
 Es gibt 3 Buttons, die zu den jeweiligen Sensordaten führen:<br>
