@@ -1,4 +1,16 @@
 # Modul2b_Software
+
+## Neuigkeiten
+Die Software wurde nach einiger Zeit sehr langsam, weil immer mehr Messwerte gezeichnet werden mussten. Der Graph hat eine Auflösung von 930 Pixel in der Breite. Wenn nun also mehr als 930 Messwerte aufgenommen wurden, macht es keinen Sinn alle zu zeichnen.<br>
+Deswegen wird ab sofort, nach Überschreiten der 930 Messwerte, nur noch die Projektion aller Messwerte auf 930 Werte gezeichnet.
+
+<br> Beispiel
+Ich habe die Messwerte [1,2,3,4,5,6,7,8,9,10], möchte aber nur 5 zeichnen. Dann verkleinert das Programm nun das Array auf ein Array der Größe 5, indem es das ursprüngliche Array in 5 Teile aufteilt, und nur diese zeichnet:<br>
+
+[1,2,3,4,5,6,7,8,9,10] --> [1.5, 3.5, 5.5, 7.5, 9.5] <br>
+
+Das Array der Messwerte vergrößert sich dabei ständig, wobei das neue Array immer die gleiche Größe hat.
+
 ## Zum Laufen bringen
 
 Lade die Datei "Arduino_Code" herunter und lade sie auf den Mikrocontroller.
@@ -79,7 +91,7 @@ Zusätzlich kann man nun auswählen ob überhaupt Daten gespeichert werden solle
 # To Do
 [x] Zeitachse anpassen<br>
 [x] Performance verbessern - Autosave deaktivieren?<br>
-[] Schönere Auswahl zwischen Messwerten<br>
+[x] Schönere Auswahl zwischen Messwerten<br>
 [] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?<br>
 [] Station 1<br>
 [] Station 2<br>
