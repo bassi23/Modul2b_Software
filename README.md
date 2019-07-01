@@ -2,7 +2,7 @@
 
 ## Neuigkeiten
 Die Software wurde nach einiger Zeit sehr langsam, weil immer mehr Messwerte gezeichnet werden mussten. Der Graph hat eine Auflösung von 930 Pixel in der Breite. Wenn nun also mehr als 930 Messwerte aufgenommen wurden, macht es keinen Sinn alle zu zeichnen.<br>
-Deswegen wird ab sofort, nach Überschreiten der 930 Messwerte, nur noch die Projektion aller Messwerte auf 930 Werte gezeichnet.
+Deswegen wird ab sofort, nach Überschreiten der 930 Messwerte, nur noch die Projektion aller Messwerte auf 930 Werte gezeichnet. Dadurch bleibt die Framerate konstant über 50 FPS.
 
 <br> <b>Beispiel</b><br>
 Ich habe die Messwerte [1,2,3,4,5,6,7,8,9,10], möchte aber nur 5 zeichnen. Dann verkleinert das Programm nun das Array auf ein Array der Größe 5, indem es das ursprüngliche Array in 5 Teile aufteilt, und nur diese zeichnet:<br>
