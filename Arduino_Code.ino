@@ -30,10 +30,6 @@ float co2 = 0;
 float t_scd = 0;
 float h_scd = 0;
 
-float t = 0;
-float h = 0;
-float p = 0;
-
 float pm25 = 0;
 float pm10 = 0;
 float pm4 = 0;
