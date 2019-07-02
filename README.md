@@ -59,7 +59,7 @@ Hier hat man die Auswahl zwischen den einzelnen Sensoren.
 ## Mensch vs. Sensor
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_1.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_2.png)
-
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_3.png)
 
 # Sensoren
 
