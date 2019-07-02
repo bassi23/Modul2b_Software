@@ -84,7 +84,7 @@ void setup() {
   station1_trocken = new button(500, 350, 300, 150, "trockener\nSchwamm", -20, true, 30);
   station1_nass = new button(850, 350, 300, 150, "nasser\nSchwamm", -20, true, 30);
 
-  station1_MessungStarten = new button(600, 10, 150, 75, "Messung\nstarten", -10, true, 20);
+  station1_MessungStarten = new button(530, 650, 220, 50, "Messung starten", 5, true, 20);
   FeinstaubVergleichen = new button(600, 620, 150, 75, "Vergleiche\nDaten", -10, true, 20);
 
   sps = loadImage("img/sps30.jpg");
@@ -743,14 +743,13 @@ void Datenaufnahme() {
         indexZwischenSpeicher = 0;
         index += 1;
         if (Station1Start) {
-
           if (page == 1.1) {// referenzmessung
             Station1_PM1[indexStation1] = sps_pm1_data[index-2];
             Station1_PM25[indexStation1] = sps_pm25_data[index-2];
             Station1_PM4[indexStation1] = sps_pm4_data[index-2];
             Station1_PM10[indexStation1] = sps_pm10_data[index-2];
             Station1_zeit[indexStation1] = (millis() - zeroTime3)/1000;
-            if (Station1_zeit[indexStation1] > 9) {
+            if (Station1_zeit[indexStation1] > 179) {
               Station1Start = false;
             }
             indexStation1 += 1;
@@ -761,7 +760,7 @@ void Datenaufnahme() {
             Station1_PM4_trocken[indexStation1_trocken] = sps_pm4_data[index-2];
             Station1_PM10_trocken[indexStation1_trocken] = sps_pm10_data[index-2];
             Station1_zeit_trocken[indexStation1_trocken] = (millis() - zeroTime4)/1000;
-            if (Station1_zeit_trocken[indexStation1_trocken] > 9) {
+            if (Station1_zeit_trocken[indexStation1_trocken] > 179) {
               Station1Start = false;
             }
             indexStation1_trocken += 1;
@@ -772,7 +771,7 @@ void Datenaufnahme() {
             Station1_PM4_nass[indexStation1_nass] = sps_pm4_data[index-2];
             Station1_PM10_nass[indexStation1_nass] = sps_pm10_data[index-2];
             Station1_zeit_nass[indexStation1_nass] = (millis() - zeroTime5)/1000;
-            if (Station1_zeit_nass[indexStation1_nass] > 9) {
+            if (Station1_zeit_nass[indexStation1_nass] > 179) {
               Station1Start = false;
             }
             indexStation1_nass += 1;
@@ -1008,17 +1007,17 @@ void Station1() {
   boolean trocken_fertig = false;
   boolean referenz_fertig = false;
   for (int i = 0; i < 1000; i++) {
-    if (Station1_zeit_nass[i] > 9) {
+    if (Station1_zeit_nass[i] > 179) {
       nass_fertig = true;
     }
   }
   for (int i = 0; i < 1000; i++) {
-    if (Station1_zeit_trocken[i] > 9) {
+    if (Station1_zeit_trocken[i] > 179) {
       trocken_fertig = true;
     }
   }
   for (int i = 0; i < 1000; i++) {
-    if (Station1_zeit[i] > 9) {
+    if (Station1_zeit[i] > 179) {
       referenz_fertig = true;
     }
   }
@@ -1077,10 +1076,17 @@ void kreuz(float x) {
 
 
 void referenzmessung() {
+  SPS_check.show();
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
-
+  text("PM1            PM2.5              PM4            PM10", 340, 43);
+  onlyTwo(SPS_check, "PM1", "PM2.5", "PM4", "PM10");  //Sorgt dafür, dass man nur zwei Sachen gleichzeitig auswählen kann
+  //Welche Graphen sollen angezeigt werden?
+  boolean pm1 = SPS_check.getState("PM1");
+  boolean pm25 = SPS_check.getState("PM2.5");
+  boolean pm4 = SPS_check.getState("PM4");
+  boolean pm10 = SPS_check.getState("PM10");
   if (Station1Start) {
     station1_MessungStarten.hide();
   } else {
@@ -1091,8 +1097,8 @@ void referenzmessung() {
   textSize(20);
   up1.show();
   down1.show();
-  up2.show();
   down2.show();
+  up2.show();
   reset.hide();
   fill(0);
   noStroke();
@@ -1136,13 +1142,37 @@ void referenzmessung() {
     }
   }
   //Welche Graphen sollen angezeigt werden?
-  graph(Station1_PM1, 1, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
+  if (pm1) {
+    graph(Station1_PM1, 1, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
+    if (pm25) {
+      graph(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
+    } else if (pm4) {
+      graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+    } else if (pm10) {
+      graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm25) {
+    graph(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
+    if (pm4) {
+      graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+    } else if (pm10) {
+      graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm4) {
+    graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
+    if (pm10) {
+      graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm10) {
+    graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
+  }
   fill(0);
 }
 
 
 
 void trockenerSchwamm() {
+  SPS_check.show();
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
@@ -1158,6 +1188,13 @@ void trockenerSchwamm() {
   up2.show();
   down2.show();
   reset.hide();
+  text("PM1            PM2.5              PM4            PM10", 340, 43);
+  onlyTwo(SPS_check, "PM1", "PM2.5", "PM4", "PM10");  //Sorgt dafür, dass man nur zwei Sachen gleichzeitig auswählen kann
+  //Welche Graphen sollen angezeigt werden?
+  boolean pm1 = SPS_check.getState("PM1");
+  boolean pm25 = SPS_check.getState("PM2.5");
+  boolean pm4 = SPS_check.getState("PM4");
+  boolean pm10 = SPS_check.getState("PM10");
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
@@ -1183,6 +1220,7 @@ void trockenerSchwamm() {
     }
   }
 
+
   if (up2.isClicked()) {
     y_scale[1] += 1;
     if (y_scale[1] > 4) {
@@ -1197,13 +1235,37 @@ void trockenerSchwamm() {
     }
   }
   //Welche Graphen sollen angezeigt werden?
-  graph(Station1_PM1_trocken, 2, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
+  if (pm1) {
+    graph(Station1_PM1_trocken, 2, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
+    if (pm25) {
+      graph(Station1_PM25_trocken, 2, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
+    } else if (pm4) {
+      graph(Station1_PM4_trocken, 2, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+    } else if (pm10) {
+      graph(Station1_PM10_trocken, 2, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm25) {
+    graph(Station1_PM25_trocken, 2, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
+    if (pm4) {
+      graph(Station1_PM4_trocken, 2, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+    } else if (pm10) {
+      graph(Station1_PM10_trocken, 2, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm4) {
+    graph(Station1_PM4_trocken, 2, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
+    if (pm10) {
+      graph(Station1_PM10_trocken, 2, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm10) {
+    graph(Station1_PM10_trocken, 2, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
+  }
   fill(0);
 }
 
 
 
 void nasserSchwamm() {
+  SPS_check.show();
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
@@ -1219,6 +1281,13 @@ void nasserSchwamm() {
   up2.show();
   down2.show();
   reset.hide();
+  text("PM1            PM2.5              PM4            PM10", 340, 43);
+  onlyTwo(SPS_check, "PM1", "PM2.5", "PM4", "PM10");  //Sorgt dafür, dass man nur zwei Sachen gleichzeitig auswählen kann
+  //Welche Graphen sollen angezeigt werden?
+  boolean pm1 = SPS_check.getState("PM1");
+  boolean pm25 = SPS_check.getState("PM2.5");
+  boolean pm4 = SPS_check.getState("PM4");
+  boolean pm10 = SPS_check.getState("PM10");
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
@@ -1258,7 +1327,30 @@ void nasserSchwamm() {
     }
   }
   //Welche Graphen sollen angezeigt werden?
-  graph(Station1_PM1_nass, 3, "Feinstaub PM1 in μg/m³", 0, y_scale, true);
+  if (pm1) {
+    graph(Station1_PM1_nass, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
+    if (pm25) {
+      graph(Station1_PM25_nass, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
+    } else if (pm4) {
+      graph(Station1_PM4_nass, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+    } else if (pm10) {
+      graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm25) {
+    graph(Station1_PM25_nass, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
+    if (pm4) {
+      graph(Station1_PM4_nass, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+    } else if (pm10) {
+      graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm4) {
+    graph(Station1_PM4_nass, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
+    if (pm10) {
+      graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    }
+  } else if (pm10) {
+    graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
+  }
 }
 
 
@@ -1266,6 +1358,7 @@ void nasserSchwamm() {
 
 
 void Vergleich_Feinstaub() {
+  SPS_check.show();
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
@@ -1274,11 +1367,17 @@ void Vergleich_Feinstaub() {
   textSize(20);
   up1.show();
   down1.show();
-  up2.show();
-  down2.show();
   left1.hide();
   right1.hide();
   reset.hide();
+
+  text("PM1            PM2.5              PM4            PM10", 340, 43);
+  onlyOne(SPS_check, "PM1", "PM2.5", "PM4", "PM10");  //Sorgt dafür, dass man nur zwei Sachen gleichzeitig auswählen kann
+  //Welche Graphen sollen angezeigt werden?
+  boolean pm1 = SPS_check.getState("PM1");
+  boolean pm25 = SPS_check.getState("PM2.5");
+  boolean pm4 = SPS_check.getState("PM4");
+  boolean pm10 = SPS_check.getState("PM10");
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
@@ -1306,7 +1405,16 @@ void Vergleich_Feinstaub() {
 
   //Welche Graphen sollen angezeigt werden?
 
-  graphFeinstaub(Station1_PM1, Station1_PM1_trocken, Station1_PM1_nass, y_scale[0]);
+
+  if (pm1) {
+    graphFeinstaub(Station1_PM1, Station1_PM1_trocken, Station1_PM1_nass, y_scale[0]);
+  } else if (pm25) {
+    graphFeinstaub(Station1_PM25, Station1_PM25_trocken, Station1_PM25_nass, y_scale[0]);
+  } else if (pm4) {
+    graphFeinstaub(Station1_PM4, Station1_PM4_trocken, Station1_PM4_nass, y_scale[0]);
+  } else if (pm10) {
+    graphFeinstaub(Station1_PM10, Station1_PM10_trocken, Station1_PM10_nass, y_scale[0]);
+  }
   textSize(20);
   fill(255, 0, 0);
   text("Referenzmessung", 150, 670);
@@ -1376,6 +1484,45 @@ void graphFeinstaub(float[] arr1, float[] arr2, float[] arr3, float y_scale) {
     max = 200;
   }
 
+  float pos_x = 0;
+  float y = y_scale;
+
+  pos_x = 135;
+  fill(0);
+  if (y == 1) {
+    text("2", pos_x, 507);
+    text("4", pos_x, 407);
+    text("6", pos_x, 307);
+    text("8", pos_x, 207);
+  } else if (y == 2) {
+    text("4", pos_x, 507);
+    text("8", pos_x, 407);
+    text("12", pos_x, 307);
+    text("16", pos_x, 207);
+  } else if (y == 3) {
+    text("10", pos_x, 507);
+    text("20", pos_x, 407);
+    text("30", pos_x, 307);
+    text("40", pos_x, 207);
+  } else if (y == 4) {
+    text("40", pos_x, 507);
+    text("80", pos_x, 407);
+    text("120", pos_x, 307);
+    text("160", pos_x, 207);
+  }
+  if (y == 0) {
+    text(nf(min, 0, 1), 135, 600);
+    text(nf(max, 0, 1), 135, 100);
+  } else {
+    text(nf(min, 0, 0), 135, 600);
+    text(nf(max, 0, 0), 135, 100);
+  }
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Feinstaub in μg/m³", -50, -575);
+  popMatrix();
+  text("0", 150, 640);
   stroke(255, 0, 0);
   for (int i = 0; i < sizeArr1-1; i++) {
     float x_anfang = 0;
@@ -1417,6 +1564,33 @@ void graphFeinstaub(float[] arr1, float[] arr2, float[] arr3, float y_scale) {
   }
 }
 
+
+void onlyOne(CheckBox check, String state1, String state2, String state3, String state4) {
+  boolean st1 = check.getState(state1);
+  boolean st2 = check.getState(state2);
+  boolean st3 = check.getState(state3);
+  boolean st4 = check.getState(state4);
+  if (st1) {
+    check.deactivate(state2);
+    check.deactivate(state3);
+    check.deactivate(state4);
+  }
+  if (st2) {
+    check.deactivate(state1);
+    check.deactivate(state3);
+    check.deactivate(state4);
+  }
+  if (st3) {
+    check.deactivate(state1);
+    check.deactivate(state2);
+    check.deactivate(state4);
+  }
+  if (st4) {
+    check.deactivate(state1);
+    check.deactivate(state2);
+    check.deactivate(state3);
+  }
+}
 void Innenraumluft() {
   
 }
@@ -1466,8 +1640,13 @@ void Obermenu() {
   textAlign(CENTER);
   text("Umweltmesstechnik", 640, 50);
 }
+
 void SensorAuswahl(){
   back.show();
+  
+  
+  
+  
 }
 
 void Station2Oder3(){
@@ -1484,6 +1663,7 @@ void Station2Oder3(){
   text("Station 2 - Mensch vs. Sensor", 220, 250);
   text("Station 3 - TVOC-Duelle", 670, 250);
 }
+
 void TVOC_Duelle() {
 
 }
@@ -1830,7 +2010,6 @@ void checkConnection() {
   }
   ellipse(820, 80, 50, 50);
 }
-
 void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scale, boolean left) {
   // 2. Wenn y-scale == 0 --> Bereich zwischen minimum und Maximum
   // 1: 0 und 20
@@ -2612,7 +2791,6 @@ int time(int sekunden, float[] time2, int zeitskala) {
   }
   return t;
 }
-
 
 boolean[] connected = {false, false, false};
 
