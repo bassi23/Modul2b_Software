@@ -114,7 +114,7 @@ Zusätzlich kann man nun auswählen ob überhaupt Daten gespeichert werden solle
 [x] Schönere Auswahl zwischen Messwerten<br>
 [] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?<br>
 [x] Station 1<br>
-[] Station 2<br>
+[x] Station 2<br>
 [] Station 3<br>
 [] Station 4<br>
 [] Einstellungen<br>
