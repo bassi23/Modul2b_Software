@@ -21,6 +21,10 @@ button einstellungen;
 
 button station1_referenz, station1_trocken, station1_nass, station1_MessungStarten, FeinstaubVergleichen;
 
+
+button Sensormessung, messen, letzteWiederholen, ja_zufrieden;
+Probe A, B, C, D, E;
+
 float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
@@ -104,6 +108,20 @@ void setup() {
   three = new station(650, 200, false);
   four = new station(50, 350, false);
   settings = new station(450, 350, false);
+
+
+
+  A = new Probe(510, 550, "A", true, false);
+  B = new Probe(640, 550, "B", true, false);
+  C = new Probe(770, 550, "C", true, false);
+  D = new Probe(575, 660, "D", true, false);
+  E = new Probe(705, 660, "E", true, false);
+
+  Sensormessung = new button(540, 500, 200, 100, "Sensormessung", 5, true, 20);
+  messen = new button(875, 70, 150, 100, "Messen", 5, true, 20);
+  letzteWiederholen = new button(1050, 70, 150, 100, "letzte Messung\nwiederholen", -15, true, 20);
+  ja_zufrieden = new button(400, 70, 150, 100, "Ja", 5, true, 20);
+
 
 
   dateiformat_control = new ControlP5(this);
@@ -223,6 +241,7 @@ void draw() {
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
+  zumObermenu.x = 1100;
 
   if (page != 0 && page != -1) {
     back.show();
@@ -303,11 +322,15 @@ void draw() {
     trockenerSchwamm();
   } else if (page == 1.111) {
     nasserSchwamm();
-  }  else if (page == 1.1111) {
+  } else if (page == 1.1111) {
     Vergleich_Feinstaub();
   } else if (page == 2) {
     MenschSensor();
     zumObermenu.hide();
+  } else if (page == 2.1) {
+    Station2_Sensor();
+  } else if (page == 2.11) {
+    Station2_Vergleich();
   } else if (page == 2.5) {
     Station2Oder3();
     zumObermenu.hide();
@@ -359,6 +382,11 @@ void draw() {
       if (page == 1.1 || page == 1.11 || page == 1.111 || page == 1.1111) {
         Station1Start = false;
         page = 1;
+      } else if (page == 2.1) {
+        prob = 0;
+        page = 2;
+      } else if (page == 2.11) {
+        page = 2.1;
       } else {
         page = 0;
       }
@@ -417,7 +445,6 @@ void draw() {
   if (einstellungen.isClicked()) {
     page = 10;
   }
-
   if (station1_MessungStarten.isClicked()) {
     indexStation1 = 0;
     indexStation1_trocken = 0;
@@ -431,9 +458,12 @@ void draw() {
       zeroTime5 = millis();
     }
   }
-  
-  if(FeinstaubVergleichen.isClicked() && page == 1){
-   page = 1.1111;
+  if (FeinstaubVergleichen.isClicked() && page == 1) {
+    page = 1.1111;
+  }
+
+  if (Sensormessung.isClicked()) {
+    page = 2.1;
   }
 }
 
@@ -528,6 +558,7 @@ void saveData() {
     }
   }
 }
+
 class button {
   float x, y, dx, dy, textOffset;
   String text;
@@ -613,6 +644,7 @@ class button {
     }
   }
 }
+
 float[] scd_temperature_data = new float[999999];
 float[] scd_humidity_data =new float[999999];
 float[] scd_co2_data = new float[999999];
@@ -785,6 +817,7 @@ void Datenaufnahme() {
     }
   }
 }
+
 void setting(){
   textSize(30);
   fill(0);
@@ -792,6 +825,7 @@ void setting(){
   text("Speichern als", 250, 250);
   text(".txt          .csv", 550, 250);
 }
+
 int[] y_scale = {0, 0};
 int x_scale = 0;
 
@@ -1591,6 +1625,7 @@ void onlyOne(CheckBox check, String state1, String state2, String state3, String
     check.deactivate(state3);
   }
 }
+
 void Innenraumluft() {
   
 }
@@ -1612,10 +1647,303 @@ void onlyTwo2(CheckBox check, String state1, String state2, String state3) {
   }
 }
 
-void MenschSensor() {
+String[] Reihenfolge = {"A", "B", "C", "D", "E"};
+String[] Reihenfolge_Sensor = {"A", "B", "C", "D", "E"};
+float[] Position = {0, 0, 0, 0, 0};
 
+void MenschSensor() {
+  one.active = false;
+  two.active = false;
+  three.active = false;
+  four.active = false;
+  two_three.active = false;
+  onlyOneProbe();
+  fill(0);
+  textSize(20);
+  text("Station 2 - Mensch vs. Sensor", 20, 50);
+  text("Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir dir Reihen-\nfolge.\n\nKlicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'.", 20, 100);
+  stroke(0);
+  line(0, 200, 1280, 205);
+
+
+  noStroke();
+  textSize(30);
+  text("Konzentration in Probe", 490, 300);
+  reihenfolge();
+  fill(0);
+  textSize(40);
+  for (int i = 0; i < 4; i++) {
+    text(">", 415 + 150*i, 410);
+  }
+  fill(255);
+  for (int i = 0; i < 5; i++) {
+    rect(300 + 150*i, 350, 110, 100);
+  }
+  A.show();
+  B.show();
+  C.show();
+  D.show();
+  E.show();
+  if (A.inPlace && B.inPlace && C.inPlace && D.inPlace && E.inPlace) {
+    Sensormessung.show();
+  } else {
+    Sensormessung.hide();
+  }
 }
 
+
+
+class Probe {
+  float x;
+  float y;
+  String text;
+  boolean active;
+  boolean inPlace;
+  Probe(float x_, float y_, String text_, boolean active_, boolean inPlace_) {
+    x = x_;
+    y = y_;
+    text = text_;
+    active = active_;
+    inPlace = inPlace_;
+  }
+  void show() {
+    fill(200);
+    stroke(0);
+    rect(x-50, y - 50, 100, 100);
+    fill(0);
+    text(text, x, y);
+    if (this.y > 350 && this.y < 450 && this.x > 300 && this.x < 1000) {
+      this.inPlace = true;
+    } else {
+      this.inPlace = false;
+    }
+    if (this.isOver() && mousePressed && this.active) {
+      this.x = mouseX;
+      this.y = mouseY;
+    }
+  }
+  void hide() {
+    this.active = false;
+    this.inPlace = true;
+  }
+  boolean isOver() {
+    if (mouseX > x - 50 && mouseX  < x + 50 && mouseY > y - 50 && mouseY < y + 50) {
+      this.active = true;
+      onlyOneProbe();
+      return true;
+    } else {
+      this.active = false;
+      onlyOneProbe();
+      return false;
+    }
+  }
+  float compareTo(Object o) {
+    Probe e = (Probe)o;
+    if (x < e.x) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
+}
+
+
+void onlyOneProbe() {
+  if (A.active) {
+    B.active = false; 
+    C.active = false; 
+    D.active = false; 
+    E.active = false;
+  }
+  if (B.active) {
+    A.active = false;
+    C.active = false; 
+    D.active = false; 
+    E.active = false;
+  }
+  if (C.active) {
+    A.active = false;
+    B.active = false;
+    D.active = false; 
+    E.active = false;
+  } 
+
+  if (D.active) {
+    A.active = false;
+    B.active = false;
+    C.active = false; 
+    E.active = false;
+  }
+  if (E.active) {
+    A.active = false;
+    B.active = false;
+    C.active = false; 
+    D.active = false;
+  }
+}
+
+
+
+void reihenfolge() {
+  Position[0] = A.x;
+  Position[1] = B.x;
+  Position[2] = C.x;
+  Position[3] = D.x;
+  Position[4] = E.x;
+  Position = sort(Position);
+  for (int i = 0; i < 5; i++) {
+    if (Position[i] == A.x) {
+      Reihenfolge[i] = "A";
+    }
+    if (Position[i] == B.x) {
+      Reihenfolge[i] = "B";
+    }
+    if (Position[i] == C.x) {
+      Reihenfolge[i] = "C";
+    }
+    if (Position[i] == D.x) {
+      Reihenfolge[i] = "D";
+    }
+    if (Position[i] == E.x) {
+      Reihenfolge[i] = "E";
+    }
+  }
+}
+
+
+float[] MesswertSensor = {0, 0, 0, 0, 0};
+float[] MesswertSensor2 = {0, 0, 0, 0, 0};
+float currentTime = 0;
+int prob = 0;
+
+void Station2_Sensor() {
+  A.hide();
+  B.hide();
+  C.hide();
+  D.hide();
+  E.hide();
+
+  textSize(20);
+  text("Deine Reihenfolge: " + Reihenfolge[0] + " > " + Reihenfolge[1] + " > " + Reihenfolge[2] + " > " +Reihenfolge[3] + " > " +Reihenfolge[4], 50, 50);
+  String temp = "A";
+  if (prob == 1) {
+    temp = "B";
+  } else if (prob == 2) {
+    temp = "C";
+  } else if (prob == 3) {
+    temp = "D";
+  } else if (prob == 4) {
+    temp = "E";
+  }
+  textSize(25);
+  if ((millis() - currentTime)/1000 > 5) {
+    if (prob != 5) {
+      text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'.", 20, 120);
+      messen.show();
+    }
+    letzteWiederholen.show();
+  } else {
+    messen.hide();
+    letzteWiederholen.hide();
+    MesswertSensor[prob - 1] = sgp_eco2_data[index-1];
+  }
+
+  if (messen.isClicked()) {
+    currentTime = millis();
+    if (prob < 5) {
+      prob += 1;
+    }
+  }
+
+  if (letzteWiederholen.isClicked()) {
+    if (prob > 0) {
+      currentTime = millis();
+    }
+  }
+  if (prob == 5) {
+    messen.hide();
+    if ((millis() - currentTime)/1000 > 5) {
+      text("Bist du mit der Messung zufrieden?", 20, 120);
+      ja_zufrieden.show();
+      messen.hide();
+    }
+  } else {
+    ja_zufrieden.hide();
+  }
+  textSize(25);
+  for (int i = 0; i < 5; i++) {
+    text(nf(MesswertSensor[i], 0, 0), 760, 350 + 50*i);
+  }
+  text("A", 530, 350);
+  text("B", 530, 400);
+  text("C", 530, 450);
+  text("D", 530, 500);
+  text("E", 530, 550);
+
+  text("Probe           Konzentration in ppb", 520, 300); 
+
+  stroke(0);
+  line(500, 310, 950, 310);
+  line(640, 280, 640, 560);
+  if (ja_zufrieden.isClicked()) {
+    page = 2.11;
+  }
+}
+
+
+
+void  Station2_Vergleich() {
+  ja_zufrieden.hide();
+  messen.hide();
+  letzteWiederholen.hide();
+
+  MesswertSensor2[0] = MesswertSensor[0];
+  MesswertSensor2[1] = MesswertSensor[1];
+  MesswertSensor2[2] = MesswertSensor[2];
+  MesswertSensor2[3] = MesswertSensor[3];
+  MesswertSensor2[4] = MesswertSensor[4];
+  MesswertSensor2 = sort(MesswertSensor2);
+  for (int i = 0; i < 5; i++) {
+    if (MesswertSensor2[i] == MesswertSensor[0]) {
+      Reihenfolge_Sensor[i] = "A";
+    }
+    if (MesswertSensor2[i] == MesswertSensor[1]) {
+      Reihenfolge_Sensor[i] = "B";
+    }
+    if (MesswertSensor2[i] == MesswertSensor[2]) {
+      Reihenfolge_Sensor[i] = "C";
+    }
+    if (MesswertSensor2[i] == MesswertSensor[3]) {
+      Reihenfolge_Sensor[i] = "D";
+    }
+    if (MesswertSensor2[i] == MesswertSensor[4]) {
+      Reihenfolge_Sensor[i] = "E";
+    }
+  }
+
+  textSize(20);
+  text("Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du\ngegen den Sensor gewinnen?", 20, 100);
+
+
+  stroke(0);
+  line(100, 300, 1180, 300);
+  line(100, 400, 1180, 400);
+  line(100, 500, 1180, 500);
+
+  for (int i = -1; i < 6; i++) {
+    line(280 + 180*i, 300, 280 + 180*i, 500);
+  }
+  textSize(25);
+  text("hohe Konzentration                                           niedrige Konzentration", 300, 250);
+  textSize(30);
+  text("    Deine\nReihenfolge", 106, 333);
+  text("Sensor", 140, 460);
+  textSize(50);
+  text(Reihenfolge[0] + "         " + Reihenfolge[1] + "          " + Reihenfolge[2] + "         " +Reihenfolge[3] + "         " +Reihenfolge[4], 350, 365);
+  text(Reihenfolge_Sensor[0] + "         " + Reihenfolge_Sensor[1] + "          " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[3] + "         " +Reihenfolge_Sensor[4], 350, 465);
+  zumObermenu.x = 1000;
+  zumObermenu.show();
+}
 void Obermenu() {
   two_three.active = false;
   four.active = false;
@@ -1667,6 +1995,7 @@ void Station2Oder3(){
 void TVOC_Duelle() {
 
 }
+
 void TVOC_eCO2() {
   SGP_check.show();
   two_three.active = false;
@@ -2010,6 +2339,7 @@ void checkConnection() {
   }
   ellipse(820, 80, 50, 50);
 }
+
 void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scale, boolean left) {
   // 2. Wenn y-scale == 0 --> Bereich zwischen minimum und Maximum
   // 1: 0 und 20
