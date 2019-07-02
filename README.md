@@ -2,6 +2,12 @@
 
 ## Neuigkeiten
 
+### Zeitplan <br>
+
+03.07: Station 3 <br>
+04.07: Station 4 <br>
+05.07: Einstellungen <br>
+
 ### 02.07. <br>
 Station 1 fertiggestellt <br>
 
