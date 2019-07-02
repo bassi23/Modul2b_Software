@@ -1,10 +1,8 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
-#define SEALEVELPRESSURE_HPA 1013.25;
 #include "Wire.h"
 #define BUFFER_LENGTH 64
 #define scd_debug 0
-#define SEALEVELPRESSURE_HPA 1013.25;
 #include "paulvha_SCD30.h"
 #include "Adafruit_SGP30.h"
 
@@ -26,12 +24,6 @@ void setup() {
       while (1);
     }
   airSensor.begin(Wire);
-
-  bme.setTemperatureOversampling(BME680_OS_8X);
-  bme.setHumidityOversampling(BME680_OS_2X);
-  bme.setPressureOversampling(BME680_OS_4X);
-  bme.setIIRFilterSize(BME680_FILTER_SIZE_3);
-  bme.setGasHeater(300, 30);
 }
 
 float co2 = 0;
@@ -49,8 +41,6 @@ float pm1 = 0;
 
 float tvoc = 0;
 float eco2 = 0;
-
-
 
 void loop() {
   Wire.beginTransmission(Address);
@@ -136,16 +126,12 @@ void loop() {
   delay(200);
 }
 
-
-
-
 void SetPointer(byte P1, byte P2) {
   Wire.beginTransmission(Address);
   Wire.write(P1);
   Wire.write(P2);
   Wire.endTransmission();
 }
-
 
 // from datasheet:
 byte CalcCrc(byte data[2]) {
@@ -162,8 +148,6 @@ byte CalcCrc(byte data[2]) {
   }
   return crc;
 }
-
-
 
 uint32_t getAbsoluteHumidity(float temperature, float humidity) {
   // approximation formula from Sensirion SGP30 Driver Integration chapter 3.15
