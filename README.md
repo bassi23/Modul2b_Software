@@ -96,7 +96,7 @@ Zusätzlich kann man nun auswählen ob überhaupt Daten gespeichert werden solle
 [x] Performance verbessern - Autosave deaktivieren?<br>
 [x] Schönere Auswahl zwischen Messwerten<br>
 [] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?<br>
-[] Station 1<br>
+[x] Station 1<br>
 [] Station 2<br>
 [] Station 3<br>
 [] Station 4<br>
