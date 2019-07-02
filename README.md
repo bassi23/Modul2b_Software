@@ -1,6 +1,15 @@
 # Modul2b_Software
 
 ## Neuigkeiten
+
+### 02.07. <br>
+Station 1 fertiggestellt
+
+
+______
+
+
+### 01.07. <br>
 Die Software wurde nach einiger Zeit sehr langsam, weil immer mehr Messwerte gezeichnet werden mussten. Der Graph hat eine Auflösung von 930 Pixel in der Breite. Wenn nun also mehr als 930 Messwerte aufgenommen wurden, macht es keinen Sinn alle zu zeichnen.<br>
 Deswegen wird ab sofort, nach Überschreiten der 930 Messwerte, nur noch die Projektion aller Messwerte auf 930 Werte gezeichnet. Dadurch bleibt die Framerate konstant über 50 FPS.
 
