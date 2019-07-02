@@ -3,7 +3,9 @@
 ## Neuigkeiten
 
 ### 02.07. <br>
-Station 1 fertiggestellt
+Station 1 fertiggestellt <br>
+
+Station 2 fertiggestellt
 
 
 ______
@@ -53,6 +55,12 @@ Hier hat man die Auswahl zwischen den einzelnen Sensoren.
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_1.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_3.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_4.png)
+
+## Mensch vs. Sensor
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_1.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_2.png)
+
+
 # Sensoren
 
 Es gibt 3 Buttons, die zu den jeweiligen Sensordaten führen:<br>
