@@ -25,7 +25,9 @@ Verwendet habe ich: <br>
 1:10000<br>
 1:100000<br>
 
-die 1:10 Lösung war zu viel für den Sensor, und er hat gar nichts mehr angezeigt. 1:100 ist das Maximum.
+die 1:10 Lösung war zu viel für den Sensor, und er hat gar nichts mehr angezeigt. 1:100 ist das Maximum. <br>
+
+Die Schönheitsdinge mache ich morgen.
 ______
 ### 02.07. <br>
 Station 1  - Feinstaubmessung fertiggestellt <br>
