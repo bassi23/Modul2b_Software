@@ -2,16 +2,6 @@
 
 ## Neuigkeiten
 
-## Probleme
-a) <br>
-Feinstaubemission von Tafelschwamm. Wenn man den Schwamm einfach neben den Sensor legt, misst man so gut wie nichts. Drückt man jedoch auf den Schwamm, so löst sich der Feinstaub und man erhält einen Ausschlag. Das heißt der geplante Versuchsaufbau (Tafel wischen und Schwamm neben den Sensor legen) funktioniert nicht. <br>
-
-### Lösungsmöglichkeiten
-a) <br>
-1. Den Schülern sagen, sie sollen den Schwamm periodisch zusammendrücken (blöde Lösung)<br>
-2. Ventilator in der Messkammer installieren. Tafel wischen lassen, und über einem Teller (o.Ä.) mehrmals zusammendrücken. Dadurch wird der Tafelstaub aufgefangen. Den Teller kann man anschließend in die Messkammer stellen.
-
-_____
 ### Zeitplan <br>
 
 04.07: Station 4 <br>
@@ -58,7 +48,17 @@ Ich habe die Messwerte [1,2,3,4,5,6,7,8,9,10], möchte aber nur 5 zeichnen. Dann
 [1,2,3,4,5,6,7,8,9,10] --> [1.5, 3.5, 5.5, 7.5, 9.5] <br>
 
 Das Array der Messwerte vergrößert sich dabei ständig, wobei das neue Array immer die gleiche Größe hat.
+____
+## Probleme
+a) <br>
+Feinstaubemission von Tafelschwamm. Wenn man den Schwamm einfach neben den Sensor legt, misst man so gut wie nichts. Drückt man jedoch auf den Schwamm, so löst sich der Feinstaub und man erhält einen Ausschlag. Das heißt der geplante Versuchsaufbau (Tafel wischen und Schwamm neben den Sensor legen) funktioniert nicht. <br>
 
+### Lösungsmöglichkeiten
+a) <br>
+1. Den Schülern sagen, sie sollen den Schwamm periodisch zusammendrücken (blöde Lösung)<br>
+2. Ventilator in der Messkammer installieren. Tafel wischen lassen, und über einem Teller (o.Ä.) mehrmals zusammendrücken. Dadurch wird der Tafelstaub aufgefangen. Den Teller kann man anschließend in die Messkammer stellen.
+
+_____
 ## Zum Laufen bringen
 
 Lade die Datei "Arduino_Code" herunter und lade sie auf den Mikrocontroller.
