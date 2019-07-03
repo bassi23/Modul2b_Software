@@ -4,13 +4,13 @@
 
 ### Zeitplan <br>
 
-03.07: Station 3 <br>
 04.07: Station 4 <br>
 05.07: Einstellungen <br>
 _____ 
 ### 03.07. <br>
 
 Station 3 - TVOC-Duelle <br>
+Hier müssen noch Bilder der echten Proben eingefügt werden. Auch muss noch angepasst werden welcher TVOC Wert als viel und welcher als wenig gilt. Wir geben hier nicht die genauen ppb Werte an, sondern nur einen Index zwischen 0 (wenig) und 10 (viel).
 
 ______
 ### 02.07. <br>
