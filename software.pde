@@ -32,7 +32,7 @@ Probe A, B, C, D, E;
 
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
-float page = -1;
+float page = 3.111;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -283,7 +283,20 @@ void draw() {
   station1_trocken.hide();
   station1_nass.hide();
   TVOC_Duelle_Start.hide();
+  Sensormessung.hide();
+
   zumObermenu.x = 1100;
+
+  if (page != -2) {
+    SPS30.hide();
+    SGP30.hide();
+    SCD30.hide();
+  }
+  println(page);
+  if (page != -1) {
+    Stationen.hide();
+    Sensoren.hide();
+  }
 
   if (page != 0 && page != -1) {
     back.show();
@@ -390,9 +403,9 @@ void draw() {
     TVOC_Duelle_Riechen();
   } else if (page == 3.11) {
     TVOC_Duelle_Messen();
-  }else if(page == 3.111){
-   Auswertung_Station3(); 
-  }else if (page == 4) {
+  } else if (page == 3.111) {
+    Auswertung_Station3();
+  } else if (page == 4) {
     Innenraumluft();
     zumObermenu.hide();
   } else if (page == 10) {
@@ -444,9 +457,9 @@ void draw() {
         page = 3;
       } else if (page == 3.11) {
         page = 3.1;
-      }else if(page == 3.111){
-       page = 3.11; 
-      }else {
+      } else if (page == 3.111) {
+        page = 3.11;
+      } else {
         page = 0;
       }
     } else if (page < -2) {
@@ -617,6 +630,7 @@ void saveData() {
     }
   }
 }
+
 class button {
   float x, y, dx, dy, textOffset;
   String text;
@@ -1764,7 +1778,7 @@ class Probe {
     stroke(0);
     rect(x-50, y - 50, 100, 100);
     fill(0);
-    text(text, x - 15, y + 15);
+    text(text, x-15, y+15);
     if (this.y > 350 && this.y < 450 && this.x > 300 && this.x < 1000) {
       this.inPlace = true;
     } else {
@@ -1898,7 +1912,7 @@ void Station2_Sensor() {
   } else {
     messen.hide();
     letzteWiederholen.hide();
-    MesswertSensor[prob - 1] = sgp_eco2_data[index-1];
+    MesswertSensor[prob - 1] = sgp_tvoc_data[index-1];
   }
 
   if (messen.isClicked()) {
@@ -2042,6 +2056,7 @@ void Station2Oder3(){
   text("Station 2 - Mensch vs. Sensor", 220, 250);
   text("Station 3 - TVOC-Duelle", 670, 250);
 }
+
 void TVOC_Duelle() {
   two.active = false;
   three.active = false;
@@ -2434,6 +2449,7 @@ void Auswertung_Station3() {
   text("Sensor", 190, 160);
 
 }
+
 void TVOC_eCO2() {
   SGP_check.show();
   two_three.active = false;
@@ -2564,6 +2580,7 @@ void TVOC_eCO2() {
 
   fill(0);
 }
+
 void T_H_CO2() {
   SCD_check.show();
   two_three.active = false;
