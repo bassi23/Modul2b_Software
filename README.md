@@ -7,11 +7,16 @@
 03.07: Station 3 <br>
 04.07: Station 4 <br>
 05.07: Einstellungen <br>
+_____ 
+### 03.07. <br>
+
+Station 3 - TVOC-Duelle <br>
+
 ______
 ### 02.07. <br>
-Station 1 fertiggestellt <br>
+Station 1  - Feinstaubmessung fertiggestellt <br>
 
-Station 2 fertiggestellt
+Station 2 - Mensch vs. Sensor fertiggestellt
 
 
 ______
@@ -66,6 +71,11 @@ Hier hat man die Auswahl zwischen den einzelnen Sensoren.
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_1.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_2.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_3.png)
+
+## TVOC-Duelle
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/TVOC_Duelle1.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/TVOC_Duelle2.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/TVOC_Duelle3.png)
 
 # Sensoren
 
