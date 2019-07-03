@@ -85,7 +85,7 @@ Hier hat man die Auswahl zwischen den einzelnen Sensoren.
 
 ## Mensch vs. Sensor
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_1.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_2.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensorNeu.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_3.png)
 
 ## TVOC-Duelle
@@ -147,6 +147,6 @@ Zusätzlich kann man nun auswählen ob überhaupt Daten gespeichert werden solle
 [] Verbessertes Menü bei den Stationen - Echte Platine als Vorbild?<br>
 [x] Station 1<br>
 [x] Station 2<br>
-[] Station 3<br>
+[x] Station 3<br>
 [] Station 4<br>
 [] Einstellungen<br>
