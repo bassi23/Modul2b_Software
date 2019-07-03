@@ -95,7 +95,7 @@ Hier hat man die Auswahl zwischen den einzelnen Sensoren.
 
 ## Mensch vs. Sensor
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/MenschVsSensor_1.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/MenschVsSensorNeu.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/MenschSensorNeu.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/MenschVsSensor_3.png)
 
 ## TVOC-Duelle
