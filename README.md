@@ -11,7 +11,7 @@ a) <br>
 1. Den Schülern sagen, sie sollen den Schwamm periodisch zusammendrücken (blöde Lösung)<br>
 2. Ventilator in der Messkammer installieren. Tafel wischen lassen, und über einem Teller (o.Ä.) mehrmals zusammendrücken. Dadurch wird der Tafelstaub aufgefangen. Den Teller kann man anschließend in die Messkammer stellen.
 
-
+_____
 ### Zeitplan <br>
 
 04.07: Station 4 <br>
