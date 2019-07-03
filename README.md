@@ -16,7 +16,7 @@ Hier müssen noch Bilder der echten Proben eingefügt werden. Auch muss noch ang
 
 Station 2 - Mensch vs Sensor <br>
 Die Anzeige wurde überarbeitet. Man sieht nun den Verlauf der letzten 60 Sekunden. Ich habe es auch mit unterschiedlich stark verdünnten Ethanol-Lösungen getestet:
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschSensorNeu.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/MenschSensorNeu.png)
 
 Verwendet habe ich: <br>
 1:10<br>
@@ -62,7 +62,7 @@ Lade die Datei "Software.pde" und den Ordner "img" <b>mit allen</b> Bildern runt
 
 
 Das Programm sieht momentan so aus:
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild1.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Bild1.png)
 
 
 # Obermenü
@@ -79,29 +79,29 @@ Hier hat man die Auswahl zwischen den einzelnen Sensoren.
 
 # Stationen
 ## Feinstaubmessung
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_1.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_3.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Feinstaub_4.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Feinstaub_1.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Feinstaub_3.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Feinstaub_4.png)
 
 ## Mensch vs. Sensor
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_1.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensorNeu.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschVsSensor_3.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/MenschVsSensor_1.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/MenschVsSensorNeu.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/MenschVsSensor_3.png)
 
 ## TVOC-Duelle
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/TVOC_Duelle1.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/TVOC_Duelle2.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/TVOC_Duelle3.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/TVOC_Duelle1.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/TVOC_Duelle2.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/TVOC_Duelle3.png)
 
 # Sensoren
 
 Es gibt 3 Buttons, die zu den jeweiligen Sensordaten führen:<br>
 
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild2.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Bild2.png)
 
 
 ## Sensordaten anzeigen
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild3.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Bild3.png)
 <br>
 Oben in der Mitte kann man auswählen welche Sensordaten des jeweiligen Sensors angezeigt werden. Es können höchstens zwei gleichzeitig ausgewählt werden, damit das Programm nicht zu unübersichtlich wird.
 
@@ -109,12 +109,12 @@ Oben in der Mitte kann man auswählen welche Sensordaten des jeweiligen Sensors 
 
 Man kann die Achsenskalierung ändern. Die Schritte sind dabei vorgegeben.<br>
 
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild4.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Bild4.png)
 
 ### Aktualisierungsintervall
 
 Der Mikrocontroller sendet die Messwerte ca. alle 0,5 Sekunden an das Programm. Erhöht man das Aktualisierungsintervall, so wird nur der Durchschnitt der Messwerte innerhalb des letzten Aktualisierungsintervall aufgenommen und gespeichert.<br>
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild5.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Bild5.png)
 
 Beispiel: Aktualisierungsintervall = 60 Sekunden
 Es werden alle Messwerte innerhalb von 60 Sekunden in einen Zwischenspeicher gelegt und nach Ablauf dieser Zeit ein Mittelwert gebildet. Nur dieser Mittelwert wird dann angezeigt.
@@ -123,14 +123,14 @@ Es werden alle Messwerte innerhalb von 60 Sekunden in einen Zwischenspeicher gel
 
 Man hat die Auswahl zwischen verschiedenen Zeitabschnitten.<br>
 
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild6.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Bild6.png)
 
 
 ### Reset
 
 Durch klicken des Reset-Buttons werden alle bisherigen Daten gelöscht. Um sicherzugehen, dass man nicht aus Versehen darauf geklickt hat, wird man vorher noch gefragt ob man sicher ist.<br>
 
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Bild7.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Bild7.png)
 
 # Daten speichern
 
