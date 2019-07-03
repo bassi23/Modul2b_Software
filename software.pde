@@ -1764,7 +1764,7 @@ class Probe {
     stroke(0);
     rect(x-50, y - 50, 100, 100);
     fill(0);
-    text(text, x, y);
+    text(text, x - 15, y + 15);
     if (this.y > 350 && this.y < 450 && this.x > 300 && this.x < 1000) {
       this.inPlace = true;
     } else {
