@@ -3,7 +3,8 @@
 ## Neuigkeiten
 
 ## Probleme
-a) Feinstaubemission von Tafelschwamm. Wenn man den Schwamm einfach neben den Sensor legt, misst man so gut wie nichts. Drückt man jedoch auf den Schwamm, so löst sich der Feinstaub und man erhält einen Ausschlag. Das heißt der geplante Versuchsaufbau (Tafel wischen und Schwamm neben den Sensor legen) funktioniert nicht. <br>
+a) <br>
+Feinstaubemission von Tafelschwamm. Wenn man den Schwamm einfach neben den Sensor legt, misst man so gut wie nichts. Drückt man jedoch auf den Schwamm, so löst sich der Feinstaub und man erhält einen Ausschlag. Das heißt der geplante Versuchsaufbau (Tafel wischen und Schwamm neben den Sensor legen) funktioniert nicht. <br>
 
 ### Lösungsmöglichkeiten
 a) <br>
