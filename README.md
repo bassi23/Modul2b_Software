@@ -12,6 +12,20 @@ _____
 Station 3 - TVOC-Duelle <br>
 Hier müssen noch Bilder der echten Proben eingefügt werden. Auch muss noch angepasst werden welcher TVOC Wert als viel und welcher als wenig gilt. Wir geben hier nicht die genauen ppb Werte an, sondern nur einen Index zwischen 0 (wenig) und 10 (viel).
 
+<br>
+
+Station 2 - Mensch vs Sensor <br>
+Die Anzeige wurde überarbeitet. Man sieht nun den Verlauf der letzten 60 Sekunden. Ich habe es auch mit unterschiedlich stark verdünnten Ethanol-Lösungen getestet:
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/MenschSensorNeu.png)
+
+Verwendet habe ich: <br>
+1:10<br>
+1:100<br>
+1:1000<br>
+1:10000<br>
+1:100000<br>
+
+die 1:10 Lösung war zu viel für den Sensor, und er hat gar nichts mehr angezeigt. 1:100 ist das Maximum.
 ______
 ### 02.07. <br>
 Station 1  - Feinstaubmessung fertiggestellt <br>
