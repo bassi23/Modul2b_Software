@@ -32,7 +32,7 @@ Probe A, B, C, D, E;
 
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
-float page = 3.111;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -292,7 +292,6 @@ void draw() {
     SGP30.hide();
     SCD30.hide();
   }
-  println(page);
   if (page != -1) {
     Stationen.hide();
     Sensoren.hide();
@@ -536,6 +535,11 @@ void draw() {
 
   if (Sensormessung.isClicked()) {
     page = 2.1;
+    MesswertSensor[0] = 0;
+    MesswertSensor[1] = 0;
+    MesswertSensor[2] = 0;
+    MesswertSensor[3] = 0;
+    MesswertSensor[4] = 0;
   }
 }
 
@@ -630,7 +634,6 @@ void saveData() {
     }
   }
 }
-
 class button {
   float x, y, dx, dy, textOffset;
   String text;
@@ -845,6 +848,16 @@ void Datenaufnahme() {
 
         indexZwischenSpeicher = 0;
         index += 1;
+
+        if (MenschSensorMessen && page == 2.1) {
+          if (index > 2 && prob > 0) {
+           
+            MenschSensorMesswerte[prob-1][indexMenschSensor] = sgp_tvoc_data[index-2];
+            indexMenschSensor += 1;
+          }
+        }
+
+
         if (Station1Start) {
           if (page == 1.1) {// referenzmessung
             Station1_PM1[indexStation1] = sps_pm1_data[index-2];
@@ -880,6 +893,7 @@ void Datenaufnahme() {
             indexStation1_nass += 1;
           }
         }
+
         time = millis();
         zeit[index] = (millis() - zeroTime2)/1000;
       }
@@ -888,6 +902,7 @@ void Datenaufnahme() {
     }
   }
 }
+
 void setting(){
   textSize(30);
   fill(0);
@@ -895,6 +910,7 @@ void setting(){
   text("Speichern als", 250, 250);
   text(".txt          .csv", 550, 250);
 }
+
 int[] y_scale = {0, 0};
 int x_scale = 0;
 
@@ -1694,6 +1710,7 @@ void onlyOne(CheckBox check, String state1, String state2, String state3, String
     check.deactivate(state3);
   }
 }
+
 void Innenraumluft() {
   
 }
@@ -1714,6 +1731,7 @@ void onlyTwo2(CheckBox check, String state1, String state2, String state3) {
     check.deactivate(state1);
   }
 }
+
 String[] Reihenfolge = {"A", "B", "C", "D", "E"};
 String[] Reihenfolge_Sensor = {"A", "B", "C", "D", "E"};
 float[] Position = {0, 0, 0, 0, 0};
@@ -1883,6 +1901,12 @@ float[] MesswertSensor2 = {0, 0, 0, 0, 0};
 float currentTime = 0;
 int prob = 0;
 
+float[][] MenschSensorMesswerte = new float[5][500];
+int indexMenschSensorMax = 0;
+
+int indexMenschSensor = 0;
+boolean MenschSensorMessen = false;
+
 void Station2_Sensor() {
   A.hide();
   B.hide();
@@ -1903,7 +1927,8 @@ void Station2_Sensor() {
     temp = "E";
   }
   textSize(25);
-  if ((millis() - currentTime)/1000 > 5 && page == 2.1) {
+  if ((millis() - currentTime)/1000 > 60 && page == 2.1) {
+    MenschSensorMessen = false;
     if (prob != 5) {
       text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'.", 20, 120);
       messen.show();
@@ -1912,24 +1937,61 @@ void Station2_Sensor() {
   } else {
     messen.hide();
     letzteWiederholen.hide();
-    MesswertSensor[prob - 1] = sgp_tvoc_data[index-1];
   }
 
   if (messen.isClicked()) {
     currentTime = millis();
+    indexMenschSensor = 0;
+    MenschSensorMessen = true;
     if (prob < 5) {
       prob += 1;
     }
   }
 
+
+  if (MenschSensorMessen) {
+    if (prob == 1) {
+      MesswertSensor[0] = 0;
+      for (int i = 0; i < indexMenschSensor; i++) {
+        MesswertSensor[0] += MenschSensorMesswerte[0][i];
+      }
+      MesswertSensor[0] = MesswertSensor[0]/indexMenschSensor;
+    } else if (prob == 2) {
+      MesswertSensor[1] = 0;
+      for (int i = 0; i < indexMenschSensor; i++) {
+        MesswertSensor[1] += MenschSensorMesswerte[1][i];
+      }
+      MesswertSensor[1] = MesswertSensor[1]/indexMenschSensor;
+    } else if (prob == 3) {
+      MesswertSensor[2] = 0;
+      for (int i = 0; i < indexMenschSensor; i++) {
+        MesswertSensor[2] += MenschSensorMesswerte[2][i];
+      }
+      MesswertSensor[2] = MesswertSensor[2]/indexMenschSensor;
+    } else if (prob == 4) {
+      MesswertSensor[3] = 0;
+      for (int i = 0; i < indexMenschSensor; i++) {
+        MesswertSensor[3] += MenschSensorMesswerte[3][i];
+      }
+      MesswertSensor[3] = MesswertSensor[3]/indexMenschSensor;
+    } else if (prob == 5) {
+      MesswertSensor[4] = 0;
+      for (int i = 0; i < indexMenschSensor; i++) {
+        MesswertSensor[4] += MenschSensorMesswerte[4][i];
+      }
+      MesswertSensor[4] = MesswertSensor[4]/indexMenschSensor;
+    }
+  }
   if (letzteWiederholen.isClicked()) {
     if (prob > 0) {
+      MenschSensorMessen = true;
+      indexMenschSensorMax = 0;
       currentTime = millis();
     }
   }
   if (prob == 5) {
     messen.hide();
-    if ((millis() - currentTime)/1000 > 5) {
+    if ((millis() - currentTime)/1000 > 60) {
       text("Bist du mit der Messung zufrieden?", 20, 120);
       ja_zufrieden.show();
       messen.hide();
@@ -1938,23 +2000,82 @@ void Station2_Sensor() {
     ja_zufrieden.hide();
   }
   textSize(25);
-  for (int i = 0; i < 5; i++) {
-    text(nf(MesswertSensor[i], 0, 0), 760, 350 + 50*i);
-  }
-  text("A", 530, 350);
-  text("B", 530, 400);
-  text("C", 530, 450);
-  text("D", 530, 500);
-  text("E", 530, 550);
 
-  text("Probe           Konzentration in ppb", 520, 300); 
-
+  fill(255);
   stroke(0);
-  line(500, 310, 950, 310);
-  line(640, 280, 640, 560);
+  rect(10, 240, 440, 310);
+  rect(500, 190, 700, 400);
+  fill(0);
+  for (int i = 0; i < 5; i++) {
+    text(nf(MesswertSensor[i], 0, 1), 270, 335 + 50*i);
+  }
+  text("A", 60, 335);
+  text("B", 60, 385);
+  text("C", 60, 435);
+  text("D", 60, 485);
+  text("E", 60, 535);
+
+  text("Probe", 40, 290); 
+  text("   Durchschnittliche\nKonzentration in ppb", 150, 265);
+  text("Zeit in Sekunden", 750, 630);
+  if (prob == 1) {
+    if ((millis() - currentTime)/1000 < 60) {
+      text(nf((millis() - currentTime)/1000, 0, 1), 1200, 630);
+    } else {
+      text("60", 1200, 630);
+    }
+  } else {
+    text("60", 1200, 630);
+  }
+  stroke(0);
+  line(10, 310, 450, 310);
+  line(130, 240, 130, 550);
+
+  float max = 0;
+  for (int i = 0; i < 500; i++) {
+    for (int j = 0; j < 5; j++) {
+      if ( MenschSensorMesswerte[j][i] > max) {
+        max = MenschSensorMesswerte[j][i];
+      }
+    }
+  }
+  noStroke();
+  text(nf(max, 0, 1), 470, 180);
+  text("0", 470, 590);
+
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 500; j++) {
+      if (MenschSensorMesswerte[i][j] != 0 && j > indexMenschSensorMax) {
+        indexMenschSensorMax = j + 1;
+      }
+    }
+  }
+  strokeWeight(4);
+  for (int j = 0; j < 5; j++) {
+    for (int i = 1; i < indexMenschSensorMax; i++) {
+      float x1 = 500 + i*700/(indexMenschSensorMax-1); 
+      float x2 = 500 + (i-1)*700/(indexMenschSensorMax-1);
+      float y1 = 590 - MenschSensorMesswerte[j][i]*400/max;
+      float y2 = 590 - MenschSensorMesswerte[j][i-1]*400/max;
+      if (j == 0) {
+        stroke(255, 0, 0);
+      } else if (j == 1) {
+        stroke(0, 0, 255);
+      } else if (j == 2) {
+        stroke(255, 0, 255);
+      } else if (j == 3) {
+        stroke(0, 155, 0);
+      } else if (j == 4) {
+        stroke(0);
+      }
+      line(x1, y1, x2, y2);
+    }
+  }
+
   if (ja_zufrieden.isClicked()) {
     page = 2.11;
   }
+  strokeWeight(1);
 }
 
 
@@ -2011,6 +2132,7 @@ void  Station2_Vergleich() {
   zumObermenu.x = 1000;
   zumObermenu.show();
 }
+
 void Obermenu() {
   two_three.active = false;
   four.active = false;
@@ -2035,6 +2157,7 @@ void Obermenu() {
   textAlign(CENTER);
   text("Umweltmesstechnik", 640, 50);
 }
+
 void SensorAuswahl(){
   back.show();
   
@@ -2580,7 +2703,6 @@ void TVOC_eCO2() {
 
   fill(0);
 }
-
 void T_H_CO2() {
   SCD_check.show();
   two_three.active = false;
@@ -2713,6 +2835,7 @@ void T_H_CO2() {
 
   fill(0);
 }
+
 void checkConnection() {
 
   //Kommt auf das Aktualisierungsintervall an. Wenn del == 0 --> vergleiche 10 Werte. Ansonsten 1-3
@@ -2792,6 +2915,7 @@ void checkConnection() {
   }
   ellipse(820, 80, 50, 50);
 }
+
 void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scale, boolean left) {
   // 2. Wenn y-scale == 0 --> Bereich zwischen minimum und Maximum
   // 1: 0 und 20
@@ -3573,6 +3697,7 @@ int time(int sekunden, float[] time2, int zeitskala) {
   }
   return t;
 }
+
 boolean[] connected = {false, false, false};
 
 
@@ -3712,6 +3837,7 @@ void hauptmenu() {
 
   strokeWeight(1);
 }
+
 class station {
   float x;
   float y;
