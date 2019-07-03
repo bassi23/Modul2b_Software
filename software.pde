@@ -1,4 +1,6 @@
 PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil;
+
+PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild, Stoff9_bild, Stoff10_bild;
 import processing.serial.*;
 import controlP5.*;
 Serial myPort;
@@ -22,8 +24,13 @@ button einstellungen;
 button station1_referenz, station1_trocken, station1_nass, station1_MessungStarten, FeinstaubVergleichen;
 
 
+button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung;
+
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden;
 Probe A, B, C, D, E;
+
+
+TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
 float page = -1;
 boolean gotSerial = false;
@@ -101,6 +108,20 @@ void setup() {
   LMT = loadImage("img/LMT.png");
   SFZSLS = loadImage("img/SFZSLS.png");
 
+  //
+  Stoff1_bild = loadImage("/img/Stoff1.png");
+  Stoff2_bild = loadImage("/img/Stoff2.png");
+  Stoff3_bild = loadImage("/img/Stoff3.png");
+  Stoff4_bild = loadImage("/img/Stoff4.png");
+  Stoff5_bild = loadImage("/img/Stoff5.png");
+  Stoff6_bild = loadImage("/img/Stoff6.png");
+  Stoff7_bild = loadImage("/img/Stoff7.png");
+  Stoff8_bild = loadImage("/img/Stoff8.png");
+  Stoff9_bild = loadImage("/img/Stoff9.png");
+  Stoff10_bild = loadImage("/img/Stoff10.png");
+
+  //
+
 
   one = new station(50, 50, false);
   two_three = new station(450, 50, false);
@@ -124,6 +145,26 @@ void setup() {
 
 
 
+  TVOC_Duelle_Start = new button(565, 400, 150, 100, "Start", 5, true, 20);
+  Stoff1 = new TVOC_Kandidat(640, 360, Stoff1_bild, "Stoff 1");
+  Stoff2 = new TVOC_Kandidat(640, 600, Stoff2_bild, "Stoff 2");
+  Stoff3 = new TVOC_Kandidat(640, 360, Stoff3_bild, "Stoff 3");
+  Stoff4 = new TVOC_Kandidat(640, 600, Stoff4_bild, "Stoff 4");
+  Stoff5 = new TVOC_Kandidat(640, 360, Stoff5_bild, "Stoff 5");
+  Stoff6 = new TVOC_Kandidat(640, 600, Stoff6_bild, "Stoff 6");
+  Stoff7 = new TVOC_Kandidat(640, 360, Stoff7_bild, "Stoff 7");
+  Stoff8 = new TVOC_Kandidat(640, 600, Stoff8_bild, "Stoff 8");
+  Stoff9 = new TVOC_Kandidat(640, 360, Stoff9_bild, "Stoff 9");
+  Stoff10 = new TVOC_Kandidat(640, 600, Stoff10_bild, "Stoff 10");
+
+  naechstes_Duell = new button(1125, 200, 150, 75, "Nächstes\nDuell", -12, true, 20);
+  naechster_Stoff = new button(1125, 150, 150, 75, "Nächster\nStoff", -12, true, 20);
+  vorheriges_Duell = new button(1125, 280, 150, 75, "Vorheriges\nDuell", -12, true, 20);
+  vorheriger_Stoff = new button(1125, 230, 150, 75, "Vorheriger\nStoff", -12, true, 20);
+  weiter_zum_Sensor = new button(1020, 640, 150, 75, "Sensor-\nmessung", -12, true, 20);
+
+  zur_Auswertung = new button(1125, 580, 150, 75, "Zur Aus-\nwertung", -12, true, 20);
+
   dateiformat_control = new ControlP5(this);
   dateiformat = dateiformat_control.addCheckBox("Dateiformat")
     .setPosition(500, 225)
@@ -138,7 +179,7 @@ void setup() {
     .addItem("csv", 0)
     .hide();
 
-  dateiformat.activate("csv");
+  // dateiformat.activate("csv");
 
   autosave_control= new ControlP5(this);
   autosave = autosave_control.addCheckBox("automatisch_speichern")
@@ -241,6 +282,7 @@ void draw() {
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
+  TVOC_Duelle_Start.hide();
   zumObermenu.x = 1100;
 
   if (page != 0 && page != -1) {
@@ -275,18 +317,23 @@ void draw() {
     }
 
     if (one.isClicked()) {
+      delay(200);
       page = 1;
     }
     if (two_three.isClicked()) {
+      delay(200);
       page = 2.5;
     }
     if (two.isClicked()) {
+      delay(200);
       page = 2;
     }
     if (three.isClicked()) {
+      delay(200);
       page = 3;
     }
     if (four.isClicked()) {
+      delay(200);
       page = 4;
     }
   }
@@ -339,7 +386,13 @@ void draw() {
   } else if (page == 3) {
     TVOC_Duelle();
     zumObermenu.hide();
-  } else if (page == 4) {
+  } else if (page == 3.1) {
+    TVOC_Duelle_Riechen();
+  } else if (page == 3.11) {
+    TVOC_Duelle_Messen();
+  }else if(page == 3.111){
+   Auswertung_Station3(); 
+  }else if (page == 4) {
     Innenraumluft();
     zumObermenu.hide();
   } else if (page == 10) {
@@ -387,7 +440,13 @@ void draw() {
         page = 2;
       } else if (page == 2.11) {
         page = 2.1;
-      } else {
+      } else if (page == 3.1) {
+        page = 3;
+      } else if (page == 3.11) {
+        page = 3.1;
+      }else if(page == 3.111){
+       page = 3.11; 
+      }else {
         page = 0;
       }
     } else if (page < -2) {
@@ -558,7 +617,6 @@ void saveData() {
     }
   }
 }
-
 class button {
   float x, y, dx, dy, textOffset;
   String text;
@@ -644,7 +702,6 @@ class button {
     }
   }
 }
-
 float[] scd_temperature_data = new float[999999];
 float[] scd_humidity_data =new float[999999];
 float[] scd_co2_data = new float[999999];
@@ -817,7 +874,6 @@ void Datenaufnahme() {
     }
   }
 }
-
 void setting(){
   textSize(30);
   fill(0);
@@ -825,7 +881,6 @@ void setting(){
   text("Speichern als", 250, 250);
   text(".txt          .csv", 550, 250);
 }
-
 int[] y_scale = {0, 0};
 int x_scale = 0;
 
@@ -1625,7 +1680,6 @@ void onlyOne(CheckBox check, String state1, String state2, String state3, String
     check.deactivate(state3);
   }
 }
-
 void Innenraumluft() {
   
 }
@@ -1646,7 +1700,6 @@ void onlyTwo2(CheckBox check, String state1, String state2, String state3) {
     check.deactivate(state1);
   }
 }
-
 String[] Reihenfolge = {"A", "B", "C", "D", "E"};
 String[] Reihenfolge_Sensor = {"A", "B", "C", "D", "E"};
 float[] Position = {0, 0, 0, 0, 0};
@@ -1663,7 +1716,7 @@ void MenschSensor() {
   text("Station 2 - Mensch vs. Sensor", 20, 50);
   text("Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir dir Reihen-\nfolge.\n\nKlicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'.", 20, 100);
   stroke(0);
-  line(0, 200, 1280, 205);
+  line(0, 200, 1280, 200);
 
 
   noStroke();
@@ -1836,7 +1889,7 @@ void Station2_Sensor() {
     temp = "E";
   }
   textSize(25);
-  if ((millis() - currentTime)/1000 > 5) {
+  if ((millis() - currentTime)/1000 > 5 && page == 2.1) {
     if (prob != 5) {
       text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'.", 20, 120);
       messen.show();
@@ -1968,7 +2021,6 @@ void Obermenu() {
   textAlign(CENTER);
   text("Umweltmesstechnik", 640, 50);
 }
-
 void SensorAuswahl(){
   back.show();
   
@@ -1976,7 +2028,6 @@ void SensorAuswahl(){
   
   
 }
-
 void Station2Oder3(){
   two_three.active = false;
   four.active = false;
@@ -1991,11 +2042,398 @@ void Station2Oder3(){
   text("Station 2 - Mensch vs. Sensor", 220, 250);
   text("Station 3 - TVOC-Duelle", 670, 250);
 }
-
 void TVOC_Duelle() {
-
+  two.active = false;
+  three.active = false;
+  Sensormessung.visible = false;
+  textSize(20);
+  fill(0);
+  text("Station 3 - TVOC-Duelle", 20, 50);
+  text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
+  stroke(0);
+  line(0, 180, 1280, 180);
+  noStroke();
+  text("a) Riechen\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an!", 20, 220); 
+  TVOC_Duelle_Start.show();
+  if (TVOC_Duelle_Start.isClicked()) {
+    delay(200);
+    page = 3.1;
+  }
+  Duell_Runde = 1;
 }
 
+int Duell_Runde = 1;
+
+void TVOC_Duelle_Riechen() {
+  weiter_zum_Sensor.hide();
+  textSize(20);
+  fill(0);
+  text("Station 3 - TVOC-Duelle", 20, 50);
+  text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
+  stroke(0);
+  line(0, 180, 1280, 180);
+  noStroke();
+  text("a) Riechen\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an!", 20, 220); 
+  text("Wenig Emission", 50, 480);
+  text("Viel Emission", 1050, 480);
+  TVOC_Duelle_Start.hide();
+
+
+  for (int i = 0; i < 200; i++) {
+    fill(255*(float(i)/200), 255-255*(float(i)/200), 0);
+    rect(240 + 4*i, 450, 4, 50);
+  }
+  Sensormessung.visible = false;
+
+  if (naechstes_Duell.isClicked()) {
+    Duell_Runde += 1;
+    delay(200);
+  }
+  if (vorheriges_Duell.isClicked()) {
+    Duell_Runde -= 1;
+    delay(200);
+  }
+
+
+  if (Duell_Runde < 5) {
+    naechstes_Duell.show();
+  }
+  if (Duell_Runde > 1) {
+    vorheriges_Duell.show();
+  }
+  if (Duell_Runde == 1) {
+    Stoff1.show();
+    Stoff2.show();
+  } else if (Duell_Runde == 2) {
+    Stoff3.show();
+    Stoff4.show();
+  } else if (Duell_Runde == 3) {
+    Stoff5.show();
+    Stoff6.show();
+  } else if (Duell_Runde == 4) {
+    Stoff7.show();
+    Stoff8.show();
+  } else if (Duell_Runde == 5) {
+    Stoff9.show();
+    Stoff10.show();
+    weiter_zum_Sensor.show();
+  }
+  if (weiter_zum_Sensor.isClicked()) {
+    delay(200);
+    weiter_zum_Sensor.hide();
+
+    page = 3.11;
+  }
+
+  tvoc_duelle_werte_mensch[0] = 10*(Stoff1.x - 240)/800;
+  tvoc_duelle_werte_mensch[1] = 10*(Stoff2.x- 240)/800;
+  tvoc_duelle_werte_mensch[2] = 10*(Stoff3.x- 240)/800;
+  tvoc_duelle_werte_mensch[3] = 10*(Stoff4.x- 240)/800;
+  tvoc_duelle_werte_mensch[4] = 10*(Stoff5.x- 240)/800;
+  tvoc_duelle_werte_mensch[5] = 10*(Stoff6.x- 240)/800;
+  tvoc_duelle_werte_mensch[6] = 10*(Stoff7.x- 240)/800;
+  tvoc_duelle_werte_mensch[7] = 10*(Stoff8.x- 240)/800;
+  tvoc_duelle_werte_mensch[8] = 10*(Stoff9.x- 240)/800;
+  tvoc_duelle_werte_mensch[9] = 10*(Stoff10.x- 240)/800;
+}
+
+
+class TVOC_Kandidat {
+  float x, y;
+  PImage image;
+  String name;
+
+  TVOC_Kandidat(float x_, float y_, PImage image_, String name_) {
+    x = x_;
+    y = y_;
+    name = name_;
+    image = image_;
+  }
+
+  void show() {
+    imageMode(CENTER);
+    image(image, x, y);
+    imageMode(CORNER);
+    textAlign(CENTER);
+    textSize(20);
+    fill(0);
+    if (y < 475) {
+      text(name, x, y - 70);
+    } else {
+      text(name, x, y + 70);
+    }
+    textAlign(CORNER);
+
+    if (mouseX > (x - image.width/2) && mouseX < (x + image.width/2) && mouseY > (y - image.height/2) && mouseY < (y + image.height/2) && mousePressed && mouseX > 240 && mouseX < 1040) {
+      x = mouseX;
+    }
+
+    float r = 255*(x - 240)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+
+    if (y < 475) {
+      line(x, y + image.height/2, x, 450);
+      line(x - 20, 430, x, 450);
+      line(x, 450, x + 20, 430);
+    } else {
+      line(x, y - image.height/2, x, 500);
+      line(x - 20, 520, x, 500);
+      line(x, 500, x + 20, 520);
+    }
+    strokeWeight(1);
+  }
+}
+
+
+int tvoc_stoff = 1;
+
+float[] tvoc_duelle_werte_mensch = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+float[] tvoc_duelle_werte_sensor = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+void TVOC_Duelle_Messen() {
+  textSize(20);
+
+  if (tvoc_stoff < 10) {
+    naechster_Stoff.show();
+    zur_Auswertung.hide();
+  } else {
+    zur_Auswertung.show();
+  }
+  if (naechster_Stoff.isClicked()) {
+    delay(200); 
+    tvoc_stoff += 1;
+  }
+  if (vorheriger_Stoff.isClicked()) {
+    delay(200);
+    tvoc_stoff -= 1;
+  }
+  if (tvoc_stoff > 1) {
+    vorheriger_Stoff.show();
+  }
+  if (zur_Auswertung.isClicked()) {
+    delay(200);
+    page = 3.111;
+  }
+  strokeWeight(1);
+  text("b) Messen\nMiss nun die verschiedenen Stoffe, indem du sie in die Gläser legst und unter den Sensor schraubst. Vergleiche die Messwerte\nmit deiner Vorhersage.", 20, 50);
+
+
+  text("Miss die Emission von Stoff " + tvoc_stoff +". Warte dabei bis sich ein Gleichgewicht eingestellt hat.", 20, 150);
+
+  text("Deine Einschätzung", 20, 200);
+
+
+  text("Messung des\nSensors", 20, 450);
+  stroke(0);
+  line(0, 125, 1280, 125);
+  noStroke();
+  for (int i = 0; i < 50; i++) {
+    fill(255*(float(i)/50), 255-255*(float(i)/50), 0);
+    rect(240 + 16*i, 350, 16, 50);
+    rect(240 + 16*i, 600, 16, 50);
+  }
+
+  if (tvoc_stoff == 1) {
+    //Meine Vorhersage
+    image(Stoff1_bild, Stoff1.x - 50, 210);
+    float r = 255*(Stoff1.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff1.x, 310, Stoff1.x, 350);
+    line(Stoff1.x - 20, 330, Stoff1.x, 350);
+    line(Stoff1.x, 350, Stoff1.x + 20, 330);
+  } else if (tvoc_stoff == 2) {
+    image(Stoff2_bild, Stoff2.x - 50, 210);
+    float r = 255*(Stoff2.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff2.x, 310, Stoff2.x, 350);
+    line(Stoff2.x - 20, 330, Stoff2.x, 350);
+    line(Stoff2.x, 350, Stoff2.x + 20, 330);
+  } else if (tvoc_stoff == 3) {
+    image(Stoff3_bild, Stoff3.x - 50, 210);
+    float r = 255*(Stoff3.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff3.x, 310, Stoff3.x, 350);
+    line(Stoff3.x - 20, 330, Stoff3.x, 350);
+    line(Stoff3.x, 350, Stoff3.x + 20, 330);
+  } else if (tvoc_stoff == 4) {
+    image(Stoff4_bild, Stoff4.x - 50, 210);
+    float r = 255*(Stoff4.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff4.x, 310, Stoff4.x, 350);
+    line(Stoff4.x - 20, 330, Stoff4.x, 350);
+    line(Stoff4.x, 350, Stoff4.x + 20, 330);
+  } else if (tvoc_stoff == 5) {
+    image(Stoff5_bild, Stoff5.x - 50, 210);
+    float r = 255*(Stoff5.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff5.x, 310, Stoff5.x, 350);
+    line(Stoff5.x - 20, 330, Stoff5.x, 350);
+    line(Stoff5.x, 350, Stoff5.x + 20, 330);
+  } else if (tvoc_stoff == 6) {
+    image(Stoff6_bild, Stoff6.x - 50, 210);
+    float r = 255*(Stoff6.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff6.x, 310, Stoff6.x, 350);
+    line(Stoff6.x - 20, 330, Stoff6.x, 350);
+    line(Stoff6.x, 350, Stoff6.x + 20, 330);
+  } else if (tvoc_stoff == 7) {
+    image(Stoff7_bild, Stoff7.x - 50, 210);
+    float r = 255*(Stoff7.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff7.x, 310, Stoff7.x, 350);
+    line(Stoff7.x - 20, 330, Stoff7.x, 350);
+    line(Stoff7.x, 350, Stoff7.x + 20, 330);
+  } else if (tvoc_stoff == 8) {
+    image(Stoff8_bild, Stoff8.x - 50, 210);
+    float r = 255*(Stoff8.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff8.x, 310, Stoff8.x, 350);
+    line(Stoff8.x - 20, 330, Stoff8.x, 350);
+    line(Stoff8.x, 350, Stoff8.x + 20, 330);
+  } else if (tvoc_stoff == 9) {
+    image(Stoff9_bild, Stoff9.x - 50, 210);
+    float r = 255*(Stoff9.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff9.x, 310, Stoff9.x, 350);
+    line(Stoff9.x - 20, 330, Stoff9.x, 350);
+    line(Stoff9.x, 350, Stoff9.x + 20, 330);
+  } else if (tvoc_stoff == 10) {
+    image(Stoff10_bild, Stoff10.x - 50, 210);
+    float r = 255*(Stoff9.x - 310)/800;
+    float g = 255 - r;
+    strokeWeight(4);
+    stroke(r, g, 0);
+    line(Stoff10.x, 310, Stoff10.x, 350);
+    line(Stoff10.x - 20, 330, Stoff10.x, 350);
+    line(Stoff10.x, 350, Stoff10.x + 20, 330);
+  }
+  //Messung des Sensors
+  if (index > 1) {
+    float x = sgp_tvoc_data[index - 1];
+    x = 800*x/1000 + 240;
+    if (x > 1040) {
+      x = 1040;
+    }
+    imageMode(CENTER);
+    if (tvoc_stoff == 1) {
+      image(Stoff1_bild, x, 510);
+      tvoc_duelle_werte_sensor[0] = (x - 240)/80;
+    } else if (tvoc_stoff == 2) {
+      image(Stoff2_bild, x, 510);
+      tvoc_duelle_werte_sensor[1] = (x - 240)/80;
+    } else if (tvoc_stoff == 3) {
+      image(Stoff3_bild, x, 510);
+      tvoc_duelle_werte_sensor[2] = (x - 240)/80;
+    } else if (tvoc_stoff == 4) {
+      image(Stoff4_bild, x, 510);
+      tvoc_duelle_werte_sensor[3] = (x - 240)/80;
+    } else if (tvoc_stoff == 5) {
+      image(Stoff5_bild, x, 510);
+      tvoc_duelle_werte_sensor[4] = (x - 240)/80;
+    } else if (tvoc_stoff == 6) {
+      image(Stoff6_bild, x, 510);
+      tvoc_duelle_werte_sensor[5] = (x - 240)/80;
+    } else if (tvoc_stoff == 7) {
+      image(Stoff7_bild, x, 510);
+      tvoc_duelle_werte_sensor[6] = (x - 240)/80;
+    } else if (tvoc_stoff == 8) {
+      image(Stoff8_bild, x, 510);
+      tvoc_duelle_werte_sensor[7] = (x - 240)/80;
+    } else if (tvoc_stoff == 9) {
+      image(Stoff9_bild, x, 510);
+      tvoc_duelle_werte_sensor[8] = (x - 240)/80;
+    } else if (tvoc_stoff == 10) {
+      image(Stoff10_bild, x, 510);
+      tvoc_duelle_werte_sensor[9] = (x - 240)/80;
+    }
+    imageMode(CORNER);
+    float r_sensor = 255*(x - 240)/800;
+    float g_sensor = 255 - r_sensor;
+    strokeWeight(4);
+    stroke(r_sensor, g_sensor, 0);
+    line(x, 560, x, 600);
+    line(x - 20, 580, x, 600);
+    line(x, 600, x + 20, 580);
+  }
+  strokeWeight(1);
+}
+
+
+void Auswertung_Station3() {
+
+  fill(0);
+  text("TVOC - Emission", 570, 50);
+  image(Stoff1_bild, 340, 80);
+  image(Stoff2_bild, 840, 80);
+
+  image(Stoff3_bild, 340, 200);
+  image(Stoff4_bild, 840, 200);
+
+  image(Stoff5_bild, 340, 320);
+  image(Stoff6_bild, 840, 320);
+
+  image(Stoff7_bild, 340, 440);
+  image(Stoff8_bild, 840, 440);
+
+  image(Stoff9_bild, 340, 560);
+  image(Stoff10_bild, 840, 560);
+
+
+  fill(255);
+  stroke(0);
+  rect(440, 80, 400, 100);
+  rect(440, 200, 400, 100);
+  rect(440, 320, 400, 100);
+  rect(440, 440, 400, 100);
+  rect(440, 560, 400, 100);
+
+  stroke(0);
+  line(440, 130, 840, 130);
+  line(440, 250, 840, 250);
+  line(440, 370, 840, 370);
+  line(440, 490, 840, 490);
+  line(440, 610, 840, 610);
+
+
+  line(640, 80, 640, 180);
+  line(640, 200, 640, 300);
+  line(640, 320, 640, 420);
+  line(640, 440, 640, 540);
+  line(640, 560, 640, 660);
+
+  fill(0);
+  textAlign(CENTER);
+  for (int i = 0; i < 10; i+=2) {
+    text(nf(tvoc_duelle_werte_mensch[i], 0, 1), 540, 110 + 60*i); 
+    text(nf(tvoc_duelle_werte_mensch[i+1], 0, 1), 740, 110 + 60*i);
+    text(nf(tvoc_duelle_werte_sensor[i], 0, 1), 540, 160 + 60*i); 
+    text(nf(tvoc_duelle_werte_sensor[i+1], 0, 1), 740, 160 + 60*i);
+  }
+  textAlign(CORNER);
+  text("Deine Vorhersage", 150, 110);
+  text("Sensor", 190, 160);
+
+}
 void TVOC_eCO2() {
   SGP_check.show();
   two_three.active = false;
@@ -2126,7 +2564,6 @@ void TVOC_eCO2() {
 
   fill(0);
 }
-
 void T_H_CO2() {
   SCD_check.show();
   two_three.active = false;
@@ -2259,7 +2696,6 @@ void T_H_CO2() {
 
   fill(0);
 }
-
 void checkConnection() {
 
   //Kommt auf das Aktualisierungsintervall an. Wenn del == 0 --> vergleiche 10 Werte. Ansonsten 1-3
@@ -2339,7 +2775,6 @@ void checkConnection() {
   }
   ellipse(820, 80, 50, 50);
 }
-
 void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scale, boolean left) {
   // 2. Wenn y-scale == 0 --> Bereich zwischen minimum und Maximum
   // 1: 0 und 20
@@ -3121,7 +3556,6 @@ int time(int sekunden, float[] time2, int zeitskala) {
   }
   return t;
 }
-
 boolean[] connected = {false, false, false};
 
 
@@ -3261,7 +3695,6 @@ void hauptmenu() {
 
   strokeWeight(1);
 }
-
 class station {
   float x;
   float y;
