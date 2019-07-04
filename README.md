@@ -9,7 +9,7 @@
 ### 04.07. <br>
 Ich habe heute doch nicht an der Software weitergearbeitet. Dafür habe ich das Experiment aufgebaut und selbst durchgeführt. Wir sollten es so machen: <br>
 Ich habe in die Messkammer einen 12x12cm² großen Ventilator eingebaut, dessen Umdrehungsgeschwindigkeit ich mittels Netzteil steuern konnte. In der Messkammer habe ich die Sensoren an der Wand auf Sitzhöhe des Kopfes (1 - 1,20m) befestigt. Ich selbst habe auf einem Hocker in der Messkammer Platz genommen.<br>
-Für den Versuch habe ich 3 Mal jeweils 10 Minuten in der Messkammer verbracht. Das erste Mal mit ausgeschaltetem Ventilator, das zweite Mal lief der Ventilator auf halber Kraft (6V statt 12V), und beim dritten Mal war er voll aufgedreht. Die Umdrehungsgeschwindigkeiten und den Volumenstrom muss ich noch im Datenblatt nachsehen (falls ich es finde). <br>
+Für den Versuch habe ich 3 Mal jeweils 10 Minuten in der Messkammer verbracht. Das erste Mal mit ausgeschaltetem Ventilator, das zweite Mal lief der Ventilator auf halber Kraft (6V statt 12V), und beim dritten Mal war er voll aufgedreht. Die Umdrehungsgeschwindigkeiten und den Volumenstrom muss ich noch im Datenblatt nachsehen (falls ich es finde). --> Volumenstrom bei 13,8V: 1,87m³/minute<br>
 
 Hier sind die Messkurven:<br>
 
