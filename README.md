@@ -16,7 +16,7 @@ Hier sind die Messkurven:<br>
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Temperatur Begehbare Kammer.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Luftfeuchte.png)
 ![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/TVOC.png)
-![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/co2.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/co2.png) <br>
 
 Nach Ablauf der jeweiligen 10 Minuten bin ich aus der Kammer gegangen und habe sie durchgelüftet, indem ich die Tür geöffnet habe, und selbst nicht darin saß. Ich habe so lange gewartet, bis der TVOC Wert wieder um 20 ppb war. Diese Bereiche sind rosa markiert. Die originalen Messwerte habe ich oben hochgeladen. Zwischendrin waren wenige Ausreißer drin, weil sich das Sensorboard 2 Mal von der Wand gelöst hatte.
 _____ 
