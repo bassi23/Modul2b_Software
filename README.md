@@ -13,8 +13,8 @@ Für den Versuch habe ich 3 Mal jeweils 10 Minuten in der Messkammer verbracht. 
 
 Hier sind die Messkurven:<br>
 
-![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/Temperatur Begehbare Kammer.png)
-![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/cLuftfeuchte.png)
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/Temperatur.png)
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/Luftfeuchte.png)
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/TVOC.png)
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/co2.png) <br>
 
