@@ -4,8 +4,21 @@
 
 ### Zeitplan <br>
 
-04.07: Station 4 <br>
-05.07: Einstellungen <br>
+05.07: Station 4 <br>
+08.07: Einstellungen <br>
+### 04.07. <br>
+Ich habe heute doch nicht an der Software weitergearbeitet. Dafür habe ich das Experiment aufgebaut und selbst durchgeführt. Wir sollten es so machen: <br>
+Ich habe in die Messkammer einen 12x12cm² großen Ventilator eingebaut, dessen Umdrehungsgeschwindigkeit ich mittels Netzteil steuern konnte. In der Messkammer habe ich die Sensoren an der Wand auf Sitzhöhe des Kopfes (1 - 1,20m) befestigt. Ich selbst habe auf einem Hocker in der Messkammer Platz genommen.<br>
+Für den Versuch habe ich 3 Mal jeweils 10 Minuten in der Messkammer verbracht. Das erste Mal mit ausgeschaltetem Ventilator, das zweite Mal lief der Ventilator auf halber Kraft (6V statt 12V), und beim dritten Mal war er voll aufgedreht. Die Umdrehungsgeschwindigkeiten und den Volumenstrom muss ich noch im Datenblatt nachsehen (falls ich es finde). <br>
+
+Hier sind die Messkurven:<br>
+
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Temperatur Begehbare Kammer.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/Luftfeuchte.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/TVOC.png)
+![alt text](https://github.com/bassi23/Modul2b_Software/blob/master/Readme/co2.png) <br>
+
+Nach Ablauf der jeweiligen 10 Minuten bin ich aus der Kammer gegangen und habe sie durchgelüftet, indem ich die Tür geöffnet habe, und selbst nicht darin saß. Ich habe so lange gewartet, bis der TVOC Wert wieder um 20 ppb war. Diese Bereiche sind rosa markiert. Die originalen Messwerte habe ich oben hochgeladen. Zwischendrin waren wenige Ausreißer drin, weil sich das Sensorboard 2 Mal von der Wand gelöst hatte.
 _____ 
 ### 03.07. <br>
 
