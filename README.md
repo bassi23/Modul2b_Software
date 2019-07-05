@@ -15,6 +15,14 @@ Station 2 - Mensch vs. Sensor <br>
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/MenschSensorNeu2.png) <br>
 - Beim Vergleich war die Reihenfolge des Sensors verkehrt herum --> gefixt
 
+<br>
+
+Station 4 sieht so aus (Rechtschreibfehler wird noch korrigiert):
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/innenraum.png) <br>
+Aufgabe: Setze dich 3 Mal 5 Minuten in den Kasten und miss Temperatur, Luftfeuchtigkeit, TVOC, CO2 und eCO2. Einmal mit Lüfter aus, einmal mit Lüfter auf 50% und einmal mit Lüfter auf 100%. <br>
+
+Die Daten werden auch in einem Extra Ordner ("Messdaten/Innenraum") gespeichert, sofern speichern aktiviert ist. 
+
 ### 04.07. <br>
 Ich habe heute doch nicht an der Software weitergearbeitet. Dafür habe ich das Experiment aufgebaut und selbst durchgeführt. Wir sollten es so machen: <br>
 Ich habe in die Messkammer einen 12x12cm² großen Ventilator eingebaut, dessen Umdrehungsgeschwindigkeit ich mittels Netzteil steuern konnte. In der Messkammer habe ich die Sensoren an der Wand auf Sitzhöhe des Kopfes (1 - 1,20m) befestigt. Ich selbst habe auf einem Hocker in der Messkammer Platz genommen.<br>
