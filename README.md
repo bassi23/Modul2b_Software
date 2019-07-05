@@ -1,5 +1,10 @@
 # Modul2b_Software
 
+## bekannte Fehler
+- Seit dem drosseln auf 930 Werte geht die Anzeige unter dem Graphen nicht weiter als "Zeit in Minuten", auch wenn die Skala bereits bei Stunden ist
+- hier und da sind Buttons noch "unsichtbar aktiv". Das heißt, man klickt irgendwo hin, wo auf anderer Seite ein Button ist, und klickt ihn dadurch
+- Zeitskalierung: Wenn man beispielsweise 72 Stunden eingibt, bisher aber nur 1 Stunde an Daten aufgenommen wurde, so sollten die Werte im Graph auch nur 1/72 der Breite ausmachen
+
 ## Neuigkeiten
 
 ### Zeitplan <br>
