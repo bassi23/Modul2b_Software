@@ -115,16 +115,16 @@ void setup() {
   hintergrund = loadImage("img/hintergrund.png");
 
   //
-  Stoff1_bild = loadImage("/img/Stoff1.png");
-  Stoff2_bild = loadImage("/img/Stoff2.png");
-  Stoff3_bild = loadImage("/img/Stoff3.png");
-  Stoff4_bild = loadImage("/img/Stoff4.png");
-  Stoff5_bild = loadImage("/img/Stoff5.png");
-  Stoff6_bild = loadImage("/img/Stoff6.png");
-  Stoff7_bild = loadImage("/img/Stoff7.png");
-  Stoff8_bild = loadImage("/img/Stoff8.png");
-  Stoff9_bild = loadImage("/img/Stoff9.png");
-  Stoff10_bild = loadImage("/img/Stoff10.png");
+  Stoff1_bild = loadImage("img/Stoff1.png");
+  Stoff2_bild = loadImage("img/Stoff2.png");
+  Stoff3_bild = loadImage("img/Stoff3.png");
+  Stoff4_bild = loadImage("img/Stoff4.png");
+  Stoff5_bild = loadImage("img/Stoff5.png");
+  Stoff6_bild = loadImage("img/Stoff6.png");
+  Stoff7_bild = loadImage("img/Stoff7.png");
+  Stoff8_bild = loadImage("img/Stoff8.png");
+  Stoff9_bild = loadImage("img/Stoff9.png");
+  Stoff10_bild = loadImage("img/Stoff10.png");
 
   //
 
