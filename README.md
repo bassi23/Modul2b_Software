@@ -12,7 +12,8 @@ Station 2 - Mensch vs. Sensor <br>
 - Zwischenlinien im Graphen ergänzt
 - Reset Button eingefügt
 - Graph ist jetzt skalierbar
-![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/MenschSensorNeu2.png)
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/MenschSensorNeu2.png) <br>
+- Beim Vergleich war die Reihenfolge des Sensors verkehrt herum --> gefixt
 
 ### 04.07. <br>
 Ich habe heute doch nicht an der Software weitergearbeitet. Dafür habe ich das Experiment aufgebaut und selbst durchgeführt. Wir sollten es so machen: <br>
