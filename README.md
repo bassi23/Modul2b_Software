@@ -6,6 +6,14 @@
 
 05.07: Station 4 <br>
 08.07: Einstellungen <br>
+
+## 05.07. <br>
+Station 2 - Mensch vs. Sensor <br>
+- Zwischenlinien im Graphen ergänzt
+- Reset Button eingefügt
+- Graph ist jetzt skalierbar
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/MenschSensorNeu2.png)
+
 ### 04.07. <br>
 Ich habe heute doch nicht an der Software weitergearbeitet. Dafür habe ich das Experiment aufgebaut und selbst durchgeführt. Wir sollten es so machen: <br>
 Ich habe in die Messkammer einen 12x12cm² großen Ventilator eingebaut, dessen Umdrehungsgeschwindigkeit ich mittels Netzteil steuern konnte. In der Messkammer habe ich die Sensoren an der Wand auf Sitzhöhe des Kopfes (1 - 1,20m) befestigt. Ich selbst habe auf einem Hocker in der Messkammer Platz genommen.<br>
