@@ -8,8 +8,8 @@ Serial myPort;
 
 Table table;
 
-ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_control;
-CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat;
+ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_control, innenraumluft_control;
+CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat, innenraumluft;
 
 station one, two_three, two, three, four, settings;
 button back, up1, down1, up2, down2, left1, right1;
@@ -30,9 +30,13 @@ button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 Probe A, B, C, D, E;
 
 
+button reset_innenraum;
+
+button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start;
+
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
-float page = 2.1;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -148,6 +152,7 @@ void setup() {
 
 
 
+
   TVOC_Duelle_Start = new button(565, 400, 150, 100, "Start", 5, true, 20);
   Stoff1 = new TVOC_Kandidat(640, 360, Stoff1_bild, "Stoff 1");
   Stoff2 = new TVOC_Kandidat(640, 600, Stoff2_bild, "Stoff 2");
@@ -167,6 +172,33 @@ void setup() {
   weiter_zum_Sensor = new button(1020, 640, 150, 75, "Sensor-\nmessung", -12, true, 20);
 
   zur_Auswertung = new button(1125, 580, 150, 75, "Zur Aus-\nwertung", -12, true, 20);
+
+  // Station 4
+  Station4a = new button(565, 350, 150, 100, "zu Aufgabe a)", 5, true, 20); 
+  Station4b = new button(1125, 495, 150, 100, "zu Aufgabe b)", 5, true, 20); 
+  Station4c = new button(1125, 495, 150, 100, "zu Aufgabe c)", 5, true, 20); 
+  Station4Auswertung = new button(1125, 495, 150, 100, "zur\nAuswertung", -12, true, 20); 
+  Station4Start = new button(1120, 200, 150, 100, "Starte\nMessung", -12, true, 20); 
+  reset_innenraum = new button(1175, 605, 100, 50, "Reset", 5, true, 20);
+
+
+
+  innenraumluft_control = new ControlP5(this);
+  innenraumluft = innenraumluft_control.addCheckBox("Innenraumluft")
+    .setPosition(235, 150)
+    .setColorForeground(color(120))
+    .setColorActive(color(0, 255, 0))
+    .setColorLabel(color(255, 255, 100))
+    .setSize(30, 30)
+    .setItemsPerRow(5)
+    .setSpacingColumn(180)
+    .setSpacingRow(225)
+    .addItem("T", 0)
+    .addItem("H", 0)
+    .addItem("TVOC", 0)
+    .addItem("CO2", 0)
+    .addItem("eCO2", 0)
+    .hide();
 
   dateiformat_control = new ControlP5(this);
   dateiformat = dateiformat_control.addCheckBox("Dateiformat")
@@ -288,6 +320,7 @@ void draw() {
   TVOC_Duelle_Start.hide();
   Sensormessung.hide();
   reset_Station2.hide();
+  Station4a.visible = false;
 
   zumObermenu.x = 1100;
   if (page == 2.1) {
@@ -418,6 +451,12 @@ void draw() {
   } else if (page == 4) {
     Innenraumluft();
     zumObermenu.hide();
+  } else if (page == 4.1) {
+    Innenraumluft_a();
+  } else if (page == 4.11) {
+    Innenraumluft_b();
+  } else if (page == 4.111) {
+    Innenraumluft_c();
   } else if (page == 10) {
     setting();
     autosave.show();
@@ -426,11 +465,7 @@ void draw() {
     Sensoren.hide();
     zumObermenu.hide();
   } else if (page == -2) {
-    SensorAuswahl(); 
-    SPS30.show();
-    SCD30.show();
-    SGP30.show();
-    reset.hide();
+    SensorAuswahl();
   } else if (page == -3) {
     Feinstaub();
     SPS30.hide();
@@ -469,6 +504,12 @@ void draw() {
         page = 3.1;
       } else if (page == 3.111) {
         page = 3.11;
+      } else if (page == 4.1) {
+        page = 4;
+      } else if (page == 4.11) {
+        page = 4.1;
+      } else if (page == 4.111) {
+        page = 4.11;
       } else {
         page = 0;
       }
@@ -576,6 +617,53 @@ void draw() {
       reset_bool_station2 = false;
     }
   }
+
+  if (reset_innenraum.isClicked()) {
+    reset_bool_station4 = true;
+  }
+
+  if (reset_bool_station4) {
+    sicher();
+    if (sicher_ja.isClicked()) {
+      Station4agestartet = true;
+      currentTime4a = millis();
+      indexInnenraumlufta = 0;
+      reset_bool_station4 = false;
+    }
+    if (sicher_nein.isClicked()) {
+      reset_bool_station4 = false;
+    }
+  }
+
+
+  if (page == 4.1 || page == 4.11 || page == 4.111) {
+    up1.y = 200;
+    down1.y = 255;
+  } else {
+    up1.y = 100;
+    down1.y = 155;
+  }
+
+  if (Station4Auswertung.isClicked()) {
+    page = 4.1111;
+    saveDataInnenraum();
+  }
+  if (Station4c.isClicked()) {
+    delay(200);
+    page = 4.111;
+  }
+  if (Station4b.isClicked()) {
+    delay(200);
+    println("HI");
+    page = 4.11;
+  }
+  if (Station4a.isClicked()) {
+    delay(200);
+    page = 4.1;
+  }
+    if (page == 4 || page == 4.1111) {
+    innenraumluft.hide();
+  }
 }
 
 boolean reset_bool = false;
@@ -592,7 +680,81 @@ void sicher() {
   sicher_nein.show();
 }
 
+void saveDataInnenraum() {
 
+  String[] T_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
+  String[] H_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
+  String[] TVOC_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
+  String[] CO2_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
+  String[] eCO2_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
+
+  boolean txt_bool = dateiformat.getState("txt");
+  boolean csv_bool = dateiformat.getState("csv");
+
+
+  if (txt_bool || csv_bool) {
+    for (int i = 0; i < indexInnenraumlufta; i++) {
+      T_a[i] = str(Innenraumlufta[0][i]).replace('.', ',');
+      H_a[i] = str(Innenraumlufta[1][i]).replace('.', ',');
+      TVOC_a[i] = str(Innenraumlufta[3][i]).replace('.', ',');
+      CO2_a[i] = str(Innenraumlufta[2][i]).replace('.', ',');
+      eCO2_a[i] = str(Innenraumlufta[4][i]).replace('.', ',');
+    }
+    for (int i = indexInnenraumlufta; i < indexInnenraumlufta + indexInnenraumluftb; i++) {
+      T_a[i] = str(Innenraumluftb[0][i - indexInnenraumlufta]).replace('.', ',');
+      H_a[i] = str(Innenraumluftb[1][i- indexInnenraumlufta]).replace('.', ',');
+      TVOC_a[i] = str(Innenraumluftb[3][i- indexInnenraumlufta]).replace('.', ',');
+      CO2_a[i] = str(Innenraumluftb[2][i- indexInnenraumlufta]).replace('.', ',');
+      eCO2_a[i] = str(Innenraumluftb[4][i- indexInnenraumlufta]).replace('.', ',');
+    }
+    for (int i = indexInnenraumlufta + indexInnenraumluftb; i < indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc; i++) {
+      T_a[i] = str(Innenraumluftc[0][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+      H_a[i] = str(Innenraumluftc[1][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+      TVOC_a[i] = str(Innenraumluftc[3][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+      CO2_a[i] = str(Innenraumluftc[2][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+      eCO2_a[i] = str(Innenraumluftc[4][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ',');
+    };
+  }
+
+  if (txt_bool) {
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+ "/Innenraum/Temperatur.txt", T_a);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+"/Innenraum/Luftfeuchte.txt", H_a);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+"/Innenraum/CO2.txt", CO2_a);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() +"/Innenraum/TVOC.txt", TVOC_a);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() +"/Innenraum/eCO2.txt", eCO2_a);
+  }
+
+  if (csv_bool) {
+    table.clearRows();
+    for (int i = 1; i < (indexInnenraumlufta +indexInnenraumluftb + indexInnenraumluftc); i++) {
+      TableRow newRow = table.addRow();
+      newRow.setInt("Zeit", i);
+      if (i < indexInnenraumlufta) {
+        newRow.setFloat("Zeit", Innenraumlufta[6][i]);
+        newRow.setFloat("Temperatur", Innenraumlufta[0][i]);
+        newRow.setFloat("Luftfeuchte", Innenraumlufta[1][i]);
+        newRow.setFloat("CO2", Innenraumlufta[4][i]);
+        newRow.setFloat("eCO2", Innenraumlufta[5][i]);
+        newRow.setFloat("TVOC", Innenraumlufta[3][i]);
+      } else if (i < (indexInnenraumluftb + indexInnenraumlufta)) {
+        newRow.setFloat("Zeit", Innenraumluftb[6][i - indexInnenraumlufta]);
+        newRow.setFloat("Temperatur", Innenraumluftb[0][i - indexInnenraumlufta]);
+        newRow.setFloat("Luftfeuchte", Innenraumluftb[1][i - indexInnenraumlufta]);
+        newRow.setFloat("CO2", Innenraumluftb[4][i - indexInnenraumlufta]);
+        newRow.setFloat("eCO2", Innenraumluftb[5][i - indexInnenraumlufta]);
+        newRow.setFloat("TVOC", Innenraumluftb[3][i - indexInnenraumlufta]);
+      } else if (i < (indexInnenraumluftc + indexInnenraumlufta + indexInnenraumluftb)) {
+        newRow.setFloat("Zeit", Innenraumluftc[6][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+        newRow.setFloat("Temperatur", Innenraumluftc[0][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+        newRow.setFloat("Luftfeuchte", Innenraumluftc[1][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+        newRow.setFloat("CO2", Innenraumluftc[4][i- (indexInnenraumlufta + indexInnenraumluftb)]);
+        newRow.setFloat("eCO2", Innenraumluftc[5][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+        newRow.setFloat("TVOC", Innenraumluftc[3][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+      }
+      saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+"/Innenraum/alleDaten.csv");
+    }
+  }
+}
 
 void saveData() {
   String[] SCD_T = new String[index];
@@ -669,8 +831,6 @@ void saveData() {
     }
   }
 }
-
-
 class button {
   float x, y, dx, dy, textOffset;
   String text;
@@ -704,6 +864,7 @@ class button {
     }
     rectMode(CORNER);
     stroke(0);
+    strokeWeight(1);
     noFill();
     rect(x, y, dx, dy); 
     fill(0);
@@ -890,6 +1051,41 @@ void Datenaufnahme() {
           if (index > 2 && prob > 0) {
             MenschSensorMesswerte[prob-1][indexMenschSensor] = sgp_tvoc_data[index-2];
             indexMenschSensor += 1;
+          }
+        }
+
+        if (Station4agestartet) {
+          if (index > 1 && (millis() - currentTime4a)/1000 < t) {
+            Innenraumlufta[0][indexInnenraumlufta] =  scd_temperature_data[index-1];
+            Innenraumlufta[1][indexInnenraumlufta] =  scd_humidity_data[index-1];
+            Innenraumlufta[2][indexInnenraumlufta] =  scd_co2_data[index-1];
+            Innenraumlufta[3][indexInnenraumlufta] =  sgp_tvoc_data[index-1];
+            Innenraumlufta[4][indexInnenraumlufta] =  sgp_eco2_data[index-1];
+            Innenraumlufta[6][indexInnenraumlufta] = zeit[index - 1]- currentTime4a/1000;
+            indexInnenraumlufta += 1;
+          }
+        }
+
+        if (Station4bgestartet) {
+          if (index > 1 && (millis() - currentTime4b)/1000 < t) {
+            Innenraumluftb[0][indexInnenraumluftb] =  scd_temperature_data[index-1];
+            Innenraumluftb[1][indexInnenraumluftb] =  scd_humidity_data[index-1];
+            Innenraumluftb[2][indexInnenraumluftb] =  scd_co2_data[index-1];
+            Innenraumluftb[3][indexInnenraumluftb] =  sgp_tvoc_data[index-1];
+            Innenraumluftb[4][indexInnenraumluftb] =  sgp_eco2_data[index-1];
+            Innenraumluftb[6][indexInnenraumluftb] = zeit[index - 1]- currentTime4b/1000;
+            indexInnenraumluftb += 1;
+          }
+        }
+        if (Station4cgestartet) {
+          if (index > 1 && (millis() - currentTime4c)/1000 < t) {
+            Innenraumluftc[0][indexInnenraumluftc] =  scd_temperature_data[index-2];
+            Innenraumluftc[1][indexInnenraumluftc] =  scd_humidity_data[index-2];
+            Innenraumluftc[2][indexInnenraumluftc] =  scd_co2_data[index-2];
+            Innenraumluftc[3][indexInnenraumluftc] =  sgp_tvoc_data[index-2];
+            Innenraumluftc[4][indexInnenraumluftc] =  sgp_eco2_data[index-2];
+            Innenraumluftc[6][indexInnenraumluftc] = zeit[index - 2]- currentTime4c/1000;
+            indexInnenraumluftc += 1;
           }
         }
 
@@ -1745,8 +1941,715 @@ void onlyOne(CheckBox check, String state1, String state2, String state3, String
   }
 }
 void Innenraumluft() {
-  
+  one.active = false;
+  two.active = false;
+  three.active = false;
+  four.active = false;
+  two_three.active = false;
+  fill(0);
+  textSize(20);
+  text("Station 4 - Innenraumluftqualität", 20, 50);
+  text("In diesem Experiment werden wir die Innenraumluftqualität bestimmen. Setze dich jeweils für 5 Minuten in eine Messkammer\nund nimm den Verlauf der Parameter Temperatur, Luftfeuchte, TVOC, CO2 und eCO2 auf.\nVariiere die Belüftung, indem du den integrierten Ventilator \n\n\n\n\nlaufen lässt. Warte nach jeder Runde, bis sich die Werte wieder normalisiert haben.", 20, 100);
+  text("a) ausgeschaltet\nb) auf halber Kraft\nc) auf voller Kraft", 500, 200);
+  stroke(0);
+  Station4a.show();
+  Station4agestartet = false;
+  indexInnenraumlufta = 0;
 }
+
+int t = 20;
+
+
+
+float[][] Innenraumlufta = new float[7][5000];
+boolean Station4agestartet = false;
+int indexInnenraumlufta = 0;
+int indexInnenraumluftaMax = 0;
+float currentTime4a = -10000000;
+boolean reset_bool_station4 = false;
+int scale_Innenraum = 0;
+
+void Innenraumluft_a() {
+  fill(0);
+  textSize(20);
+  text("Station 4 - Innenraumluftqualität", 20, 50);
+  text("a) Lasse den Ventilator ausgeschaltet und lüfte die Messkammer zunächst gut durch. Starte dann die Messung. Sobald 30 Se-\nkunden abgelaufen sind, setze dich in die Messkammer, schließe die Tür und warte bis die Zeit abgelaufen ist.", 20, 100);
+  up1.show();
+  down1.show();
+  innenraumluft.show();
+
+
+  if (up1.isClicked()) {
+    scale_Innenraum += 1;
+    if (scale_Innenraum > 4) {
+      scale_Innenraum = 0;
+    }
+  }
+
+  if (down1.isClicked()) {
+    scale_Innenraum -= 1;
+    if (scale_Innenraum < 0) {
+      scale_Innenraum = 4;
+    }
+  }
+
+
+
+
+  fill(255);
+  stroke(0);
+  rect(175, 200, 930, 450);
+  fill(0);
+  textSize(25);
+  text("T", 190, 172);
+  text("H", 380, 172);
+  text("TVOC", 560, 172);
+  text("CO2", 770, 172);
+  text("eCO2", 970, 172);
+
+  onlyOne(innenraumluft, "T", "H", "TVOC", "CO2", "eCO2");
+  boolean Innenraum_T = innenraumluft.getState("T");
+  boolean Innenraum_H = innenraumluft.getState("H");
+  boolean Innenraum_TVOC = innenraumluft.getState("TVOC");
+  boolean Innenraum_CO2 = innenraumluft.getState("CO2");
+  boolean Innenraum_eCO2 = innenraumluft.getState("eCO2");
+
+
+  textSize(20);
+  if ((millis() - currentTime4a)/1000 < t) {
+    text(nf((millis() - currentTime4a)/1000, 0, 1), 1100, 690);
+  }
+
+
+  if (Station4agestartet == false) {
+    Station4Start.show();
+    reset_innenraum.hide();
+  } else {
+    Station4Start.hide();
+    reset_innenraum.show();
+  }
+
+
+  if (Station4Start.isClicked()) {
+    Station4agestartet = true;
+    currentTime4a = millis();
+    indexInnenraumlufta = 0;
+  }
+
+  float max = 0;
+  float min = 9999999;
+  int wasZeichnen = 5;
+
+  if (Innenraum_T) {
+    wasZeichnen = 0;
+  } else if (Innenraum_H) {
+    wasZeichnen = 1;
+  } else if (Innenraum_CO2) {
+    wasZeichnen = 2;
+  } else if (Innenraum_TVOC) {
+    wasZeichnen = 3;
+  } else if (Innenraum_eCO2) {
+    wasZeichnen = 4;
+  }
+
+
+
+
+  if (scale_Innenraum == 0) {
+    for (int i = 0; i < indexInnenraumlufta; i++) {
+      if (Innenraumlufta[wasZeichnen][i] > max) {
+        max = Innenraumlufta[wasZeichnen][i];
+      }
+      if (Innenraumlufta[wasZeichnen][i] < min) {
+        min = Innenraumlufta[wasZeichnen][i];
+      }
+    }
+  } else if (scale_Innenraum == 1) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 10;
+    } else if (wasZeichnen == 1) {
+      max = 20;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 500;
+    } else {
+      max = 100;
+    }
+  } else if (scale_Innenraum == 2) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 20;
+    } else if (wasZeichnen == 1) {
+      max = 40;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 1000;
+    } else {
+      max = 200;
+    }
+  } else if (scale_Innenraum == 3) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 30;
+    } else if (wasZeichnen == 1) {
+      max = 60;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 2000;
+    } else {
+      max = 500;
+    }
+  } else if (scale_Innenraum == 3) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 40;
+    } else if (wasZeichnen == 1) {
+      max = 80;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 5000;
+    } else {
+      max = 1000;
+    }
+  } else if (scale_Innenraum == 4) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 50;
+    } else if (wasZeichnen == 1) {
+      max = 100;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 10000;
+    } else {
+      max = 5000;
+    }
+  }
+
+  text(nf(max, 0, 0), 130, 200);
+  text(nf(min, 0, 0), 130, 650);
+  text("0", 160, 680);
+  text("Zeit in Sekunden", 580, 680);
+
+  strokeWeight(4);
+  for (int i = 1; i < indexInnenraumlufta; i++) {
+
+    float x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
+    float x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
+    float y1 = 650 - (Innenraumlufta[wasZeichnen][i]-min)*450/(max-min);
+    float y2 = 650 - (Innenraumlufta[wasZeichnen][i-1]-min)*450/(max-min);   
+
+    if (wasZeichnen == 0) {
+      stroke(255, 0, 0);
+    } else if (wasZeichnen == 1) {
+      stroke(0, 0, 255);
+    } else if (wasZeichnen == 2) {
+      stroke(255, 0, 255);
+    } else if (wasZeichnen == 3) {
+      stroke(0, 155, 0);
+    } else if (wasZeichnen == 4) {
+      stroke(0);
+    }
+    if (Innenraumlufta[wasZeichnen][i]<= max) {
+
+      line(x1, y1, x2, y2);
+    }
+  }
+
+  if ((millis() - currentTime4a)/1000 > t && currentTime4a > 0) {
+    text(t, 1100, 690);
+    Station4b.show();
+  }
+}
+
+
+
+
+
+float[][] Innenraumluftb = new float[7][5000];
+boolean Station4bgestartet = false;
+int indexInnenraumluftb = 0;
+int indexInnenraumluftbMax = 0;
+float currentTime4b = -10000000;
+
+
+void Innenraumluft_b() {
+  fill(0);
+  textSize(20);
+  text("Station 4 - Innenraumluftqualität", 20, 50);
+  text("b) Lasse nun den Ventilator auf 50% laufen und wiederhole den Versuch. Setze dich nach 30 Sekunden in die Messkammer, schließe die Tür und warte bis 5 Minuten abgelaufen sind.", 20, 100);
+  up1.show();
+  down1.show();
+  innenraumluft.show();
+
+  if (up1.isClicked()) {
+    scale_Innenraum += 1;
+    if (scale_Innenraum > 4) {
+      scale_Innenraum = 0;
+    }
+  }
+
+  if (down1.isClicked()) {
+    scale_Innenraum -= 1;
+    if (scale_Innenraum < 0) {
+      scale_Innenraum = 4;
+    }
+  }
+
+
+
+
+  fill(255);
+  stroke(0);
+  rect(175, 200, 930, 450);
+  fill(0);
+  textSize(25);
+  text("T", 190, 172);
+  text("H", 380, 172);
+  text("TVOC", 560, 172);
+  text("CO2", 770, 172);
+  text("eCO2", 970, 172);
+
+  onlyOne(innenraumluft, "T", "H", "TVOC", "CO2", "eCO2");
+  boolean Innenraum_T = innenraumluft.getState("T");
+  boolean Innenraum_H = innenraumluft.getState("H");
+  boolean Innenraum_TVOC = innenraumluft.getState("TVOC");
+  boolean Innenraum_CO2 = innenraumluft.getState("CO2");
+  boolean Innenraum_eCO2 = innenraumluft.getState("eCO2");
+
+  textSize(20);
+  if ((millis() - currentTime4b)/1000 < t) {
+    text(nf((millis() - currentTime4b)/1000, 0, 1), 1100, 690);
+  }
+
+
+  if (Station4bgestartet == false) {
+    Station4Start.show();
+    reset_innenraum.hide();
+  } else {
+    Station4Start.hide();
+    reset_innenraum.show();
+  }
+
+
+  if (Station4Start.isClicked()) {
+    Station4bgestartet = true;
+    currentTime4b = millis();
+    indexInnenraumluftb = 0;
+  }
+
+  float max = 0;
+  float min = 9999999;
+  int wasZeichnen = 5;
+
+  if (Innenraum_T) {
+    wasZeichnen = 0;
+  } else if (Innenraum_H) {
+    wasZeichnen = 1;
+  } else if (Innenraum_CO2) {
+    wasZeichnen = 2;
+  } else if (Innenraum_TVOC) {
+    wasZeichnen = 3;
+  } else if (Innenraum_eCO2) {
+    wasZeichnen = 4;
+  }
+
+
+
+
+  if (scale_Innenraum == 0) {
+    for (int i = 0; i < indexInnenraumlufta; i++) {
+      if (Innenraumluftb[wasZeichnen][i] > max) {
+        max = Innenraumluftb[wasZeichnen][i];
+      }
+      if (Innenraumlufta[wasZeichnen][i] > max) {
+        max = Innenraumlufta[wasZeichnen][i];
+      }
+      if (Innenraumluftb[wasZeichnen][i] < min && Innenraumluftb[wasZeichnen][i]!=0) {
+        min = Innenraumluftb[wasZeichnen][i];
+      }
+      if (Innenraumlufta[wasZeichnen][i] < min && Innenraumlufta[wasZeichnen][i]!=0) {
+        min = Innenraumlufta[wasZeichnen][i];
+      }
+    }
+  } else if (scale_Innenraum == 1) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 10;
+    } else if (wasZeichnen == 1) {
+      max = 20;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 500;
+    } else {
+      max = 100;
+    }
+  } else if (scale_Innenraum == 2) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 20;
+    } else if (wasZeichnen == 1) {
+      max = 40;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 1000;
+    } else {
+      max = 200;
+    }
+  } else if (scale_Innenraum == 3) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 30;
+    } else if (wasZeichnen == 1) {
+      max = 60;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 2000;
+    } else {
+      max = 500;
+    }
+  } else if (scale_Innenraum == 3) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 40;
+    } else if (wasZeichnen == 1) {
+      max = 80;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 5000;
+    } else {
+      max = 1000;
+    }
+  } else if (scale_Innenraum == 4) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 50;
+    } else if (wasZeichnen == 1) {
+      max = 100;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 10000;
+    } else {
+      max = 5000;
+    }
+  }
+
+  text(nf(max, 0, 0), 130, 200);
+  text(nf(min, 0, 0), 130, 650);
+  text("0", 160, 680);
+  text("Zeit in Sekunden", 580, 680);
+
+
+  for (int i = 1; i < indexInnenraumlufta; i++) {
+
+    float x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
+    float x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
+    float y1 = 650 - (Innenraumluftb[wasZeichnen][i]-min)*450/(max-min);
+    float y2 = 650 - (Innenraumluftb[wasZeichnen][i-1]-min)*450/(max-min);   
+
+    if (wasZeichnen == 0) {
+      stroke(255, 0, 0);
+    } else if (wasZeichnen == 1) {
+      stroke(0, 0, 255);
+    } else if (wasZeichnen == 2) {
+      stroke(255, 0, 255);
+    } else if (wasZeichnen == 3) {
+      stroke(0, 155, 0);
+    } else if (wasZeichnen == 4) {
+      stroke(0);
+    }
+    strokeWeight(4);
+    if (Innenraumluftb[wasZeichnen][i]<= max && Innenraumluftb[wasZeichnen][i]>= min && Innenraumluftb[wasZeichnen][i-1]<= max && Innenraumluftb[wasZeichnen][i-1]>= min) {
+      line(x1, y1, x2, y2);
+    }
+
+
+    x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
+    x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
+    y1 = 650 - (Innenraumlufta[wasZeichnen][i]-min)*450/(max-min);
+    y2 = 650 - (Innenraumlufta[wasZeichnen][i-1]-min)*450/(max-min);   
+    strokeWeight(1);
+    if (wasZeichnen == 0) {
+      stroke(255, 0, 0);
+    } else if (wasZeichnen == 1) {
+      stroke(0, 0, 255);
+    } else if (wasZeichnen == 2) {
+      stroke(255, 0, 255);
+    } else if (wasZeichnen == 3) {
+      stroke(0, 155, 0);
+    } else if (wasZeichnen == 4) {
+      stroke(0);
+    }
+    if (Innenraumlufta[wasZeichnen][i] <= max && Innenraumlufta[wasZeichnen][i] >= min && Innenraumlufta[wasZeichnen][i-1] <= max && Innenraumlufta[wasZeichnen][i-1] >= min) {
+      line(x1, y1, x2, y2);
+    }
+  }
+
+  if ((millis() - currentTime4b)/1000 > t  && currentTime4b > 0) {
+    text(t, 1100, 690);
+    Station4c.show();
+  }
+  strokeWeight(1);
+}
+
+
+
+float[][] Innenraumluftc = new float[7][5000];
+boolean Station4cgestartet = false;
+int indexInnenraumluftc = 0;
+int indexInnenraumluftcMax = 0;
+float currentTime4c = -10000000;
+
+
+void Innenraumluft_c() {
+  fill(0);
+  textSize(20);
+  text("Station 4 - Innenraumluftqualität", 20, 50);
+  text("c) Lasse nun den Ventilator auf 100% laufen und wiederhole den Versuch. Setze dich nach 30 Sekunden in die Messkammer, schließe die Tür und warte bis 5 Minuten abgelaufen sind.", 20, 100);
+  up1.show();
+  down1.show();
+  innenraumluft.show();
+
+  if (up1.isClicked()) {
+    scale_Innenraum += 1;
+    if (scale_Innenraum > 4) {
+      scale_Innenraum = 0;
+    }
+  }
+
+  if (down1.isClicked()) {
+    scale_Innenraum -= 1;
+    if (scale_Innenraum < 0) {
+      scale_Innenraum = 4;
+    }
+  }
+
+
+
+
+  fill(255);
+  stroke(0);
+  rect(175, 200, 930, 450);
+  fill(0);
+  textSize(25);
+  text("T", 190, 172);
+  text("H", 380, 172);
+  text("TVOC", 560, 172);
+  text("CO2", 770, 172);
+  text("eCO2", 970, 172);
+
+  onlyOne(innenraumluft, "T", "H", "TVOC", "CO2", "eCO2");
+  boolean Innenraum_T = innenraumluft.getState("T");
+  boolean Innenraum_H = innenraumluft.getState("H");
+  boolean Innenraum_TVOC = innenraumluft.getState("TVOC");
+  boolean Innenraum_CO2 = innenraumluft.getState("CO2");
+  boolean Innenraum_eCO2 = innenraumluft.getState("eCO2");
+
+  textSize(20);
+  if ((millis() - currentTime4c)/1000 < t) {
+    text(nf((millis() - currentTime4c)/1000, 0, 1), 1100, 690);
+  }
+
+
+  if (Station4cgestartet == false) {
+    Station4Start.show();
+    reset_innenraum.hide();
+  } else {
+    Station4Start.hide();
+    reset_innenraum.show();
+  }
+
+
+  if (Station4Start.isClicked()) {
+    Station4cgestartet = true;
+    currentTime4c = millis();
+    indexInnenraumluftc = 0;
+  }
+
+  float max = 0;
+  float min = 9999999;
+  int wasZeichnen = 5;
+
+  if (Innenraum_T) {
+    wasZeichnen = 0;
+  } else if (Innenraum_H) {
+    wasZeichnen = 1;
+  } else if (Innenraum_CO2) {
+    wasZeichnen = 2;
+  } else if (Innenraum_TVOC) {
+    wasZeichnen = 3;
+  } else if (Innenraum_eCO2) {
+    wasZeichnen = 4;
+  }
+
+
+
+
+  if (scale_Innenraum == 0) {
+    for (int i = 0; i < indexInnenraumlufta; i++) {
+      if (Innenraumluftc[wasZeichnen][i] > max) {
+        max = Innenraumluftc[wasZeichnen][i];
+      }
+      if (Innenraumluftc[wasZeichnen][i] < min && Innenraumluftc[wasZeichnen][i]!=0) {
+        min = Innenraumluftc[wasZeichnen][i];
+      }
+      if (Innenraumluftb[wasZeichnen][i] > max) {
+        max = Innenraumluftb[wasZeichnen][i];
+      }
+      if (Innenraumlufta[wasZeichnen][i] > max) {
+        max = Innenraumlufta[wasZeichnen][i];
+      }
+      if (Innenraumluftb[wasZeichnen][i] < min && Innenraumluftb[wasZeichnen][i]!=0) {
+        min = Innenraumluftb[wasZeichnen][i];
+      }
+      if (Innenraumlufta[wasZeichnen][i] < min && Innenraumlufta[wasZeichnen][i]!=0) {
+        min = Innenraumlufta[wasZeichnen][i];
+      }
+    }
+  } else if (scale_Innenraum == 1) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 10;
+    } else if (wasZeichnen == 1) {
+      max = 20;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 500;
+    } else {
+      max = 100;
+    }
+  } else if (scale_Innenraum == 2) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 20;
+    } else if (wasZeichnen == 1) {
+      max = 40;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 1000;
+    } else {
+      max = 200;
+    }
+  } else if (scale_Innenraum == 3) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 30;
+    } else if (wasZeichnen == 1) {
+      max = 60;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 2000;
+    } else {
+      max = 500;
+    }
+  } else if (scale_Innenraum == 3) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 40;
+    } else if (wasZeichnen == 1) {
+      max = 80;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 5000;
+    } else {
+      max = 1000;
+    }
+  } else if (scale_Innenraum == 4) {
+    min = 0;
+    if (wasZeichnen == 0) {
+      max = 50;
+    } else if (wasZeichnen == 1) {
+      max = 100;
+    } else if (wasZeichnen == 2 || wasZeichnen == 4) {
+      max = 10000;
+    } else {
+      max = 5000;
+    }
+  }
+
+  text(nf(max, 0, 0), 130, 200);
+  text(nf(min, 0, 0), 130, 650);
+  text("0", 160, 680);
+  text("Zeit in Sekunden", 580, 680);
+
+
+  for (int i = 1; i < indexInnenraumlufta; i++) {
+
+    float x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
+    float x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
+    float y1 = 650 - (Innenraumluftc[wasZeichnen][i]-min)*450/(max-min);
+    float y2 = 650 - (Innenraumluftc[wasZeichnen][i-1]-min)*450/(max-min);   
+
+    if (wasZeichnen == 0) {
+      stroke(255, 0, 0);
+    } else if (wasZeichnen == 1) {
+      stroke(0, 0, 255);
+    } else if (wasZeichnen == 2) {
+      stroke(255, 0, 255);
+    } else if (wasZeichnen == 3) {
+      stroke(0, 155, 0);
+    } else if (wasZeichnen == 4) {
+      stroke(0);
+    }
+    strokeWeight(4);
+    if (Innenraumluftc[wasZeichnen][i]<= max && Innenraumluftc[wasZeichnen][i]>= min && Innenraumluftc[wasZeichnen][i-1]<= max && Innenraumluftc[wasZeichnen][i-1]>= min) {
+      line(x1, y1, x2, y2);
+    }
+
+    x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
+    x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
+    y1 = 650 - (Innenraumluftb[wasZeichnen][i]-min)*450/(max-min);
+    y2 = 650 - (Innenraumluftb[wasZeichnen][i-1]-min)*450/(max-min);   
+
+    if (wasZeichnen == 0) {
+      stroke(255, 0, 0);
+    } else if (wasZeichnen == 1) {
+      stroke(0, 0, 255);
+    } else if (wasZeichnen == 2) {
+      stroke(255, 0, 255);
+    } else if (wasZeichnen == 3) {
+      stroke(0, 155, 0);
+    } else if (wasZeichnen == 4) {
+      stroke(0);
+    }
+    strokeWeight(1);
+    if (Innenraumluftb[wasZeichnen][i]<= max && Innenraumluftb[wasZeichnen][i] >= min && Innenraumluftb[wasZeichnen][i-1] <= max && Innenraumluftb[wasZeichnen][i-1] >= min) {
+      line(x1, y1, x2, y2);
+    }
+
+
+    x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
+    x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
+    y1 = 650 - (Innenraumlufta[wasZeichnen][i]-min)*450/(max-min);
+    y2 = 650 - (Innenraumlufta[wasZeichnen][i-1]-min)*450/(max-min);   
+    strokeWeight(1);
+    if (wasZeichnen == 0) {
+      stroke(255, 0, 0);
+    } else if (wasZeichnen == 1) {
+      stroke(0, 0, 255);
+    } else if (wasZeichnen == 2) {
+      stroke(255, 0, 255);
+    } else if (wasZeichnen == 3) {
+      stroke(0, 155, 0);
+    } else if (wasZeichnen == 4) {
+      stroke(0);
+    }
+    if (Innenraumlufta[wasZeichnen][i] <= max && Innenraumlufta[wasZeichnen][i] >= min && Innenraumlufta[wasZeichnen][i-1] <= max && Innenraumlufta[wasZeichnen][i-1] >= min) {
+      line(x1, y1, x2, y2);
+    }
+  }
+
+  if ((millis() - currentTime4c)/1000 > t && currentTime4c > 0) {
+    text(t, 1100, 690);
+    Station4Auswertung.show();
+  }
+  strokeWeight(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1762,6 +2665,47 @@ void onlyTwo2(CheckBox check, String state1, String state2, String state3) {
   }
   if (st2 && st3) {
     check.deactivate(state1);
+  }
+}
+
+
+void onlyOne(CheckBox check, String state1, String state2, String state3, String state4, String state5) {
+  boolean st1 = check.getState(state1);
+  boolean st2 = check.getState(state2);
+  boolean st3 = check.getState(state3);
+  boolean st4 = check.getState(state4);
+  boolean st5 = check.getState(state5);
+
+
+  if (st1) {
+    check.deactivate(state2);
+    check.deactivate(state3);
+    check.deactivate(state4);
+    check.deactivate(state5);
+  }
+  if (st2) {
+    check.deactivate(state1);
+    check.deactivate(state3);
+    check.deactivate(state4);
+    check.deactivate(state5);
+  }
+  if (st3) {
+    check.deactivate(state1);
+    check.deactivate(state2);
+    check.deactivate(state4);
+    check.deactivate(state5);
+  }
+  if (st4) {
+    check.deactivate(state1);
+    check.deactivate(state2);
+    check.deactivate(state3);
+    check.deactivate(state5);
+  }
+  if (st5) {
+    check.deactivate(state1);
+    check.deactivate(state2);
+    check.deactivate(state3);
+    check.deactivate(state4);
   }
 }
 String[] Reihenfolge = {"A", "B", "C", "D", "E"};
@@ -2177,11 +3121,11 @@ void  Station2_Vergleich() {
   messen.hide();
   letzteWiederholen.hide();
 
-  MesswertSensor2[0] = MesswertSensor[0];
-  MesswertSensor2[1] = MesswertSensor[1];
+  MesswertSensor2[0] = MesswertSensor[4];
+  MesswertSensor2[1] = MesswertSensor[3];
   MesswertSensor2[2] = MesswertSensor[2];
-  MesswertSensor2[3] = MesswertSensor[3];
-  MesswertSensor2[4] = MesswertSensor[4];
+  MesswertSensor2[3] = MesswertSensor[1];
+  MesswertSensor2[4] = MesswertSensor[0];
   MesswertSensor2 = sort(MesswertSensor2);
   for (int i = 0; i < 5; i++) {
     if (MesswertSensor2[i] == MesswertSensor[0]) {
@@ -2250,10 +3194,10 @@ void Obermenu() {
 }
 void SensorAuswahl(){
   back.show();
-  
-  
-  
-  
+    SPS30.show();
+    SCD30.show();
+    SGP30.show();
+    reset.hide();
 }
 void Station2Oder3(){
   two_three.active = false;
@@ -3920,10 +4864,9 @@ void hauptmenu() {
     
     
   }
-
-
   strokeWeight(1);
 }
+
 class station {
   float x;
   float y;
