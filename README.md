@@ -21,7 +21,12 @@ Station 4 sieht so aus (Rechtschreibfehler wird noch korrigiert):
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/innenraum.png) <br>
 Aufgabe: Setze dich 3 Mal 5 Minuten in den Kasten und miss Temperatur, Luftfeuchtigkeit, TVOC, CO2 und eCO2. Einmal mit Lüfter aus, einmal mit Lüfter auf 50% und einmal mit Lüfter auf 100%. <br>
 
-Die Daten werden auch in einem Extra Ordner ("Messdaten/Innenraum") gespeichert, sofern speichern aktiviert ist. 
+Die Daten werden auch in einem Extra Ordner ("Messdaten/Innenraum") gespeichert, sofern speichern aktiviert ist. <br>
+
+Was hier noch zu tun ist:
+- Auswertungsseite am Ende, auf der man alle Verläufe miteinander vergleichen kann.
+- Zwischenlinien
+- Bessere Farbauswahl (momentan ist die aktuelle Messung fett, die anderen nicht fett --> kein guter Kontrast)
 
 ### 04.07. <br>
 Ich habe heute doch nicht an der Software weitergearbeitet. Dafür habe ich das Experiment aufgebaut und selbst durchgeführt. Wir sollten es so machen: <br>
