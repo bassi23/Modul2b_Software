@@ -11,9 +11,9 @@
 ### Zeitplan <br>
 
 08.07: Einstellungen + Behebung bekannter Fehler<br>
-09.07: Automatisches Speichern der Daten der Stationen
-10.07: Feedback einarbeiten 
-ab 11.07: 2 Wochen Urlaub
+09.07: Automatisches Speichern der Daten der Stationen<br>
+10.07: Feedback einarbeiten <br>
+ab 11.07: 2 Wochen Urlaub<br>
 
 ## 05.07. <br>
 Station 2 - Mensch vs. Sensor <br>
