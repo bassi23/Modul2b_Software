@@ -15,6 +15,11 @@
 10.07: Feedback einarbeiten <br>
 ab 11.07: 2 Wochen Urlaub<br>
 
+
+## 08.07. <br>
+Einstellungen: <br>
+- Angeschlossene COM-Ports werden angezeigt, und man kann auswählen von welchem man Daten empfängt
+- Man muss das Programm nicht mehr neu starten, wenn man den Mikrontroller abschließt, sondern man kann ihn erneut verbinden
 ## 05.07. <br>
 Station 2 - Mensch vs. Sensor <br>
 - Zwischenlinien im Graphen ergänzt
