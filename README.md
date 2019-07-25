@@ -2,7 +2,7 @@
 
 ## Neue Geruchsskala
 
-Bisher haben wir die Skala von 0 - 10 für die Einschätzung der TVOC-Emission benutzt. Ein Kollege von mir arbeitet hauptsächlich an Geruchsmessung mit Sensoren, und er hat mir eine Skala von 0 - 6 empfohlen, da diese üblicherweise verwendet wird.
+Bisher haben wir die Skala von 0 - 10 für die Einschätzung der TVOC-Emission benutzt. Ein Kollege von mir arbeitet hauptsächlich an Geruchsmessung mit Sensoren, und er hat mir eine Skala von 0 - 6 empfohlen, da diese üblicherweise verwendet wird. Die Skala kommt aus der VDI 3882 Blatt 1: Olfaktometrie Bestimmung der Geruchsintensität, Okt 1992
 
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Geruch_Skala.jpg) <br>
 
