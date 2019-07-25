@@ -1,5 +1,12 @@
 # Modul2b_Software
 
+## Neue Geruchsskala
+
+Bisher haben wir die Skala von 0 - 10 für die Einschätzung der TVOC-Emission benutzt. Ein Kollege von mir arbeitet hauptsächlich an Geruchsmessung mit Sensoren, und er hat mir eine Skala von 0 - 6 empfohlen, da diese üblicherweise verwendet wird.
+
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/Geruch_Skala.jpeg) <br>
+
+
 ## bekannte Fehler
 - Seit dem drosseln auf 930 Werte geht die Anzeige unter dem Graphen nicht weiter als "Zeit in Minuten", auch wenn die Skala bereits bei Stunden ist
 - hier und da sind Buttons noch "unsichtbar aktiv". Das heißt, man klickt irgendwo hin, wo auf anderer Seite ein Button ist, und klickt ihn dadurch
