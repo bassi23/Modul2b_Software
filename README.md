@@ -4,7 +4,7 @@
 
 Bisher haben wir die Skala von 0 - 10 für die Einschätzung der TVOC-Emission benutzt. Ein Kollege von mir arbeitet hauptsächlich an Geruchsmessung mit Sensoren, und er hat mir eine Skala von 0 - 6 empfohlen, da diese üblicherweise verwendet wird.
 
-![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/img/Geruch_Skala.jpg) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Geruch_Skala.jpg) <br>
 
 
 ## bekannte Fehler
