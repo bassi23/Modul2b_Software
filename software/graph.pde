@@ -86,218 +86,66 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
   textSize(20);
   fill(0);
   text("0", 150, 640);
-  if (zeitskala[xValues-1] < 60) {
-    for (int i = 0; i < 12; i++) {
-      if (zeitskala[xValues - 1] > (5*i + 5)) {
-        float x = 175 + (5*i + 5)*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf((5*i + 5), 0, 0), x, 620);
-        }
-      }
-    }
-  } else if (zeitskala[xValues- 1] < 180) { //3 Minuten
-    for (int i = 0; i < 12; i++) {
-      float temp = 15*i + 15;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp, 0, 0), x, 620);
-        }
-      }
-    }
-  } else if (zeitskala[xValues- 1] < 360) {//6 Minuten
-    for (int i = 0; i < 12; i++) {
-      float temp = 30*i + 30;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp, 0, 0), x, 620);
-        }
-      }
-    }
-  } else if (zeitskala[xValues- 1] < 720) {//12 Minuten
-    for (int i = 0; i < 12; i++) {
-      float temp = 60*i + 60;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp/60, 0, 0), x, 620);
-        }
-      }
-    }
-  } else if (zeitskala[xValues- 1] < 3600) {//60 Minuten
-    for (int i = 0; i < 12; i++) {
-      float temp = 300* i + 300;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp/60, 0, 0), x, 620);
-        }
-      }
-    }
-  } else if (zeitskala[xValues- 1] < 10800) {//3 Stunden
-    for (int i = 0; i < 12; i++) {
-      float temp = 900*i + 900;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp/3600, 0, 0), x, 620);
-        }
-      }
-    }
-  } else if (zeitskala[xValues- 1] < 21600) {//6 Stunden
-    for (int i = 0; i < 12; i++) {
-      float temp = 1800*i + 1800;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp/3600, 0, 0), x, 620);
-        }
-      }
-    }
-  } else if (zeitskala[xValues- 1] < 43200) {//12 Stunden
-    for (int i = 0; i < 12; i++) {
-      float temp = 3600*i + 3600;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp/3600, 0, 0), x, 620);
-        }
-      }
-    }
-  } else if (zeitskala[xValues- 1] < 86400) {// 24 Stunden
-    for (int i = 0; i < 12; i++) {
-      float temp = 7200*i + 7200;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp/3600, 0, 0), x, 620);
-        }
-      }
-    }
-  } else { // 72 Stunden und mehr
-    for (int i = 0; i < 12; i++) {
-      float temp = 21600*i + 21600;
-      if (zeitskala[xValues - 1] > temp) {
-        float x = 175 + temp*930/zeitskala[xValues-1]; 
-        if (i%2 == 1) {
-          strokeWeight(2);
-          stroke(0, 100);
-        } else {
-          strokeWeight(1);
-          stroke(200, 100);
-        }
-        line(x, 100, x, 600);
-        if (i%2 == 1) {
-          noStroke();
-          fill(0);
-          textSize(20);
-          text(nf(temp/3600, 0, 0), x, 620);
-        }
-      }
-    }
+
+  stroke(100);
+  for (int i = 1; i < 6; i++) {
+    line(175 + 155*i, 100, 175 + 155*i, 600);
+  }
+
+  String ZL1 = "";
+  String ZL2 = "";
+  String ZL3 = "";
+  String ZL4 = "";
+  String ZL5 = "";
+  if (x_scale == 1 || x_scale == 5) {
+    ZL1 = "10";
+    ZL2 = "20";
+    ZL3 = "30";
+    ZL4 = "40";
+    ZL5 = "50";
+  }
+  if (x_scale == 2 || x_scale == 6) {
+    ZL1 = "30";
+    ZL2 = "60";
+    ZL3 = "90";
+    ZL4 = "120";
+    ZL5 = "150";
+  }
+  if (x_scale == 3 || x_scale == 7) {
+    ZL1 = "60";
+    ZL2 = "120";
+    ZL3 = "180";
+    ZL4 = "240";
+    ZL5 = "300";
+  }
+  if (x_scale == 4) {
+    ZL1 = "2";
+    ZL2 = "4";
+    ZL3 = "6";
+    ZL4 = "8";
+    ZL5 = "10";
+  }
+  if (x_scale == 8) {
+    ZL1 = "4";
+    ZL2 = "8";
+    ZL3 = "12";
+    ZL4 = "16";
+    ZL5 = "20";
+  }
+  if (x_scale == 9) {
+    ZL1 = "12";
+    ZL2 = "24";
+    ZL3 = "36";
+    ZL4 = "48";
+    ZL5 = "60";
   }
 
 
+  text(ZL1, 325, 620);
+  text(ZL2, 480, 620);
+  text(ZL3, 635, 620);
+  text(ZL4, 790, 620);
+  text(ZL5, 945, 620);
 
   //////////////////ENDE Zeitskala Beschriftung und Hilfslinien //////////////////////////
 
@@ -544,15 +392,42 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
   }
 
   fill(0);
-  if (zeitskala[xValues-1] < 360) {
+  if (x_scale == 1 || x_scale == 2 || x_scale == 3) {
     text("Zeit in Sekunden", 640, 645);
-    text(nf(ceil(zeitskala[xValues-1]), 0, 0), 1120, 640);
-  } else if (zeitskala[xValues - 1] < 21600) {
+    if (x_scale == 1) {
+      text(60, 1120, 640);
+    }
+    if (x_scale == 2) {
+      text(180, 1120, 640);
+    }
+    if (x_scale == 3) {
+      text(360, 1120, 640);
+    }
+  } else if (x_scale == 4 || x_scale == 5 || x_scale == 6 || x_scale == 7) {
     text("Zeit in Minuten", 640, 645);
-    text(nf(ceil(zeitskala[xValues-1]/60), 0, 0), 1120, 640);
-  } else {
+    if (x_scale == 4) {
+      text(12, 1120, 640);
+    }
+    if (x_scale == 5) {
+      text(60, 1120, 640);
+    }
+    if (x_scale == 6) {
+      text(180, 1120, 640);
+    }
+    if (x_scale == 7) {
+      text(360, 1120, 640);
+    }
+  } else if (x_scale > 7) {
     text("Zeit in Stunden", 640, 645);
-    text(nf(ceil(zeitskala[xValues-1]/3600), 0, 0), 1120, 640);
+    if (x_scale == 8) {
+      text(12, 1120, 640);
+    }
+    if (x_scale == 9) {
+      text(24, 1120, 640);
+    }
+    if (x_scale == 10) {
+      text(72, 1120, 640);
+    }
   }
 
 
@@ -563,7 +438,68 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     if (xValues > 0 && xValues < 930) {
       for (int i = (index - xValues); i < index - 1; i++) {
         float x_anfang = zeitskala[index - xValues];
-        float  x_ende = zeitskala[index - 1];
+        float x_ende = zeitskala[index - 1];
+        if (x_scale == 1) {
+          if (x_ende < 60) {
+            x_ende = 60;
+          } else {
+            x_anfang = x_ende - 60;
+          }
+        } else if (x_scale == 2) {
+          if (x_ende < 180) {
+            x_ende = 180;
+          } else {
+            x_anfang = x_ende - 180;
+          }
+        } else if (x_scale == 3) {
+          if (x_ende < 360) {
+            x_ende = 360;
+          } else {
+            x_anfang = x_ende - 360;
+          }
+        } else if (x_scale == 4) {
+          if (x_ende < 720) {
+            x_ende = 720;
+          } else {
+            x_anfang = x_ende - 720;
+          }
+        } else if (x_scale == 5) {
+          if (x_ende < 3600) {
+            x_ende = 3600;
+          } else {
+            x_anfang = x_ende - 3600;
+          }
+        } else if (x_scale == 6) {
+          if (x_ende < 10800) {
+            x_ende = 10800;
+          } else {
+            x_anfang = x_ende - 10800;
+          }
+        } else if (x_scale == 7) {
+          if (x_ende < 21600) {
+            x_ende = 21600;
+          } else {
+            x_anfang = x_ende - 21600;
+          }
+        } else if (x_scale == 8) {
+          if (x_ende < 43200) {
+            x_ende = 43200;
+          } else {
+            x_anfang = x_ende - 43200;
+          }
+        } else if (x_scale == 9) {
+          if (x_ende < 86400) {
+            x_ende = 86400;
+          } else {
+            x_anfang = x_ende - 86400;
+          }
+        } else if (x_scale == 10) {
+          if (x_ende < 259200) {
+            x_ende = 259200;
+          } else {
+            x_anfang = x_ende - 259200;
+          }
+        }
         float x_intervall = x_ende - x_anfang;
         float x1 = 175 + (zeitskala[i] - x_anfang)*930/x_intervall;
         float x2 = 175 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
@@ -591,6 +527,67 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       for (int i = 0; i < 929; i++) {
         float x_anfang = newArray_time[0];
         float x_ende = newArray_time[929];
+        if (x_scale == 1) {
+          if (x_ende < 60) {
+            x_ende = 60;
+          } else {
+            x_anfang = x_ende - 60;
+          }
+        } else if (x_scale == 2) {
+          if (x_ende < 180) {
+            x_ende = 180;
+          } else {
+            x_anfang = x_ende - 180;
+          }
+        } else if (x_scale == 3) {
+          if (x_ende < 360) {
+            x_ende = 360;
+          } else {
+            x_anfang = x_ende - 360;
+          }
+        } else if (x_scale == 4) {
+          if (x_ende < 720) {
+            x_ende = 720;
+          } else {
+            x_anfang = x_ende - 720;
+          }
+        } else if (x_scale == 5) {
+          if (x_ende < 3600) {
+            x_ende = 3600;
+          } else {
+            x_anfang = x_ende - 3600;
+          }
+        } else if (x_scale == 6) {
+          if (x_ende < 10800) {
+            x_ende = 10800;
+          } else {
+            x_anfang = x_ende - 10800;
+          }
+        } else if (x_scale == 7) {
+          if (x_ende < 21600) {
+            x_ende = 21600;
+          } else {
+            x_anfang = x_ende - 21600;
+          }
+        } else if (x_scale == 8) {
+          if (x_ende < 43200) {
+            x_ende = 43200;
+          } else {
+            x_anfang = x_ende - 43200;
+          }
+        } else if (x_scale == 9) {
+          if (x_ende < 86400) {
+            x_ende = 86400;
+          } else {
+            x_anfang = x_ende - 86400;
+          }
+        } else if (x_scale == 10) {
+          if (x_ende < 259200) {
+            x_ende = 259200;
+          } else {
+            x_anfang = x_ende - 259200;
+          }
+        }
         float x_intervall = x_ende - x_anfang;
         float x1 = 175 + (newArray_time[i] - x_anfang)*930/x_intervall;
         float x2 = 175 + (newArray_time[i+1] - x_anfang)*930/x_intervall;
@@ -605,6 +602,67 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     for (int i = (indexStation1 - xValues); i < indexStation1 - 1; i++) {
       float x_anfang = zeitskala[indexStation1 - xValues];
       float x_ende = zeitskala[indexStation1 - 1];
+      if (x_scale == 1) {
+        if (x_ende < 60) {
+          x_ende = 60;
+        } else {
+          x_anfang = x_ende - 60;
+        }
+      } else if (x_scale == 2) {
+        if (x_ende < 180) {
+          x_ende = 180;
+        } else {
+          x_anfang = x_ende - 180;
+        }
+      } else if (x_scale == 3) {
+        if (x_ende < 360) {
+          x_ende = 360;
+        } else {
+          x_anfang = x_ende - 360;
+        }
+      } else if (x_scale == 4) {
+        if (x_ende < 720) {
+          x_ende = 720;
+        } else {
+          x_anfang = x_ende - 720;
+        }
+      } else if (x_scale == 5) {
+        if (x_ende < 3600) {
+          x_ende = 3600;
+        } else {
+          x_anfang = x_ende - 3600;
+        }
+      } else if (x_scale == 6) {
+        if (x_ende < 10800) {
+          x_ende = 10800;
+        } else {
+          x_anfang = x_ende - 10800;
+        }
+      } else if (x_scale == 7) {
+        if (x_ende < 21600) {
+          x_ende = 21600;
+        } else {
+          x_anfang = x_ende - 21600;
+        }
+      } else if (x_scale == 8) {
+        if (x_ende < 43200) {
+          x_ende = 43200;
+        } else {
+          x_anfang = x_ende - 43200;
+        }
+      } else if (x_scale == 9) {
+        if (x_ende < 86400) {
+          x_ende = 86400;
+        } else {
+          x_anfang = x_ende - 86400;
+        }
+      } else if (x_scale == 10) {
+        if (x_ende < 259200) {
+          x_ende = 259200;
+        } else {
+          x_anfang = x_ende - 259200;
+        }
+      }
       float x_intervall = x_ende - x_anfang;
       float x1 = 175 + (zeitskala[i] - x_anfang)*930/x_intervall;
       float x2 = 175 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
@@ -614,10 +672,71 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
         line(x1, y1, x2, y2);
       }
     }
-  }else if (zeitskala1 == 2) {
+  } else if (zeitskala1 == 2) {
     for (int i = (indexStation1_trocken - xValues); i < indexStation1_trocken - 1; i++) {
       float x_anfang = zeitskala[indexStation1_trocken - xValues];
       float x_ende = zeitskala[indexStation1_trocken - 1];
+      if (x_scale == 1) {
+        if (x_ende < 60) {
+          x_ende = 60;
+        } else {
+          x_anfang = x_ende - 60;
+        }
+      } else if (x_scale == 2) {
+        if (x_ende < 180) {
+          x_ende = 180;
+        } else {
+          x_anfang = x_ende - 180;
+        }
+      } else if (x_scale == 3) {
+        if (x_ende < 360) {
+          x_ende = 360;
+        } else {
+          x_anfang = x_ende - 360;
+        }
+      } else if (x_scale == 4) {
+        if (x_ende < 720) {
+          x_ende = 720;
+        } else {
+          x_anfang = x_ende - 720;
+        }
+      } else if (x_scale == 5) {
+        if (x_ende < 3600) {
+          x_ende = 3600;
+        } else {
+          x_anfang = x_ende - 3600;
+        }
+      } else if (x_scale == 6) {
+        if (x_ende < 10800) {
+          x_ende = 10800;
+        } else {
+          x_anfang = x_ende - 10800;
+        }
+      } else if (x_scale == 7) {
+        if (x_ende < 21600) {
+          x_ende = 21600;
+        } else {
+          x_anfang = x_ende - 21600;
+        }
+      } else if (x_scale == 8) {
+        if (x_ende < 43200) {
+          x_ende = 43200;
+        } else {
+          x_anfang = x_ende - 43200;
+        }
+      } else if (x_scale == 9) {
+        if (x_ende < 86400) {
+          x_ende = 86400;
+        } else {
+          x_anfang = x_ende - 86400;
+        }
+      } else if (x_scale == 10) {
+        if (x_ende < 259200) {
+          x_ende = 259200;
+        } else {
+          x_anfang = x_ende - 259200;
+        }
+      }
       float x_intervall = x_ende - x_anfang;
       float x1 = 175 + (zeitskala[i] - x_anfang)*930/x_intervall;
       float x2 = 175 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
@@ -628,10 +747,71 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       }
       ;
     }
-  }else if (zeitskala1 == 3) {
+  } else if (zeitskala1 == 3) {
     for (int i = (indexStation1_nass - xValues); i < indexStation1_nass - 1; i++) {
       float x_anfang = zeitskala[indexStation1_nass - xValues];
       float x_ende = zeitskala[indexStation1_nass - 1];
+      if (x_scale == 1) {
+        if (x_ende < 60) {
+          x_ende = 60;
+        } else {
+          x_anfang = x_ende - 60;
+        }
+      } else if (x_scale == 2) {
+        if (x_ende < 180) {
+          x_ende = 180;
+        } else {
+          x_anfang = x_ende - 180;
+        }
+      } else if (x_scale == 3) {
+        if (x_ende < 360) {
+          x_ende = 360;
+        } else {
+          x_anfang = x_ende - 360;
+        }
+      } else if (x_scale == 4) {
+        if (x_ende < 720) {
+          x_ende = 720;
+        } else {
+          x_anfang = x_ende - 720;
+        }
+      } else if (x_scale == 5) {
+        if (x_ende < 3600) {
+          x_ende = 3600;
+        } else {
+          x_anfang = x_ende - 3600;
+        }
+      } else if (x_scale == 6) {
+        if (x_ende < 10800) {
+          x_ende = 10800;
+        } else {
+          x_anfang = x_ende - 10800;
+        }
+      } else if (x_scale == 7) {
+        if (x_ende < 21600) {
+          x_ende = 21600;
+        } else {
+          x_anfang = x_ende - 21600;
+        }
+      } else if (x_scale == 8) {
+        if (x_ende < 43200) {
+          x_ende = 43200;
+        } else {
+          x_anfang = x_ende - 43200;
+        }
+      } else if (x_scale == 9) {
+        if (x_ende < 86400) {
+          x_ende = 86400;
+        } else {
+          x_anfang = x_ende - 86400;
+        }
+      } else if (x_scale == 10) {
+        if (x_ende < 259200) {
+          x_ende = 259200;
+        } else {
+          x_anfang = x_ende - 259200;
+        }
+      }
       float x_intervall = x_ende - x_anfang;
       float x1 = 175 + (zeitskala[i] - x_anfang)*930/x_intervall;
       float x2 = 175 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
@@ -642,6 +822,40 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       }
     }
   }
+
+  fill(0);
+  textAlign(CENTER);
+  println(x_scale);
+  if (x_scale == 0) {
+    if (xValues < 930) {
+      if (zeitskala[index - 1] < 360) {
+        text("Zeit in Sekunden", 640, 645);
+        text(ceil(zeitskala[index - 1]), 1120, 640);
+      } else if (zeitskala[index - 1] < 21600) {
+        text("Zeit in Minuten", 640, 645);
+        text(ceil(zeitskala[index - 1]/60), 1120, 640);
+      } else {
+        text("Zeit in Stunden", 640, 645);
+        text(ceil(zeitskala[index - 1])/3600, 1120, 640);
+      }
+    } else {
+      float[] newArray_time = kuerzen(zeitskala, xValues, 930);
+      if (newArray_time[929] < 360) {
+        text("Zeit in Sekunden", 640, 645);
+        text(ceil(newArray_time[929]), 1120, 640);
+      } else if (newArray_time[929] < 21600) {
+        text("Zeit in Minuten", 640, 645);
+        text(ceil(newArray_time[929]/60), 1120, 640);
+      } else {
+        text("Zeit in Stunden", 640, 645);
+        text(ceil(newArray_time[929]/3600), 1120, 640);
+      }
+    }
+  }
+  textAlign(CORNER);
+
+
+
   ///////////////////////////////////////////////////////////////////////////////////
 
   // Aktueller Messwert
@@ -737,9 +951,9 @@ float maxValue(float[] array, int xVals, int zeitskala) {
       temp = index;
     } else if (zeitskala == 1) {
       temp = indexStation1;
-    }else if (zeitskala == 2) {
+    } else if (zeitskala == 2) {
       temp = indexStation1_trocken;
-    }else if (zeitskala == 3) {
+    } else if (zeitskala == 3) {
       temp = indexStation1_nass;
     }
   }
