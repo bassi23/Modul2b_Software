@@ -125,14 +125,21 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     ZL4 = "8";
     ZL5 = "10";
   }
-  if (x_scale == 8) {
+    if (x_scale == 8) {
+    ZL1 = "2";
+    ZL2 = "4";
+    ZL3 = "6";
+    ZL4 = "8";
+    ZL5 = "10";
+  }
+  if (x_scale == 9) {
     ZL1 = "4";
     ZL2 = "8";
     ZL3 = "12";
     ZL4 = "16";
     ZL5 = "20";
   }
-  if (x_scale == 9) {
+  if (x_scale == 10) {
     ZL1 = "12";
     ZL2 = "24";
     ZL3 = "36";
