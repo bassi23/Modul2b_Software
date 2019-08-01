@@ -46,7 +46,7 @@ float zeroTime5 = 0;
 int anzahlCOMPorts = 0;
 void setup() {
   size(1280, 720);
-
+  anzahlCOMPorts = Serial.list().length;
   try {
     myPort = new Serial(this, Serial.list()[0], 57600);
     gotSerial = true;
