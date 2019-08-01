@@ -42,6 +42,8 @@ float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
 float zeroTime4 = 0;
 float zeroTime5 = 0;
+
+int anzahlCOMPorts = 0;
 void setup() {
   size(1280, 720);
 
@@ -304,10 +306,15 @@ void draw() {
     try {
       myPort = new Serial(this, Serial.list()[0], 57600);
       gotSerial = true;
+      anzahlCOMPorts = Serial.list().length;
     }
     catch(Exception e) {
       gotSerial = false;
     }
+  }
+  
+  if(Serial.list().length != anzahlCOMPorts){
+    gotSerial = false;
   }
 
 
