@@ -20,8 +20,8 @@ void setup() {
   Serial.begin(57600);
   airSensor.setDebug(scd_debug);
     if (! sgp.begin()) {
-      Serial.println("Sensor not found :(");
-      while (1);
+      //Serial.println("Sensor not found :(");
+      //while (1);
     }
   airSensor.begin(Wire);
 }
@@ -95,12 +95,11 @@ void loop() {
   co2 = airSensor.getCO2();
   t_scd = airSensor.getTemperature();
   h_scd = airSensor.getHumidity();
-    if (! sgp.IAQmeasure()) {
-      return;
+    if (sgp.IAQmeasure()) {
+      sgp.setHumidity(getAbsoluteHumidity(t_scd, h_scd));
+      tvoc = int(sgp.TVOC);
+      eco2 = int(sgp.eCO2);
     }
-  sgp.setHumidity(getAbsoluteHumidity(t_scd, h_scd));
-  tvoc = int(sgp.TVOC);
-  eco2 = int(sgp.eCO2);
   Serial.print(t_scd);
   Serial.print(";");
   Serial.print(h_scd);
