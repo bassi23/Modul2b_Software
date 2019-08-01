@@ -5,6 +5,7 @@
 - Linien der Graphen überschreiten die Begrenzung nicht mehr
 - Station 2 - neue gestrichelte Linie, die den Durchschnitt anzeigt wurde hinzugefügt
 - Arduino Code aktualisiert
+- Man kann den Mikrocontroller nun beliebig oft vom PC abziehen und wieder dranhängen, ohne, dass das Programm abstürzt. Die Datenaufnahme geht nach einer kurzen Wartezeit (2-5 Sekunden normal weiter)
 
 ## Neue Geruchsskala
 
