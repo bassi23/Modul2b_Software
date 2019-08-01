@@ -270,6 +270,7 @@ void Station2_Sensor() {
     if (prob > 0) {
       MenschSensorMessen = true;
       indexMenschSensorMax = 0;
+      indexMenschSensor = 0;
       currentTime = millis();
     }
   }
@@ -316,9 +317,9 @@ void Station2_Sensor() {
   stroke(0);
   line(10, 310, 450, 310);
   line(130, 240, 130, 550);
-  
-  for(int i = 0; i < 4; i++){
-   line(10, 350 + 50*i, 450, 350 + 50*i); 
+
+  for (int i = 0; i < 4; i++) {
+    line(10, 350 + 50*i, 450, 350 + 50*i);
   }
 
   float max = 0;
@@ -383,6 +384,7 @@ void Station2_Sensor() {
       float x2 = 500 + (i-1)*700/(indexMenschSensorMax-1);
       float y1 = 590 - MenschSensorMesswerte[j][i]*400/max;
       float y2 = 590 - MenschSensorMesswerte[j][i-1]*400/max;
+      noFill();
       if (j == 0) {
         stroke(255, 0, 0);
       } else if (j == 1) {
@@ -394,7 +396,11 @@ void Station2_Sensor() {
       } else if (j == 4) {
         stroke(0);
       }
-      line(x1, y1, x2, y2);
+      if (MenschSensorMesswerte[j][i] <= max && MenschSensorMesswerte[j][i-1] <= max) {
+        line(x1, y1, x2, y2);
+        dottedLine(500, 590 - MesswertSensor[j]*400/max, 1200, 590 - MesswertSensor[j]*400/max);
+      }
+      fill(0);
     }
   }
 
@@ -402,6 +408,18 @@ void Station2_Sensor() {
     page = 2.11;
   }
   strokeWeight(1);
+}
+
+
+
+
+
+
+void dottedLine(float x1, float y1, float x2, float y2) {
+  float dx = (x2 - x1)/60;
+  for (int i = 0; i < 61; i++) {
+    point(x1 + i*dx, y1);
+  }
 }
 
 

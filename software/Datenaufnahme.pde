@@ -52,14 +52,17 @@ int indexZwischenSpeicher = 0;
 
 boolean Station1Start = false;
 
-float del = 0;
+float del = 1;
 
 void Datenaufnahme() {
   boolean received = false;
-
-  if (myPort.available() > 0) {
-    Daten = myPort.readStringUntil('\n');
-    received = true;
+  try {
+    if (myPort.available() > 0) {
+      Daten = myPort.readStringUntil('\n');
+      received = true;
+    }
+  } catch(Exception e) {
+    println("Keine Daten");
   }
   if (Daten != null && received) {
     if (index == 0) {

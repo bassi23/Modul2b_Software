@@ -125,7 +125,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     ZL4 = "8";
     ZL5 = "10";
   }
-    if (x_scale == 8) {
+  if (x_scale == 8) {
     ZL1 = "2";
     ZL2 = "4";
     ZL3 = "6";
@@ -540,6 +540,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
           } else {
             x_anfang = x_ende - 60;
           }
+          println(x_anfang, x_ende);
         } else if (x_scale == 2) {
           if (x_ende < 180) {
             x_ende = 180;
@@ -675,7 +676,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       float x2 = 175 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
       float y1 = 600 - 500*(array[i]-min)/(max - min);
       float y2 = 600 - 500*(array[i+1] - min)/(max - min);
-      if (array[i] <= max && array[i+1] <= max) {
+      if (array[i] <= max && array[i+1] <= max && array[i] >= min && array[i+1] >= min && x1 >= 175 && x2 > 175) {
         line(x1, y1, x2, y2);
       }
     }
@@ -832,30 +833,31 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
 
   fill(0);
   textAlign(CENTER);
-  println(x_scale);
-  if (x_scale == 0) {
-    if (xValues < 930) {
-      if (zeitskala[index - 1] < 360) {
-        text("Zeit in Sekunden", 640, 645);
-        text(ceil(zeitskala[index - 1]), 1120, 640);
-      } else if (zeitskala[index - 1] < 21600) {
-        text("Zeit in Minuten", 640, 645);
-        text(ceil(zeitskala[index - 1]/60), 1120, 640);
+  if (index > 0) {
+    if (x_scale == 0) {
+      if (xValues < 930) {
+        if (zeitskala[index - 1] < 360) {
+          text("Zeit in Sekunden", 640, 645);
+          text(ceil(zeitskala[index - 1]), 1120, 640);
+        } else if (zeitskala[index - 1] < 21600) {
+          text("Zeit in Minuten", 640, 645);
+          text(ceil(zeitskala[index - 1]/60), 1120, 640);
+        } else {
+          text("Zeit in Stunden", 640, 645);
+          text(ceil(zeitskala[index - 1])/3600, 1120, 640);
+        }
       } else {
-        text("Zeit in Stunden", 640, 645);
-        text(ceil(zeitskala[index - 1])/3600, 1120, 640);
-      }
-    } else {
-      float[] newArray_time = kuerzen(zeitskala, xValues, 930);
-      if (newArray_time[929] < 360) {
-        text("Zeit in Sekunden", 640, 645);
-        text(ceil(newArray_time[929]), 1120, 640);
-      } else if (newArray_time[929] < 21600) {
-        text("Zeit in Minuten", 640, 645);
-        text(ceil(newArray_time[929]/60), 1120, 640);
-      } else {
-        text("Zeit in Stunden", 640, 645);
-        text(ceil(newArray_time[929]/3600), 1120, 640);
+        float[] newArray_time = kuerzen(zeitskala, xValues, 930);
+        if (newArray_time[929] < 360) {
+          text("Zeit in Sekunden", 640, 645);
+          text(ceil(newArray_time[929]), 1120, 640);
+        } else if (newArray_time[929] < 21600) {
+          text("Zeit in Minuten", 640, 645);
+          text(ceil(newArray_time[929]/60), 1120, 640);
+        } else {
+          text("Zeit in Stunden", 640, 645);
+          text(ceil(newArray_time[929]/3600), 1120, 640);
+        }
       }
     }
   }

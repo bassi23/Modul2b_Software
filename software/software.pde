@@ -300,6 +300,17 @@ void draw() {
   imageMode(CORNER);
   image(hintergrund, 0, 0);
 
+  if (!gotSerial) {
+    try {
+      myPort = new Serial(this, Serial.list()[0], 57600);
+      gotSerial = true;
+    }
+    catch(Exception e) {
+      gotSerial = false;
+    }
+  }
+
+
   noStroke();
   fill(0);
   textSize(16);
@@ -320,6 +331,7 @@ void draw() {
   TVOC_Duelle_Start.hide();
   Sensormessung.hide();
   reset_Station2.hide();
+  innenraumluft.hide();
   Station4a.visible = false;
 
   zumObermenu.x = 1100;
