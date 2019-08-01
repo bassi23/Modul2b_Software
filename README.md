@@ -1,5 +1,11 @@
 # Modul2b_Software
 
+## Update
+
+- Linien der Graphen überschreiten die Begrenzung nicht mehr
+- Station 2 - neue gestrichelte Linie, die den Durchschnitt anzeigt wurde hinzugefügt
+- Arduino Code aktualisiert
+
 ## Neue Geruchsskala
 
 Bisher haben wir die Skala von 0 - 10 für die Einschätzung der TVOC-Emission benutzt. Ein Kollege von mir arbeitet hauptsächlich an Geruchsmessung mit Sensoren, und er hat mir eine Skala von 0 - 6 empfohlen, da diese üblicherweise verwendet wird. Die Skala kommt aus der VDI 3882 Blatt 1: Olfaktometrie Bestimmung der Geruchsintensität, Okt 1992
