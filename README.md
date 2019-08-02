@@ -2,6 +2,16 @@
 
 ## Update
 
+### 02.08.2019
+Ab sofort werde ich (falls es etwas Neues gibt) nur noch einmal pro Tag die neuste Version hochladen. 
+- Das Problem der unsichtbaren Buttons sollte gelöst sein. Man kann also nur noch die Buttons anklicken, die man wirklich sieht, und gelangt so nicht ungewollt auf andere Seiten im Programm.
+- Station 4: Messwerte werden nicht mehr außerhalb des Graphen gezeichnet
+- Station 4: Zeit auf 5 Minuten angehoben (statt wie bisher 30 Sekunden zum Debuggen)
+- Station 4: Aufgabenstellung reicht nicht mehr über die Seite hinaus.
+
+
+______________________
+
 - Linien der Graphen überschreiten die Begrenzung nicht mehr
 - Station 2 - neue gestrichelte Linie, die den Durchschnitt anzeigt wurde hinzugefügt
 - Arduino Code aktualisiert
