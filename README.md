@@ -12,6 +12,7 @@ Ab sofort werde ich (falls es etwas Neues gibt) nur noch einmal pro Tag die neus
 - Station 2: Gepunktete Linien überschreiten die Höhe des Graphen nicht mehr
 - Station 2: Zwischenlinien für die Zeit hinzugefügt
 - Station 3: Neue Geruchskala integriert
+- Allgemein: Die Indizes von CO_2 und eCO_2 sind jetzt endlich überall tiefergestellt
 
 
 
