@@ -8,6 +8,7 @@ Ab sofort werde ich (falls es etwas Neues gibt) nur noch einmal pro Tag die neus
 - Station 4: Messwerte werden nicht mehr außerhalb des Graphen gezeichnet
 - Station 4: Zeit auf 5 Minuten angehoben (statt wie bisher 30 Sekunden zum Debuggen)
 - Station 4: Aufgabenstellung reicht nicht mehr über die Seite hinaus.
+- Station 2: Gepunktete Linien überschreiten die Höhe des Graphen nicht mehr
 
 
 ______________________
