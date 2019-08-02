@@ -7,15 +7,18 @@ void Innenraumluft() {
   fill(0);
   textSize(20);
   text("Station 4 - Innenraumluftqualität", 20, 50);
-  text("In diesem Experiment werden wir die Innenraumluftqualität bestimmen. Setze dich jeweils für 5 Minuten in eine Messkammer\nund nimm den Verlauf der Parameter Temperatur, Luftfeuchte, TVOC, CO2 und eCO2 auf.\nVariiere die Belüftung, indem du den integrierten Ventilator \n\n\n\n\nlaufen lässt. Warte nach jeder Runde, bis sich die Werte wieder normalisiert haben.", 20, 100);
+  text("In diesem Experiment werden wir die Innenraumluftqualität bestimmen. Setze dich jeweils für 5 Minuten in eine Messkammer\nund nimm den Verlauf der Parameter Temperatur, Luftfeuchte, TVOC, CO  und eCO  auf.\nVariiere die Belüftung, indem du den integrierten Ventilator \n\n\n\n\nlaufen lässt. Warte nach jeder Runde, bis sich die Werte wieder normalisiert haben.", 20, 100);
   text("a) ausgeschaltet\nb) auf halber Kraft\nc) auf voller Kraft", 500, 200);
+  
+  textSize(14);
+  text("2                    2", 730, 140);
   stroke(0);
   Station4a.show();
   Station4agestartet = false;
   indexInnenraumlufta = 0;
 }
 
-int t = 20;
+int t = 10;
 
 
 
@@ -31,7 +34,7 @@ void Innenraumluft_a() {
   fill(0);
   textSize(20);
   text("Station 4 - Innenraumluftqualität", 20, 50);
-  text("a) Lasse den Ventilator ausgeschaltet und lüfte die Messkammer zunächst gut durch. Starte dann die Messung. Sobald 30 Se-\nkunden abgelaufen sind, setze dich in die Messkammer, schließe die Tür und warte bis die Zeit abgelaufen ist.", 20, 100);
+  text("a) Lasse den Ventilator ausgeschaltet und lüfte die Messkammer zunächst gut durch. Starte dann die Messung. Sobald 30 Se-\nkunden abgelaufen sind, setze dich in die Messkammer, schließe die Tür und warte bis 5 Minuten abgelaufen ist.", 20, 100);
   up1.show();
   down1.show();
   innenraumluft.show();
@@ -62,9 +65,12 @@ void Innenraumluft_a() {
   text("T", 190, 172);
   text("H", 380, 172);
   text("TVOC", 560, 172);
-  text("CO2", 770, 172);
-  text("eCO2", 970, 172);
+  text("CO", 770, 172);
+  text("eCO", 970, 172);
 
+  textSize(16);
+  text("2                                        2", 802, 185);
+  textSize(25);
   onlyOne(innenraumluft, "T", "H", "TVOC", "CO2", "eCO2");
   boolean Innenraum_T = innenraumluft.getState("T");
   boolean Innenraum_H = innenraumluft.getState("H");
@@ -110,7 +116,12 @@ void Innenraumluft_a() {
     wasZeichnen = 4;
   }
 
-
+  if (scale_Innenraum != 0) {
+    stroke(200);
+    for (int i = 0; i < 4; i++) {
+      line(175, 290 + 90*i, 1105, 290 + 90*i);
+    }
+  }
 
 
   if (scale_Innenraum == 0) {
@@ -179,10 +190,19 @@ void Innenraumluft_a() {
     }
   }
 
-  text(nf(max, 0, 0), 130, 200);
-  text(nf(min, 0, 0), 130, 650);
+  if (scale_Innenraum != 0) {
+    for (int i = 1; i < 5; i++) {
+      float y = max/5;
+      text(nf(i*y, 0, 0), 120, 650 - 90*i);
+    }
+  }
+
+  if (min != 9999999 && max != 0) {
+    text(nf(max, 0, 0), 120, 200);
+    text(nf(min, 0, 0), 120, 650);
+  }
   text("0", 160, 680);
-  text("Zeit in Sekunden", 580, 680);
+  text("Zeit in Sekunden", 580, 700);
 
   strokeWeight(4);
   for (int i = 1; i < indexInnenraumlufta; i++) {
@@ -203,8 +223,7 @@ void Innenraumluft_a() {
     } else if (wasZeichnen == 4) {
       stroke(0);
     }
-    if (Innenraumlufta[wasZeichnen][i]<= max) {
-
+    if (Innenraumlufta[wasZeichnen][i]<= max && Innenraumlufta[wasZeichnen][i] >= min && Innenraumlufta[wasZeichnen][i-1] <=max && Innenraumlufta[wasZeichnen][i-1] >= min) {
       line(x1, y1, x2, y2);
     }
   }
@@ -230,7 +249,7 @@ void Innenraumluft_b() {
   fill(0);
   textSize(20);
   text("Station 4 - Innenraumluftqualität", 20, 50);
-  text("b) Lasse nun den Ventilator auf 50% laufen und wiederhole den Versuch. Setze dich nach 30 Sekunden in die Messkammer, schließe die Tür und warte bis 5 Minuten abgelaufen sind.", 20, 100);
+  text("b) Lasse nun den Ventilator auf 50% laufen und wiederhole den Versuch. Setze dich nach 30 Sekunden in die Messkammer,\nschließe die Tür und warte bis 5 Minuten abgelaufen sind.", 20, 100);
   up1.show();
   down1.show();
   innenraumluft.show();
@@ -260,8 +279,12 @@ void Innenraumluft_b() {
   text("T", 190, 172);
   text("H", 380, 172);
   text("TVOC", 560, 172);
-  text("CO2", 770, 172);
-  text("eCO2", 970, 172);
+  text("CO", 770, 172);
+  text("eCO", 970, 172);
+
+  textSize(16);
+  text("2                                        2", 802, 185);
+  textSize(25);
 
   onlyOne(innenraumluft, "T", "H", "TVOC", "CO2", "eCO2");
   boolean Innenraum_T = innenraumluft.getState("T");
@@ -271,11 +294,6 @@ void Innenraumluft_b() {
   boolean Innenraum_eCO2 = innenraumluft.getState("eCO2");
 
   textSize(20);
-  if ((millis() - currentTime4b)/1000 < t) {
-    text(nf((millis() - currentTime4b)/1000, 0, 1), 1100, 690);
-  }
-
-
   if (Station4bgestartet == false) {
     Station4Start.show();
     reset_innenraum.hide();
@@ -306,6 +324,7 @@ void Innenraumluft_b() {
   } else if (Innenraum_eCO2) {
     wasZeichnen = 4;
   }
+
 
 
 
@@ -382,13 +401,21 @@ void Innenraumluft_b() {
     }
   }
 
-  text(nf(max, 0, 0), 130, 200);
-  text(nf(min, 0, 0), 130, 650);
+  if (scale_Innenraum != 0) {
+    for (int i = 1; i < 5; i++) {
+      float y = max/5;
+      text(nf(i*y, 0, 0), 120, 650 - 90*i);
+    }
+  }
+  if (min != 9999999 && max != 0) {
+    text(nf(max, 0, 0), 120, 200);
+    text(nf(min, 0, 0), 120, 650);
+  }
   text("0", 160, 680);
-  text("Zeit in Sekunden", 580, 680);
+  text("Zeit in Sekunden", 580, 700);
 
 
-  for (int i = 1; i < indexInnenraumlufta; i++) {
+  for (int i = 1; i < indexInnenraumluftb; i++) {
 
     float x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
     float x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
@@ -410,12 +437,14 @@ void Innenraumluft_b() {
     if (Innenraumluftb[wasZeichnen][i]<= max && Innenraumluftb[wasZeichnen][i]>= min && Innenraumluftb[wasZeichnen][i-1]<= max && Innenraumluftb[wasZeichnen][i-1]>= min) {
       line(x1, y1, x2, y2);
     }
+  }
 
 
-    x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
-    x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
-    y1 = 650 - (Innenraumlufta[wasZeichnen][i]-min)*450/(max-min);
-    y2 = 650 - (Innenraumlufta[wasZeichnen][i-1]-min)*450/(max-min);   
+  for (int i = 1; i < indexInnenraumlufta; i++) {
+    float x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
+    float x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
+    float y1 = 650 - (Innenraumlufta[wasZeichnen][i]-min)*450/(max-min);
+    float y2 = 650 - (Innenraumlufta[wasZeichnen][i-1]-min)*450/(max-min);   
     strokeWeight(1);
     if (wasZeichnen == 0) {
       stroke(255, 0, 0);
@@ -433,8 +462,15 @@ void Innenraumluft_b() {
     }
   }
 
+  float x1 = 175 + (indexInnenraumluftb-1)*930/(indexInnenraumlufta-1); 
+  //indexInnenraumlufta = t Sekunden
+  float t1 = float(indexInnenraumluftb)*t/float(indexInnenraumlufta);
+  if ((millis() - currentTime4b)/1000 < t && x1 > 175 && x1 < 1105) {
+    text(nf(round(t1), 0, 0), x1-20, 675);
+  }
+  text(t, 1100, 690);
+
   if ((millis() - currentTime4b)/1000 > t  && currentTime4b > 0) {
-    text(t, 1100, 690);
     Station4c.show();
   }
   strokeWeight(1);
@@ -453,7 +489,7 @@ void Innenraumluft_c() {
   fill(0);
   textSize(20);
   text("Station 4 - Innenraumluftqualität", 20, 50);
-  text("c) Lasse nun den Ventilator auf 100% laufen und wiederhole den Versuch. Setze dich nach 30 Sekunden in die Messkammer, schließe die Tür und warte bis 5 Minuten abgelaufen sind.", 20, 100);
+  text("c) Lasse nun den Ventilator auf 100% laufen und wiederhole den Versuch. Setze dich nach 30 Sekunden in die Messkammer,\nschließe die Tür und warte bis 5 Minuten abgelaufen sind.", 20, 100);
   up1.show();
   down1.show();
   innenraumluft.show();
@@ -483,8 +519,12 @@ void Innenraumluft_c() {
   text("T", 190, 172);
   text("H", 380, 172);
   text("TVOC", 560, 172);
-  text("CO2", 770, 172);
-  text("eCO2", 970, 172);
+  text("CO", 770, 172);
+  text("eCO", 970, 172);
+
+  textSize(16);
+  text("2                                        2", 802, 185);
+  textSize(25);
 
   onlyOne(innenraumluft, "T", "H", "TVOC", "CO2", "eCO2");
   boolean Innenraum_T = innenraumluft.getState("T");
@@ -494,11 +534,6 @@ void Innenraumluft_c() {
   boolean Innenraum_eCO2 = innenraumluft.getState("eCO2");
 
   textSize(20);
-  if ((millis() - currentTime4c)/1000 < t) {
-    text(nf((millis() - currentTime4c)/1000, 0, 1), 1100, 690);
-  }
-
-
   if (Station4cgestartet == false) {
     Station4Start.show();
     reset_innenraum.hide();
@@ -611,19 +646,26 @@ void Innenraumluft_c() {
     }
   }
 
-  text(nf(max, 0, 0), 130, 200);
-  text(nf(min, 0, 0), 130, 650);
+  if (scale_Innenraum != 0) {
+    for (int i = 1; i < 5; i++) {
+      float y = max/5;
+      text(nf(i*y, 0, 0), 120, 650 - 90*i);
+    }
+  }
+
+  if (min != 9999999 && max != 0) {
+    text(nf(max, 0, 0), 120, 200);
+    text(nf(min, 0, 0), 120, 650);
+  }
   text("0", 160, 680);
-  text("Zeit in Sekunden", 580, 680);
+  text("Zeit in Sekunden", 580, 700);
 
 
-  for (int i = 1; i < indexInnenraumlufta; i++) {
-
+  for (int i = 1; i < indexInnenraumluftc; i++) {
     float x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
     float x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
     float y1 = 650 - (Innenraumluftc[wasZeichnen][i]-min)*450/(max-min);
     float y2 = 650 - (Innenraumluftc[wasZeichnen][i-1]-min)*450/(max-min);   
-
     if (wasZeichnen == 0) {
       stroke(255, 0, 0);
     } else if (wasZeichnen == 1) {
@@ -639,11 +681,14 @@ void Innenraumluft_c() {
     if (Innenraumluftc[wasZeichnen][i]<= max && Innenraumluftc[wasZeichnen][i]>= min && Innenraumluftc[wasZeichnen][i-1]<= max && Innenraumluftc[wasZeichnen][i-1]>= min) {
       line(x1, y1, x2, y2);
     }
+  }
 
-    x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
-    x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
-    y1 = 650 - (Innenraumluftb[wasZeichnen][i]-min)*450/(max-min);
-    y2 = 650 - (Innenraumluftb[wasZeichnen][i-1]-min)*450/(max-min);   
+
+  for (int i = 1; i < indexInnenraumlufta; i++) {
+    float x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
+    float x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
+    float y1 = 650 - (Innenraumluftb[wasZeichnen][i]-min)*450/(max-min);
+    float y2 = 650 - (Innenraumluftb[wasZeichnen][i-1]-min)*450/(max-min);   
 
     if (wasZeichnen == 0) {
       stroke(255, 0, 0);
@@ -683,8 +728,15 @@ void Innenraumluft_c() {
     }
   }
 
-  if ((millis() - currentTime4c)/1000 > t && currentTime4c > 0) {
-    text(t, 1100, 690);
+  float x1 = 175 + (indexInnenraumluftc-1)*930/(indexInnenraumlufta-1); 
+
+  float t1 = float(indexInnenraumluftc)*t/float(indexInnenraumlufta);
+  if ((millis() - currentTime4c)/1000 < t && x1 > 175 && x1 < 1105) {
+    text(nf(round(t1), 0, 0), x1-20, 675);
+  }
+
+  text(t, 1100, 690);
+  if ((millis() - currentTime4c)/1000 > t  && currentTime4c > 0) {
     Station4Auswertung.show();
   }
   strokeWeight(1);

@@ -60,6 +60,7 @@ void Datenaufnahme() {
     if (myPort.available() > 0) {
       Daten = myPort.readStringUntil('\n');
       received = true;
+      //println(Daten);
     }
   } catch(Exception e) {
     println("Keine Daten");

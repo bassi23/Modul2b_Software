@@ -9,7 +9,7 @@ void TVOC_Duelle() {
   stroke(0);
   line(0, 180, 1280, 180);
   noStroke();
-  text("a) Riechen\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (wenig Emission) bis 10 (viel Emission).", 20, 220); 
+  text("a) Riechen\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
   TVOC_Duelle_Start.show();
   if (TVOC_Duelle_Start.isClicked()) {
     delay(200);
@@ -29,9 +29,9 @@ void TVOC_Duelle_Riechen() {
   stroke(0);
   line(0, 180, 1280, 180);
   noStroke();
-  text("a) Riechen\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (wenig Emission) bis 10\n(viel Emission).", 20, 220); 
-  text("Wenig Emission (0)", 50, 480);
-  text("Viel Emission (10)", 1050, 480);
+  text("a) Riechen\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6 (extrem stark).", 20, 220); 
+  text("nicht wahrnehmbar (0)", 50, 480);
+  text("extrem stark (6)", 1050, 480);
   TVOC_Duelle_Start.hide();
 
 
@@ -81,16 +81,16 @@ void TVOC_Duelle_Riechen() {
     page = 3.11;
   }
 
-  tvoc_duelle_werte_mensch[0] = 10*(Stoff1.x - 240)/800;
-  tvoc_duelle_werte_mensch[1] = 10*(Stoff2.x- 240)/800;
-  tvoc_duelle_werte_mensch[2] = 10*(Stoff3.x- 240)/800;
-  tvoc_duelle_werte_mensch[3] = 10*(Stoff4.x- 240)/800;
-  tvoc_duelle_werte_mensch[4] = 10*(Stoff5.x- 240)/800;
-  tvoc_duelle_werte_mensch[5] = 10*(Stoff6.x- 240)/800;
-  tvoc_duelle_werte_mensch[6] = 10*(Stoff7.x- 240)/800;
-  tvoc_duelle_werte_mensch[7] = 10*(Stoff8.x- 240)/800;
-  tvoc_duelle_werte_mensch[8] = 10*(Stoff9.x- 240)/800;
-  tvoc_duelle_werte_mensch[9] = 10*(Stoff10.x- 240)/800;
+  tvoc_duelle_werte_mensch[0] = 6*(Stoff1.x - 240)/800;
+  tvoc_duelle_werte_mensch[1] = 6*(Stoff2.x- 240)/800;
+  tvoc_duelle_werte_mensch[2] = 6*(Stoff3.x- 240)/800;
+  tvoc_duelle_werte_mensch[3] = 6*(Stoff4.x- 240)/800;
+  tvoc_duelle_werte_mensch[4] = 6*(Stoff5.x- 240)/800;
+  tvoc_duelle_werte_mensch[5] = 6*(Stoff6.x- 240)/800;
+  tvoc_duelle_werte_mensch[6] = 6*(Stoff7.x- 240)/800;
+  tvoc_duelle_werte_mensch[7] = 6*(Stoff8.x- 240)/800;
+  tvoc_duelle_werte_mensch[8] = 6*(Stoff9.x- 240)/800;
+  tvoc_duelle_werte_mensch[9] = 6*(Stoff10.x- 240)/800;
 }
 
 
@@ -119,8 +119,26 @@ class TVOC_Kandidat {
       text(name, x, y + 70);
     }
     float points = (x-240)/80;
-    text(nf(points,0,1), x+70, y);
+    float points2 = 6*points/10;
+    text(nf(points2, 0, 1), x-70, y);
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points2 < 1.5) {
+      skala = "sehr schwach";
+    } else if (points2 < 2.5) {
+      skala = "schwach";
+    } else if (points2 < 3.5) {
+      skala = "deutlich";
+    } else if (points2 < 4.5) {
+      skala = "stark";
+    } else if (points2 < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
     textAlign(CORNER);
+    text(skala, x+55, y);
 
     if (mouseX > (x - image.width/2) && mouseX < (x + image.width/2) && mouseY > (y - image.height/2) && mouseY < (y + image.height/2) && mousePressed && mouseX > 240 && mouseX < 1040) {
       x = mouseX;
@@ -390,5 +408,4 @@ void Auswertung_Station3() {
   textAlign(CORNER);
   text("Deine Vorhersage", 150, 110);
   text("Sensor", 190, 160);
-
 }

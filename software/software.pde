@@ -20,9 +20,9 @@ button aktualisierung_right, aktualisierung_left;
 button Stationen, Sensoren, zumObermenu;
 button SPS30, SGP30, SCD30;
 button einstellungen;
+button Port1, Port2, Port3, Port4, Port5, Port6;
 
 button station1_referenz, station1_trocken, station1_nass, station1_MessungStarten, FeinstaubVergleichen;
-
 
 button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung;
 
@@ -36,6 +36,9 @@ button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start;
 
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
+
+
+
 float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
@@ -44,11 +47,12 @@ float zeroTime4 = 0;
 float zeroTime5 = 0;
 
 int anzahlCOMPorts = 0;
+int ausgewaehlterPort = 0;
 void setup() {
   size(1280, 720);
   anzahlCOMPorts = Serial.list().length;
   try {
-    myPort = new Serial(this, Serial.list()[0], 57600);
+    myPort = new Serial(this, Serial.list()[ausgewaehlterPort], 57600);
     gotSerial = true;
   }
   catch(Exception e) {
@@ -96,7 +100,12 @@ void setup() {
 
   //
   einstellungen = new button(20, 630, 150, 75, "Einstellungen", 5, true, 20);
-
+  Port1 = new button(750, 275, 30, 30, " x ", 5, true, 20);
+  Port2 = new button(750, 325, 30, 30, " x ", 5, true, 20);
+  Port3 = new button(750, 375, 30, 30, " x ", 5, true, 20);
+  Port4 = new button(750, 425, 30, 30, " x ", 5, true, 20);
+  Port5 = new button(750, 475, 30, 30, " x ", 5, true, 20);
+  Port6 = new button(750, 525, 30, 30, " x ", 5, true, 20);
   //
   station1_referenz = new button(150, 350, 300, 150, "Referenzmessung", 5, true, 30);
   station1_trocken = new button(500, 350, 300, 150, "trockener\nSchwamm", -20, true, 30);
@@ -304,19 +313,20 @@ void draw() {
 
   if (!gotSerial) {
     try {
-      myPort = new Serial(this, Serial.list()[0], 57600);
+      myPort = new Serial(this, Serial.list()[ausgewaehlterPort], 57600);
       gotSerial = true;
       anzahlCOMPorts = Serial.list().length;
     }
     catch(Exception e) {
+      println(e);
       gotSerial = false;
     }
   }
-  
-  if(Serial.list().length != anzahlCOMPorts){
-    gotSerial = false;
-  }
 
+  if (Serial.list().length != anzahlCOMPorts) {
+    gotSerial = false;
+    println("CIAO");
+  }
 
   noStroke();
   fill(0);
@@ -339,8 +349,12 @@ void draw() {
   Sensormessung.hide();
   reset_Station2.hide();
   innenraumluft.hide();
+  reset_innenraum.hide();
+  Station4b.hide();
+  Station4c.hide();
+  Station4Auswertung.hide();
   Station4a.visible = false;
-
+println(page);
   zumObermenu.x = 1100;
   if (page == 2.1) {
     up2.y = 190;
@@ -483,6 +497,38 @@ void draw() {
     Stationen.hide();
     Sensoren.hide();
     zumObermenu.hide();
+
+    int anzahlPorts = Serial.list().length;
+    if (anzahlPorts > 0) {
+      Port1.show();
+    } else {
+      Port1.hide();
+    }
+    if (anzahlPorts > 1) {
+      Port2.show();
+    } else {
+      Port2.hide();
+    }
+    if (anzahlPorts > 2) {
+      Port3.show();
+    } else {
+      Port3.hide();
+    }
+    if (anzahlPorts > 3) {
+      Port4.show();
+    } else {
+      Port4.hide();
+    }
+    if (anzahlPorts > 4) {
+      Port5.show();
+    } else {
+      Port5.hide();
+    }
+    if (anzahlPorts > 5) {
+      Port6.show();
+    } else {
+      Port6.hide();
+    }
   } else if (page == -2) {
     SensorAuswahl();
   } else if (page == -3) {
@@ -504,6 +550,36 @@ void draw() {
     SGP30.hide();
     Stationen.hide();
   }
+
+  if (page != 10) {
+    Port1.hide();
+    Port2.hide();
+    Port3.hide();
+    Port4.hide();
+    Port5.hide();
+    Port6.hide();
+  }
+
+  if (Port1.isClicked()) {
+    ausgewaehlterPort = 0;
+    gotSerial = false;
+  } else if (Port2.isClicked()) {
+    ausgewaehlterPort = 1;
+    gotSerial = false;
+  } else if (Port3.isClicked()) {
+    ausgewaehlterPort = 2;
+    gotSerial = false;
+  } else if (Port4.isClicked()) {
+    ausgewaehlterPort = 3;
+    gotSerial = false;
+  } else if (Port5.isClicked()) {
+    ausgewaehlterPort = 4;
+    gotSerial = false;
+  } else if (Port6.isClicked()) {
+    ausgewaehlterPort = 5;
+    gotSerial = false;
+  }
+  
 
 
   if (back.isClicked()) {

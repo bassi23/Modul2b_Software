@@ -269,6 +269,7 @@ void Station2_Sensor() {
   if (letzteWiederholen.isClicked()) {
     if (prob > 0) {
       MenschSensorMessen = true;
+      
       indexMenschSensorMax = 0;
       indexMenschSensor = 0;
       currentTime = millis();
@@ -304,15 +305,61 @@ void Station2_Sensor() {
 
   text("Probe", 40, 290); 
   text("   Durchschnittliche\nKonzentration in ppb", 150, 265);
-  text("Zeit in Sekunden", 750, 630);
+  text("Zeit in Sekunden", 750, 660);
   if (prob == 1) {
     if ((millis() - currentTime)/1000 < 60) {
       text(nf((millis() - currentTime)/1000, 0, 1), 1200, 630);
+
+      float zeitTemp = (millis() - currentTime)/1000;
+      float dZeitTemp = 700/zeitTemp;
+
+      for (int i = 5; i < 60; i+= 5) {
+        strokeWeight(1);
+        if (490 + i*dZeitTemp < 1200 && i%10 == 0) {
+          text(i, 490 + i*dZeitTemp, 620);
+        }
+        if (zeitTemp > i) {
+          strokeWeight(2);
+          if (i % 10 == 0) {
+            stroke(0);
+          } else {
+            stroke(200);
+          }
+          line(500 + i*dZeitTemp, 190, 500 + i*dZeitTemp, 590);
+        }
+        strokeWeight(1);
+      }
     } else {
+      strokeWeight(1);
       text("60", 1200, 630);
+      for (int i = 5; i < 60; i+= 5) {
+        strokeWeight(2);
+        if (i % 10 == 0) {
+          stroke(0);
+        } else {
+          stroke(200);
+        }
+        line(500 + i*11.66667, 190, 500 + i*11.66667, 590);
+      }
     }
   } else {
+    strokeWeight(1);
     text("60", 1200, 630);
+    if (prob != 0) {
+      for (int i = 5; i < 60; i+= 5) {
+        strokeWeight(2);
+        if (i % 10 == 0) {
+          stroke(0);
+        } else {
+          stroke(200);
+        }
+        line(500 + i*11.66667, 190, 500 + i*11.66667, 590);
+        strokeWeight(1);
+        if (490 + i*11.66667 < 1200 && i%10 == 0) {
+          text(i, 490 + i*11.66667, 620);
+        }
+      }
+    }
   }
   stroke(0);
   line(10, 310, 450, 310);
@@ -349,7 +396,7 @@ void Station2_Sensor() {
     max = 60000;
   }
   noStroke();
-  text(nf(max, 0, 1), 470, 180);
+  text(nf(max, 0, 1), 430, 200);
   text("0", 470, 590);
   text("0", 475, 630);
 
@@ -365,16 +412,6 @@ void Station2_Sensor() {
     for (int i = 0; i < 4; i++) {
       stroke(200);
       line(500, 270 + 80*i, 1200, 270 + 80*i);
-    }
-  }
-  if (prob > 1) {
-    for (int i = 0; i < 11; i++) {
-      if (i%2 == 0) {
-        stroke(0);
-      } else {
-        stroke(200);
-      }
-      line(563.6 + 63.64*i, 190, 563.6 + 63.64*i, 590);
     }
   }
   strokeWeight(4);
@@ -398,7 +435,7 @@ void Station2_Sensor() {
       }
       if (MenschSensorMesswerte[j][i] <= max && MenschSensorMesswerte[j][i-1] <= max) {
         line(x1, y1, x2, y2);
-        dottedLine(500, 590 - MesswertSensor[j]*400/max, 1200, 590 - MesswertSensor[j]*400/max);
+        dottedLine(500, 590 - MesswertSensor[j]*400/max, 1200, 190);
       }
       fill(0);
     }
@@ -415,10 +452,13 @@ void Station2_Sensor() {
 
 
 
-void dottedLine(float x1, float y1, float x2, float y2) {
+void dottedLine(float x1, float y1, float x2, float yMax) {
   float dx = (x2 - x1)/60;
-  for (int i = 0; i < 61; i++) {
-    point(x1 + i*dx, y1);
+
+  if (y1 >= yMax) {
+    for (int i = 0; i < 61; i++) {
+      point(x1 + i*dx, y1);
+    }
   }
 }
 
