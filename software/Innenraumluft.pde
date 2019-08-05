@@ -18,7 +18,7 @@ void Innenraumluft() {
   indexInnenraumlufta = 0;
 }
 
-int t = 90;
+int t = 300;
 
 
 
