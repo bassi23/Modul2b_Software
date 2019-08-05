@@ -4,6 +4,7 @@
 
 ### 05.08.2019
 Alles was ich am 02.08. gemacht habe wurde nicht gespeichert, weil ich zu blöd bin um "FastHub" zu verwenden.
+- Fehler behoben, der bei der Zeichnung der Messwerte aufgetreten ist, wenn man das Aktualisierungsintervall ändert
 
 ### 02.08.2019
 Ab sofort werde ich (falls es etwas Neues gibt) nur noch einmal pro Tag die neuste Version hochladen. 
