@@ -23,7 +23,6 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
   }
 
 
-
   // --> Minimum und Maximum des Arrays bestimmen
   float min = 0;
   float max = 0;
@@ -59,7 +58,6 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     }
   } else if (x_scale == 1) {
     xValues = time(60, zeitskala, zeitskala1);
-    println(xValues);
   } else if (x_scale == 2) {
     xValues = time(180, zeitskala, zeitskala1);
   } else if (x_scale == 3) {
@@ -85,7 +83,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
   if (xValues == 0) {
     xValues = 1;
   }
-
+  //println(xValues);
   textSize(20);
   fill(0);
   text("0", 150, 640);
@@ -516,18 +514,18 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
         float y1 = 600 - 500*(array[i]-min)/(max - min);
         float y2 = 600 - 500*(array[i+1] - min)/(max - min);
         float m = ((y2 - y1)/(x2 - x1));
-        if (x1 < 175) {
-          y2 = m*175 + y1 - m*x1;
+        if (x1 <= 175) {
+          y1 = m*175 + y1 - m*x1;
+          x1 = 175;
         }
         if (y2 < 100) {
+          x2 = (100 + m*x2-y2)/m;
           y2 = 100;
-          x2 = (100 + m*x1 - y1)/m;
         }
         if (y1 < 100) {
+          x1 = (100 + m*x1-y1)/m;
           y1 = 100;
-          x1 = (100 + m*x2 - y2)/m;
         }
-
         if (y1 >= 100 && y2 >= 100 && x2 >= 175 && x1 <= 1105 && x2 <= 1105) {
           line(x1, y1, x2, y2);
         }
@@ -611,24 +609,26 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
             x_anfang = x_ende - 259200;
           }
         }
+
+
         float x_intervall = x_ende - x_anfang;
         float x1 = 175 + (newArray_time[i] - x_anfang)*930/x_intervall;
         float x2 = 175 + (newArray_time[i+1] - x_anfang)*930/x_intervall;
         float y1 = 600 - 500*(newArray[i]-min)/(max - min);
         float y2 = 600 - 500*(newArray[i+1] - min)/(max - min);
         float m = ((y2 - y1)/(x2 - x1));
-        if (x1 < 175) {
-          y2 = m*175 + y1 - m*x1;
+        if (x1 <= 175) {
+          y1 = m*175 + y1 - m*x1;
+          x1 = 175;
         }
         if (y2 < 100) {
+          x2 = (100 + m*x2-y2)/m;
           y2 = 100;
-          x2 = (100 + m*x1 - y1)/m;
         }
         if (y1 < 100) {
+          x1 = (100 + m*x1-y1)/m;
           y1 = 100;
-          x1 = (100 + m*x2 - y2)/m;
         }
-
         if (y1 >= 100 && y2 >= 100 && x2 >= 175 && x1 <= 1105 && x2 <= 1105) {
           line(x1, y1, x2, y2);
         }
@@ -705,18 +705,18 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       float y1 = 600 - 500*(array[i]-min)/(max - min);
       float y2 = 600 - 500*(array[i+1] - min)/(max - min);
       float m = ((y2 - y1)/(x2 - x1));
-      if (x1 < 175) {
-        y2 = m*175 + y1 - m*x1;
+      if (x1 <= 175) {
+        y1 = m*175 + y1 - m*x1;
+        x1 = 175;
       }
       if (y2 < 100) {
+        x2 = (100 + m*x2-y2)/m;
         y2 = 100;
-        x2 = (100 + m*x1 - y1)/m;
       }
       if (y1 < 100) {
+        x1 = (100 + m*x1-y1)/m;
         y1 = 100;
-        x1 = (100 + m*x2 - y2)/m;
       }
-
       if (y1 >= 100 && y2 >= 100 && x2 >= 175 && x1 <= 1105 && x2 <= 1105) {
         line(x1, y1, x2, y2);
       }
@@ -792,18 +792,18 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       float y1 = 600 - 500*(array[i]-min)/(max - min);
       float y2 = 600 - 500*(array[i+1] - min)/(max - min);
       float m = ((y2 - y1)/(x2 - x1));
-      if (x1 < 175) {
-        y2 = m*175 + y1 - m*x1;
+      if (x1 <= 175) {
+        y1 = m*175 + y1 - m*x1;
+        x1 = 175;
       }
       if (y2 < 100) {
+        x2 = (100 + m*x2-y2)/m;
         y2 = 100;
-        x2 = (100 + m*x1 - y1)/m;
       }
       if (y1 < 100) {
+        x1 = (100 + m*x1-y1)/m;
         y1 = 100;
-        x1 = (100 + m*x2 - y2)/m;
       }
-
       if (y1 >= 100 && y2 >= 100 && x2 >= 175 && x1 <= 1105 && x2 <= 1105) {
         line(x1, y1, x2, y2);
       }
@@ -879,18 +879,18 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       float y1 = 600 - 500*(array[i]-min)/(max - min);
       float y2 = 600 - 500*(array[i+1] - min)/(max - min);
       float m = ((y2 - y1)/(x2 - x1));
-      if (x1 < 175) {
-        y2 = m*175 + y1 - m*x1;
+      if (x1 <= 175) {
+        y1 = m*175 + y1 - m*x1;
+        x1 = 175;
       }
       if (y2 < 100) {
+        x2 = (100 + m*x2-y2)/m;
         y2 = 100;
-        x2 = (100 + m*x1 - y1)/m;
       }
       if (y1 < 100) {
+        x1 = (100 + m*x1-y1)/m;
         y1 = 100;
-        x1 = (100 + m*x2 - y2)/m;
       }
-
       if (y1 >= 100 && y2 >= 100 && x2 >= 175 && x1 <= 1105 && x2 <= 1105) {
         line(x1, y1, x2, y2);
       }
@@ -1009,7 +1009,7 @@ float minValue(float[] array, int xVals, int zeitskala) {
     }
   }
   for (int i = (temp - xVals); i < temp; i++) {
-    if (i > 0) {
+    if (i >= 0) {
       if (array[i] < min) {
         min = array[i];
       }
@@ -1033,7 +1033,7 @@ float maxValue(float[] array, int xVals, int zeitskala) {
     }
   }
   for (int i = (temp - xVals); i< temp; i++) {
-    if (i > 0) {
+    if (i >= 0) {
       if (array[i] > max) {
         max = array[i];
       }
@@ -1058,15 +1058,19 @@ int time(int sekunden, float[] time2, int zeitskala) {
       temp = indexStation1_nass;
     }
   }
-  for (int i = temp; i > 1; i--) {
-    if (time2[i] > (sekunden)) {
-      t = i - 1;
+
+  float t2 = time2[temp] - float(sekunden);
+
+  for (int i = index; i > 0; i--) {
+    if (time2[i] < t2 && t2 > 0) {
+      t = temp - i;
       break;
     } else {
-      t = index;
+      t = temp;
     }
   }
-  return t;
+  println(t);
+  return (t);
 }
 
 
