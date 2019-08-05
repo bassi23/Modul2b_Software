@@ -8,14 +8,14 @@ Alles was ich am 02.08. gemacht habe wurde nicht gespeichert, weil ich zu blöd 
 ### 02.08.2019
 Ab sofort werde ich (falls es etwas Neues gibt) nur noch einmal pro Tag die neuste Version hochladen. 
 - Das Problem der unsichtbaren Buttons sollte gelöst sein. Man kann also nur noch die Buttons anklicken, die man wirklich sieht, und gelangt so nicht ungewollt auf andere Seiten im Programm.
-- Station 4: Messwerte werden nicht mehr außerhalb des Graphen gezeichnet
+- Station 4: Messwerte werden nicht mehr außerhalb des Graphen gezeichnet [x]
 - Station 4: Zeit auf 5 Minuten angehoben (statt wie bisher 30 Sekunden zum Debuggen)
-- Station 4: Aufgabenstellung reicht nicht mehr über die Seite hinaus.
-- Station 4: Zwischenlinien für die y-Achse hinzugefügt
-- Station 2: Gepunktete Linien überschreiten die Höhe des Graphen nicht mehr
-- Station 2: Zwischenlinien für die Zeit hinzugefügt
-- Station 3: Neue Geruchskala integriert
-- Allgemein: Die Indizes von CO_2 und eCO_2 sind jetzt endlich überall tiefergestellt
+- Station 4: Aufgabenstellung reicht nicht mehr über die Seite hinaus. [x]
+- Station 4: Zwischenlinien für die y-Achse hinzugefügt 
+- Station 2: Gepunktete Linien überschreiten die Höhe des Graphen nicht mehr [x]
+- Station 2: Zwischenlinien für die Zeit hinzugefügt [x]
+- Station 3: Neue Geruchskala integriert [x]
+- Allgemein: Die Indizes von CO_2 und eCO_2 sind jetzt endlich überall tiefergestellt [x]
 
 
 
