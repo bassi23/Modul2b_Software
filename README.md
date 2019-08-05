@@ -2,6 +2,9 @@
 
 ## Update
 
+### 05.08.2019
+Alles was ich am 02.08. gemacht habe wurde nicht gespeichert, weil ich zu blöd bin um "FastHub" zu verwenden.
+
 ### 02.08.2019
 Ab sofort werde ich (falls es etwas Neues gibt) nur noch einmal pro Tag die neuste Version hochladen. 
 - Das Problem der unsichtbaren Buttons sollte gelöst sein. Man kann also nur noch die Buttons anklicken, die man wirklich sieht, und gelangt so nicht ungewollt auf andere Seiten im Programm.
