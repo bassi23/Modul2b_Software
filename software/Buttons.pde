@@ -64,7 +64,19 @@ class button {
       line(x + 3*dx/4, y + dy/2, x + dx/2, y + 3*dy/4);
     } else {
       textSize(size);
-      text(text, x + dx/2, y + dy/2 + textOffset);
+      if (text == "TVOC, eCO2") {
+        textSize(size);
+        text("TVOC, eCO", x + dx/2, y + dy/2 + textOffset);
+        textSize(18);
+        text("2", x + dx/2 + 85, dy + dy/2 + textOffset + 85);
+      } else if (text == "Temperatur,\nLuftfeuchte,\nCO2") {
+        textSize(size);
+        text("Temperatur,\nLuftfeuchte,\nCO", x + dx/2, y + dy/2 + textOffset);
+        textSize(18);
+        text("\n\n2", x + dx/2 + 23, y + dy/2 + textOffset+50);
+      } else {
+        text(text, x + dx/2, y + dy/2 + textOffset);
+      }
     }
     strokeWeight(1);
     popMatrix();

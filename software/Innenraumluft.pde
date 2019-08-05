@@ -9,7 +9,7 @@ void Innenraumluft() {
   text("Station 4 - Innenraumluftqualität", 20, 50);
   text("In diesem Experiment werden wir die Innenraumluftqualität bestimmen. Setze dich jeweils für 5 Minuten in eine Messkammer\nund nimm den Verlauf der Parameter Temperatur, Luftfeuchte, TVOC, CO  und eCO  auf.\nVariiere die Belüftung, indem du den integrierten Ventilator \n\n\n\n\nlaufen lässt. Warte nach jeder Runde, bis sich die Werte wieder normalisiert haben.", 20, 100);
   text("a) ausgeschaltet\nb) auf halber Kraft\nc) auf voller Kraft", 500, 200);
-  
+
   textSize(14);
   text("2                    2", 730, 140);
   stroke(0);
@@ -18,7 +18,7 @@ void Innenraumluft() {
   indexInnenraumlufta = 0;
 }
 
-int t = 10;
+int t = 90;
 
 
 
@@ -123,6 +123,74 @@ void Innenraumluft_a() {
     }
   }
 
+  if ((millis() - currentTime4a)/1000 < t) {
+    float t2 = (millis() - currentTime4a)/1000;
+    if (t < 60) {
+      for (int i = 5; i < t; i += 5) {
+        float x = 175 + i*930/t2;
+        if (i % 10 == 0) {
+          stroke(0);
+        } else {
+          stroke(200);
+        }
+        if (x > 175 && x < 1105) {
+          line(x, 200, x, 650);
+          noStroke();
+          fill(0);
+          textAlign(CENTER);
+          text(i, x, 680);
+          textAlign(CORNER);
+        }
+      }
+    } else {
+      int dt = 10;
+      if ((millis() - currentTime4a)/1000 > 0) {
+        dt = 5;
+      }
+      if ((millis() - currentTime4a)/1000 > 30) {
+        dt = 10;
+      }
+      if ((millis() - currentTime4a)/1000 > 60) {
+        dt = 30;
+      }
+      for (int i = dt; i < t; i += dt) {
+        float x = 175 + i*930/t2;
+        if (i % 10 == 0) {
+          stroke(0);
+        } else {
+          stroke(200);
+        }
+        if (x > 175 && x < 1105) {
+          line(x, 200, x, 650);
+          noStroke();
+          fill(0);
+          textAlign(CENTER);
+          text(i, x, 680);
+          textAlign(CORNER);
+        }
+      }
+    }
+  }
+
+  if ((millis() - currentTime4a)/1000 > t && Station4agestartet) {
+    for (int i = 60; i < t; i += 60) {
+      float x = 175 + i*930/t;
+      if (i % 10 == 0) {
+        stroke(0);
+      } else {
+        stroke(200);
+      }
+      if (x > 175 && x < 1105) {
+        line(x, 200, x, 650);
+        noStroke();
+        fill(0);
+        textAlign(CENTER);
+        text(i, x, 680);
+        textAlign(CORNER);
+      }
+    }
+  }
+
 
   if (scale_Innenraum == 0) {
     for (int i = 0; i < indexInnenraumlufta; i++) {
@@ -198,8 +266,8 @@ void Innenraumluft_a() {
   }
 
   if (min != 9999999 && max != 0) {
-    text(nf(max, 0, 0), 120, 200);
-    text(nf(min, 0, 0), 120, 650);
+    text(nf(max, 0, 1), 120, 200);
+    text(nf(min, 0, 1), 120, 650);
   }
   text("0", 160, 680);
   text("Zeit in Sekunden", 580, 700);
@@ -400,16 +468,95 @@ void Innenraumluft_b() {
       max = 5000;
     }
   }
-
+  if (scale_Innenraum != 0) {
+    stroke(200);
+    for (int i = 0; i < 4; i++) {
+      line(175, 290 + 90*i, 1105, 290 + 90*i);
+    }
+  }
   if (scale_Innenraum != 0) {
     for (int i = 1; i < 5; i++) {
       float y = max/5;
       text(nf(i*y, 0, 0), 120, 650 - 90*i);
     }
   }
+  if ((millis() - currentTime4a)/1000 < t) {
+    float t2 = (millis() - currentTime4a)/1000;
+    if (t < 60) {
+      for (int i = 5; i < t; i += 5) {
+        float x = 175 + i*930/t2;
+        if (i % 10 == 0) {
+          stroke(0);
+        } else {
+          stroke(200);
+        }
+        if (x > 175 && x < 1105) {
+          line(x, 200, x, 650);
+          noStroke();
+          fill(0);
+          textAlign(CENTER);
+          text(i, x, 680);
+          textAlign(CORNER);
+        }
+      }
+    } else {
+      int dt = 10;
+      if ((millis() - currentTime4a)/1000 > 0) {
+        dt = 5;
+      }
+      if ((millis() - currentTime4a)/1000 > 30) {
+        dt = 10;
+      }
+      if ((millis() - currentTime4a)/1000 > 60) {
+        dt = 30;
+      }
+      for (int i = dt; i < t; i += dt) {
+        float x = 175 + i*930/t2;
+        if (i % 10 == 0) {
+          stroke(0);
+        } else {
+          stroke(200);
+        }
+        if (x > 175 && x < 1105) {
+          line(x, 200, x, 650);
+          noStroke();
+          fill(0);
+          textAlign(CENTER);
+          text(i, x, 680);
+          textAlign(CORNER);
+        }
+      }
+    }
+  }
+
+  if ((millis() - currentTime4a)/1000 > t && Station4bgestartet) {
+    for (int i = 60; i < t; i += 60) {
+      float x = 175 + i*930/t;
+      if (i % 10 == 0) {
+        stroke(0);
+      } else {
+        stroke(200);
+      }
+      if (x > 175 && x < 1105) {
+        line(x, 200, x, 650);
+        noStroke();
+        fill(0);
+        textAlign(CENTER);
+        text(i, x, 680);
+        textAlign(CORNER);
+      }
+    }
+  }
+
+
+
+
+
+
+
   if (min != 9999999 && max != 0) {
-    text(nf(max, 0, 0), 120, 200);
-    text(nf(min, 0, 0), 120, 650);
+    text(nf(max, 0, 1), 120, 200);
+    text(nf(min, 0, 1), 120, 650);
   }
   text("0", 160, 680);
   text("Zeit in Sekunden", 580, 700);
@@ -645,7 +792,12 @@ void Innenraumluft_c() {
       max = 5000;
     }
   }
-
+  if (scale_Innenraum != 0) {
+    stroke(200);
+    for (int i = 0; i < 4; i++) {
+      line(175, 290 + 90*i, 1105, 290 + 90*i);
+    }
+  }
   if (scale_Innenraum != 0) {
     for (int i = 1; i < 5; i++) {
       float y = max/5;
@@ -653,14 +805,86 @@ void Innenraumluft_c() {
     }
   }
 
+  if ((millis() - currentTime4a)/1000 < t) {
+    float t2 = (millis() - currentTime4a)/1000;
+    if (t < 60) {
+      for (int i = 5; i < t; i += 5) {
+        float x = 175 + i*930/t2;
+        if (i % 10 == 0) {
+          stroke(0);
+        } else {
+          stroke(200);
+        }
+        if (x > 175 && x < 1105) {
+          line(x, 200, x, 650);
+          noStroke();
+          fill(0);
+          textAlign(CENTER);
+          text(i, x, 680);
+          textAlign(CORNER);
+        }
+      }
+    } else {
+      int dt = 10;
+      if ((millis() - currentTime4a)/1000 > 0) {
+        dt = 5;
+      }
+      if ((millis() - currentTime4a)/1000 > 30) {
+        dt = 10;
+      }
+      if ((millis() - currentTime4a)/1000 > 60) {
+        dt = 30;
+      }
+      for (int i = dt; i < t; i += dt) {
+        float x = 175 + i*930/t2;
+        if (i % 10 == 0) {
+          stroke(0);
+        } else {
+          stroke(200);
+        }
+        if (x > 175 && x < 1105) {
+          line(x, 200, x, 650);
+          noStroke();
+          fill(0);
+          textAlign(CENTER);
+          text(i, x, 680);
+          textAlign(CORNER);
+        }
+      }
+    }
+  }
+
+  if ((millis() - currentTime4a)/1000 > t && Station4cgestartet) {
+    for (int i = 60; i < t; i += 60) {
+      float x = 175 + i*930/t;
+      if (i % 10 == 0) {
+        stroke(0);
+      } else {
+        stroke(200);
+      }
+      if (x > 175 && x < 1105) {
+        line(x, 200, x, 650);
+        noStroke();
+        fill(0);
+        textAlign(CENTER);
+        text(i, x, 680);
+        textAlign(CORNER);
+      }
+    }
+  }
+
+
+
+
+
+
+
   if (min != 9999999 && max != 0) {
-    text(nf(max, 0, 0), 120, 200);
-    text(nf(min, 0, 0), 120, 650);
+    text(nf(max, 0, 1), 120, 200);
+    text(nf(min, 0, 1), 120, 650);
   }
   text("0", 160, 680);
   text("Zeit in Sekunden", 580, 700);
-
-
   for (int i = 1; i < indexInnenraumluftc; i++) {
     float x1 = 175 + (i)*930/(indexInnenraumlufta-1); 
     float x2 = 175 + (i-1)*930/(indexInnenraumlufta-1);
