@@ -1,31 +1,59 @@
+
+
+
 void TVOC_eCO2() {
-  SGP_check.show();
+  //SGP_check.show();
+  Sensoren_SGP_Rot.show();
+  Sensoren_SGP_Blau.show();
   two_three.active = false;
   four.active = false;
   one.active = false;
   settings.active = false;
-  up1.show();
-  down1.show();
-  up2.show();
-  down2.show();
   left1.show();
   right1.show();
   reset.show();
-  
+  boolean eco2_left = false;
+  boolean eco2_right = false;
+  boolean tvoc_left = false;
+  boolean tvoc_right = false;
+
+  if (Sensoren_SGP_Rot.getValue() == 1) {
+    tvoc_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SGP_Rot.getValue() == 2) {
+    eco2_left = true;
+    up1.show();
+    down1.show();
+  }else{
+   up1.hide();
+   down1.hide();
+  }
+
+  if (Sensoren_SGP_Blau.getValue() == 1) {
+    tvoc_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SGP_Blau.getValue() == 2) {
+    eco2_right = true;
+    up2.show();
+    down2.show();
+  }else{
+   up2.hide();
+   down2.hide(); 
+  }
+
+
   aktualisierung_right.show();
   aktualisierung_left.show();
   fill(0);
   noStroke();
-  
-  if(del == 0){
-  text("Aktualisierungsintervall: Maximum", 220, 692);
-  }else{
-    text("Aktualisierungsintervall: " + nf(del,0,0) + " s", 220, 692);
+
+  if (del == 0) {
+    text("Aktualisierungsintervall: Maximum", 220, 692);
+  } else {
+    text("Aktualisierungsintervall: " + nf(del, 0, 0) + " s", 220, 692);
   }
-  text("TVOC             eCO", 535, 43);
-  textSize(14);
-  text("2", 710, 52);
-  textSize(20);
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
@@ -108,23 +136,28 @@ void TVOC_eCO2() {
     intervall = "Zeige die letzen 72 Stunden";
   }
   text(intervall, 740, 690);
-  
+
 
 
 
   //Welche Graphen sollen angezeigt werden?
-  boolean eco2 = SGP_check.getState("eCO2");
-  boolean tvoc = SGP_check.getState("TVOC");
 
-  if (eco2 && tvoc) {
-    graph(sgp_eco2_data,0, "eCO2 in ppm", x_scale, y_scale, true);
-    graph(sgp_tvoc_data,0, "TVOC in ppb", x_scale, y_scale, false);
-  } else if (eco2) {
-    graph(sgp_eco2_data,0, "eCO2 in ppm", x_scale, y_scale, true);
-  } else if (tvoc) {
-    graph(sgp_tvoc_data,0, "TVOC in ppb", x_scale, y_scale, true);
+  if (tvoc_left) {
+    graph(sgp_tvoc_data, 0, "TVOC in ppb", x_scale, y_scale, true);
+  }
+  if (tvoc_right) {
+    graph(sgp_tvoc_data, 0, "TVOC in ppb", x_scale, y_scale, false);
   }
 
+  if (eco2_left) {
+    graph(sgp_eco2_data, 0, "eCO2 in ppm", x_scale, y_scale, true);
+  }
 
+  if (eco2_right) {
+    graph(sgp_eco2_data, 0, "eCO2 in ppm", x_scale, y_scale, false);
+  }
   fill(0);
+  textSize(24);
+  text("Links", 275, 50);
+  text("Rechts", 750, 50);
 }
