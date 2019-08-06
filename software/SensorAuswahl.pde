@@ -4,4 +4,5 @@ void SensorAuswahl(){
     SCD30.show();
     SGP30.show();
     reset.hide();
+    alle_Sensoren.show();
 }
