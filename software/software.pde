@@ -68,7 +68,6 @@ void setup() {
   Sensoren_SGP_Rot.addItem(" ", 1);
   Sensoren_SGP_Rot.addItem("TVOC", 2);
   Sensoren_SGP_Rot.addItem("eCO2", 3);
-
   Sensoren_SGP_Rot.setColorLabel(color(255));
   Sensoren_SGP_Rot.setColorValue(color(255));
   Sensoren_SGP_Rot.setBarHeight(50);
@@ -86,7 +85,7 @@ void setup() {
   Sensoren_SGP_Blau.addItem(" ", 1);
   Sensoren_SGP_Blau.addItem("TVOC", 2);
   Sensoren_SGP_Blau.addItem("eCO2", 3);
-  
+
   Sensoren_SGP_Blau.setColorLabel(color(255));
   Sensoren_SGP_Blau.setColorValue(color(255));
   Sensoren_SGP_Blau.setBarHeight(50);
@@ -728,6 +727,10 @@ void draw() {
     MesswertSensor[4] = 0;
   }
 
+  if (page != -4) {
+    Sensoren_SGP_Rot.hide();
+    Sensoren_SGP_Blau.hide();
+  }
   if (reset_Station2.isClicked()) {
     reset_bool_station2 = true;
   }
@@ -961,4 +964,10 @@ void saveData() {
       }
     }
   }
+}
+
+
+
+void setDropdown(DropdownList drop, String col, int NoI, String a, String b, String c, String d){
+  
 }
