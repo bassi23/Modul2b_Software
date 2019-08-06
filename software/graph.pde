@@ -369,7 +369,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       textSize(16);
       text("2", -17, -570);
     } else {
-      text(name, 0, -575);
+      text(name, 0, -540);
     }
     popMatrix();
   } else {
