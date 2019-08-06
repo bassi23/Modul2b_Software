@@ -1,6 +1,10 @@
 # Modul2b_Software
 
 ## Update
+### 06.08.2019
+- Dropdown Menü für die Auswahl der Sensordaten integriert
+- "Sensoren" --> "Alle Sensoren" als neuer Menüpunkt zur Ansicht aller Sensoredaten in einem Diagramm
+
 
 ### 05.08.2019
 Alles was ich am 02.08. gemacht habe wurde nicht gespeichert, weil ich zu blöd bin um "FastHub" zu verwenden.
