@@ -18,7 +18,7 @@ void Innenraumluft() {
   indexInnenraumlufta = 0;
 }
 
-int t = 300;
+int t = 90;
 
 
 
@@ -38,7 +38,8 @@ void Innenraumluft_a() {
   up1.show();
   down1.show();
   innenraumluft.show();
-
+ Sensoren_SGP_Rot.hide();
+  Sensoren_SGP_Blau.hide();
 
   if (up1.isClicked()) {
     scale_Innenraum += 1;
