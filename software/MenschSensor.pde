@@ -269,7 +269,7 @@ void Station2_Sensor() {
   if (letzteWiederholen.isClicked()) {
     if (prob > 0) {
       MenschSensorMessen = true;
-      
+
       indexMenschSensorMax = 0;
       indexMenschSensor = 0;
       currentTime = millis();
@@ -396,7 +396,7 @@ void Station2_Sensor() {
     max = 60000;
   }
   noStroke();
-  text(nf(max, 0, 1), 430, 200);
+  text(nf(round(max), 0, 0), 420, 200);
   text("0", 470, 590);
   text("0", 475, 630);
 
@@ -433,10 +433,28 @@ void Station2_Sensor() {
       } else if (j == 4) {
         stroke(0);
       }
-      if (MenschSensorMesswerte[j][i] <= max && MenschSensorMesswerte[j][i-1] <= max) {
-        line(x1, y1, x2, y2);
-        dottedLine(500, 590 - MesswertSensor[j]*400/max, 1200, 190);
+      float m = ((y2 - y1)/(x2 - x1));
+      if (x1 < 500) {
+        y2 = m*175 + y1 - m*x1;
       }
+      if (y2 < 190) {
+        y2 = 190;
+        x2 = (190 + m*x1 - y1)/m;
+      }
+      if (y1 < 190) {
+        y1 = 190;
+        x1 = (190 + m*x2 - y2)/m;
+      }
+
+      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200) {
+        strokeWeight(3);
+        line(x1, y1, x2, y2);
+      }
+      if (MenschSensorMesswerte[j][i] <= max && MenschSensorMesswerte[j][i-1] <= max) {
+        dottedLine(500, 590 - MesswertSensor[j]*400/max, 1200, 190);
+        strokeWeight(1);
+      }
+      stroke(0);
       fill(0);
     }
   }
@@ -454,7 +472,6 @@ void Station2_Sensor() {
 
 void dottedLine(float x1, float y1, float x2, float yMax) {
   float dx = (x2 - x1)/60;
-
   if (y1 >= yMax) {
     for (int i = 0; i < 61; i++) {
       point(x1 + i*dx, y1);

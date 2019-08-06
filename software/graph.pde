@@ -394,6 +394,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       text("2", -17, -570);
       textSize(20);
     } else {
+      textSize(20);
       text(name, 0, -575);
     }
     popMatrix();
@@ -401,6 +402,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
 
   fill(0);
   if (x_scale == 1 || x_scale == 2 || x_scale == 3) {
+    textSize(20);
     text("Zeit in Sekunden", 640, 645);
     if (x_scale == 1) {
       text(60, 1120, 640);
@@ -903,6 +905,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     if (x_scale == 0) {
       if (xValues < 930) {
         if (zeitskala[index - 1] < 360) {
+          textSize(20);
           text("Zeit in Sekunden", 640, 645);
           text(ceil(zeitskala[index - 1]), 1120, 640);
         } else if (zeitskala[index - 1] < 21600) {
@@ -915,6 +918,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       } else {
         float[] newArray_time = kuerzen(zeitskala, xValues, 930);
         if (newArray_time[929] < 360) {
+          textSize(20);
           text("Zeit in Sekunden", 640, 645);
           text(ceil(newArray_time[929]), 1120, 640);
         } else if (newArray_time[929] < 21600) {
@@ -1069,7 +1073,6 @@ int time(int sekunden, float[] time2, int zeitskala) {
       t = temp;
     }
   }
-  println(t);
   return (t);
 }
 
