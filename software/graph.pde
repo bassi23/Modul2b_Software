@@ -755,13 +755,14 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
           }
         }
       }
-    } else if (zeitskala1 > 0) {
+    }  else if (zeitskala1 > 0) {
       fill(0);
       if (indexStation1 > 0) {
-        textSize(20);
-        text("Zeit in Sekunden", 640, 675);
-        fill(0);
+
         if ((millis() - time_station1)/1000 < 180) {
+          textSize(20);
+          text("Zeit in Sekunden", 640, 675);
+          fill(0);
           text(round((millis() - time_station1)/1000) + " s/180 s", 650, 50);
         } else {
           text("180 s/180 s", 650, 50);
