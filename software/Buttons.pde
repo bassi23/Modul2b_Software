@@ -67,13 +67,13 @@ class button {
       if (text == "TVOC, eCO2") {
         textSize(size);
         text("TVOC, eCO", x + dx/2, y + dy/2 + textOffset);
-        textSize(18);
-        text("2", x + dx/2 + 85, dy + dy/2 + textOffset + 85);
+        textSize(30);
+        text("2", 1015, 235);
       } else if (text == "Temperatur,\nLuftfeuchte,\nCO2") {
         textSize(size);
         text("Temperatur,\nLuftfeuchte,\nCO", x + dx/2, y + dy/2 + textOffset);
-        textSize(18);
-        text("\n\n2", x + dx/2 + 23, y + dy/2 + textOffset+50);
+        textSize(30);
+        text("2", 365, 655);
       } else {
         text(text, x + dx/2, y + dy/2 + textOffset);
       }
