@@ -4,7 +4,8 @@
 ### 06.08.2019
 - Dropdown Menü für die Auswahl der Sensordaten integriert
 - "Sensoren" --> "Alle Sensoren" als neuer Menüpunkt zur Ansicht aller Sensoredaten in einem Diagramm
-
+- Station 1: Drowpdown Menü integriert und Hintergrund des Graphen an die Aufgabenstellung angepasst
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station1_neu.png) <br>
 
 ### 05.08.2019
 Alles was ich am 02.08. gemacht habe wurde nicht gespeichert, weil ich zu blöd bin um "FastHub" zu verwenden.
