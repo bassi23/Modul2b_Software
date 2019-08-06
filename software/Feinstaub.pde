@@ -263,9 +263,6 @@ void Station1() {
       referenz_fertig = true;
     }
   }
-
-
-
   if (referenz_fertig) {
     haken(250);
   } else {
@@ -316,31 +313,75 @@ void kreuz(float x) {
   strokeWeight(1);
 }
 
-
+float time_station1;
 void referenzmessung() {
-  SPS_check.show();
+  //SPS_check.show();
+
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
-  text("PM1            PM2.5              PM4            PM10", 340, 43);
-  onlyTwo(SPS_check, "PM1", "PM2.5", "PM4", "PM10");  //Sorgt dafür, dass man nur zwei Sachen gleichzeitig auswählen kann
+  Sensoren_SPS_Blau.show();
+  Sensoren_SPS_Rot.show();
   //Welche Graphen sollen angezeigt werden?
-  boolean pm1 = SPS_check.getState("PM1");
-  boolean pm25 = SPS_check.getState("PM2.5");
-  boolean pm4 = SPS_check.getState("PM4");
-  boolean pm10 = SPS_check.getState("PM10");
+  boolean PM1_left = false;
+  boolean PM1_right = false;
+  boolean PM2_5_left = false;
+  boolean PM2_5_right = false;
+  boolean PM4_left = false;
+  boolean PM4_right = false;
+  boolean PM10_left = false;
+  boolean PM10_right = false;
   if (Station1Start) {
     station1_MessungStarten.hide();
   } else {
     station1_MessungStarten.show();
   }
 
+  if (Sensoren_SPS_Rot.getValue() == 1) {
+    PM1_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SPS_Rot.getValue() == 2) {
+    PM2_5_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SPS_Rot.getValue() == 3) {
+    PM4_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SPS_Rot.getValue() == 4) {
+    PM10_left = true;
+    up1.show();
+    down1.show();
+  } else {
+    up1.hide();
+    down1.hide();
+  }
+
+  if (Sensoren_SPS_Blau.getValue() == 1) {
+    PM1_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SPS_Blau.getValue() == 2) {
+    PM2_5_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SPS_Blau.getValue() == 3) {
+    PM4_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SPS_Blau.getValue() == 4) {
+    PM10_right = true;
+    up2.show();
+    down2.show();
+  } else {
+    up2.hide();
+    down2.hide();
+  }
+
+
   fill(0);
   textSize(20);
-  up1.show();
-  down1.show();
-  down2.show();
-  up2.show();
   reset.hide();
   fill(0);
   noStroke();
@@ -349,6 +390,21 @@ void referenzmessung() {
   fill(255);
   stroke(0);
   rect(175, 100, 930, 500);
+
+  fill(200, 255, 200, 200);
+  rect(175, 100, 155, 500);
+  fill(255, 200, 200, 200);
+  rect(330, 100, 310, 500);
+  fill(255, 255, 200, 200);
+  rect(640, 100, 310, 500);
+  fill(200, 255, 200, 200);
+  rect(950, 100, 155, 500);
+  textSize(26);
+  fill(170, 220);
+  text("Einlaufen", 195, 130);
+  text("Deckel schließen", 385, 130);
+  text("Deckel öffnen", 715, 130);
+  text("Auslaufen", 971, 130);
   stroke(100, 100);
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
@@ -383,32 +439,39 @@ void referenzmessung() {
       y_scale[1] = 4;
     }
   }
-  //Welche Graphen sollen angezeigt werden?
-  if (pm1) {
+  fill(255);
+  stroke(0);
+  rect(580, 20, 130, 50);
+
+  if (PM1_left) {
     graph(Station1_PM1, 1, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
-    if (pm25) {
-      graph(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
-    } else if (pm4) {
-      graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
-    } else if (pm10) {
-      graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
-    }
-  } else if (pm25) {
+  } else if (PM2_5_left) {
     graph(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
-    if (pm4) {
-      graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
-    } else if (pm10) {
-      graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
-    }
-  } else if (pm4) {
+  } else if (PM4_left) {
     graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
-    if (pm10) {
-      graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
-    }
-  } else if (pm10) {
+  } else if (PM10_left) {
     graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
   }
+
+  if (PM1_right) {
+    graph(Station1_PM1, 1, "Feinstaub PM1 in μg/m³", x_scale, y_scale, false);
+  } else if (PM2_5_right) {
+    graph(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
+  } else if (PM4_right) {
+    graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+  } else if (PM10_right) {
+    graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+  }
   fill(0);
+  textSize(24);
+  text("Links", 275, 50);
+  text("Rechts", 750, 50);
+  textSize(20);
+  text("0", 170, 635);
+  text("30", 310, 635);
+  text("90", 630, 635);
+  text("150", 920, 635);
+  text("180", 1100, 635);
 }
 
 

@@ -82,17 +82,21 @@ class button {
     popMatrix();
     textAlign(CORNER);
   }
-
   void hide() {
     visible = false;
   }
   boolean isClicked() {
     if (mousePressed && mouseX > x && mouseX < (x+dx) && mouseY > y && mouseY < (y + dy) && visible) {
-      delay(100);
+      delay(120);
       visible = false;
       return true;
     } else {
       return false;
     }
   }
+}
+
+
+void mouseReleased() {
+
 }

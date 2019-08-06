@@ -543,22 +543,17 @@ void draw() {
     back.show();
   }
   Datenaufnahme();
-
   boolean auto = autosave.getState("automatisch_speichern");
   autosave.hide();
   if (auto) {
     saveData();
   }
-
-
   if (Stationen.isClicked()) {
     page = 0;
   }
   if (Sensoren.isClicked()) {
     page = -2;
   }
-
-
   if (index > 0) {
     if (SPS30.isClicked()) {
       page = -3;
@@ -850,6 +845,7 @@ void draw() {
     indexStation1_trocken = 0;
     indexStation1_nass = 0;
     Station1Start = true;
+    time_station1 = millis();
     if (page == 1.1) {
       zeroTime3 = millis();
     } else if (page == 1.11) {
@@ -875,7 +871,7 @@ void draw() {
     Sensoren_SGP_Rot.hide();
     Sensoren_SGP_Blau.hide();
   }
-  if (page != -3) {
+  if (page != -3 && page != 1.1 && page != 1.11 && page != 1.111) {
     Sensoren_SPS_Rot.hide();
     Sensoren_SPS_Blau.hide();
   }
