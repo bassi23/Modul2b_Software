@@ -8,7 +8,7 @@ Serial myPort;
 
 Table table;
 
-ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_control, innenraumluft_control;
+ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_control, innenraumluft_control, Sensoren_SGP_Rot_control, Sensoren_SGP_Blau_control, Sensoren_SCD_control, Sensoren_SPS_control;
 CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat, innenraumluft;
 
 station one, two_three, two, three, four, settings;
@@ -36,7 +36,7 @@ button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start;
 
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
-
+DropdownList Sensoren_SGP_Rot, Sensoren_SGP_Blau, Sensoren_SCD, Sensoren_SPS;
 
 
 float page = -1;
@@ -58,6 +58,44 @@ void setup() {
   catch(Exception e) {
     gotSerial = false;
   }
+  Sensoren_SGP_Rot_control = new ControlP5(this);
+  Sensoren_SGP_Rot = Sensoren_SGP_Rot_control.addDropdownList(" ", 350, 20, 75, 200); 
+  Sensoren_SGP_Rot.setBackgroundColor(color(255, 100, 100));
+  Sensoren_SGP_Rot.setColorActive(color(255, 100, 100));
+  Sensoren_SGP_Rot.setColorBackground(color(255, 0, 0));
+  Sensoren_SGP_Rot.setColorForeground(color(255, 200, 0));
+  Sensoren_SGP_Rot.setFont(new ControlFont(createFont("Arial", 20), 20));
+  Sensoren_SGP_Rot.addItem(" ", 1);
+  Sensoren_SGP_Rot.addItem("TVOC", 2);
+  Sensoren_SGP_Rot.addItem("eCO2", 3);
+
+  Sensoren_SGP_Rot.setColorLabel(color(255));
+  Sensoren_SGP_Rot.setColorValue(color(255));
+  Sensoren_SGP_Rot.setBarHeight(50);
+  Sensoren_SGP_Rot.setItemHeight(50);
+  Sensoren_SGP_Rot.close();
+  Sensoren_SGP_Rot.hide();
+
+  Sensoren_SGP_Blau_control = new ControlP5(this);
+  Sensoren_SGP_Blau = Sensoren_SGP_Blau_control.addDropdownList(" ", 850, 20, 75, 200); 
+  Sensoren_SGP_Blau.setBackgroundColor(color(100, 100, 255));
+  Sensoren_SGP_Blau.setColorActive(color(100, 100, 255));
+  Sensoren_SGP_Blau.setColorBackground(color(0, 0, 255));
+  Sensoren_SGP_Blau.setColorForeground(color(0, 200, 255));
+  Sensoren_SGP_Blau.setFont(new ControlFont(createFont("Arial", 20), 20));
+  Sensoren_SGP_Blau.addItem(" ", 1);
+  Sensoren_SGP_Blau.addItem("TVOC", 2);
+  Sensoren_SGP_Blau.addItem("eCO2", 3);
+  
+  Sensoren_SGP_Blau.setColorLabel(color(255));
+  Sensoren_SGP_Blau.setColorValue(color(255));
+  Sensoren_SGP_Blau.setBarHeight(50);
+  Sensoren_SGP_Blau.setItemHeight(50);
+  Sensoren_SGP_Blau.close();
+  Sensoren_SGP_Blau.hide();
+
+
+
 
   table = new Table();
   table.addColumn("Zeit");
@@ -92,6 +130,7 @@ void setup() {
   Stationen = new button(100, 100, 500, 400, "Stationen", 5, true, 50);
   Sensoren = new button(650, 100, 500, 400, "Sensoren", 5, true, 50);
   zumObermenu = new button(1110, 640, 150, 75, "Hauptmenü", 5, true, 20);
+  zumObermenu.hide();
 
   //
   SPS30 = new button(550, 50, 300, 200, "Feinstaub", 5, true, 30);
@@ -354,7 +393,7 @@ void draw() {
   Station4c.hide();
   Station4Auswertung.hide();
   Station4a.visible = false;
-println(page);
+
   zumObermenu.x = 1100;
   if (page == 2.1) {
     up2.y = 190;
@@ -579,7 +618,7 @@ println(page);
     ausgewaehlterPort = 5;
     gotSerial = false;
   }
-  
+
 
 
   if (back.isClicked()) {
