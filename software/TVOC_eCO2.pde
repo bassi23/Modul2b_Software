@@ -1,6 +1,3 @@
-
-
-
 void TVOC_eCO2() {
   //SGP_check.show();
   Sensoren_SGP_Rot.show();
