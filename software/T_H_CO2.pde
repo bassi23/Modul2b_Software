@@ -1,16 +1,58 @@
 void T_H_CO2() {
-  SCD_check.show();
+  // SCD_check.show();
   two_three.active = false;
   four.active = false;
   one.active = false;
   settings.active = false;
-  up1.show();
-  down1.show();
-  up2.show();
-  down2.show();
+
   left1.show();
   right1.show();
   reset.show();
+
+
+  Sensoren_SCD_Rot.show();
+  Sensoren_SCD_Blau.show();
+
+  boolean T_left = false;
+  boolean T_right = false;
+  boolean H_left = false;
+  boolean H_right = false;
+  boolean CO2_left = false;
+  boolean CO2_right = false;
+
+  if (Sensoren_SCD_Rot.getValue() == 1) {
+    T_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SCD_Rot.getValue() == 2) {
+    H_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SCD_Rot.getValue() == 3) {
+    CO2_left = true;
+    up1.show();
+    down1.show();
+  } else {
+    up1.hide();
+    down1.hide();
+  }
+
+  if (Sensoren_SCD_Blau.getValue() == 1) {
+    T_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SCD_Blau.getValue() == 2) {
+    H_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SCD_Blau.getValue() == 3) {
+    CO2_right = true;
+    up2.show();
+    down2.show();
+  } else {
+    up2.hide();
+    down2.hide();
+  }
 
 
   aktualisierung_right.show();
@@ -23,9 +65,7 @@ void T_H_CO2() {
   } else {
     text("Aktualisierungsintervall: " + nf(del, 0, 0) + " s", 220, 692);
   }
-  text("Temperatur                          CO             rel. Luftfeuchte", 365, 43);
-  textSize(14);
-  text("2", 670, 52);
+
   textSize(20);
   // Zeichne den Hintergrund
   fill(255);
@@ -108,25 +148,27 @@ void T_H_CO2() {
   //Welche Graphen sollen angezeigt werden?
   onlyTwo2(SCD_check, "T", "H", "CO2");
 
-  boolean t = SCD_check.getState("T");
-  boolean co2 = SCD_check.getState("H");
-  boolean hum = SCD_check.getState("CO2");
+  textSize(20);
 
-  if (t) {
-    graph(scd_temperature_data, 0,"Temperatur in °C", x_scale, y_scale, true);
-    if (hum) {
-      graph(scd_humidity_data,0, "relative Luftfeuchte in %", x_scale, y_scale, false);
-    } else if (co2) {
-      graph(scd_co2_data,0, "CO2 in ppm", x_scale, y_scale, false);
-    }
-  } else if (hum) {
-    graph(scd_humidity_data,0, "relative Luftfeuchte in %", x_scale, y_scale, true);
-    if (co2) {
-      graph(scd_co2_data, 0,"CO2 in ppm", x_scale, y_scale, false);
-    }
-  } else if (co2) {
-    graph(scd_co2_data,0, "CO2 in ppm", x_scale, y_scale, true);
+  if (T_left) {
+    graph(scd_temperature_data, 0, "Temperatur in °C", x_scale, y_scale, true);
+  } else if (H_left) {
+    graph(scd_humidity_data, 0, "relative Luftfeuchte in %", x_scale, y_scale, true);
+  } else if (CO2_left) {
+    graph(scd_co2_data, 0, "CO2 in ppm", x_scale, y_scale, true);
   }
 
+  if (T_right) {
+    graph(scd_temperature_data, 0, "Temperatur in °C", x_scale, y_scale, false);
+  } else if (H_right) {
+    graph(scd_humidity_data, 0, "relative Luftfeuchte in %", x_scale, y_scale, false);
+  } else if (CO2_right) {
+    graph(scd_co2_data, 0, "CO2 in ppm", x_scale, y_scale, false);
+  }
+
+
   fill(0);
+  textSize(24);
+  text("Links", 275, 50);
+  text("Rechts", 750, 50);
 }
