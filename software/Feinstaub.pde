@@ -2,18 +2,67 @@ int[] y_scale = {0, 0};
 int x_scale = 0;
 
 void Feinstaub() {
-  SPS_check.show();
+  //SPS_check.show();
   two_three.active = false;
   four.active = false;
   one.active = false;
   settings.active = false;
-  up1.show();
-  down1.show();
-  up2.show();
-  down2.show();
   left1.show();
   right1.show();
   reset.show();
+  Sensoren_SPS_Rot.show();
+  Sensoren_SPS_Blau.show(); 
+  boolean PM1_left = false;
+  boolean PM1_right = false;
+  boolean PM2_5_left = false;
+  boolean PM2_5_right = false;
+  boolean PM4_left = false;
+  boolean PM4_right = false;
+  boolean PM10_left = false;
+  boolean PM10_right = false;
+
+
+  if (Sensoren_SPS_Rot.getValue() == 1) {
+    PM1_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SPS_Rot.getValue() == 2) {
+    PM2_5_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SPS_Rot.getValue() == 3) {
+    PM4_left = true;
+    up1.show();
+    down1.show();
+  } else if (Sensoren_SPS_Rot.getValue() == 4) {
+    PM10_left = true;
+    up1.show();
+    down1.show();
+  } else {
+    up1.hide();
+    down1.hide();
+  }
+
+  if (Sensoren_SPS_Blau.getValue() == 1) {
+    PM1_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SPS_Blau.getValue() == 2) {
+    PM2_5_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SPS_Blau.getValue() == 3) {
+    PM4_right = true;
+    up2.show();
+    down2.show();
+  } else if (Sensoren_SPS_Blau.getValue() == 4) {
+    PM10_right = true;
+    up2.show();
+    down2.show();
+  } else {
+    up2.hide();
+    down2.hide();
+  }
 
 
   aktualisierung_right.show();
@@ -27,11 +76,6 @@ void Feinstaub() {
     text("Aktualisierungsintervall: " + nf(del, 0, 0) + " s", 220, 692);
   }
 
-  text("PM1            PM2.5              PM4            PM10", 340, 43);
-
-
-
-  onlyTwo(SPS_check, "PM1", "PM2.5", "PM4", "PM10");  //Sorgt dafür, dass man nur zwei Sachen gleichzeitig auswählen kann
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
@@ -111,37 +155,29 @@ void Feinstaub() {
   }
   text(intervall, 740, 690);
 
-  //Welche Graphen sollen angezeigt werden?
-  boolean pm1 = SPS_check.getState("PM1");
-  boolean pm25 = SPS_check.getState("PM2.5");
-  boolean pm4 = SPS_check.getState("PM4");
-  boolean pm10 = SPS_check.getState("PM10");
-  if (pm1) {
+  if (PM1_left) {
     graph(sps_pm1_data, 0, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
-    if (pm25) {
-      graph(sps_pm25_data, 0, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
-    } else if (pm4) {
-      graph(sps_pm4_data, 0, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
-    } else if (pm10) {
-      graph(sps_pm10_data, 0, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
-    }
-  } else if (pm25) {
+  } else if (PM2_5_left) {
     graph(sps_pm25_data, 0, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
-    if (pm4) {
-      graph(sps_pm4_data, 0, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
-    } else if (pm10) {
-      graph(sps_pm10_data, 0, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
-    }
-  } else if (pm4) {
+  } else if (PM4_left) {
     graph(sps_pm4_data, 0, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
-    if (pm10) {
-      graph(sps_pm10_data, 0, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
-    }
-  } else if (pm10) {
+  } else if (PM10_left) {
     graph(sps_pm10_data, 0, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
   }
 
+  if (PM1_right) {
+    graph(sps_pm1_data, 0, "Feinstaub PM1 in μg/m³", x_scale, y_scale, false);
+  } else if (PM2_5_right) {
+    graph(sps_pm25_data, 0, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
+  } else if (PM4_right) {
+    graph(sps_pm4_data, 0, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+  } else if (PM10_right) {
+    graph(sps_pm10_data, 0, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+  }
   fill(0);
+  textSize(24);
+  text("Links", 275, 50);
+  text("Rechts", 750, 50);
 }
 
 
