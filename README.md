@@ -1,6 +1,11 @@
 # Modul2b_Software
 
 ## Update
+
+### 09.08.2019
+- Station 1: Design von Referenzmessung überarbeitet und für alle Szenarien übernommen
+- Station 1: Aufgabenstellung nach Abschluss der 3 Messungen hinzugefügt
+
 ### 06.08.2019
 - Dropdown Menü für die Auswahl der Sensordaten integriert
 - "Sensoren" --> "Alle Sensoren" als neuer Menüpunkt zur Ansicht aller Sensoredaten in einem Diagramm
