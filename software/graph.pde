@@ -973,20 +973,12 @@ int findClosest(float val, float[] array) {
 }
 
 
-
-
-
-
-
-
-
 void graph2(float[] array, int zeitskala1, String name, int x_scale, int[] y_scale, boolean left, color  c) {
   float[] zeitskala = new float[999999];
-  if (zeitskala1 == 1) {
-    for (int i = 0; i < 999999; i++) {
+  for (int i = 0; i < 999999; i++) {
       zeitskala[i] = Station1_zeit[i];
-    }
-  }
+   }
+  
 
   // --> Minimum und Maximum des Arrays bestimmen
   float min = 0;
@@ -997,23 +989,23 @@ void graph2(float[] array, int zeitskala1, String name, int x_scale, int[] y_sca
 
   int xValues = 0;
   textAlign(CENTER);
-  if (x_scale == 0) {
-    if (index > 0) {
-      if (zeitskala1 == 1) {
-        if (indexStation1 > 0) {
-          xValues =  indexStation1;
-        }
-      } else if (zeitskala1 == 2) {
-        if (indexStation1_trocken > 0) {
-          xValues =  indexStation1_trocken;
-        }
-      } else if (zeitskala1 == 3) {
-        if (indexStation1_nass > 0) {
-          xValues =  indexStation1_nass;
-        }
-      }
+
+
+  if (zeitskala1 == 1) {
+    if (indexStation1 > 0) {
+      xValues =  indexStation1;
+    }
+  } else if (zeitskala1 == 2) {
+    if (indexStation1_trocken > 0) {
+      xValues =  indexStation1_trocken;
+    }
+  } else if (zeitskala1 == 3) {
+    if (indexStation1_nass > 0) {
+      xValues =  indexStation1_nass;
     }
   }
+
+
   if (xValues == 0) {
     xValues = 1;
   }
@@ -1065,9 +1057,6 @@ void graph2(float[] array, int zeitskala1, String name, int x_scale, int[] y_sca
   }
   ////////////////// Zwischenlinien definieren ENDE ////////////////////////////
 
-
-
-
   textAlign(CENTER);
   textSize(20);
   stroke(255, 0, 0);
@@ -1087,10 +1076,10 @@ void graph2(float[] array, int zeitskala1, String name, int x_scale, int[] y_sca
   popMatrix();
   fill(0);
   textSize(20);
-  text("Zeit in Sekunden", 640, 645);
+  text("Zeit in Sekunden", 640, 675);
   ///////////////// MESSWERTE ZEICHNEN //////////////////////////////////////////
   textAlign(CORNER);
-   if (zeitskala1 == 1) {
+  if (zeitskala1 == 1) {
     for (int i = (indexStation1 - xValues); i < indexStation1 - 1; i++) {
       if (indexStation1 < xValues) {
         return;
@@ -1190,47 +1179,6 @@ void graph2(float[] array, int zeitskala1, String name, int x_scale, int[] y_sca
       }
     }
   }
-
   fill(0);
-  textAlign(CENTER);
-  if (index > 0) {
- if (zeitskala1 == 1) {
-      fill(0);
-      if (indexStation1 > 0) {
-        textSize(20);
-        text("Zeit in Sekunden", 640, 675);
-        fill(0);
-        if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
-          text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
-        } else {
-          text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
-        }
-      }
-    } else if (zeitskala1 == 2) {
-      fill(0);
-      if (indexStation1_trocken > 0) {
-        textSize(20);
-        text("Zeit in Sekunden", 640, 675);
-        fill(0);
-        if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
-          text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
-        } else {
-          text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
-        }
-      }
-    } else if (zeitskala1 == 3) {
-      fill(0);
-      if (indexStation1_nass > 0) {
-        textSize(20);
-        text("Zeit in Sekunden", 640, 675);
-        fill(0);
-        if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
-          text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
-        } else {
-          text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
-        }
-      }
-    }
-  }
   textAlign(CORNER);
 }

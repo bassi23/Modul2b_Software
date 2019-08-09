@@ -217,7 +217,7 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
 
 
 
-float gesamtzeit_station1 = 10;
+float gesamtzeit_station1 = 180;
 
 
 boolean ersterStart_Station1 = false;
@@ -1090,83 +1090,83 @@ void Vergleich_Feinstaub_Graphen() {
   }
 
   if (PM1_referenz_rot) {
-    graph2(Station1_PM1, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM1, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM25_referenz_rot) {
-    graph2(Station1_PM25, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM4_referenz_rot) {
-    graph2(Station1_PM4, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM4, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM10_referenz_rot) {
-    graph2(Station1_PM10, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM1_trocken_rot) {
-    graph2(Station1_PM1_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM1_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM25_trocken_rot) {
-    graph2(Station1_PM25_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM4_trocken_rot) {
-    graph2(Station1_PM4_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM4_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM10_trocken_rot) {
-    graph2(Station1_PM10_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM1_nass_rot) {
-    graph2(Station1_PM1_nass, 3,"Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM1_nass, 3,"Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM25_nass_rot) {
-    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM4_nass_rot) {
-    graph2(Station1_PM4_nass, 3,"Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM4_nass, 3,"Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM10_nass_rot) {
-    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   }
 
 
   if (PM1_referenz_gruen) {
-    graph2(Station1_PM1, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM1, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM25_referenz_gruen) {
-    graph2(Station1_PM25, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM4_referenz_gruen) {
-    graph2(Station1_PM4, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM4, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM10_referenz_gruen) {
-    graph2(Station1_PM10, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM1_trocken_gruen) {
-    graph2(Station1_PM1_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM1_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM25_trocken_gruen) {
-    graph2(Station1_PM25_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM4_trocken_gruen) {
-    graph2(Station1_PM4_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM4_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM10_trocken_gruen) {
-    graph2(Station1_PM10_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM1_nass_gruen) {
-    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM25_nass_gruen) {
-    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM4_nass_gruen) {
-    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM10_nass_gruen) {
-    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   }
 
 
   if (PM1_referenz_blau) {
-    graph2(Station1_PM1, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM1, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM25_referenz_blau) {
-    graph2(Station1_PM25, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM4_referenz_blau) {
-    graph2(Station1_PM4, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM4, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM10_referenz_blau) {
-    graph2(Station1_PM10, 3,"Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM10, 1,"Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM1_trocken_blau) {
-    graph2(Station1_PM1_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM1_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM25_trocken_blau) {
-    graph2(Station1_PM25_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM4_trocken_blau) {
-    graph2(Station1_PM4_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM4_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM10_trocken_blau) {
-    graph2(Station1_PM10_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM1_nass_blau) {
-    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM25_nass_blau) {
-    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM4_nass_blau) {
-    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM10_nass_blau) {
-    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   }
 
 
