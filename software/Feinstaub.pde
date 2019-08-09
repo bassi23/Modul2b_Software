@@ -217,7 +217,7 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
 
 
 
-float gesamtzeit_station1 = 180;
+float gesamtzeit_station1 = 10;
 
 
 boolean ersterStart_Station1 = false;
@@ -362,7 +362,7 @@ void referenzmessung() {
     ersterDurchlauf_Station1_referenz = true;
   }
 
-  if ((millis() - time_station1)/1000 > gesamtzeit_station1 && Station1Start) {
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del) && Station1Start) {
     station1_referenz_abgeschlossen = true;
   }
 
@@ -545,7 +545,7 @@ void trockenerSchwamm() {
     ersterDurchlauf_Station1_trocken = true;
   }
 
-  if ((millis() - time_station1)/1000 > gesamtzeit_station1 && Station1Start) {
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del) && Station1Start) {
     station1_trocken_abgeschlossen = true;
   }
 
@@ -722,7 +722,7 @@ void nasserSchwamm() {
     ersterDurchlauf_Station1_nass = true;
   }
 
-  if ((millis() - time_station1)/1000 > gesamtzeit_station1 && Station1Start) {
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del) && Station1Start) {
     station1_nass_abgeschlossen = true;
   }
 
@@ -760,7 +760,7 @@ void nasserSchwamm() {
   text("Auslaufen", 971, 130);
   textSize(80);
   fill(170, 50);
-  text("nasser Schwamm", 280, 370);
+  text("nasser Schwamm", 305, 370);
   stroke(100, 100);
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
@@ -838,7 +838,350 @@ void Vergleich_Feinstaub() {
   textSize(20);
   text("Auf der nächsten Seite kannst du deine Messwerte analysieren. Beantworte die folgenden Fragen:", 20, 50);
   text("a) Beschreibe die Verläufe deiner drei Messungen der Feinstaubemission\nb) Gab es einen Unterschied zwischen Messungen verschiedener Feinstaubgrößen? Falls ja, wieso?\nc) Welches Fazit ziehst du aus diesem Experiment?", 200, 250);
+  zur_Auswertung3.show();
+
+  Sensoren_SPS_Rot_Station1.hide();
+  Sensoren_SPS_Blau_Station1.hide();
+  Sensoren_SPS_Gruen_Station1.hide();
 }
+
+
+
+
+void Vergleich_Feinstaub_Graphen() {
+
+  Sensoren_SPS_Rot_Station1.show();
+  Sensoren_SPS_Blau_Station1.show();
+  Sensoren_SPS_Gruen_Station1.show();
+
+
+
+
+
+
+
+
+
+
+
+  boolean PM1_referenz_rot = false;
+  boolean PM25_referenz_rot = false;
+  boolean PM4_referenz_rot = false;
+  boolean PM10_referenz_rot = false;
+
+  boolean PM1_trocken_rot = false;
+  boolean PM25_trocken_rot = false;
+  boolean PM4_trocken_rot = false;
+  boolean PM10_trocken_rot = false;
+
+  boolean PM1_nass_rot = false;
+  boolean PM25_nass_rot = false;
+  boolean PM4_nass_rot = false;
+  boolean PM10_nass_rot = false;
+
+  ///
+
+  boolean PM1_referenz_gruen = false;
+  boolean PM25_referenz_gruen = false;
+  boolean PM4_referenz_gruen = false;
+  boolean PM10_referenz_gruen = false;
+
+  boolean PM1_trocken_gruen = false;
+  boolean PM25_trocken_gruen = false;
+  boolean PM4_trocken_gruen = false;
+  boolean PM10_trocken_gruen = false;
+
+  boolean PM1_nass_gruen = false;
+  boolean PM25_nass_gruen = false;
+  boolean PM4_nass_gruen = false;
+  boolean PM10_nass_gruen = false;
+
+  //
+
+  boolean PM1_referenz_blau = false;
+  boolean PM25_referenz_blau = false;
+  boolean PM4_referenz_blau = false;
+  boolean PM10_referenz_blau = false;
+
+  boolean PM1_trocken_blau = false;
+  boolean PM25_trocken_blau = false;
+  boolean PM4_trocken_blau = false;
+  boolean PM10_trocken_blau = false;
+
+  boolean PM1_nass_blau = false;
+  boolean PM25_nass_blau = false;
+  boolean PM4_nass_blau = false;
+  boolean PM10_nass_blau = false;
+
+
+  float rot = Sensoren_SPS_Rot_Station1.getValue();
+  float gruen = Sensoren_SPS_Gruen_Station1.getValue();
+  float blau = Sensoren_SPS_Blau_Station1.getValue();
+
+
+  if (rot == 1) {
+    PM1_referenz_rot = true;
+  }
+  if (rot == 2) {
+    PM25_referenz_rot = true;
+  }
+  if (rot == 3) {
+    PM4_referenz_rot = true;
+  }
+  if (rot == 4) {
+    PM10_referenz_rot = true;
+  }
+  if (rot == 5) {
+    PM1_trocken_rot = true;
+  }
+  if (rot == 6) {
+    PM25_trocken_rot = true;
+  }
+  if (rot == 7) {
+    PM4_trocken_rot = true;
+  }
+  if (rot == 8) {
+    PM10_trocken_rot = true;
+  }
+  if (rot == 9) {
+    PM1_nass_rot = true;
+  }
+  if (rot == 10) {
+    PM25_nass_rot = true;
+  }
+  if (rot == 11) {
+    PM4_nass_rot = true;
+  } 
+  if (rot == 12) {
+    PM10_nass_rot = true;
+  }
+
+  if (gruen == 1) {
+    PM1_referenz_gruen = true;
+  }
+  if (gruen == 2) {
+    PM25_referenz_gruen = true;
+  }
+  if (gruen == 3) {
+    PM4_referenz_gruen = true;
+  }
+  if (gruen == 4) {
+    PM10_referenz_gruen = true;
+  }
+  if (gruen == 5) {
+    PM1_trocken_gruen = true;
+  }
+  if (gruen == 6) {
+    PM25_trocken_gruen = true;
+  }
+  if (gruen == 7) {
+    PM4_trocken_gruen = true;
+  }
+  if (gruen == 8) {
+    PM10_trocken_gruen = true;
+  }
+  if (gruen == 9) {
+    PM1_nass_gruen = true;
+  }
+  if (gruen == 10) {
+    PM25_nass_gruen = true;
+  }
+  if (gruen == 11) {
+    PM4_nass_gruen = true;
+  } 
+  if (gruen == 12) {
+    PM10_nass_gruen = true;
+  }
+
+  if (blau == 1) {
+    PM1_referenz_blau = true;
+  }
+  if (blau == 2) {
+    PM25_referenz_blau = true;
+  }
+  if (blau == 3) {
+    PM4_referenz_blau = true;
+  }
+  if (blau == 4) {
+    PM10_referenz_blau = true;
+  }
+  if (blau == 5) {
+    PM1_trocken_blau = true;
+  }
+  if (blau == 6) {
+    PM25_trocken_blau = true;
+  }
+  if (blau == 7) {
+    PM4_trocken_blau = true;
+  }
+  if (blau == 8) {
+    PM10_trocken_blau = true;
+  }
+  if (blau == 9) {
+    PM1_nass_blau = true;
+  }
+  if (blau == 10) {
+    PM25_nass_blau = true;
+  }
+  if (blau == 11) {
+    PM4_nass_blau = true;
+  } 
+  if (blau == 12) {
+    PM10_nass_blau = true;
+  }
+
+
+
+
+  up1.show();
+  down1.show();
+  // Zeichne den Hintergrund
+  fill(255);
+  stroke(0);
+  rect(175, 100, 930, 500);
+
+  fill(200, 255, 200, 200);
+  rect(175, 100, 155, 500);
+  fill(255, 200, 200, 200);
+  rect(330, 100, 310, 500);
+  fill(255, 255, 200, 200);
+  rect(640, 100, 310, 500);
+  fill(200, 255, 200, 200);
+  rect(950, 100, 155, 500);
+  textSize(26);
+  fill(170, 220);
+  text("Einlaufen", 195, 130);
+  text("Deckel schließen", 385, 130);
+  text("Deckel öffnen", 715, 130);
+  text("Auslaufen", 971, 130);
+  stroke(100, 100);
+  if (y_scale[0] == 0) {
+    y_scale[0] = 1;
+  }
+  if (y_scale[1] == 0) {
+    y_scale[1] = 1;
+  }
+  if (y_scale[0] != 0 || y_scale[1] != 0) {
+    for (int i = 0; i < 4; i++) {
+      line(175, 200 + 100*i, 1105, 200 + 100*i);
+    }
+  }
+
+  if (up1.isClicked()) {
+    y_scale[0] += 1;
+    y_scale[1] += 1;
+    if (y_scale[0] > 4) {
+      y_scale[0] = 1;
+    }
+    if (y_scale[1] > 4) {
+      y_scale[1] = 1;
+    }
+  }
+
+  if (down1.isClicked()) {
+    y_scale[0] -= 1;
+    y_scale[1] -= 1;
+    if (y_scale[0] < 1) {
+      y_scale[0] = 4;
+    }
+    if (y_scale[1] < 1) {
+      y_scale[1] = 4;
+    }
+  }
+
+  if (PM1_referenz_rot) {
+    graph2(Station1_PM1, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM25_referenz_rot) {
+    graph2(Station1_PM25, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM4_referenz_rot) {
+    graph2(Station1_PM4, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM10_referenz_rot) {
+    graph2(Station1_PM10, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM1_trocken_rot) {
+    graph2(Station1_PM1_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM25_trocken_rot) {
+    graph2(Station1_PM25_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM4_trocken_rot) {
+    graph2(Station1_PM4_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM10_trocken_rot) {
+    graph2(Station1_PM10_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM1_nass_rot) {
+    graph2(Station1_PM1_nass, 3,"Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM25_nass_rot) {
+    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM4_nass_rot) {
+    graph2(Station1_PM4_nass, 3,"Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  } else if (PM10_nass_rot) {
+    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(255, 0, 0));
+  }
+
+
+  if (PM1_referenz_gruen) {
+    graph2(Station1_PM1, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM25_referenz_gruen) {
+    graph2(Station1_PM25, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM4_referenz_gruen) {
+    graph2(Station1_PM4, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM10_referenz_gruen) {
+    graph2(Station1_PM10, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM1_trocken_gruen) {
+    graph2(Station1_PM1_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM25_trocken_gruen) {
+    graph2(Station1_PM25_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM4_trocken_gruen) {
+    graph2(Station1_PM4_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM10_trocken_gruen) {
+    graph2(Station1_PM10_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM1_nass_gruen) {
+    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM25_nass_gruen) {
+    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM4_nass_gruen) {
+    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  } else if (PM10_nass_gruen) {
+    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 255, 0));
+  }
+
+
+  if (PM1_referenz_blau) {
+    graph2(Station1_PM1, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM25_referenz_blau) {
+    graph2(Station1_PM25, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM4_referenz_blau) {
+    graph2(Station1_PM4, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM10_referenz_blau) {
+    graph2(Station1_PM10, 3,"Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM1_trocken_blau) {
+    graph2(Station1_PM1_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM25_trocken_blau) {
+    graph2(Station1_PM25_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM4_trocken_blau) {
+    graph2(Station1_PM4_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM10_trocken_blau) {
+    graph2(Station1_PM10_trocken, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM1_nass_blau) {
+    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM25_nass_blau) {
+    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM4_nass_blau) {
+    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  } else if (PM10_nass_blau) {
+    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", x_scale, y_scale, true, color(0, 0, 255));
+  }
+
+
+  fill(0);
+  textSize(20);
+  text("0", 170, 635);
+  text("30", 310, 635);
+  text("90", 630, 635);
+  text("150", 920, 635);
+  text("180", 1100, 635);
+}
+
+
+
+
 
 
 void onlyOne(CheckBox check, String state1, String state2, String state3, String state4) {

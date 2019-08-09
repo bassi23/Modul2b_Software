@@ -9,6 +9,9 @@ Serial myPort;
 Table table;
 
 ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_control, innenraumluft_control, Sensoren_SGP_Rot_control, Sensoren_SGP_Blau_control, Sensoren_SCD_Rot_control, Sensoren_SCD_Blau_control, Sensoren_SPS_Rot_control, Sensoren_SPS_Blau_control, Sensoren_Alle_Rot_Control, Sensoren_Alle_Blau_Control;
+ControlP5 Sensoren_SPS_Rot_Station1_control, Sensoren_SPS_Blau_Station1_control, Sensoren_SPS_Gruen_Station1_control;
+
+
 CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat, innenraumluft;
 
 station one, two_three, two, three, four, settings;
@@ -24,7 +27,7 @@ button Port1, Port2, Port3, Port4, Port5, Port6;
 
 button station1_referenz, station1_trocken, station1_nass, station1_MessungStarten, station1_MessungWiederholen, station1_weiter_ab, station1_weiter_bc, station1_zur_Auswertung;
 
-button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung, zur_Auswertung2;
+button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung, zur_Auswertung2, zur_Auswertung3;
 
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 Probe A, B, C, D, E;
@@ -36,7 +39,7 @@ button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start;
 
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
-DropdownList Sensoren_SGP_Rot, Sensoren_SGP_Blau, Sensoren_SCD_Rot, Sensoren_SCD_Blau, Sensoren_SPS_Rot, Sensoren_SPS_Blau, Sensoren_Alle_Rot, Sensoren_Alle_Blau;
+DropdownList Sensoren_SGP_Rot, Sensoren_SGP_Blau, Sensoren_SCD_Rot, Sensoren_SCD_Blau, Sensoren_SPS_Rot, Sensoren_SPS_Blau, Sensoren_SPS_Rot_Station1, Sensoren_SPS_Blau_Station1, Sensoren_Alle_Rot, Sensoren_Alle_Blau, Sensoren_SPS_Gruen_Station1;
 
 
 float page = -1;
@@ -170,6 +173,92 @@ void setup() {
   Sensoren_SPS_Rot.hide();
 
 
+  Sensoren_SPS_Rot_Station1_control = new ControlP5(this);
+  Sensoren_SPS_Rot_Station1 = Sensoren_SPS_Rot_Station1_control.addDropdownList(" ", 300, 20, 200, 900); 
+  Sensoren_SPS_Rot_Station1.setBackgroundColor(color(255, 100, 100));
+  Sensoren_SPS_Rot_Station1.setColorActive(color(255, 100, 100));
+  Sensoren_SPS_Rot_Station1.setColorBackground(color(255, 0, 0));
+  Sensoren_SPS_Rot_Station1.setColorForeground(color(255, 200, 0));
+  Sensoren_SPS_Rot_Station1.setFont(new ControlFont(createFont("Arial", 20), 20));
+  Sensoren_SPS_Rot_Station1.addItem(" ", 0);
+  Sensoren_SPS_Rot_Station1.addItem("PM1 (Referenz)", 1);
+  Sensoren_SPS_Rot_Station1.addItem("PM2.5 (Referenz)", 2);
+  Sensoren_SPS_Rot_Station1.addItem("PM4 (Referenz)", 3);
+  Sensoren_SPS_Rot_Station1.addItem("PM10 (Referenz)", 4);
+  Sensoren_SPS_Rot_Station1.addItem("PM1 (Trocken)", 5);
+  Sensoren_SPS_Rot_Station1.addItem("PM2.5 (Trocken)", 6);
+  Sensoren_SPS_Rot_Station1.addItem("PM4 (Trocken)", 7);
+  Sensoren_SPS_Rot_Station1.addItem("PM10 (Trocken)", 8);
+  Sensoren_SPS_Rot_Station1.addItem("PM1 (Nass)", 9);
+  Sensoren_SPS_Rot_Station1.addItem("PM2.5 (Nass)", 10);
+  Sensoren_SPS_Rot_Station1.addItem("PM4 (Nass)", 11);
+  Sensoren_SPS_Rot_Station1.addItem("PM10 (Nass)", 12);
+  Sensoren_SPS_Rot_Station1.setColorLabel(color(255));
+  Sensoren_SPS_Rot_Station1.setColorValue(color(255));
+  Sensoren_SPS_Rot_Station1.setBarHeight(50);
+  Sensoren_SPS_Rot_Station1.setItemHeight(50);
+  Sensoren_SPS_Rot_Station1.close();
+  Sensoren_SPS_Rot_Station1.hide();
+
+
+  Sensoren_SPS_Blau_Station1_control = new ControlP5(this);
+  Sensoren_SPS_Blau_Station1 = Sensoren_SPS_Blau_Station1_control.addDropdownList(" ", 800, 20, 200, 900); 
+  Sensoren_SPS_Blau_Station1.setBackgroundColor(color(100, 100, 255));
+  Sensoren_SPS_Blau_Station1.setColorActive(color(100, 100, 255));
+  Sensoren_SPS_Blau_Station1.setColorBackground(color(0, 0, 255));
+  Sensoren_SPS_Blau_Station1.setColorForeground(color(0, 200, 255));
+  Sensoren_SPS_Blau_Station1.setFont(new ControlFont(createFont("Arial", 20), 20));
+  Sensoren_SPS_Blau_Station1.addItem(" ", 0);
+  Sensoren_SPS_Blau_Station1.addItem("PM1 (Referenz)", 1);
+  Sensoren_SPS_Blau_Station1.addItem("PM2.5 (Referenz)", 2);
+  Sensoren_SPS_Blau_Station1.addItem("PM4 (Referenz)", 3);
+  Sensoren_SPS_Blau_Station1.addItem("PM10 (Referenz)", 4);
+  Sensoren_SPS_Blau_Station1.addItem("PM1 (Trocken)", 5);
+  Sensoren_SPS_Blau_Station1.addItem("PM2.5 (Trocken)", 6);
+  Sensoren_SPS_Blau_Station1.addItem("PM4 (Trocken)", 7);
+  Sensoren_SPS_Blau_Station1.addItem("PM10 (Trocken)", 8);
+  Sensoren_SPS_Blau_Station1.addItem("PM1 (Nass)", 9);
+  Sensoren_SPS_Blau_Station1.addItem("PM2.5 (Nass)", 10);
+  Sensoren_SPS_Blau_Station1.addItem("PM4 (Nass)", 11);
+  Sensoren_SPS_Blau_Station1.addItem("PM10 (Nass)", 12);
+  Sensoren_SPS_Blau_Station1.setColorLabel(color(255));
+  Sensoren_SPS_Blau_Station1.setColorValue(color(255));
+  Sensoren_SPS_Blau_Station1.setBarHeight(50);
+  Sensoren_SPS_Blau_Station1.setItemHeight(50);
+  Sensoren_SPS_Blau_Station1.close();
+  Sensoren_SPS_Blau_Station1.hide();
+  
+    Sensoren_SPS_Gruen_Station1_control = new ControlP5(this);
+  Sensoren_SPS_Gruen_Station1 = Sensoren_SPS_Gruen_Station1_control.addDropdownList(" ", 550, 20, 200, 900); 
+  Sensoren_SPS_Gruen_Station1.setBackgroundColor(color(100, 255, 100));
+  Sensoren_SPS_Gruen_Station1.setColorActive(color(100, 255, 100));
+  Sensoren_SPS_Gruen_Station1.setColorBackground(color(0, 255, 0));
+  Sensoren_SPS_Gruen_Station1.setColorForeground(color(0, 255, 200));
+  Sensoren_SPS_Gruen_Station1.setFont(new ControlFont(createFont("Arial", 20), 20));
+  Sensoren_SPS_Gruen_Station1.addItem(" ", 0);
+  Sensoren_SPS_Gruen_Station1.addItem("PM1 (Referenz)", 1);
+  Sensoren_SPS_Gruen_Station1.addItem("PM2.5 (Referenz)", 2);
+  Sensoren_SPS_Gruen_Station1.addItem("PM4 (Referenz)", 3);
+  Sensoren_SPS_Gruen_Station1.addItem("PM10 (Referenz)", 4);
+  Sensoren_SPS_Gruen_Station1.addItem("PM1 (Trocken)", 5);
+  Sensoren_SPS_Gruen_Station1.addItem("PM2.5 (Trocken)", 6);
+  Sensoren_SPS_Gruen_Station1.addItem("PM4 (Trocken)", 7);
+  Sensoren_SPS_Gruen_Station1.addItem("PM10 (Trocken)", 8);
+  Sensoren_SPS_Gruen_Station1.addItem("PM1 (Nass)", 9);
+  Sensoren_SPS_Gruen_Station1.addItem("PM2.5 (Nass)", 10);
+  Sensoren_SPS_Gruen_Station1.addItem("PM4 (Nass)", 11);
+  Sensoren_SPS_Gruen_Station1.addItem("PM10 (Nass)", 12);
+  Sensoren_SPS_Gruen_Station1.setColorLabel(color(255));
+  Sensoren_SPS_Gruen_Station1.setColorValue(color(255));
+  Sensoren_SPS_Gruen_Station1.setBarHeight(50);
+  Sensoren_SPS_Gruen_Station1.setItemHeight(50);
+  Sensoren_SPS_Gruen_Station1.close();
+  Sensoren_SPS_Gruen_Station1.hide();
+  
+  
+  
+  
+
 
   Sensoren_Alle_Rot_Control = new ControlP5(this);
   Sensoren_Alle_Rot = Sensoren_Alle_Rot_Control.addDropdownList(" ", 350, 20, 155, 800); 
@@ -283,6 +372,7 @@ void setup() {
   station1_weiter_ab = new button(1000, 665, 150, 50, "zu Aufgabe b)", 5, true, 20);
   station1_weiter_bc =  new button(1000, 665, 150, 50, "zu Aufgabe c)", 5, true, 20);
   station1_zur_Auswertung = new button(1000, 665, 160, 50, "zur Auswertung", 5, true, 20);
+  zur_Auswertung3 = new button(1000, 665, 160, 50, "zu den Graphen", 5, true, 20);
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
@@ -526,6 +616,7 @@ void draw() {
   station1_weiter_bc.hide();
   station1_zur_Auswertung.hide();
   zur_Auswertung2.hide();
+  zur_Auswertung3.hide();
 
 
   zumObermenu.x = 1100;
@@ -630,6 +721,8 @@ void draw() {
     nasserSchwamm();
   } else if (page == 1.1111) {
     Vergleich_Feinstaub();
+  } else if (page == 1.11111) {
+    Vergleich_Feinstaub_Graphen();
   } else if (page == 2) {
     MenschSensor();
     zumObermenu.hide();
@@ -773,6 +866,8 @@ void draw() {
       if (page == 1.1 || page == 1.11 || page == 1.111 || page == 1.1111) {
         Station1Start = false;
         page = 1;
+      } else if (page == 1.11111) {
+        page = 1.1111;
       } else if (page == 2.1) {
         prob = 0;
         page = 2;
@@ -812,8 +907,11 @@ void draw() {
   if (station1_nass.isClicked()) {
     page = 1.111;
   }
-  if(zur_Auswertung2.isClicked()){
-   page = 1.1111; 
+  if (zur_Auswertung2.isClicked()) {
+    page = 1.1111;
+  }
+  if (zur_Auswertung3.isClicked()) {
+    page = 1.11111;
   }
 
   if (reset.isClicked()) {
@@ -906,7 +1004,7 @@ void draw() {
     Sensoren_SGP_Rot.hide();
     Sensoren_SGP_Blau.hide();
   }
-  if (page != -3 && page != 1.1 && page != 1.11 && page != 1.111) {
+  if (page != -3 && page != 1.1 && page != 1.11 && page != 1.111 && page != 1.11111) {
     Sensoren_SPS_Rot.hide();
     Sensoren_SPS_Blau.hide();
   }
@@ -983,6 +1081,10 @@ void draw() {
   if (Station4a.isClicked()) {
     delay(200);
     page = 4.1;
+  }
+
+  if (zur_Auswertung3.isClicked()) {
+    page = 1.11111;
   }
 }
 

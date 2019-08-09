@@ -174,7 +174,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       max = 500;
     } else if (name == "relative Luftfeuchte in %") {
       max = 25;
-    } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
+    } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³" || name == "Feinstaub in μg/m³") {
       max = 10;
     } else if (name == "TVOC in ppb") {
       max = 100;
@@ -970,4 +970,267 @@ int findClosest(float val, float[] array) {
     }
   }
   return index;
+}
+
+
+
+
+
+
+
+
+
+void graph2(float[] array, int zeitskala1, String name, int x_scale, int[] y_scale, boolean left, color  c) {
+  float[] zeitskala = new float[999999];
+  if (zeitskala1 == 1) {
+    for (int i = 0; i < 999999; i++) {
+      zeitskala[i] = Station1_zeit[i];
+    }
+  }
+
+  // --> Minimum und Maximum des Arrays bestimmen
+  float min = 0;
+  float max = 0;
+  int y = y_scale[0]; 
+
+  //////////////////ANFANG Zeitskala Beschriftung und Hilfslinien //////////////////////////
+
+  int xValues = 0;
+  textAlign(CENTER);
+  if (x_scale == 0) {
+    if (index > 0) {
+      if (zeitskala1 == 1) {
+        if (indexStation1 > 0) {
+          xValues =  indexStation1;
+        }
+      } else if (zeitskala1 == 2) {
+        if (indexStation1_trocken > 0) {
+          xValues =  indexStation1_trocken;
+        }
+      } else if (zeitskala1 == 3) {
+        if (indexStation1_nass > 0) {
+          xValues =  indexStation1_nass;
+        }
+      }
+    }
+  }
+  if (xValues == 0) {
+    xValues = 1;
+  }
+  //println(xValues);
+  textSize(20);
+  fill(0);
+  if (zeitskala1 == 0) {
+    text("0", 150, 640);
+  }
+  //////////////////ENDE Zeitskala Beschriftung und Hilfslinien //////////////////////////
+
+  strokeWeight(1);
+  //////////////////// Minimum und Maximum definieren ////////////////////////////
+  if (y == 1) {
+    max = 10;
+  } else if (y == 2) {
+    max = 20;
+  } else if (y == 3) {
+    max = 50;
+  } else if (y == 4) {
+    max = 200;
+  }
+
+
+  ////////////////// Zwischenlinien definieren ////////////////////////////
+  fill(255, 0, 0);
+  float pos_x = 135;
+
+  if (y == 1) {
+    text("2", pos_x, 507);
+    text("4", pos_x, 407);
+    text("6", pos_x, 307);
+    text("8", pos_x, 207);
+  } else if (y == 2) {
+    text("4", pos_x, 507);
+    text("8", pos_x, 407);
+    text("12", pos_x, 307);
+    text("16", pos_x, 207);
+  } else if (y == 3) {
+    text("10", pos_x, 507);
+    text("20", pos_x, 407);
+    text("30", pos_x, 307);
+    text("40", pos_x, 207);
+  } else if (y == 4) {
+    text("40", pos_x, 507);
+    text("80", pos_x, 407);
+    text("120", pos_x, 307);
+    text("160", pos_x, 207);
+  }
+  ////////////////// Zwischenlinien definieren ENDE ////////////////////////////
+
+
+
+
+  textAlign(CENTER);
+  textSize(20);
+  stroke(255, 0, 0);
+  fill(255, 0, 0);
+  text(nf(min, 0, 0), 135, 600);
+  text(nf(max, 0, 0), 135, 100);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text(name, 0, -540);
+  popMatrix();
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(PI/2);
+  textSize(20);
+  text(name, 0, -575);
+  popMatrix();
+  fill(0);
+  textSize(20);
+  text("Zeit in Sekunden", 640, 645);
+  ///////////////// MESSWERTE ZEICHNEN //////////////////////////////////////////
+  textAlign(CORNER);
+   if (zeitskala1 == 1) {
+    for (int i = (indexStation1 - xValues); i < indexStation1 - 1; i++) {
+      if (indexStation1 < xValues) {
+        return;
+      }
+      float x_anfang = zeitskala[indexStation1 - xValues];
+      float x_ende = zeitskala[indexStation1 - 1];
+      x_ende = gesamtzeit_station1;
+      float x_intervall = x_ende - x_anfang;
+      float x1 = 175 + (zeitskala[i] - x_anfang)*930/x_intervall;
+      float x2 = 175 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
+      float y1 = 600 - 500*(array[i]-min)/(max - min);
+      float y2 = 600 - 500*(array[i+1] - min)/(max - min);
+      float m = ((y2 - y1)/(x2 - x1));
+      if (x1 <= 175) {
+        y1 = m*175 + y1 - m*x1;
+        x1 = 175;
+      }
+      if (x2 >= 1105) {
+        y2 = m*1105 + y1 - m*x1;
+        x2 = 1105;
+      }
+      if (y2 < 100) {
+        x2 = (100 + m*x2-y2)/m;
+        y2 = 100;
+      }
+      if (y1 < 100) {
+        x1 = (100 + m*x1-y1)/m;
+        y1 = 100;
+      }
+      stroke(c);
+      if (y1 >= 100 && y2 >= 100 && x2 >= 175 && x1 <= 1105 && x2 <= 1105) {
+        line(x1, y1, x2, y2);
+      }
+    }
+  } else if (zeitskala1 == 2) {
+    for (int i = (indexStation1_trocken - xValues); i < indexStation1_trocken - 1; i++) {
+      float x_anfang = zeitskala[indexStation1_trocken - xValues];
+      float x_ende = zeitskala[indexStation1_trocken - 1];
+      x_ende = gesamtzeit_station1;
+      float x_intervall = x_ende - x_anfang;
+      float x1 = 175 + (zeitskala[i] - x_anfang)*930/x_intervall;
+      float x2 = 175 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
+      float y1 = 600 - 500*(array[i]-min)/(max - min);
+      float y2 = 600 - 500*(array[i+1] - min)/(max - min);
+      float m = ((y2 - y1)/(x2 - x1));
+      if (x1 <= 175) {
+        y1 = m*175 + y1 - m*x1;
+        x1 = 175;
+      }
+      if (x2 >= 1105) {
+        y2 = m*1105 + y1 - m*x1;
+        x2 = 1105;
+      }
+      if (y2 < 100) {
+        x2 = (100 + m*x2-y2)/m;
+        y2 = 100;
+      }
+      if (y1 < 100) {
+        x1 = (100 + m*x1-y1)/m;
+        y1 = 100;
+      }
+      stroke(c);
+      if (y1 >= 100 && y2 >= 100 && x2 >= 175 && x1 <= 1105 && x2 <= 1105) {
+        line(x1, y1, x2, y2);
+      }
+    }
+  } else if (zeitskala1 == 3) {
+    for (int i = (indexStation1_nass - xValues); i < indexStation1_nass - 1; i++) {
+      float x_anfang = zeitskala[indexStation1_nass - xValues];
+      float x_ende = zeitskala[indexStation1_nass - 1];
+      x_ende = gesamtzeit_station1;
+      float x_intervall = x_ende - x_anfang;
+      float x1 = 175 + (zeitskala[i] - x_anfang)*930/x_intervall;
+      float x2 = 175 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
+      float y1 = 600 - 500*(array[i]-min)/(max - min);
+      float y2 = 600 - 500*(array[i+1] - min)/(max - min);
+      float m = ((y2 - y1)/(x2 - x1));
+      if (x1 <= 175) {
+        y1 = m*175 + y1 - m*x1;
+        x1 = 175;
+      }
+      if (x2 >= 1105) {
+        y2 = m*1105 + y1 - m*x1;
+        x2 = 1105;
+      }
+      if (y2 < 100) {
+        x2 = (100 + m*x2-y2)/m;
+        y2 = 100;
+      }
+      if (y1 < 100) {
+        x1 = (100 + m*x1-y1)/m;
+        y1 = 100;
+      }
+      stroke(c);
+      if (y1 >= 100 && y2 >= 100 && x2 >= 175 && x1 <= 1105 && x2 <= 1105) {
+        line(x1, y1, x2, y2);
+      }
+    }
+  }
+
+  fill(0);
+  textAlign(CENTER);
+  if (index > 0) {
+ if (zeitskala1 == 1) {
+      fill(0);
+      if (indexStation1 > 0) {
+        textSize(20);
+        text("Zeit in Sekunden", 640, 675);
+        fill(0);
+        if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
+          text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
+        } else {
+          text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
+        }
+      }
+    } else if (zeitskala1 == 2) {
+      fill(0);
+      if (indexStation1_trocken > 0) {
+        textSize(20);
+        text("Zeit in Sekunden", 640, 675);
+        fill(0);
+        if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
+          text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
+        } else {
+          text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
+        }
+      }
+    } else if (zeitskala1 == 3) {
+      fill(0);
+      if (indexStation1_nass > 0) {
+        textSize(20);
+        text("Zeit in Sekunden", 640, 675);
+        fill(0);
+        if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
+          text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
+        } else {
+          text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 650, 50);
+        }
+      }
+    }
+  }
+  textAlign(CORNER);
 }
