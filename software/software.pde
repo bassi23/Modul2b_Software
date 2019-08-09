@@ -22,9 +22,9 @@ button SPS30, SGP30, SCD30, alle_Sensoren;
 button einstellungen;
 button Port1, Port2, Port3, Port4, Port5, Port6;
 
-button station1_referenz, station1_trocken, station1_nass, station1_MessungStarten, FeinstaubVergleichen;
+button station1_referenz, station1_trocken, station1_nass, station1_MessungStarten, station1_MessungWiederholen, station1_weiter_ab, station1_weiter_bc, station1_zur_Auswertung;
 
-button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung;
+button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung, zur_Auswertung2;
 
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 Probe A, B, C, D, E;
@@ -273,12 +273,16 @@ void setup() {
   Port5 = new button(750, 475, 30, 30, " x ", 5, true, 20);
   Port6 = new button(750, 525, 30, 30, " x ", 5, true, 20);
   //
-  station1_referenz = new button(150, 350, 300, 150, "Referenzmessung", 5, true, 30);
-  station1_trocken = new button(500, 350, 300, 150, "trockener\nSchwamm", -20, true, 30);
-  station1_nass = new button(850, 350, 300, 150, "nasser\nSchwamm", -20, true, 30);
+  station1_referenz = new button(150, 300, 300, 150, "Referenzmessung", 5, true, 30);
+  station1_trocken = new button(500, 300, 300, 150, "trockener\nSchwamm", -20, true, 30);
+  station1_nass = new button(850, 300, 300, 150, "nasser\nSchwamm", -20, true, 30);
+  zur_Auswertung2 = new button(500, 570, 300, 140, "zur Auswertung", 5, true, 30);
 
-  station1_MessungStarten = new button(530, 650, 220, 50, "Messung starten", 5, true, 20);
-  FeinstaubVergleichen = new button(600, 620, 150, 75, "Vergleiche\nDaten", -10, true, 20);
+  station1_MessungStarten = new button(175, 650, 150, 65, "Messung\nstarten", -5, true, 20);
+  station1_MessungWiederholen = new button(10, 650, 150, 65, "Messung \nwiederholen", -5, true, 20);
+  station1_weiter_ab = new button(1000, 665, 150, 50, "zu Aufgabe b)", 5, true, 20);
+  station1_weiter_bc =  new button(1000, 665, 150, 50, "zu Aufgabe c)", 5, true, 20);
+  station1_zur_Auswertung = new button(1000, 665, 160, 50, "zur Auswertung", 5, true, 20);
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
@@ -313,8 +317,6 @@ void setup() {
   four = new station(50, 350, false);
   settings = new station(450, 350, false);
 
-
-
   A = new Probe(510, 550, "A", true, false);
   B = new Probe(640, 550, "B", true, false);
   C = new Probe(770, 550, "C", true, false);
@@ -348,7 +350,7 @@ void setup() {
   vorheriger_Stoff = new button(1125, 230, 150, 75, "Vorheriger\nStoff", -12, true, 20);
   weiter_zum_Sensor = new button(1020, 640, 150, 75, "Sensor-\nmessung", -12, true, 20);
 
-  zur_Auswertung = new button(1125, 580, 150, 75, "Zur Aus-\nwertung", -12, true, 20);
+  zur_Auswertung = new button(1125, 580, 160, 75, "Zur Aus-\nwertung", -12, true, 20);
 
   // Station 4
   Station4a = new button(565, 350, 150, 100, "zu Aufgabe a)", 5, true, 20); 
@@ -492,7 +494,6 @@ void draw() {
     gotSerial = false;
     println("CIAO");
   }
-
   noStroke();
   fill(0);
   textSize(16);
@@ -519,6 +520,13 @@ void draw() {
   Station4c.hide();
   Station4Auswertung.hide();
   Station4a.visible = false;
+
+
+  station1_weiter_ab.hide();
+  station1_weiter_bc.hide();
+  station1_zur_Auswertung.hide();
+  zur_Auswertung2.hide();
+
 
   zumObermenu.x = 1100;
   if (page == 2.1) {
@@ -794,18 +802,18 @@ void draw() {
     }
   }
   if (station1_referenz.isClicked()) {
-    station1_ref = true;
     page = 1.1;
   }
 
   if (station1_trocken.isClicked()) {
-    station1_ref = true;
     page = 1.11;
   }
 
   if (station1_nass.isClicked()) {
-    station1_ref = true;
     page = 1.111;
+  }
+  if(zur_Auswertung2.isClicked()){
+   page = 1.1111; 
   }
 
   if (reset.isClicked()) {
@@ -841,9 +849,6 @@ void draw() {
     page = 10;
   }
   if (station1_MessungStarten.isClicked()) {
-    indexStation1 = 0;
-    indexStation1_trocken = 0;
-    indexStation1_nass = 0;
     Station1Start = true;
     time_station1 = millis();
     if (page == 1.1) {
@@ -854,9 +859,39 @@ void draw() {
       zeroTime5 = millis();
     }
   }
-  if (FeinstaubVergleichen.isClicked() && page == 1) {
+
+  if (station1_weiter_ab.isClicked()) {
+    page = 1.11;
+    station1_weiter_ab.hide();
+  }
+  if (station1_weiter_bc.isClicked()) {
+    page = 1.111;
+    station1_weiter_bc.hide();
+  }
+  if (station1_zur_Auswertung.isClicked()) {
     page = 1.1111;
   }
+
+  if (station1_MessungWiederholen.isClicked()) {
+    Station1Start = true;
+    time_station1 = millis();
+    if (page == 1.1) {
+      zeroTime3 = millis();
+      indexStation1 = 0;
+      station1_referenz_abgeschlossen = false;
+    }
+    if (page == 1.11) {
+      zeroTime4 = millis();
+      indexStation1_trocken = 0;
+      station1_trocken_abgeschlossen = false;
+    }
+    if (page == 1.111) {
+      zeroTime5 = millis();
+      indexStation1_nass = 0;
+      station1_nass_abgeschlossen = false;
+    }
+  }
+
 
   if (Sensormessung.isClicked()) {
     page = 2.1;
@@ -943,7 +978,6 @@ void draw() {
   }
   if (Station4b.isClicked()) {
     delay(200);
-    println("HI");
     page = 4.11;
   }
   if (Station4a.isClicked()) {

@@ -182,7 +182,7 @@ void Datenaufnahme() {
             Station1_PM4[indexStation1] = sps_pm4_data[index-2];
             Station1_PM10[indexStation1] = sps_pm10_data[index-2];
             Station1_zeit[indexStation1] = (millis() - zeroTime3)/1000;
-            if (Station1_zeit[indexStation1] > 179) {
+            if (Station1_zeit[indexStation1] > gesamtzeit_station1) {
               Station1Start = false;
             }
             indexStation1 += 1;
@@ -193,7 +193,7 @@ void Datenaufnahme() {
             Station1_PM4_trocken[indexStation1_trocken] = sps_pm4_data[index-2];
             Station1_PM10_trocken[indexStation1_trocken] = sps_pm10_data[index-2];
             Station1_zeit_trocken[indexStation1_trocken] = (millis() - zeroTime4)/1000;
-            if (Station1_zeit_trocken[indexStation1_trocken] > 179) {
+            if (Station1_zeit_trocken[indexStation1_trocken] > gesamtzeit_station1) {
               Station1Start = false;
             }
             indexStation1_trocken += 1;
@@ -204,7 +204,7 @@ void Datenaufnahme() {
             Station1_PM4_nass[indexStation1_nass] = sps_pm4_data[index-2];
             Station1_PM10_nass[indexStation1_nass] = sps_pm10_data[index-2];
             Station1_zeit_nass[indexStation1_nass] = (millis() - zeroTime5)/1000;
-            if (Station1_zeit_nass[indexStation1_nass] > 179) {
+            if (Station1_zeit_nass[indexStation1_nass] > gesamtzeit_station1) {
               Station1Start = false;
             }
             indexStation1_nass += 1;
