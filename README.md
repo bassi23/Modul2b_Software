@@ -5,12 +5,13 @@
 ### 09.08.2019
 - Station 1: Design von Referenzmessung überarbeitet und für alle Szenarien übernommen
 - Station 1: Aufgabenstellung nach Abschluss der 3 Messungen hinzugefügt
-
+- Station 1: Auswertung hinzugefügt:
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station1_neu3.png) <br>
 ### 06.08.2019
 - Dropdown Menü für die Auswahl der Sensordaten integriert
 - "Sensoren" --> "Alle Sensoren" als neuer Menüpunkt zur Ansicht aller Sensoredaten in einem Diagramm
 - Station 1, Unterpunkt Referenzmessung: Drowpdown Menü integriert und Hintergrund des Graphen an die Aufgabenstellung angepasst
-![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station1_neu.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station1_neu2.png) <br>
 
 ### 05.08.2019
 Alles was ich am 02.08. gemacht habe wurde nicht gespeichert, weil ich zu blöd bin um "FastHub" zu verwenden.
