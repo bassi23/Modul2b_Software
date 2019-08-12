@@ -1068,12 +1068,6 @@ void graph2(float[] array, int zeitskala1, String name, int x_scale, int[] y_sca
   rotate(3*PI/2);
   text(name, 0, -540);
   popMatrix();
-  pushMatrix();
-  translate(width/2, height/2);
-  rotate(PI/2);
-  textSize(20);
-  text(name, 0, -575);
-  popMatrix();
   fill(0);
   textSize(20);
   text("Zeit in Sekunden", 640, 675);
