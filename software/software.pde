@@ -370,8 +370,8 @@ void setup() {
 
 
 
-  Alle_Sensoren_Rot = new dropdown("Links", 350, 20, 250, 50, 9, Alle_Sensoren_Strings, false, color(255, 0, 0));
-  Alle_Sensoren_Blau = new dropdown("Rechts", 750, 20, 250, 50, 9, Alle_Sensoren_Strings, false, color(0, 0, 255));
+  Alle_Sensoren_Rot = new dropdown("Links", 350, 20, 250, 50, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
+  Alle_Sensoren_Blau = new dropdown("Rechts", 750, 20, 250, 50, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
   Sensoren_Alle_Rot_Control = new ControlP5(this);
   Sensoren_Alle_Rot = Sensoren_Alle_Rot_Control.addDropdownList(" ", 350, 20, 155, 800); 
