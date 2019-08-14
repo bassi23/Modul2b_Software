@@ -1,45 +1,49 @@
-PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil, hintergrund;
+/*
+Software zur Aufnahme von Sensordaten und Durchführung verschiedener Messstationen im Rahmen des DBU-Projekts "SUSmobil: Modul 2b) - Umweltmesstechnik".
+ Um die Software zu verwenden muss der beiliegende Arduino Code auf den Mikrocontroller geladen werden.
+ */
 
-PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild, Stoff9_bild, Stoff10_bild;
+// Dieses Programm nutzt die beiden Bibliotheken "processing.serial." (Herstellung einer seriellen Verbindung) und "controlP5" (Dropdwon Menüs).
 import processing.serial.*;
-import controlP5.*;
 Serial myPort;
 
-
-Table table;
-
+import controlP5.*;
 ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_control, innenraumluft_control, Sensoren_SGP_Rot_control, Sensoren_SGP_Blau_control, Sensoren_SCD_Rot_control, Sensoren_SCD_Blau_control, Sensoren_SPS_Rot_control, Sensoren_SPS_Blau_control, Sensoren_Alle_Rot_Control, Sensoren_Alle_Blau_Control;
 ControlP5 Sensoren_SPS_Rot_Station1_control, Sensoren_SPS_Blau_Station1_control, Sensoren_SPS_Gruen_Station1_control;
+ControlP5 Sensoren_Station4_Rot_Control, Sensoren_Station4_Blau_Control;
 
-
+DropdownList Sensoren_SGP_Rot, Sensoren_SGP_Blau, Sensoren_SCD_Rot, Sensoren_SCD_Blau, Sensoren_SPS_Rot, Sensoren_SPS_Blau, Sensoren_SPS_Rot_Station1, Sensoren_SPS_Blau_Station1, Sensoren_Alle_Rot, Sensoren_Alle_Blau, Sensoren_SPS_Gruen_Station1;
+DropdownList Sensoren_Station4_Rot, Sensoren_Station4_Blau;
 CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat, innenraumluft;
+//
 
+//Logos und Hintergrundbilder
+PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil, hintergrund;
+// Bilder der zu messenden Stoffe für Station 3 - TVOC-Duelle
+PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild, Stoff9_bild, Stoff10_bild;
+
+// Tabelle, in der Messdaten gespeichert werden
+Table table;
+
+// Buttons der Stationen
 station one, two_three, two, three, four, settings;
-button back, up1, down1, up2, down2, left1, right1;
 
+// Buttons zur Steuerung der Skalierung des Graphen (up, down) und 
+button back, up1, down1, up2, down2, left1, right1;
 button reset, sicher_ja, sicher_nein;
 button aktualisierung_right, aktualisierung_left;
-
 button Stationen, Sensoren, zumObermenu;
 button SPS30, SGP30, SCD30, alle_Sensoren;
 button einstellungen;
 button Port1, Port2, Port3, Port4, Port5, Port6;
-
 button station1_referenz, station1_trocken, station1_nass, station1_MessungStarten, station1_MessungWiederholen, station1_weiter_ab, station1_weiter_bc, station1_zur_Auswertung;
-
 button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung, zur_Auswertung2, zur_Auswertung3;
-
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
-Probe A, B, C, D, E;
-
-
 button reset_innenraum;
-
 button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start;
 
+Probe A, B, C, D, E;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
-
-DropdownList Sensoren_SGP_Rot, Sensoren_SGP_Blau, Sensoren_SCD_Rot, Sensoren_SCD_Blau, Sensoren_SPS_Rot, Sensoren_SPS_Blau, Sensoren_SPS_Rot_Station1, Sensoren_SPS_Blau_Station1, Sensoren_Alle_Rot, Sensoren_Alle_Blau, Sensoren_SPS_Gruen_Station1;
 
 
 float page = -1;
@@ -51,6 +55,43 @@ float zeroTime5 = 0;
 
 int anzahlCOMPorts = 0;
 int ausgewaehlterPort = 0;
+
+// Das Programm ist in Seiten unterteilt
+// -1: Hauptmenü
+// -2: Sensoren - Auswahl
+// -3: Sensoren - Feinstaub
+// -4: Sensoren - TVOC, eCO2
+// -5: Sensoren - Temperatur, Luftfeuchte, CO2
+// -6: Sensoren - Alle Sensoren
+// 0: Stationen - Auswahl
+// 1: Stationen - Station 1 Hauptmenü
+// 1.1: Stationen - Station 1 - Aufgabe a)
+// 1.11: Stationen - Station 1 - Aufgabe b)
+// 1.111: Stationen - Station 1 - Aufgabe c)
+// 1.1111: Stationen - Station 1 - Aufgabenstellung
+// 1.11111: Stationen - Station 1 - Auswertung
+
+// 2.5: Stationen - Station 2/3
+
+// 2: Stationen - Station 2 - Aufgabenstellung + menschliche Messung
+// 2.1: Stationen - Station 2 - Sensormessung
+// 2.2: Stationen - Station 2 - Vergleich Sensor - Mensch
+
+// 3: Stationen - Station 3 - Aufgabenstellung
+// 3.1: Stationen - Station 3 - Aufgabe a): Riechen
+// 3.11: Stationen - Station 3 - Aufgabe b): Sensormessung
+// 3.111: Stationen - Station 3 - Vergleich Mensch - Sensor
+
+
+// 4: Stationen - Station 4 - Aufgabenstellung
+// 4.1: Stationen - Station 4 - Aufgabe a)
+// 4.11: Stationen - Station 4 - Aufgabe b)
+// 4.111: Stationen - Station 4 - Aufgabe c)
+// 4.1111: Stationen - Station 4 - Vergleich
+
+// 10: Einstellungen
+
+
 void setup() {
   size(1280, 720);
   anzahlCOMPorts = Serial.list().length;
@@ -227,8 +268,8 @@ void setup() {
   Sensoren_SPS_Blau_Station1.setItemHeight(50);
   Sensoren_SPS_Blau_Station1.close();
   Sensoren_SPS_Blau_Station1.hide();
-  
-    Sensoren_SPS_Gruen_Station1_control = new ControlP5(this);
+
+  Sensoren_SPS_Gruen_Station1_control = new ControlP5(this);
   Sensoren_SPS_Gruen_Station1 = Sensoren_SPS_Gruen_Station1_control.addDropdownList(" ", 550, 20, 200, 900); 
   Sensoren_SPS_Gruen_Station1.setBackgroundColor(color(100, 255, 100));
   Sensoren_SPS_Gruen_Station1.setColorActive(color(100, 255, 100));
@@ -254,10 +295,51 @@ void setup() {
   Sensoren_SPS_Gruen_Station1.setItemHeight(50);
   Sensoren_SPS_Gruen_Station1.close();
   Sensoren_SPS_Gruen_Station1.hide();
-  
-  
-  
-  
+
+
+  Sensoren_Station4_Rot_Control = new ControlP5(this);
+  Sensoren_Station4_Rot = Sensoren_Station4_Rot_Control.addDropdownList(" ", 350, 145, 200, 900); 
+  Sensoren_Station4_Rot.setBackgroundColor(color(255, 100, 100));
+  Sensoren_Station4_Rot.setColorActive(color(255, 100, 100));
+  Sensoren_Station4_Rot.setColorBackground(color(255, 0, 0));
+  Sensoren_Station4_Rot.setColorForeground(color(255, 200, 0));
+  Sensoren_Station4_Rot.setFont(new ControlFont(createFont("Arial", 20), 20));
+  Sensoren_Station4_Rot.addItem(" ", 0);
+  Sensoren_Station4_Rot.addItem("Temperatur", 1);
+  Sensoren_Station4_Rot.addItem("Luftfeuchte", 2);
+  Sensoren_Station4_Rot.addItem("CO2", 3);
+  Sensoren_Station4_Rot.addItem("TVOC", 4);
+  Sensoren_Station4_Rot.addItem("eCO2", 5);
+  Sensoren_Station4_Rot.setColorLabel(color(255));
+  Sensoren_Station4_Rot.setColorValue(color(255));
+  Sensoren_Station4_Rot.setBarHeight(50);
+  Sensoren_Station4_Rot.setItemHeight(50);
+  Sensoren_Station4_Rot.close();
+  Sensoren_Station4_Rot.hide();
+
+
+  Sensoren_Station4_Blau_Control = new ControlP5(this);
+  Sensoren_Station4_Blau = Sensoren_Station4_Blau_Control.addDropdownList(" ", 850, 145, 200, 900); 
+  Sensoren_Station4_Blau.setBackgroundColor(color(100, 100, 255));
+  Sensoren_Station4_Blau.setColorActive(color(100, 100, 255));
+  Sensoren_Station4_Blau.setColorBackground(color(0, 0, 255));
+  Sensoren_Station4_Blau.setColorForeground(color(200, 200, 255));
+  Sensoren_Station4_Blau.setFont(new ControlFont(createFont("Arial", 20), 20));
+  Sensoren_Station4_Blau.addItem(" ", 0);
+  Sensoren_Station4_Blau.addItem("Temperatur", 1);
+  Sensoren_Station4_Blau.addItem("Luftfeuchte", 2);
+  Sensoren_Station4_Blau.addItem("CO2", 3);
+  Sensoren_Station4_Blau.addItem("TVOC", 4);
+  Sensoren_Station4_Blau.addItem("eCO2", 5);
+  Sensoren_Station4_Blau.setColorLabel(color(255));
+  Sensoren_Station4_Blau.setColorValue(color(255));
+  Sensoren_Station4_Blau.setBarHeight(50);
+  Sensoren_Station4_Blau.setItemHeight(50);
+  Sensoren_Station4_Blau.close();
+  Sensoren_Station4_Blau.hide();
+
+
+
 
 
   Sensoren_Alle_Rot_Control = new ControlP5(this);
@@ -447,7 +529,7 @@ void setup() {
   Station4b = new button(1125, 495, 150, 100, "zu Aufgabe b)", 5, true, 20); 
   Station4c = new button(1125, 495, 150, 100, "zu Aufgabe c)", 5, true, 20); 
   Station4Auswertung = new button(1125, 495, 150, 100, "zur\nAuswertung", -12, true, 20); 
-  Station4Start = new button(1120, 200, 150, 100, "Starte\nMessung", -12, true, 20); 
+  Station4Start = new button(1110, 140, 160, 50, "Starte Messung", 5, true, 20); 
   reset_innenraum = new button(1175, 605, 100, 50, "Reset", 5, true, 20);
 
 
@@ -545,29 +627,13 @@ void setup() {
 }
 
 
-/////////////// Seiteninformationen /////////////////
-
-/////////// -1: Obermenü //////////////
-
-///// 0: Stationsmenü  //////
-
-// 1: Feinstaub
-// 2: Mensch vs Sensor
-// 2.5: Mensch vs Sensor oder TVOC Duelle
-// 3: TVOC Duelle
-// 4: Innenraumluftqualität
-
-////// -2: Sensoren
-
-// -3: SPS
-// -4: SGP
-// -5: SCD
-
-
 
 void draw() {
   imageMode(CORNER);
+  // Die Performance wird durch ein Bild als Hintergrund verbessert
   image(hintergrund, 0, 0);
+
+  // Falls die serielle Verbinding unterbrochen wird, wird nach einer neuen gesucht
   if (!gotSerial) {
     try {
       myPort = new Serial(this, Serial.list()[ausgewaehlterPort], 57600);
@@ -579,11 +645,12 @@ void draw() {
       gotSerial = false;
     }
   }
-
   if (Serial.list().length != anzahlCOMPorts) {
     gotSerial = false;
-    println("CIAO");
   }
+
+
+  // Debug - Informationen
   noStroke();
   fill(0);
   textSize(16);
@@ -591,6 +658,8 @@ void draw() {
   text("Aufgenommene Messwerte: " + index, 1020, 20);
 
 
+
+  // Buttons werden zunächst alle "versteckt", und nur die benötigten an den entsprechenden Stellen "sichtbar" gemacht.
   SCD_check.hide();
   SPS_check.hide();
   SGP_check.hide();
@@ -610,20 +679,21 @@ void draw() {
   Station4c.hide();
   Station4Auswertung.hide();
   Station4a.visible = false;
-
-
+  Sensoren_SCD_Rot.hide();
+  Sensoren_SCD_Blau.hide();
   station1_weiter_ab.hide();
   station1_weiter_bc.hide();
   station1_zur_Auswertung.hide();
   zur_Auswertung2.hide();
   zur_Auswertung3.hide();
-
-
+  autosave.hide();
+  ////////////////////////////////////////////////////////
   zumObermenu.x = 1100;
+
   if (page == 2.1) {
     up2.y = 190;
     down2.y = 245;
-  } else {
+  } else if (page != 4.1 && page != 4.11 && page != 4.111) {
     up2.y = 100;
     down2.y = 155;
   }
@@ -643,7 +713,7 @@ void draw() {
   }
   Datenaufnahme();
   boolean auto = autosave.getState("automatisch_speichern");
-  autosave.hide();
+
   if (auto) {
     saveData();
   }
@@ -857,9 +927,6 @@ void draw() {
     ausgewaehlterPort = 5;
     gotSerial = false;
   }
-
-
-
   if (back.isClicked()) {
     saveData();
     if (page > 0 && page != 10) {
@@ -1000,6 +1067,7 @@ void draw() {
     MesswertSensor[4] = 0;
   }
 
+
   if (page != -4) {
     Sensoren_SGP_Rot.hide();
     Sensoren_SGP_Blau.hide();
@@ -1012,9 +1080,19 @@ void draw() {
     Sensoren_SCD_Rot.hide(); 
     Sensoren_SCD_Rot.hide();
   }
+  if (page != 4.1 && page != 4.11 && page != 4.111) {
+    Sensoren_Station4_Rot.hide();
+    Sensoren_Station4_Blau.hide();
+  } else {
+    Sensoren_Station4_Blau.show();
+    Sensoren_Station4_Rot.show();
+  }
   if (page != -6) {
     Sensoren_Alle_Rot.hide(); 
     Sensoren_Alle_Blau.hide();
+  } else {
+    Sensoren_Alle_Rot.show(); 
+    Sensoren_Alle_Blau.show(); 
   }
 
   if (reset_Station2.isClicked()) {
@@ -1061,9 +1139,17 @@ void draw() {
   if (page == 4.1 || page == 4.11 || page == 4.111) {
     up1.y = 200;
     down1.y = 255;
+    up2.y = 200;
+    down2.y = 255;
+    Sensoren_Alle_Blau.setPosition(850, 145);
+    Sensoren_Alle_Rot.setPosition(350, 145);
   } else {
     up1.y = 100;
     down1.y = 155;
+    up2.y = 100;
+    down2.y = 155;
+    Sensoren_Alle_Blau.setPosition(850, 20);
+    Sensoren_Alle_Rot.setPosition(350, 20);
   }
 
   if (Station4Auswertung.isClicked()) {

@@ -147,6 +147,7 @@ void Datenaufnahme() {
             Innenraumlufta[3][indexInnenraumlufta] =  sgp_tvoc_data[index-1];
             Innenraumlufta[4][indexInnenraumlufta] =  sgp_eco2_data[index-1];
             Innenraumlufta[6][indexInnenraumlufta] = zeit[index - 1]- currentTime4a/1000;
+            println(Innenraumlufta[6][indexInnenraumlufta]);
             indexInnenraumlufta += 1;
           }
         }
