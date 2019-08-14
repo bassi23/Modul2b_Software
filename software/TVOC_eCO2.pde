@@ -1,7 +1,6 @@
 void TVOC_eCO2() {
   //SGP_check.show();
-  Sensoren_SGP_Rot.show();
-  Sensoren_SGP_Blau.show();
+
   two_three.active = false;
   four.active = false;
   one.active = false;
@@ -14,11 +13,11 @@ void TVOC_eCO2() {
   boolean tvoc_left = false;
   boolean tvoc_right = false;
 
-  if (Sensoren_SGP_Rot.getValue() == 1) {
+  if (SGP_Rot.name == "TVOC") {
     tvoc_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SGP_Rot.getValue() == 2) {
+  } else if (SGP_Rot.name == "eCO2") {
     eco2_left = true;
     up1.show();
     down1.show();
@@ -27,11 +26,11 @@ void TVOC_eCO2() {
    down1.hide();
   }
 
-  if (Sensoren_SGP_Blau.getValue() == 1) {
+  if (SGP_Blau.name == "TVOC") {
     tvoc_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SGP_Blau.getValue() == 2) {
+  } else if (SGP_Blau.name == "eCO2") {
     eco2_right = true;
     up2.show();
     down2.show();
@@ -153,8 +152,6 @@ void TVOC_eCO2() {
   if (eco2_right) {
     graph(sgp_eco2_data, 0, "eCO2 in ppm", x_scale, y_scale, false);
   }
-  fill(0);
-  textSize(24);
-  text("Links", 275, 50);
-  text("Rechts", 750, 50);
+  SGP_Blau.show();
+  SGP_Rot.show();
 }

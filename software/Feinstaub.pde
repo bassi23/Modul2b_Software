@@ -10,8 +10,9 @@ void Feinstaub() {
   left1.show();
   right1.show();
   reset.show();
-  Sensoren_SPS_Rot.show();
-  Sensoren_SPS_Blau.show(); 
+
+
+
   boolean PM1_left = false;
   boolean PM1_right = false;
   boolean PM2_5_left = false;
@@ -22,19 +23,19 @@ void Feinstaub() {
   boolean PM10_right = false;
 
 
-  if (Sensoren_SPS_Rot.getValue() == 1) {
+  if (SPS_Rot.name == "PM1") {
     PM1_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 2) {
+  } else if (SPS_Rot.name == "PM2.5") {
     PM2_5_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 3) {
+  } else if (SPS_Rot.name == "PM4") {
     PM4_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 4) {
+  } else if (SPS_Rot.name == "PM10") {
     PM10_left = true;
     up1.show();
     down1.show();
@@ -43,19 +44,19 @@ void Feinstaub() {
     down1.hide();
   }
 
-  if (Sensoren_SPS_Blau.getValue() == 1) {
+  if (SPS_Blau.name == "PM1") {
     PM1_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 2) {
+  } else if (SPS_Blau.name == "PM2.5") {
     PM2_5_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 3) {
+  } else if (SPS_Blau.name == "PM4") {
     PM4_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 4) {
+  } else if (SPS_Blau.name == "PM10") {
     PM10_right = true;
     up2.show();
     down2.show();
@@ -174,10 +175,9 @@ void Feinstaub() {
   } else if (PM10_right) {
     graph(sps_pm10_data, 0, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
   }
-  fill(0);
-  textSize(24);
-  text("Links", 275, 50);
-  text("Rechts", 750, 50);
+
+  SPS_Rot.show();
+  SPS_Blau.show();
 }
 
 
@@ -1106,11 +1106,11 @@ void Vergleich_Feinstaub_Graphen() {
   } else if (PM10_trocken_rot) {
     graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM1_nass_rot) {
-    graph2(Station1_PM1_nass, 3,"Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM25_nass_rot) {
     graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM4_nass_rot) {
-    graph2(Station1_PM4_nass, 3,"Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
+    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM10_nass_rot) {
     graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   }
@@ -1150,7 +1150,7 @@ void Vergleich_Feinstaub_Graphen() {
   } else if (PM4_referenz_blau) {
     graph2(Station1_PM4, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM10_referenz_blau) {
-    graph2(Station1_PM10, 1,"Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
+    graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM1_trocken_blau) {
     graph2(Station1_PM1_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM25_trocken_blau) {

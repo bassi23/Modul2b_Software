@@ -21,9 +21,13 @@ DropdownList Sensoren_Station4_Rot, Sensoren_Station4_Blau;
 CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat, innenraumluft;
 //
 
-dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau;
+dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau;
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
-String[] Alle_Sensoren_Strings = {"TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
+String[] Alle_Sensoren_Strings = {"","TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
+String[] SPS_Strings = {"", "PM1", "PM2.5", "PM4", "PM10"};
+String[] SGP_Strings = {"","TVOC", "eCO2"};
+String[] SCD_Strings = {"", "Temperatur", "Luftfeuchte", "CO2"};
+
 
 //Logos und Hintergrundbilder
 PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil, hintergrund;
@@ -118,7 +122,14 @@ void setup() {
 
   Aufloesung = new dropdown("Auflösung", 500, 450, 300, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
   
+  SGP_Rot = new dropdown("Links", 350, 20, 250, 50, 3, SGP_Strings, false, color(255,0,0));
+  SGP_Blau = new dropdown("Rechts", 750, 20, 250, 50, 3, SGP_Strings, false, color(0,0,255));
   
+  SCD_Rot = new dropdown("Links", 350, 20, 250, 50, 4, SCD_Strings, false, color(255,0,0));
+  SCD_Blau = new dropdown("Rechts", 750, 20, 250, 50, 4, SCD_Strings, false, color(0,0,255));
+  
+  SPS_Rot = new dropdown("Links", 350, 20, 250, 50, 5, SPS_Strings, false, color(255,0,0));
+  SPS_Blau = new dropdown("Rechts", 750, 20, 250, 50, 5, SPS_Strings, false, color(0,0,255));
   
   Sensoren_SGP_Rot_control = new ControlP5(this);
   Sensoren_SGP_Rot = Sensoren_SGP_Rot_control.addDropdownList(" ", 350, 20, 75, 200); 
@@ -359,8 +370,8 @@ void setup() {
 
 
 
-  Alle_Sensoren_Rot = new dropdown("Links", 350, 20, 250, 50, 8, Alle_Sensoren_Strings, false, color(255, 0, 0));
-  Alle_Sensoren_Blau = new dropdown("Rechts", 750, 20, 250, 50, 8, Alle_Sensoren_Strings, false, color(0, 0, 255));
+  Alle_Sensoren_Rot = new dropdown("Links", 350, 20, 250, 50, 9, Alle_Sensoren_Strings, false, color(255, 0, 0));
+  Alle_Sensoren_Blau = new dropdown("Rechts", 750, 20, 250, 50, 9, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
   Sensoren_Alle_Rot_Control = new ControlP5(this);
   Sensoren_Alle_Rot = Sensoren_Alle_Rot_Control.addDropdownList(" ", 350, 20, 155, 800); 

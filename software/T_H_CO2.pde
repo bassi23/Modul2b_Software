@@ -10,8 +10,7 @@ void T_H_CO2() {
   reset.show();
 
 
-  Sensoren_SCD_Rot.show();
-  Sensoren_SCD_Blau.show();
+
 
   boolean T_left = false;
   boolean T_right = false;
@@ -20,15 +19,15 @@ void T_H_CO2() {
   boolean CO2_left = false;
   boolean CO2_right = false;
 
-  if (Sensoren_SCD_Rot.getValue() == 1) {
+  if (SCD_Rot.name == "Temperatur") {
     T_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SCD_Rot.getValue() == 2) {
+  } else if (SCD_Rot.name == "Luftfeuchte") {
     H_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SCD_Rot.getValue() == 3) {
+  } else if (SCD_Rot.name == "CO2") {
     CO2_left = true;
     up1.show();
     down1.show();
@@ -37,15 +36,15 @@ void T_H_CO2() {
     down1.hide();
   }
 
-  if (Sensoren_SCD_Blau.getValue() == 1) {
+  if (SCD_Blau.name == "Temperatur") {
     T_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SCD_Blau.getValue() == 2) {
+  } else if (SCD_Blau.name == "Luftfeuchte") {
     H_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SCD_Blau.getValue() == 3) {
+  } else if (SCD_Blau.name == "CO2") {
     CO2_right = true;
     up2.show();
     down2.show();
@@ -167,8 +166,6 @@ void T_H_CO2() {
   }
 
 
-  fill(0);
-  textSize(24);
-  text("Links", 275, 50);
-  text("Rechts", 750, 50);
+  SCD_Rot.show();
+  SCD_Blau.show();
 }
