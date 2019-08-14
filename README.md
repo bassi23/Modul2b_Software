@@ -1,6 +1,15 @@
 # Modul2b_Software
 
 ## Update
+## 14.08.2019
+
+- Allgemein: Dropdown Menü durch eigene Bibliothek ersetzt (noch unvollständig)
+- Einstellungen: Auflösung einstellbar: Auswahl zwischen
+- Niedrig (800 x 450 Pixel)
+- Mittel (1024 x 600 Pixel)
+- Standard (1280 x 720 Pixel)
+- Hoch (1440 x 810 Pixel)
+
 ### 13.08.2019
 - Allgemein: Code kommentieren
 - Anpassung der Optik von Station 4 an Station 1
