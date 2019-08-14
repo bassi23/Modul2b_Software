@@ -11,7 +11,7 @@ class station {
 
 
     void show() {
-      if (mouseX > x && mouseX < (x + 400) && mouseY > y && mouseY < (y + 300)) {
+      if (mouseX > x && mouseX < (x + 400) && (mouseY - scroll) > y && (mouseY - scroll) < (y + 300)) {
         fill(150, 255, 150);
       } else {
         fill(0, 200, 00);
@@ -20,7 +20,7 @@ class station {
     }
 
     boolean isOver() {
-      if (mouseX > x && mouseX < (x + 400) && mouseY > y && mouseY < (y + 300) && active) {
+      if (mouseX > x && mouseX < (x + 400) && (mouseY - scroll) > y && (mouseY - scroll) < (y + 300) && active) {
         return true;
       } else {
         return false;

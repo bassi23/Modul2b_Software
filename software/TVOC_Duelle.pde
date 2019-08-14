@@ -140,7 +140,7 @@ class TVOC_Kandidat {
     textAlign(CORNER);
     text(skala, x+55, y);
 
-    if (mouseX > (x - image.width/2) && mouseX < (x + image.width/2) && mouseY > (y - image.height/2) && mouseY < (y + image.height/2) && mousePressed && mouseX > 240 && mouseX < 1040) {
+    if (mouseX > (x - image.width/2) && mouseX < (x + image.width/2) && (mouseY - scroll) > (y - image.height/2) && (mouseY - scroll) < (y + image.height/2) && mousePressed && mouseX > 240 && mouseX < 1040) {
       x = mouseX;
     }
 

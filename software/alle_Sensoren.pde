@@ -7,8 +7,8 @@ void alleSensoren() {
   left1.show();
   right1.show();
   reset.show();
-  Sensoren_Alle_Rot.show(); 
-  Sensoren_Alle_Blau.show();
+
+
   boolean PM1_left = false;
   boolean PM1_right = false;
   boolean PM2_5_left = false;
@@ -30,39 +30,39 @@ void alleSensoren() {
 
 
 
-  if (Sensoren_Alle_Blau.getValue() == 1) {
+  if (Alle_Sensoren_Blau.name == "TVOC") {
     tvoc_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_Alle_Blau.getValue() == 2) {
+  } else if (Alle_Sensoren_Blau.name == "eCO2") {
     eco2_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_Alle_Blau.getValue() == 3) {
+  } else if (Alle_Sensoren_Blau.name == "Temperatur") {
     T_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_Alle_Blau.getValue() == 4) {
+  } else if (Alle_Sensoren_Blau.name == "Luftfeuchte") {
     H_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_Alle_Blau.getValue() == 5) {
+  } else if (Alle_Sensoren_Blau.name == "CO2") {
     CO2_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_Alle_Blau.getValue() == 6) {
+  } else if (Alle_Sensoren_Blau.name == "PM1") {
     PM1_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_Alle_Blau.getValue() == 7) {
+  } else if (Alle_Sensoren_Blau.name == "PM2.5") {
     PM2_5_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_Alle_Blau.getValue() == 8) {
+  } else if (Alle_Sensoren_Blau.name == "PM4") {
     PM4_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_Alle_Blau.getValue() == 9) {
+  } else if (Alle_Sensoren_Blau.name == "PM10") {
     PM10_right = true;
     up2.show();
     down2.show();
@@ -72,39 +72,39 @@ void alleSensoren() {
   }
 
 
-  if (Sensoren_Alle_Rot.getValue() == 1) {
+  if (Alle_Sensoren_Rot.name == "TVOC") {
     tvoc_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_Alle_Rot.getValue() == 2) {
+  } else if (Alle_Sensoren_Rot.name == "eCO2") {
     eco2_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_Alle_Rot.getValue() == 3) {
+  } else if (Alle_Sensoren_Rot.name == "Temperatur") {
     T_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_Alle_Rot.getValue() == 4) {
+  } else if (Alle_Sensoren_Rot.name == "Luftfeuchte") {
     H_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_Alle_Rot.getValue() == 5) {
+  } else if (Alle_Sensoren_Rot.name == "CO2") {
     CO2_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_Alle_Rot.getValue() == 6) {
+  } else if (Alle_Sensoren_Rot.name == "PM1") {
     PM1_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_Alle_Rot.getValue() == 7) {
+  } else if (Alle_Sensoren_Rot.name == "PM2.5") {
     PM2_5_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_Alle_Rot.getValue() == 8) {
+  } else if (Alle_Sensoren_Rot.name == "PM4") {
     PM4_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_Alle_Rot.getValue() == 9) {
+  } else if (Alle_Sensoren_Rot.name == "PM10") {
     PM10_left = true;
     up1.show();
     down1.show();
@@ -129,6 +129,7 @@ void alleSensoren() {
   stroke(0);
   rect(175, 100, 930, 500);
   stroke(100, 100);
+
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
       line(175, 200 + 100*i, 1105, 200 + 100*i);
@@ -245,9 +246,6 @@ void alleSensoren() {
   } else if (CO2_right) {
     graph(scd_co2_data, 0, "CO2 in ppm", x_scale, y_scale, false);
   }
-
-  fill(0);
-  textSize(24);
-  text("Links", 275, 50);
-  text("Rechts", 750, 50);
+    Alle_Sensoren_Rot.show();
+    Alle_Sensoren_Blau.show();
 }

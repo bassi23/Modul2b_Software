@@ -70,7 +70,7 @@ class Probe {
     }
     if (this.isOver() && mousePressed && this.active) {
       this.x = mouseX;
-      this.y = mouseY;
+      this.y = (mouseY - scroll);
     }
   }
   void hide() {
@@ -78,7 +78,7 @@ class Probe {
     this.inPlace = true;
   }
   boolean isOver() {
-    if (mouseX > x - 50 && mouseX  < x + 50 && mouseY > y - 50 && mouseY < y + 50) {
+    if (mouseX > x - 50 && mouseX  < x + 50 && (mouseY - scroll) > y - 50 && (mouseY - scroll) < y + 50) {
       this.active = true;
       onlyOneProbe();
       return true;

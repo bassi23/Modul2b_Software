@@ -12,10 +12,18 @@ ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_c
 ControlP5 Sensoren_SPS_Rot_Station1_control, Sensoren_SPS_Blau_Station1_control, Sensoren_SPS_Gruen_Station1_control;
 ControlP5 Sensoren_Station4_Rot_Control, Sensoren_Station4_Blau_Control;
 
+
+
+
 DropdownList Sensoren_SGP_Rot, Sensoren_SGP_Blau, Sensoren_SCD_Rot, Sensoren_SCD_Blau, Sensoren_SPS_Rot, Sensoren_SPS_Blau, Sensoren_SPS_Rot_Station1, Sensoren_SPS_Blau_Station1, Sensoren_Alle_Rot, Sensoren_Alle_Blau, Sensoren_SPS_Gruen_Station1;
 DropdownList Sensoren_Station4_Rot, Sensoren_Station4_Blau;
+
 CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat, innenraumluft;
 //
+
+dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau;
+String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
+String[] Alle_Sensoren_Strings = {"TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 
 //Logos und Hintergrundbilder
 PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil, hintergrund;
@@ -44,6 +52,9 @@ button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start;
 
 Probe A, B, C, D, E;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
+
+
+
 
 
 float page = -1;
@@ -94,6 +105,7 @@ int ausgewaehlterPort = 0;
 
 void setup() {
   size(1280, 720);
+  surface.setResizable(true);
   anzahlCOMPorts = Serial.list().length;
   try {
     myPort = new Serial(this, Serial.list()[ausgewaehlterPort], 57600);
@@ -102,6 +114,12 @@ void setup() {
   catch(Exception e) {
     gotSerial = false;
   }
+
+
+  Aufloesung = new dropdown("Auflösung", 500, 450, 300, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
+  
+  
+  
   Sensoren_SGP_Rot_control = new ControlP5(this);
   Sensoren_SGP_Rot = Sensoren_SGP_Rot_control.addDropdownList(" ", 350, 20, 75, 200); 
   Sensoren_SGP_Rot.setBackgroundColor(color(255, 100, 100));
@@ -341,6 +359,8 @@ void setup() {
 
 
 
+  Alle_Sensoren_Rot = new dropdown("Links", 350, 20, 250, 50, 8, Alle_Sensoren_Strings, false, color(255, 0, 0));
+  Alle_Sensoren_Blau = new dropdown("Rechts", 750, 20, 250, 50, 8, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
   Sensoren_Alle_Rot_Control = new ControlP5(this);
   Sensoren_Alle_Rot = Sensoren_Alle_Rot_Control.addDropdownList(" ", 350, 20, 155, 800); 
@@ -405,6 +425,7 @@ void setup() {
   table.addColumn("PM2.5");
   table.addColumn("PM4");
   table.addColumn("PM10");
+
 
   back = new button(1175, 665, 100, 50, "zurück", 5, true, 20);
   up1 = new button(70, 100, 30, 50, "up_arrow", 5, true, 20);
@@ -629,7 +650,13 @@ void setup() {
 
 
 void draw() {
+  scale(scale_factor);
+  pushMatrix();
+  //Aufloesung.setPosition(950/0.75, 150/0.75);
+  popMatrix();
+  scale(1);
   imageMode(CORNER);
+  translate(0, scroll);
   // Die Performance wird durch ein Bild als Hintergrund verbessert
   image(hintergrund, 0, 0);
 
@@ -687,6 +714,9 @@ void draw() {
   zur_Auswertung2.hide();
   zur_Auswertung3.hide();
   autosave.hide();
+  aktualisierung_right.hide();
+  aktualisierung_left.hide();
+  // Aufloesung.hide();
   ////////////////////////////////////////////////////////
   zumObermenu.x = 1100;
 
@@ -1000,12 +1030,28 @@ void draw() {
     reset_bool = false;
   }
   if (aktualisierung_right.isClicked()) {
-    if (del < 3600) {
+    if (del < 5) {
       del += 1;
+    } else if (del < 20) {
+      del += 5;
+    } else if (del < 30) {
+      del += 10;
+    } else if (del < 120) {
+      del += 30;
+    } else if (del < 300) {
+      del += 60;
     }
   }
   if (aktualisierung_left.isClicked()) {
-    if (del > 0) {
+    if (del > 120) {
+      del -= 60;
+    } else if (del > 30) {
+      del -= 30;
+    } else if (del > 20) {
+      del -= 10;
+    } else if (del > 5) {
+      del -= 5;
+    } else if (del > 0) {
       del -= 1;
     }
   }
@@ -1091,8 +1137,8 @@ void draw() {
     Sensoren_Alle_Rot.hide(); 
     Sensoren_Alle_Blau.hide();
   } else {
-    Sensoren_Alle_Rot.show(); 
-    Sensoren_Alle_Blau.show(); 
+    //Sensoren_Alle_Rot.show(); 
+    //Sensoren_Alle_Blau.show();
   }
 
   if (reset_Station2.isClicked()) {
