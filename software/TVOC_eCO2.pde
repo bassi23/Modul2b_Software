@@ -1,13 +1,11 @@
 void TVOC_eCO2() {
   //SGP_check.show();
-
   two_three.active = false;
   four.active = false;
   one.active = false;
   settings.active = false;
-  left1.show();
-  right1.show();
-  reset.show();
+
+
   boolean eco2_left = false;
   boolean eco2_right = false;
   boolean tvoc_left = false;
@@ -21,9 +19,9 @@ void TVOC_eCO2() {
     eco2_left = true;
     up1.show();
     down1.show();
-  }else{
-   up1.hide();
-   down1.hide();
+  } else {
+    up1.hide();
+    down1.hide();
   }
 
   if (SGP_Blau.name == "TVOC") {
@@ -34,37 +32,26 @@ void TVOC_eCO2() {
     eco2_right = true;
     up2.show();
     down2.show();
-  }else{
-   up2.hide();
-   down2.hide(); 
-  }
-
-
-  aktualisierung_right.show();
-  aktualisierung_left.show();
-  fill(0);
-  noStroke();
-
-  if (del == 0) {
-    text("Aktualisierungsintervall: Maximum", 220, 692);
   } else {
-    text("Aktualisierungsintervall: " + nf(del, 0, 0) + " s", 220, 692);
+    up2.hide();
+    down2.hide();
   }
+
+
+
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
-  rect(175, 100, 930, 500);
+  rect(120, 140, 830, 500);
+  fill(230);
+  rect(1080, -1, 200, 720);
   stroke(100, 100);
+
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
-      line(175, 200 + 100*i, 1105, 200 + 100*i);
+      line(120, 240 + 100*i, 950, 240 + 100*i);
     }
   }
-
-
-
-
-
   if (up1.isClicked()) {
     y_scale[0] += 1;
     if (y_scale[0] > 4) {
@@ -107,34 +94,31 @@ void TVOC_eCO2() {
     }
   }
   fill(0);
+
   String intervall = "";
   if (x_scale == 0) {
-    intervall = "Zeige alle Messwerte";
+    intervall = "alle\nMesswerte";
   } else if (x_scale == 1) {
-    intervall = "Zeige die letzen 60 Sekunden";
+    intervall = "letzte\n60 Sekunden";
   } else if (x_scale == 2) {
-    intervall = "Zeige die letzen 180 Sekunden";
+    intervall = "letzte\n180 Sekunden";
   } else if (x_scale == 3) {
-    intervall = "Zeige die letzen 360 Sekunden";
+    intervall = "letzte\n360 Sekunden";
   } else if (x_scale == 4) {
-    intervall = "Zeige die letzen 12 Minuten";
+    intervall = "letzte\n12 Minuten";
   } else if (x_scale == 5) {
-    intervall = "Zeige die letzen 60 Minuten";
+    intervall = "letzte\n60 Minuten";
   } else if (x_scale == 6) {
-    intervall = "Zeige die letzen 180 Minuten";
+    intervall = "letzte\n180 Minuten";
   } else if (x_scale == 7) {
-    intervall = "Zeige die letzen 360 Minuten";
+    intervall = "letzte\n360 Minuten";
   } else if (x_scale == 8) {
-    intervall = "Zeige die letzen 12 Stunden";
+    intervall = "letzte\n12 Stunden";
   } else if (x_scale == 9) {
-    intervall = "Zeige die letzen 24 Stunden";
+    intervall = "letzte\n24 Stunden";
   } else if (x_scale == 10) {
-    intervall = "Zeige die letzen 72 Stunden";
+    intervall = "letzte\n72 Stunden";
   }
-  text(intervall, 740, 690);
-
-
-
 
   //Welche Graphen sollen angezeigt werden?
 
@@ -152,6 +136,47 @@ void TVOC_eCO2() {
   if (eco2_right) {
     graph(sgp_eco2_data, 0, "eCO2 in ppm", x_scale, y_scale, false);
   }
+
+  fill(0);
+  noStroke();
+  textSize(30);
+  text("Optionen", 1120, 50);
+  fill(240);
+  ;
+  stroke(0);
+  rect(1105, 450, 155, 140);
+  rect(1105, 250, 155, 180);
+  fill(0);
+  noStroke();
+  textSize(20);
+  textAlign(CENTER);
+  if (del == 0) {
+    text("Messintervall", 1185, 480);
+    text("Maximum", 1190, 565);
+  } else {
+    text("Messintervall", 1185, 480);
+    text(nf(del, 0, 0) + " s", 1185, 565);
+  }
+  text("Anzeige\nMesswerte", 1185, 280);
+  text(intervall, 1185, 390);
+  textAlign(CORNER);
+  stroke(0);
+  if (measure) {
+    fill(0, 255, 0);
+  } else {
+    fill(255, 0, 0);
+  }
+  ellipse(1098, 125, 20, 20);
+
+
+  left1.show();
+  right1.show();
+  reset.show();
+  back.show();
+  aktualisierung_right.show();
+  aktualisierung_left.show();
+  start_stopp.show();
+  zumObermenu.show();
   SGP_Blau.show();
   SGP_Rot.show();
 }

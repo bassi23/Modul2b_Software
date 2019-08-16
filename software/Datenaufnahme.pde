@@ -62,7 +62,8 @@ void Datenaufnahme() {
       received = true;
       //println(Daten);
     }
-  } catch(Exception e) {
+  } 
+  catch(Exception e) {
     println("Keine Daten");
   }
   if (Daten != null && received) {
@@ -130,11 +131,14 @@ void Datenaufnahme() {
         sps_pm10_data[index] = sps_pm10_data[index]/(indexZwischenSpeicher);
 
         indexZwischenSpeicher = 0;
-        index += 1;
+        if (measure) {
+          index += 1;
+        }
 
         if (MenschSensorMessen && page == 2.1) {
           if (index > 2 && prob > 0) {
             MenschSensorMesswerte[prob-1][indexMenschSensor] = sgp_tvoc_data[index-2];
+            MenschSensorMesswerte[5][indexMenschSensor] = zeit[index - 1];
             indexMenschSensor += 1;
           }
         }
@@ -147,7 +151,7 @@ void Datenaufnahme() {
             Innenraumlufta[3][indexInnenraumlufta] =  sgp_tvoc_data[index-1];
             Innenraumlufta[4][indexInnenraumlufta] =  sgp_eco2_data[index-1];
             Innenraumlufta[6][indexInnenraumlufta] = zeit[index - 1]- currentTime4a/1000;
-            println(Innenraumlufta[6][indexInnenraumlufta]);
+            //println(Innenraumlufta[6][indexInnenraumlufta]);
             indexInnenraumlufta += 1;
           }
         }

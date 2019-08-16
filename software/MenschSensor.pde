@@ -57,8 +57,19 @@ class Probe {
     active = active_;
     inPlace = inPlace_;
   }
+
   void show() {
-    fill(200);
+    if (text == "A") {
+      fill(255, 200, 200);
+    } else if (text == "B") {
+      fill(200, 200, 255);
+    } else if (text == "C") {
+      fill(255, 255, 100);
+    } else if (text == "D") {
+      fill(200, 255, 200);
+    } else if (text == "E") {
+      fill(200);
+    }
     stroke(0);
     rect(x-50, y - 50, 100, 100);
     fill(0);
@@ -167,7 +178,7 @@ float[] MesswertSensor2 = {0, 0, 0, 0, 0};
 float currentTime = -100000;
 int prob = 0;
 
-float[][] MenschSensorMesswerte = new float[5][500];
+float[][] MenschSensorMesswerte = new float[6][500];
 int indexMenschSensorMax = 0;
 
 int indexMenschSensor = 0;
@@ -187,7 +198,7 @@ void Station2_Sensor() {
 
   if (up2.isClicked()) {
     scale_MenschSensor += 1;
-    if (scale_MenschSensor > 8) {
+    if (scale_MenschSensor > 7) {
       scale_MenschSensor = 0;
     }
   }
@@ -195,7 +206,7 @@ void Station2_Sensor() {
   if (down2.isClicked()) {
     scale_MenschSensor -= 1;
     if (scale_MenschSensor < 0) {
-      scale_MenschSensor = 8;
+      scale_MenschSensor = 7;
     }
   }
   textSize(20);
@@ -214,7 +225,7 @@ void Station2_Sensor() {
   if ((millis() - currentTime)/1000 > 60) {
     MenschSensorMessen = false;
     if (prob != 5) {
-      text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'.", 20, 120);
+      text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'.\nEine Messung dauert 60 Sekunden.", 20, 120);
       messen.show();
     }
     letzteWiederholen.show();
@@ -291,17 +302,31 @@ void Station2_Sensor() {
   stroke(0);
   rect(10, 240, 440, 310);
   rect(500, 190, 700, 400);
+
+  fill(255, 200, 200);
+  rect(10, 310, 440, 50);
+  fill(200, 200, 255);
+  rect(10, 360, 440, 50);
+  fill(255, 255, 100);
+  rect(10, 410, 440, 50);
+  fill(200, 255, 200);
+  rect(10, 460, 440, 50);
+  fill(200);
+  rect(10, 510, 440, 50);
+
+
+
   fill(0);
   textAlign(CENTER);
   for (int i = 0; i < 5; i++) {
-    text(nf(MesswertSensor[i], 0, 1), 280, 335 + 50*i);
+    text(nf(MesswertSensor[i], 0, 1), 280, 345 + 50*i);
   }
   textAlign(CORNER);
-  text("A", 60, 335);
-  text("B", 60, 385);
-  text("C", 60, 435);
-  text("D", 60, 485);
-  text("E", 60, 535);
+  text("A", 60, 345);
+  text("B", 60, 395);
+  text("C", 60, 445);
+  text("D", 60, 495);
+  text("E", 60, 545);
 
   text("Probe", 40, 290); 
   text("   Durchschnittliche\nKonzentration in ppb", 150, 265);
@@ -363,11 +388,8 @@ void Station2_Sensor() {
   }
   stroke(0);
   line(10, 310, 450, 310);
-  line(130, 240, 130, 550);
+  line(130, 240, 130, 560);
 
-  for (int i = 0; i < 4; i++) {
-    line(10, 350 + 50*i, 450, 350 + 50*i);
-  }
 
   float max = 0;
   if (scale_MenschSensor == 0) {
@@ -389,9 +411,7 @@ void Station2_Sensor() {
   } else if (scale_MenschSensor == 5) {
     max = 10000;
   } else if (scale_MenschSensor == 6) {
-    max = 20000;
-  } else if (scale_MenschSensor == 7) {
-    max = 30000;
+    max = 50000;
   } else {
     max = 60000;
   }
@@ -446,7 +466,7 @@ void Station2_Sensor() {
         x1 = (190 + m*x2 - y2)/m;
       }
 
-      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200) {
+      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && MenschSensorMesswerte[j][i] != 0) {
         strokeWeight(3);
         line(x1, y1, x2, y2);
       }
@@ -463,6 +483,13 @@ void Station2_Sensor() {
     page = 2.11;
   }
   strokeWeight(1);
+  
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("TVOC in ppb", -95, - 160);
+  
+  popMatrix();
 }
 
 

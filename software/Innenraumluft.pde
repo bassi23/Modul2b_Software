@@ -118,15 +118,18 @@ void Innenraumluft_a() {
       scale_Innenraum2 = 4;
     }
   }
-  fill(255);
-  stroke(0);
-  rect(175, 200, 930, 450);
-  fill(0);
-
+  textAlign(CENTER);
   textSize(20);
+  text(t, 1100, 690);
+  fill(255);
+  rect(600, 150, 130, 40);
+  fill(0);
   if ((millis() - currentTime4a)/1000 < t) {
-    text(nf((millis() - currentTime4a)/1000, 0, 1), 1100, 690);
+    text(nf((millis() - currentTime4a)/1000, 0, 1) + "s/" + t + "s", 665, 175);
+  }else{
+    text("0s/" + t + "s", 665, 175);
   }
+  textAlign(CORNER);
 
 
   if (Station4agestartet == false) {
@@ -161,6 +164,18 @@ void Innenraumluft_a() {
   fill(255, 255, 200, 200);
   rect(175 + 270*930/t, 200, 30*930/t, 450);
 
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  fill(200, 200);
+  textSize(30);
+  text("Einlaufphase", -165, -410);
+  rotate(PI);
+  text("Auslaufphase", -30, -410);
+  popMatrix();
+  textSize(40);
+  text("Messphase", 550, 450);
+  textSize(20);
 
   float maxRot = 0;
   float minRot = 0;
@@ -471,15 +486,18 @@ void Innenraumluft_b() {
       scale_Innenraum2 = 4;
     }
   }
-  fill(255);
-  stroke(0);
-  rect(175, 200, 930, 450);
-  fill(0);
-
+  textAlign(CENTER);
   textSize(20);
+  text(t, 1100, 690);
+  fill(255);
+  rect(600, 150, 130, 40);
+  fill(0);
   if ((millis() - currentTime4b)/1000 < t) {
-    text(nf((millis() - currentTime4b)/1000, 0, 1), 1100, 690);
+    text(nf((millis() - currentTime4b)/1000, 0, 1) + "s/" + t + "s", 665, 175);
+  }else{
+    text("0s/" + t + "s", 665, 175);
   }
+  textAlign(CORNER);
 
 
   if (Station4bgestartet == false) {
@@ -513,7 +531,18 @@ void Innenraumluft_b() {
   rect(175 + 30*930/t, 200, 240*930/t, 450);
   fill(255, 255, 200, 200);
   rect(175 + 270*930/t, 200, 30*930/t, 450);
-
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  fill(200, 200);
+  textSize(30);
+  text("Einlaufphase", -165, -410);
+  rotate(PI);
+  text("Auslaufphase", -30, -410);
+  popMatrix();
+  textSize(40);
+  text("Messphase", 550, 450);
+  textSize(20);
 
   float maxRot = 0;
   float minRot = 0;
@@ -749,16 +778,18 @@ void Innenraumluft_c() {
       scale_Innenraum2 = 4;
     }
   }
-  fill(255);
-  stroke(0);
-  rect(175, 200, 930, 450);
-  fill(0);
-
+  textAlign(CENTER);
   textSize(20);
+  text(t, 1100, 690);
+  fill(255);
+  rect(600, 150, 130, 40);
+  fill(0);
   if ((millis() - currentTime4c)/1000 < t) {
-    text(nf((millis() - currentTime4c)/1000, 0, 1), 1100, 690);
+    text(nf((millis() - currentTime4c)/1000, 0, 1) + "s/" + t + "s", 665, 175);
+  }else{
+    text("0s/" + t + "s", 665, 175);
   }
-
+  textAlign(CORNER);
 
   if (Station4cgestartet == false) {
     Station4Start.show();
@@ -791,7 +822,18 @@ void Innenraumluft_c() {
   rect(175 + 30*930/t, 200, 240*930/t, 450);
   fill(255, 255, 200, 200);
   rect(175 + 270*930/t, 200, 30*930/t, 450);
-
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  fill(200, 200);
+  textSize(30);
+  text("Einlaufphase", -165, -410);
+  rotate(PI);
+  text("Auslaufphase", -30, -410);
+  popMatrix();
+  textSize(40);
+  text("Messphase", 550, 450);
+  textSize(20);
 
   float maxRot = 0;
   float minRot = 0;

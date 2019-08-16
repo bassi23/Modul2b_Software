@@ -402,8 +402,8 @@ void Auswertung_Station3() {
   for (int i = 0; i < 10; i+=2) {
     text(nf(tvoc_duelle_werte_mensch[i], 0, 1), 540, 110 + 60*i); 
     text(nf(tvoc_duelle_werte_mensch[i+1], 0, 1), 740, 110 + 60*i);
-    text(nf(tvoc_duelle_werte_sensor[i], 0, 1), 540, 160 + 60*i); 
-    text(nf(tvoc_duelle_werte_sensor[i+1], 0, 1), 740, 160 + 60*i);
+    text(nf(6*tvoc_duelle_werte_sensor[i]/10, 0, 1), 540, 160 + 60*i); 
+    text(nf(6*tvoc_duelle_werte_sensor[i+1]/10, 0, 1), 740, 160 + 60*i);
   }
   textAlign(CORNER);
   text("Deine Vorhersage", 150, 110);

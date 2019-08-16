@@ -7,11 +7,6 @@ void Feinstaub() {
   four.active = false;
   one.active = false;
   settings.active = false;
-  left1.show();
-  right1.show();
-  reset.show();
-
-
 
   boolean PM1_left = false;
   boolean PM1_right = false;
@@ -21,7 +16,6 @@ void Feinstaub() {
   boolean PM4_right = false;
   boolean PM10_left = false;
   boolean PM10_right = false;
-
 
   if (SPS_Rot.name == "PM1") {
     PM1_left = true;
@@ -66,25 +60,17 @@ void Feinstaub() {
   }
 
 
-  aktualisierung_right.show();
-  aktualisierung_left.show();
-  fill(0);
-  noStroke();
-
-  if (del == 0) {
-    text("Aktualisierungsintervall: Maximum", 220, 692);
-  } else {
-    text("Aktualisierungsintervall: " + nf(del, 0, 0) + " s", 220, 692);
-  }
-
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
-  rect(175, 100, 930, 500);
+  rect(120, 140, 830, 500);
+  fill(230);
+  rect(1080, -1, 200, 720);
   stroke(100, 100);
+
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
-      line(175, 200 + 100*i, 1105, 200 + 100*i);
+      line(120, 240 + 100*i, 950, 240 + 100*i);
     }
   }
   if (up1.isClicked()) {
@@ -132,29 +118,29 @@ void Feinstaub() {
 
   String intervall = "";
   if (x_scale == 0) {
-    intervall = "Zeige alle Messwerte";
+    intervall = "alle\nMesswerte";
   } else if (x_scale == 1) {
-    intervall = "Zeige die letzen 60 Sekunden";
+    intervall = "letzte\n60 Sekunden";
   } else if (x_scale == 2) {
-    intervall = "Zeige die letzen 180 Sekunden";
+    intervall = "letzte\n180 Sekunden";
   } else if (x_scale == 3) {
-    intervall = "Zeige die letzen 360 Sekunden";
+    intervall = "letzte\n360 Sekunden";
   } else if (x_scale == 4) {
-    intervall = "Zeige die letzen 12 Minuten";
+    intervall = "letzte\n12 Minuten";
   } else if (x_scale == 5) {
-    intervall = "Zeige die letzen 60 Minuten";
+    intervall = "letzte\n60 Minuten";
   } else if (x_scale == 6) {
-    intervall = "Zeige die letzen 180 Minuten";
+    intervall = "letzte\n180 Minuten";
   } else if (x_scale == 7) {
-    intervall = "Zeige die letzen 360 Minuten";
+    intervall = "letzte\n360 Minuten";
   } else if (x_scale == 8) {
-    intervall = "Zeige die letzen 12 Stunden";
+    intervall = "letzte\n12 Stunden";
   } else if (x_scale == 9) {
-    intervall = "Zeige die letzen 24 Stunden";
+    intervall = "letzte\n24 Stunden";
   } else if (x_scale == 10) {
-    intervall = "Zeige die letzen 72 Stunden";
+    intervall = "letzte\n72 Stunden";
   }
-  text(intervall, 740, 690);
+
 
   if (PM1_left) {
     graph(sps_pm1_data, 0, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
@@ -175,9 +161,46 @@ void Feinstaub() {
   } else if (PM10_right) {
     graph(sps_pm10_data, 0, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
   }
-
+  fill(0);
+  noStroke();
+  textSize(30);
+  text("Optionen", 1120, 50);
+  fill(240);
+  ;
+  stroke(0);
+  rect(1105, 450, 155, 140);
+  rect(1105, 250, 155, 180);
+  fill(0);
+  noStroke();
+  textSize(20);
+  textAlign(CENTER);
+  if (del == 0) {
+    text("Messintervall", 1185, 480);
+    text("Maximum", 1190, 565);
+  } else {
+    text("Messintervall", 1185, 480);
+    text(nf(del, 0, 0) + " s", 1185, 565);
+  }
+  text("Anzeige\nMesswerte", 1185, 280);
+  text(intervall, 1185, 390);
+  textAlign(CORNER);
+  stroke(0);
+  if (measure) {
+    fill(0, 255, 0);
+  } else {
+    fill(255, 0, 0);
+  }
+  ellipse(1098, 125, 20, 20);
   SPS_Rot.show();
   SPS_Blau.show();
+  left1.show();
+  right1.show();
+  reset.show();
+  back.show();
+  aktualisierung_right.show();
+  aktualisierung_left.show();
+  start_stopp.show();
+  zumObermenu.show();
 }
 
 
@@ -217,13 +240,12 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
 
 
 
-float gesamtzeit_station1 = 180;
+float gesamtzeit_station1 = 5;
 
 
 boolean ersterStart_Station1 = false;
 
 void Station1() {
-  SPS_check.hide();
   two_three.active = false;
   four.active = false;
   one.active = false;
@@ -299,8 +321,8 @@ void referenzmessung() {
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
-  Sensoren_SPS_Blau.show();
-  Sensoren_SPS_Rot.show();
+
+  println(zeroTime3);
   //Welche Graphen sollen angezeigt werden?
   boolean PM1_left = false;
   boolean PM1_right = false;
@@ -310,19 +332,20 @@ void referenzmessung() {
   boolean PM4_right = false;
   boolean PM10_left = false;
   boolean PM10_right = false;
-  if (Sensoren_SPS_Rot.getValue() == 1) {
+
+  if (SPS_Rot_Station1.name == "PM1") {
     PM1_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 2) {
+  } else if (SPS_Rot_Station1.name == "PM2.5") {
     PM2_5_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 3) {
+  } else if (SPS_Rot_Station1.name == "PM4") {
     PM4_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 4) {
+  } else if (SPS_Rot_Station1.name == "PM10") {
     PM10_left = true;
     up1.show();
     down1.show();
@@ -330,19 +353,20 @@ void referenzmessung() {
     up1.hide();
     down1.hide();
   }
-  if (Sensoren_SPS_Blau.getValue() == 1) {
+
+  if (SPS_Blau_Station1.name == "PM1") {
     PM1_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 2) {
+  } else if (SPS_Blau_Station1.name == "PM2.5") {
     PM2_5_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 3) {
+  } else if (SPS_Blau_Station1.name == "PM4") {
     PM4_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 4) {
+  } else if (SPS_Blau_Station1.name == "PM10") {
     PM10_right = true;
     up2.show();
     down2.show();
@@ -350,27 +374,6 @@ void referenzmessung() {
     up2.hide();
     down2.hide();
   }
-
-
-
-
-  if (!Station1Start && !ersterDurchlauf_Station1_referenz) {
-    station1_MessungStarten.show();
-  } else {
-    station1_MessungStarten.hide();
-    station1_MessungWiederholen.show();
-    ersterDurchlauf_Station1_referenz = true;
-  }
-
-  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del) && Station1Start) {
-    station1_referenz_abgeschlossen = true;
-  }
-
-  if (station1_referenz_abgeschlossen) {
-    station1_weiter_ab.show();
-  }
-
-
 
 
   fill(0);
@@ -382,29 +385,32 @@ void referenzmessung() {
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
-  rect(175, 100, 930, 500);
+  rect(120, 140, 830, 500);
+  fill(230);
+  rect(1080, -1, 200, 720);
+  stroke(100, 100);
 
   fill(200, 255, 200, 200);
-  rect(175, 100, 155, 500);
+  rect(120, 140, 138.333333, 500);
   fill(255, 200, 200, 200);
-  rect(330, 100, 310, 500);
+  rect(258.333333, 140, 276.66666666, 500);
   fill(255, 255, 200, 200);
-  rect(640, 100, 310, 500);
+  rect(535, 140, 276.66666666, 500);
   fill(200, 255, 200, 200);
-  rect(950, 100, 155, 500);
+  rect(811.6666666, 140, 138.333333, 500);
   textSize(26);
   fill(170, 220);
-  text("Einlaufen", 195, 130);
-  text("Deckel schließen", 385, 130);
-  text("Deckel öffnen", 715, 130);
-  text("Auslaufen", 971, 130);
+  text("Einlaufen", 135, 130);
+  text("Deckel schließen", 305, 130);
+  text("Deckel öffnen", 600, 130);
+  text("Auslaufen", 821, 130);
   textSize(80);
   fill(170, 50);
-  text("Referenzmessung", 295, 370);
+  text("Referenzmessung", 200, 420);
   stroke(100, 100);
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
-      line(175, 200 + 100*i, 1105, 200 + 100*i);
+      line(120, 240 + 100*i, 950, 240 + 100*i);
     }
   }
 
@@ -437,7 +443,7 @@ void referenzmessung() {
   }
   fill(255);
   stroke(0);
-  rect(580, 20, 130, 50);
+  rect(470, 20, 130, 50);
 
   if (PM1_left) {
     graph(Station1_PM1, 1, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
@@ -459,15 +465,59 @@ void referenzmessung() {
     graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
   }
   fill(0);
-  textSize(24);
-  text("Links", 275, 50);
-  text("Rechts", 750, 50);
   textSize(20);
-  text("0", 170, 635);
-  text("30", 310, 635);
-  text("90", 630, 635);
-  text("150", 920, 635);
-  text("180", 1100, 635);
+  text("0", 115, 660);
+  text("30", 245.333333, 660);
+  text("90", 525, 660);
+  text("150", 796.6666666, 660);
+  text("180", 938, 660);
+
+
+
+  SPS_Rot_Station1.show();
+  SPS_Blau_Station1.show();
+
+
+  if (!Station1Start && !ersterDurchlauf_Station1_referenz) {
+    station1_MessungStarten.show();
+  } else {
+    station1_MessungStarten.hide();
+    station1_MessungWiederholen.show();
+    ersterDurchlauf_Station1_referenz = true;
+  }
+
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del) && Station1Start) {
+    station1_referenz_abgeschlossen = true;
+  }
+
+  if (station1_referenz_abgeschlossen) {
+    station1_weiter_ab.show();
+  }
+  
+  
+  fill(0);
+  noStroke();
+  textSize(30);
+  text("Optionen", 1120, 50);
+  fill(240);;
+  stroke(0);
+  rect(1105, 450, 155, 140);
+  fill(0);
+  noStroke();
+  textSize(20);
+  textAlign(CENTER);
+  if (del == 0) {
+    text("Messintervall", 1185, 480);
+    text("Maximum", 1190, 565);
+  } else {
+    text("Messintervall", 1185, 480);
+    text(nf(del, 0, 0) + " s", 1185, 565);
+  }
+  textAlign(CORNER);
+  back.show();
+  zumObermenu.show();
+  aktualisierung_right.show();
+  aktualisierung_left.show();
 }
 
 
@@ -642,9 +692,6 @@ void trockenerSchwamm() {
     graph(Station1_PM10_trocken, 2, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
   }
   fill(0);
-  textSize(24);
-  text("Links", 275, 50);
-  text("Rechts", 750, 50);
   textSize(20);
   text("0", 170, 635);
   text("30", 310, 635);
@@ -819,9 +866,6 @@ void nasserSchwamm() {
     graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
   }
   fill(0);
-  textSize(24);
-  text("Links", 275, 50);
-  text("Rechts", 750, 50);
   textSize(20);
   text("0", 170, 635);
   text("30", 310, 635);
@@ -839,197 +883,89 @@ void Vergleich_Feinstaub() {
   text("Auf der nächsten Seite kannst du deine Messwerte analysieren. Beantworte die folgenden Fragen:", 20, 50);
   text("a) Beschreibe die Verläufe deiner drei Messungen der Feinstaubemission\nb) Gab es einen Unterschied zwischen Messungen verschiedener Feinstaubgrößen? Falls ja, wieso?\nc) Welches Fazit ziehst du aus diesem Experiment?", 200, 250);
   zur_Auswertung3.show();
-
-  Sensoren_SPS_Rot_Station1.hide();
-  Sensoren_SPS_Blau_Station1.hide();
-  Sensoren_SPS_Gruen_Station1.hide();
 }
 
 
 
 
 void Vergleich_Feinstaub_Graphen() {
-
-  Sensoren_SPS_Rot_Station1.show();
-  Sensoren_SPS_Blau_Station1.show();
-  Sensoren_SPS_Gruen_Station1.show();
-
-
-
-
-
-
-
-
-
-
-
-  boolean PM1_referenz_rot = false;
   boolean PM25_referenz_rot = false;
-  boolean PM4_referenz_rot = false;
   boolean PM10_referenz_rot = false;
 
-  boolean PM1_trocken_rot = false;
   boolean PM25_trocken_rot = false;
-  boolean PM4_trocken_rot = false;
   boolean PM10_trocken_rot = false;
 
-  boolean PM1_nass_rot = false;
   boolean PM25_nass_rot = false;
-  boolean PM4_nass_rot = false;
   boolean PM10_nass_rot = false;
 
   ///
 
-  boolean PM1_referenz_gruen = false;
   boolean PM25_referenz_gruen = false;
-  boolean PM4_referenz_gruen = false;
   boolean PM10_referenz_gruen = false;
 
-  boolean PM1_trocken_gruen = false;
   boolean PM25_trocken_gruen = false;
-  boolean PM4_trocken_gruen = false;
   boolean PM10_trocken_gruen = false;
 
-  boolean PM1_nass_gruen = false;
   boolean PM25_nass_gruen = false;
-  boolean PM4_nass_gruen = false;
   boolean PM10_nass_gruen = false;
 
   //
 
-  boolean PM1_referenz_blau = false;
   boolean PM25_referenz_blau = false;
-  boolean PM4_referenz_blau = false;
   boolean PM10_referenz_blau = false;
 
-  boolean PM1_trocken_blau = false;
   boolean PM25_trocken_blau = false;
-  boolean PM4_trocken_blau = false;
   boolean PM10_trocken_blau = false;
 
-  boolean PM1_nass_blau = false;
   boolean PM25_nass_blau = false;
-  boolean PM4_nass_blau = false;
   boolean PM10_nass_blau = false;
 
 
-  float rot = Sensoren_SPS_Rot_Station1.getValue();
-  float gruen = Sensoren_SPS_Gruen_Station1.getValue();
-  float blau = Sensoren_SPS_Blau_Station1.getValue();
+  String rot = SPS_Gruen_Station1_Auswertung.name;
+  String gruen = SPS_Gruen_Station1_Auswertung.name;
+  String blau = SPS_Blau_Station1_Auswertung.name;
 
-
-  if (rot == 1) {
-    PM1_referenz_rot = true;
-  }
-  if (rot == 2) {
+  if (rot == "PM2.5 (Referenz)") {
     PM25_referenz_rot = true;
-  }
-  if (rot == 3) {
-    PM4_referenz_rot = true;
-  }
-  if (rot == 4) {
+  } else if (rot == "PM10 (Referenz)") {
     PM10_referenz_rot = true;
-  }
-  if (rot == 5) {
-    PM1_trocken_rot = true;
-  }
-  if (rot == 6) {
+  } else if (rot == "PM2.5 (trocken)") {
     PM25_trocken_rot = true;
-  }
-  if (rot == 7) {
-    PM4_trocken_rot = true;
-  }
-  if (rot == 8) {
+  } else if (rot == "PM10 (trocken)") {
     PM10_trocken_rot = true;
-  }
-  if (rot == 9) {
-    PM1_nass_rot = true;
-  }
-  if (rot == 10) {
+  } else if (rot == "PM2.5 (nass)") {
     PM25_nass_rot = true;
-  }
-  if (rot == 11) {
-    PM4_nass_rot = true;
-  } 
-  if (rot == 12) {
+  } else if (rot == "PM10 (nass)") {
     PM10_nass_rot = true;
   }
 
-  if (gruen == 1) {
-    PM1_referenz_gruen = true;
-  }
-  if (gruen == 2) {
-    PM25_referenz_gruen = true;
-  }
-  if (gruen == 3) {
-    PM4_referenz_gruen = true;
-  }
-  if (gruen == 4) {
-    PM10_referenz_gruen = true;
-  }
-  if (gruen == 5) {
-    PM1_trocken_gruen = true;
-  }
-  if (gruen == 6) {
-    PM25_trocken_gruen = true;
-  }
-  if (gruen == 7) {
-    PM4_trocken_gruen = true;
-  }
-  if (gruen == 8) {
-    PM10_trocken_gruen = true;
-  }
-  if (gruen == 9) {
-    PM1_nass_gruen = true;
-  }
-  if (gruen == 10) {
-    PM25_nass_gruen = true;
-  }
-  if (gruen == 11) {
-    PM4_nass_gruen = true;
-  } 
-  if (gruen == 12) {
-    PM10_nass_gruen = true;
-  }
-
-  if (blau == 1) {
-    PM1_referenz_blau = true;
-  }
-  if (blau == 2) {
+  if (blau == "PM2.5 (Referenz)") {
     PM25_referenz_blau = true;
-  }
-  if (blau == 3) {
-    PM4_referenz_blau = true;
-  }
-  if (blau == 4) {
+  } else if (blau == "PM10 (Referenz)") {
     PM10_referenz_blau = true;
-  }
-  if (blau == 5) {
-    PM1_trocken_blau = true;
-  }
-  if (blau == 6) {
+  } else if (blau == "PM2.5 (trocken)") {
     PM25_trocken_blau = true;
-  }
-  if (blau == 7) {
-    PM4_trocken_blau = true;
-  }
-  if (blau == 8) {
+  } else if (blau == "PM10 (trocken)") {
     PM10_trocken_blau = true;
-  }
-  if (blau == 9) {
-    PM1_nass_blau = true;
-  }
-  if (blau == 10) {
+  } else if (blau == "PM2.5 (nass)") {
     PM25_nass_blau = true;
-  }
-  if (blau == 11) {
-    PM4_nass_blau = true;
-  } 
-  if (blau == 12) {
+  } else if (blau == "PM10 (nass)") {
     PM10_nass_blau = true;
   }
 
+  if (gruen == "PM2.5 (Referenz)") {
+    PM25_referenz_gruen = true;
+  } else if (gruen == "PM10 (Referenz)") {
+    PM10_referenz_gruen = true;
+  } else if (gruen == "PM2.5 (trocken)") {
+    PM25_trocken_gruen = true;
+  } else if (gruen == "PM10 (trocken)") {
+    PM10_trocken_gruen = true;
+  } else if (gruen == "PM2.5 (nass)") {
+    PM25_nass_gruen = true;
+  } else if (gruen == "PM10 (nass)") {
+    PM10_nass_gruen = true;
+  }
 
 
 
@@ -1089,82 +1025,45 @@ void Vergleich_Feinstaub_Graphen() {
     }
   }
 
-  if (PM1_referenz_rot) {
-    graph2(Station1_PM1, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-  } else if (PM25_referenz_rot) {
+  if (PM25_referenz_rot) {
     graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-  } else if (PM4_referenz_rot) {
-    graph2(Station1_PM4, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM10_referenz_rot) {
     graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-  } else if (PM1_trocken_rot) {
-    graph2(Station1_PM1_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM25_trocken_rot) {
     graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-  } else if (PM4_trocken_rot) {
-    graph2(Station1_PM4_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM10_trocken_rot) {
     graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-  } else if (PM1_nass_rot) {
-    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM25_nass_rot) {
     graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-  } else if (PM4_nass_rot) {
-    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   } else if (PM10_nass_rot) {
     graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
   }
 
-
-  if (PM1_referenz_gruen) {
-    graph2(Station1_PM1, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-  } else if (PM25_referenz_gruen) {
+  if (PM25_referenz_gruen) {
     graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-  } else if (PM4_referenz_gruen) {
-    graph2(Station1_PM4, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM10_referenz_gruen) {
     graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-  } else if (PM1_trocken_gruen) {
-    graph2(Station1_PM1_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM25_trocken_gruen) {
     graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-  } else if (PM4_trocken_gruen) {
-    graph2(Station1_PM4_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM10_trocken_gruen) {
     graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-  } else if (PM1_nass_gruen) {
-    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM25_nass_gruen) {
     graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-  } else if (PM4_nass_gruen) {
-    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   } else if (PM10_nass_gruen) {
     graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
   }
 
 
-  if (PM1_referenz_blau) {
-    graph2(Station1_PM1, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-  } else if (PM25_referenz_blau) {
+  if (PM25_referenz_blau) {
     graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-  } else if (PM4_referenz_blau) {
-    graph2(Station1_PM4, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM10_referenz_blau) {
     graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-  } else if (PM1_trocken_blau) {
-    graph2(Station1_PM1_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM25_trocken_blau) {
     graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-  } else if (PM4_trocken_blau) {
-    graph2(Station1_PM4_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM10_trocken_blau) {
     graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-  } else if (PM1_nass_blau) {
-    graph2(Station1_PM1_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM25_nass_blau) {
     graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-  } else if (PM4_nass_blau) {
-    graph2(Station1_PM4_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   } else if (PM10_nass_blau) {
     graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
   }
@@ -1177,6 +1076,11 @@ void Vergleich_Feinstaub_Graphen() {
   text("90", 630, 635);
   text("150", 920, 635);
   text("180", 1100, 635);
+
+
+  SPS_Gruen_Station1_Auswertung.show();
+  SPS_Rot_Station1_Auswertung.show();
+  SPS_Blau_Station1_Auswertung.show();
 }
 
 

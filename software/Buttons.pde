@@ -74,6 +74,13 @@ class button {
         text("Temperatur,\nLuftfeuchte,\nCO", x + dx/2, y + dy/2 + textOffset);
         textSize(30);
         text("2", 365, 655);
+      } else if (text == "zu Aufgabe b)" || text == "zu Aufgabe c)" || text == "zur Auswertung") {
+        if (frameCount%60 > 50) {
+          fill(220);
+        } else {
+          fill(0);
+        }
+        text(text, x + dx/2, y + dy/2 + textOffset);
       } else {
         text(text, x + dx/2, y + dy/2 + textOffset);
       }
@@ -144,12 +151,15 @@ class dropdown {
       fill(255, 150, 150);
     } else if (c == color(0, 0, 255)) {
       fill(150, 150, 255);
+    } else if (c == color(0, 255, 0)) {
+      fill(150, 255, 150);
     } else {
       fill(220);
     }
     stroke(0);
     rect(x, y, dx, dy);
     fill(0);
+
     text(name, x + 20, y + 0.7*dy);
     if (active) {
       for (int i = 0; i < nOO; i++) {
@@ -158,6 +168,8 @@ class dropdown {
             fill(255, 220, 220);
           } else if (c == color(0, 0, 255)) {
             fill(220, 220, 255);
+          } else if (c == color(0, 255, 0)) {
+            fill(220, 255, 220);
           } else {
             fill(255);
           }
@@ -167,6 +179,8 @@ class dropdown {
             fill(255, 200, 200);
           } else if (c == color(0, 0, 255)) {
             fill(200, 200, 255);
+          }else if (c == color(0, 255, 0)) {
+            fill(200, 255, 200);
           } else {
             fill(220);
           }
