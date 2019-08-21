@@ -1,6 +1,14 @@
 # Modul2b_Software
 
 ## Update
+
+## 21.08.2019
+- Station 1: Messungen sollten nun alle funktionieren
+- Station 1: kleine Designänderungen
+- Station 1: PM1 und PM4 rausgeschmissen
+
+
+
 ## 14.08.2019
 
 - Allgemein: Dropdown Menü durch eigene Bibliothek ersetzt (noch unvollständig)
