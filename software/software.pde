@@ -364,7 +364,7 @@ void setup() {
   station1_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederholen", -5, true, 20);
   station1_weiter_ab = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20);
   station1_weiter_bc =  new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20);
-  station1_zur_Auswertung = new button(1115, 390, 160, 50, "zur Auswertung", 5, true, 20);
+  station1_zur_Auswertung = new button(1105, 390, 160, 50, "zur Auswertung", 5, true, 20);
   zur_Auswertung3 = new button(1115, 485, 180, 50, "zu den Graphen", 5, true, 20);
 
   sps = loadImage("img/sps30.jpg");
@@ -607,6 +607,7 @@ void draw() {
   autosave.hide();
   aktualisierung_right.hide();
   aktualisierung_left.hide();
+  start_stopp.hide();
   // Aufloesung.hide();
   ////////////////////////////////////////////////////////
   zumObermenu.x = 1115;
@@ -960,7 +961,7 @@ void draw() {
     if (page == 1.1) {
       zeroTime3 = millis();
     } else if (page == 1.11) {
-      zeroTime4 =millis();
+      zeroTime4 = millis();
     } else if (page == 1.111) {
       zeroTime5 = millis();
     }
@@ -969,6 +970,7 @@ void draw() {
   if (station1_weiter_ab.isClicked()) {
     page = 1.11;
     station1_weiter_ab.hide();
+    Station1Start = false;
   }
   if (station1_weiter_bc.isClicked()) {
     page = 1.111;

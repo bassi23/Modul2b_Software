@@ -240,7 +240,7 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
 
 
 
-float gesamtzeit_station1 = 5;
+float gesamtzeit_station1 = 180;
 
 
 boolean ersterStart_Station1 = false;
@@ -316,13 +316,11 @@ void kreuz(float x) {
 boolean ersterDurchlauf_Station1_referenz = false;
 boolean station1_referenz_abgeschlossen = false;
 
-float time_station1;
+float time_station1 = -999999;
 void referenzmessung() {
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
-
-  println(zeroTime3);
   //Welche Graphen sollen angezeigt werden?
   boolean PM1_left = false;
   boolean PM1_right = false;
@@ -389,20 +387,59 @@ void referenzmessung() {
   fill(230);
   rect(1080, -1, 200, 720);
   stroke(100, 100);
+  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+    fill(150, 255, 150);
+  } else {
+    fill(200, 255, 200, 200);
+  }
 
-  fill(200, 255, 200, 200);
   rect(120, 140, 138.333333, 500);
-  fill(255, 200, 200, 200);
+
+  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+    fill(255, 200, 200);
+  } else {
+    fill(255, 200, 200, 200);
+  }
   rect(258.333333, 140, 276.66666666, 500);
-  fill(255, 255, 200, 200);
+
+  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+    fill(255, 255, 150);
+  } else {
+    fill(255, 255, 200, 200);
+  }
+
   rect(535, 140, 276.66666666, 500);
-  fill(200, 255, 200, 200);
+  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+    fill(150, 255, 150);
+  } else {
+    fill(200, 255, 200, 200);
+  }
+
   rect(811.6666666, 140, 138.333333, 500);
   textSize(26);
-  fill(170, 220);
+  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
   text("Einlaufen", 135, 130);
+  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
   text("Deckel schließen", 305, 130);
+  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
   text("Deckel öffnen", 600, 130);
+  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
   text("Auslaufen", 821, 130);
   textSize(80);
   fill(170, 50);
@@ -474,6 +511,19 @@ void referenzmessung() {
 
 
 
+  textSize(20);
+  text("Zeit in Sekunden", 455, 700);
+  fill(0);
+  textAlign(CENTER);
+
+  if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
+    text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  } else {
+    text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  }
+  textAlign(CORNER);
+
+
   SPS_Rot_Station1.show();
   SPS_Blau_Station1.show();
 
@@ -486,20 +536,21 @@ void referenzmessung() {
     ersterDurchlauf_Station1_referenz = true;
   }
 
-  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del) && Station1Start) {
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del + 0.1) && Station1Start) {
     station1_referenz_abgeschlossen = true;
   }
 
   if (station1_referenz_abgeschlossen) {
     station1_weiter_ab.show();
   }
-  
-  
+
+
   fill(0);
   noStroke();
   textSize(30);
   text("Optionen", 1120, 50);
-  fill(240);;
+  fill(240);
+  ;
   stroke(0);
   rect(1105, 450, 155, 140);
   fill(0);
@@ -532,8 +583,7 @@ void trockenerSchwamm() {
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
-  Sensoren_SPS_Blau.show();
-  Sensoren_SPS_Rot.show();
+
   //Welche Graphen sollen angezeigt werden?
   boolean PM1_left = false;
   boolean PM1_right = false;
@@ -543,19 +593,20 @@ void trockenerSchwamm() {
   boolean PM4_right = false;
   boolean PM10_left = false;
   boolean PM10_right = false;
-  if (Sensoren_SPS_Rot.getValue() == 1) {
+
+  if (SPS_Rot_Station1.name == "PM1") {
     PM1_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 2) {
+  } else if (SPS_Rot_Station1.name == "PM2.5") {
     PM2_5_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 3) {
+  } else if (SPS_Rot_Station1.name == "PM4") {
     PM4_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 4) {
+  } else if (SPS_Rot_Station1.name == "PM10") {
     PM10_left = true;
     up1.show();
     down1.show();
@@ -563,19 +614,20 @@ void trockenerSchwamm() {
     up1.hide();
     down1.hide();
   }
-  if (Sensoren_SPS_Blau.getValue() == 1) {
+
+  if (SPS_Blau_Station1.name == "PM1") {
     PM1_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 2) {
+  } else if (SPS_Blau_Station1.name == "PM2.5") {
     PM2_5_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 3) {
+  } else if (SPS_Blau_Station1.name == "PM4") {
     PM4_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 4) {
+  } else if (SPS_Blau_Station1.name == "PM10") {
     PM10_right = true;
     up2.show();
     down2.show();
@@ -583,27 +635,6 @@ void trockenerSchwamm() {
     up2.hide();
     down2.hide();
   }
-
-
-
-
-  if (!Station1Start && !ersterDurchlauf_Station1_trocken) {
-    station1_MessungStarten.show();
-  } else {
-    station1_MessungStarten.hide();
-    station1_MessungWiederholen.show();
-    ersterDurchlauf_Station1_trocken = true;
-  }
-
-  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del) && Station1Start) {
-    station1_trocken_abgeschlossen = true;
-  }
-
-  if (station1_trocken_abgeschlossen) {
-    station1_weiter_bc.show();
-  }
-
-
 
 
   fill(0);
@@ -615,29 +646,71 @@ void trockenerSchwamm() {
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
-  rect(175, 100, 930, 500);
+  rect(120, 140, 830, 500);
+  fill(230);
+  rect(1080, -1, 200, 720);
+  stroke(100, 100);
+  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+    fill(150, 255, 150);
+  } else {
+    fill(200, 255, 200, 200);
+  }
 
-  fill(200, 255, 200, 200);
-  rect(175, 100, 155, 500);
-  fill(255, 200, 200, 200);
-  rect(330, 100, 310, 500);
-  fill(255, 255, 200, 200);
-  rect(640, 100, 310, 500);
-  fill(200, 255, 200, 200);
-  rect(950, 100, 155, 500);
+  rect(120, 140, 138.333333, 500);
+
+  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+    fill(255, 200, 200);
+  } else {
+    fill(255, 200, 200, 200);
+  }
+  rect(258.333333, 140, 276.66666666, 500);
+
+  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+    fill(255, 255, 150);
+  } else {
+    fill(255, 255, 200, 200);
+  }
+
+  rect(535, 140, 276.66666666, 500);
+  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+    fill(150, 255, 150);
+  } else {
+    fill(200, 255, 200, 200);
+  }
+
+  rect(811.6666666, 140, 138.333333, 500);
   textSize(26);
-  fill(170, 220);
-  text("Einlaufen", 195, 130);
-  text("Deckel schließen", 385, 130);
-  text("Deckel öffnen", 715, 130);
-  text("Auslaufen", 971, 130);
+  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
+  text("Einlaufen", 135, 130);
+  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
+  text("Deckel schließen", 305, 130);
+  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
+  text("Deckel öffnen", 600, 130);
+  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
+  text("Auslaufen", 821, 130);
   textSize(80);
   fill(170, 50);
-  text("trockener Schwamm", 270, 370);
+  text("Referenzmessung", 200, 420);
   stroke(100, 100);
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
-      line(175, 200 + 100*i, 1105, 200 + 100*i);
+      line(120, 240 + 100*i, 950, 240 + 100*i);
     }
   }
 
@@ -670,7 +743,7 @@ void trockenerSchwamm() {
   }
   fill(255);
   stroke(0);
-  rect(580, 20, 130, 50);
+  rect(470, 20, 130, 50);
 
   if (PM1_left) {
     graph(Station1_PM1_trocken, 2, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
@@ -693,11 +766,72 @@ void trockenerSchwamm() {
   }
   fill(0);
   textSize(20);
-  text("0", 170, 635);
-  text("30", 310, 635);
-  text("90", 630, 635);
-  text("150", 920, 635);
-  text("180", 1100, 635);
+  text("0", 115, 660);
+  text("30", 245.333333, 660);
+  text("90", 525, 660);
+  text("150", 796.6666666, 660);
+  text("180", 938, 660);
+
+
+
+  textSize(20);
+  text("Zeit in Sekunden", 455, 700);
+  fill(0);
+  textAlign(CENTER);
+
+  if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
+    text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  } else {
+    text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  }
+  textAlign(CORNER);
+
+
+  SPS_Rot_Station1.show();
+  SPS_Blau_Station1.show();
+
+
+  if (!Station1Start && !ersterDurchlauf_Station1_trocken) {
+    station1_MessungStarten.show();
+  } else {
+    station1_MessungStarten.hide();
+    station1_MessungWiederholen.show();
+    ersterDurchlauf_Station1_trocken = true;
+  }
+
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del + 0.1) && Station1Start) {
+    station1_trocken_abgeschlossen = true;
+  }
+
+  if (station1_trocken_abgeschlossen) {
+    station1_weiter_bc.show();
+  }
+
+
+  fill(0);
+  noStroke();
+  textSize(30);
+  text("Optionen", 1120, 50);
+  fill(240);
+  ;
+  stroke(0);
+  rect(1105, 450, 155, 140);
+  fill(0);
+  noStroke();
+  textSize(20);
+  textAlign(CENTER);
+  if (del == 0) {
+    text("Messintervall", 1185, 480);
+    text("Maximum", 1190, 565);
+  } else {
+    text("Messintervall", 1185, 480);
+    text(nf(del, 0, 0) + " s", 1185, 565);
+  }
+  textAlign(CORNER);
+  back.show();
+  zumObermenu.show();
+  aktualisierung_right.show();
+  aktualisierung_left.show();
 }
 
 
@@ -706,8 +840,8 @@ void nasserSchwamm() {
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
-  Sensoren_SPS_Blau.show();
-  Sensoren_SPS_Rot.show();
+
+
   //Welche Graphen sollen angezeigt werden?
   boolean PM1_left = false;
   boolean PM1_right = false;
@@ -717,19 +851,20 @@ void nasserSchwamm() {
   boolean PM4_right = false;
   boolean PM10_left = false;
   boolean PM10_right = false;
-  if (Sensoren_SPS_Rot.getValue() == 1) {
+
+  if (SPS_Rot_Station1.name == "PM1") {
     PM1_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 2) {
+  } else if (SPS_Rot_Station1.name == "PM2.5") {
     PM2_5_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 3) {
+  } else if (SPS_Rot_Station1.name == "PM4") {
     PM4_left = true;
     up1.show();
     down1.show();
-  } else if (Sensoren_SPS_Rot.getValue() == 4) {
+  } else if (SPS_Rot_Station1.name == "PM10") {
     PM10_left = true;
     up1.show();
     down1.show();
@@ -737,19 +872,20 @@ void nasserSchwamm() {
     up1.hide();
     down1.hide();
   }
-  if (Sensoren_SPS_Blau.getValue() == 1) {
+
+  if (SPS_Blau_Station1.name == "PM1") {
     PM1_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 2) {
+  } else if (SPS_Blau_Station1.name == "PM2.5") {
     PM2_5_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 3) {
+  } else if (SPS_Blau_Station1.name == "PM4") {
     PM4_right = true;
     up2.show();
     down2.show();
-  } else if (Sensoren_SPS_Blau.getValue() == 4) {
+  } else if (SPS_Blau_Station1.name == "PM10") {
     PM10_right = true;
     up2.show();
     down2.show();
@@ -757,27 +893,6 @@ void nasserSchwamm() {
     up2.hide();
     down2.hide();
   }
-
-
-
-
-  if (!Station1Start && !ersterDurchlauf_Station1_nass) {
-    station1_MessungStarten.show();
-  } else {
-    station1_MessungStarten.hide();
-    station1_MessungWiederholen.show();
-    ersterDurchlauf_Station1_nass = true;
-  }
-
-  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del) && Station1Start) {
-    station1_nass_abgeschlossen = true;
-  }
-
-  if (station1_nass_abgeschlossen) {
-    station1_zur_Auswertung.show();
-  }
-
-
 
 
   fill(0);
@@ -789,29 +904,71 @@ void nasserSchwamm() {
   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
-  rect(175, 100, 930, 500);
+  rect(120, 140, 830, 500);
+  fill(230);
+  rect(1080, -1, 200, 720);
+  stroke(100, 100);
+  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+    fill(150, 255, 150);
+  } else {
+    fill(200, 255, 200, 200);
+  }
 
-  fill(200, 255, 200, 200);
-  rect(175, 100, 155, 500);
-  fill(255, 200, 200, 200);
-  rect(330, 100, 310, 500);
-  fill(255, 255, 200, 200);
-  rect(640, 100, 310, 500);
-  fill(200, 255, 200, 200);
-  rect(950, 100, 155, 500);
+  rect(120, 140, 138.333333, 500);
+
+  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+    fill(255, 200, 200);
+  } else {
+    fill(255, 200, 200, 200);
+  }
+  rect(258.333333, 140, 276.66666666, 500);
+
+  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+    fill(255, 255, 150);
+  } else {
+    fill(255, 255, 200, 200);
+  }
+
+  rect(535, 140, 276.66666666, 500);
+  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+    fill(150, 255, 150);
+  } else {
+    fill(200, 255, 200, 200);
+  }
+
+  rect(811.6666666, 140, 138.333333, 500);
   textSize(26);
-  fill(170, 220);
-  text("Einlaufen", 195, 130);
-  text("Deckel schließen", 385, 130);
-  text("Deckel öffnen", 715, 130);
-  text("Auslaufen", 971, 130);
+  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
+  text("Einlaufen", 135, 130);
+  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
+  text("Deckel schließen", 305, 130);
+  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
+  text("Deckel öffnen", 600, 130);
+  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+    fill(0);
+  } else {
+    fill(170, 220);
+  }
+  text("Auslaufen", 821, 130);
   textSize(80);
   fill(170, 50);
-  text("nasser Schwamm", 305, 370);
+  text("Referenzmessung", 200, 420);
   stroke(100, 100);
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
-      line(175, 200 + 100*i, 1105, 200 + 100*i);
+      line(120, 240 + 100*i, 950, 240 + 100*i);
     }
   }
 
@@ -844,34 +1001,95 @@ void nasserSchwamm() {
   }
   fill(255);
   stroke(0);
-  rect(580, 20, 130, 50);
+  rect(470, 20, 130, 50);
 
   if (PM1_left) {
-    graph(Station1_PM1_nass, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
+    graph(Station1_PM1_trocken, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
   } else if (PM2_5_left) {
-    graph(Station1_PM25_nass, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
+    graph(Station1_PM25_trocken, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
   } else if (PM4_left) {
-    graph(Station1_PM4_nass, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
+    graph(Station1_PM4_trocken, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
   } else if (PM10_left) {
-    graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
+    graph(Station1_PM10_trocken, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
   }
 
   if (PM1_right) {
-    graph(Station1_PM1_nass, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, false);
+    graph(Station1_PM1_trocken, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, false);
   } else if (PM2_5_right) {
-    graph(Station1_PM25_nass, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
+    graph(Station1_PM25_trocken, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
   } else if (PM4_right) {
-    graph(Station1_PM4_nass, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+    graph(Station1_PM4_trocken, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
   } else if (PM10_right) {
-    graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    graph(Station1_PM10_trocken, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
   }
   fill(0);
   textSize(20);
-  text("0", 170, 635);
-  text("30", 310, 635);
-  text("90", 630, 635);
-  text("150", 920, 635);
-  text("180", 1100, 635);
+  text("0", 115, 660);
+  text("30", 245.333333, 660);
+  text("90", 525, 660);
+  text("150", 796.6666666, 660);
+  text("180", 938, 660);
+
+
+
+  textSize(20);
+  text("Zeit in Sekunden", 455, 700);
+  fill(0);
+  textAlign(CENTER);
+
+  if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
+    text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  } else {
+    text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  }
+  textAlign(CORNER);
+
+
+  SPS_Rot_Station1.show();
+  SPS_Blau_Station1.show();
+
+
+  if (!Station1Start && !ersterDurchlauf_Station1_nass) {
+    station1_MessungStarten.show();
+  } else {
+    station1_MessungStarten.hide();
+    station1_MessungWiederholen.show();
+    ersterDurchlauf_Station1_nass = true;
+  }
+
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del + 0.1) && Station1Start) {
+    station1_nass_abgeschlossen = true;
+  }
+
+  if (station1_nass_abgeschlossen) {
+    station1_zur_Auswertung.show();
+  }
+
+
+  fill(0);
+  noStroke();
+  textSize(30);
+  text("Optionen", 1120, 50);
+  fill(240);
+
+  stroke(0);
+  rect(1105, 450, 155, 140);
+  fill(0);
+  noStroke();
+  textSize(20);
+  textAlign(CENTER);
+  if (del == 0) {
+    text("Messintervall", 1185, 480);
+    text("Maximum", 1190, 565);
+  } else {
+    text("Messintervall", 1185, 480);
+    text(nf(del, 0, 0) + " s", 1185, 565);
+  }
+  textAlign(CORNER);
+  back.show();
+  zumObermenu.show();
+  aktualisierung_right.show();
+  aktualisierung_left.show();
 }
 
 
@@ -921,7 +1139,7 @@ void Vergleich_Feinstaub_Graphen() {
   boolean PM10_nass_blau = false;
 
 
-  String rot = SPS_Gruen_Station1_Auswertung.name;
+  String rot = SPS_Rot_Station1_Auswertung.name;
   String gruen = SPS_Gruen_Station1_Auswertung.name;
   String blau = SPS_Blau_Station1_Auswertung.name;
 
@@ -966,8 +1184,6 @@ void Vergleich_Feinstaub_Graphen() {
   } else if (gruen == "PM10 (nass)") {
     PM10_nass_gruen = true;
   }
-
-
 
   up1.show();
   down1.show();

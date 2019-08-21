@@ -447,7 +447,7 @@ void Station2_Sensor() {
       } else if (j == 1) {
         stroke(0, 0, 255);
       } else if (j == 2) {
-        stroke(255, 0, 255);
+        stroke(255, 255, 100);
       } else if (j == 3) {
         stroke(0, 155, 0);
       } else if (j == 4) {
@@ -513,11 +513,11 @@ void  Station2_Vergleich() {
   messen.hide();
   letzteWiederholen.hide();
 
-  MesswertSensor2[0] = MesswertSensor[4];
-  MesswertSensor2[1] = MesswertSensor[3];
-  MesswertSensor2[2] = MesswertSensor[2];
-  MesswertSensor2[3] = MesswertSensor[1];
-  MesswertSensor2[4] = MesswertSensor[0];
+  //MesswertSensor2[0] = MesswertSensor[4];
+  //MesswertSensor2[1] = MesswertSensor[3];
+  //MesswertSensor2[2] = MesswertSensor[2];
+  //MesswertSensor2[3] = MesswertSensor[1];
+  //MesswertSensor2[4] = MesswertSensor[0];
   MesswertSensor2 = sort(MesswertSensor2);
   for (int i = 0; i < 5; i++) {
     if (MesswertSensor2[i] == MesswertSensor[0]) {
