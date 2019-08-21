@@ -1068,7 +1068,7 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
   popMatrix();
   fill(0);
   textSize(20);
-  text("Zeit in Sekunden", 640, 675);
+  text("Zeit in Sekunden", 700, 655);
   ///////////////// MESSWERTE ZEICHNEN //////////////////////////////////////////
   textAlign(CORNER);
   if (zeitskala1 == 1) {

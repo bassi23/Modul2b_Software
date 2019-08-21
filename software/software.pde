@@ -63,7 +63,7 @@ TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, St
 boolean measure = true;
 
 
-float page = -1;
+float page = 1.11111;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -135,9 +135,9 @@ void setup() {
 
   SPS_Blau_Station1 = new dropdown("Links", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));
   SPS_Rot_Station1 = new dropdown("Rechts", 120, 20, 200, 30, 3, SPS_Strings_Station1, false, color(255, 0, 0));
-  SPS_Blau_Station1_Auswertung = new dropdown("Rechts", 720, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 0,255));
-  SPS_Rot_Station1_Auswertung = new dropdown("Links", 120, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(255, 0, 0));
-  SPS_Gruen_Station1_Auswertung = new dropdown("Mitte", 420, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 255, 0));
+  SPS_Blau_Station1_Auswertung = new dropdown("Rechts", 905, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 0,255));
+  SPS_Rot_Station1_Auswertung = new dropdown("Links", 175, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(255, 0, 0));
+  SPS_Gruen_Station1_Auswertung = new dropdown("Mitte", 545, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 255, 0));
 
 
   Sensoren_SGP_Rot_control = new ControlP5(this);
@@ -365,7 +365,7 @@ void setup() {
   station1_weiter_ab = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20);
   station1_weiter_bc =  new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20);
   station1_zur_Auswertung = new button(1105, 390, 160, 50, "zur Auswertung", 5, true, 20);
-  zur_Auswertung3 = new button(1115, 485, 180, 50, "zu den Graphen", 5, true, 20);
+  zur_Auswertung3 = new button(1075, 600, 180, 50, "zu den Graphen", 5, true, 20);
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
