@@ -2,9 +2,6 @@ void setting() {
   Aufloesung.show();
   textSize(30);
   fill(0);
-  text("Autosave", 300, 200);
-  text("Speichern als", 250, 250);
-  text(".txt          .csv", 550, 250);
   reconnect();
 
   stroke(0);
@@ -22,6 +19,9 @@ void setting() {
   } else if (Aufloesung.name == "Hoch (1440x810)") {
     scale_factor = 1.125;
   }
+  strokeWeight(1);
+    autosave.show();
+    dateiformat.show();
 }
 float aufloesung_index = 0;
 float scale_factor = 1;

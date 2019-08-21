@@ -42,52 +42,52 @@ void Innenraumluft_a() {
   down2.show();
 
 
-  boolean eco2_left = false;
-  boolean eco2_right = false;
-  boolean tvoc_left = false;
-  boolean tvoc_right = false;
-  boolean T_left = false;
-  boolean T_right = false;
-  boolean H_left = false;
-  boolean H_right = false;
-  boolean CO2_left = false;
-  boolean CO2_right = false;
-  String textBlau = "";
-  String textRot = "";
-  int wasZeichnenRot = int(Sensoren_Station4_Rot.getValue()-1);
-  int wasZeichnenBlau = int(Sensoren_Station4_Blau.getValue()-1);
-  if (Sensoren_Station4_Rot.getValue() == 1) {
-    T_left = true;
-    textRot = "Temperatur in °C";
-  } else if (Sensoren_Station4_Rot.getValue() == 2) {
-    H_left = true;
-    textRot = "Luftfeuchte in %";
-  } else if (Sensoren_Station4_Rot.getValue() == 3) {
-    CO2_left = true;
-    textRot = "CO2 in ppm";
-  } else if (Sensoren_Station4_Rot.getValue() == 4) {
-    tvoc_left = true;
-    textRot = "TVOC in ppb";
-  } else if (Sensoren_Station4_Rot.getValue() == 5) {
-    eco2_left = true;
-    textRot = "eCO2 in ppm";
-  }
-  if (Sensoren_Station4_Blau.getValue() == 1) {
-    T_right = true;
-    textBlau =  "Temperatur in °C";
-  } else if (Sensoren_Station4_Blau.getValue() == 2) {
-    H_right = true;
-    textBlau = "Luftfeuchte in %";
-  } else if (Sensoren_Station4_Blau.getValue() == 3) {
-    CO2_right = true;
-    textBlau =  "CO2 in ppm";
-  } else if (Sensoren_Station4_Blau.getValue() == 4) {
-    tvoc_right = true;
-    textBlau = "TVOC in ppb";
-  } else if (Sensoren_Station4_Blau.getValue() == 5) {
-    eco2_right = true;
-    textBlau = "eCO2 in ppm";
-  }
+  //boolean eco2_left = false;
+  //boolean eco2_right = false;
+  //boolean tvoc_left = false;
+  //boolean tvoc_right = false;
+  //boolean T_left = false;
+  //boolean T_right = false;
+  //boolean H_left = false;
+  //boolean H_right = false;
+  //boolean CO2_left = false;
+  //boolean CO2_right = false;
+  //String textBlau = "";
+  //String textRot = "";
+  //int wasZeichnenRot = int(Sensoren_Station4_Rot.getValue()-1);
+  //int wasZeichnenBlau = int(Sensoren_Station4_Blau.getValue()-1);
+  //if (Sensoren_Station4_Rot.getValue() == 1) {
+  //  T_left = true;
+  //  textRot = "Temperatur in °C";
+  //} else if (Sensoren_Station4_Rot.getValue() == 2) {
+  //  H_left = true;
+  //  textRot = "Luftfeuchte in %";
+  //} else if (Sensoren_Station4_Rot.getValue() == 3) {
+  //  CO2_left = true;
+  //  textRot = "CO2 in ppm";
+  //} else if (Sensoren_Station4_Rot.getValue() == 4) {
+  //  tvoc_left = true;
+  //  textRot = "TVOC in ppb";
+  //} else if (Sensoren_Station4_Rot.getValue() == 5) {
+  //  eco2_left = true;
+  //  textRot = "eCO2 in ppm";
+  //}
+  //if (Sensoren_Station4_Blau.getValue() == 1) {
+  //  T_right = true;
+  //  textBlau =  "Temperatur in °C";
+  //} else if (Sensoren_Station4_Blau.getValue() == 2) {
+  //  H_right = true;
+  //  textBlau = "Luftfeuchte in %";
+  //} else if (Sensoren_Station4_Blau.getValue() == 3) {
+  //  CO2_right = true;
+  //  textBlau =  "CO2 in ppm";
+  //} else if (Sensoren_Station4_Blau.getValue() == 4) {
+  //  tvoc_right = true;
+  //  textBlau = "TVOC in ppb";
+  //} else if (Sensoren_Station4_Blau.getValue() == 5) {
+  //  eco2_right = true;
+  //  textBlau = "eCO2 in ppm";
+  //}
 
 
 
@@ -182,117 +182,117 @@ void Innenraumluft_a() {
   float maxBlau = 0;
   float minBlau = 0;
 
-  if (scale_Innenraum1 == 0) {
-    if (wasZeichnenRot != -1) {
-      maxRot = findMax(Innenraumlufta[wasZeichnenRot]);
-      minRot = findMin(Innenraumlufta[wasZeichnenRot]);
-    }
-  } else if (scale_Innenraum1 == 1) {
-    if (eco2_left) {
-      maxRot = 500;
-    } else if (tvoc_left) {
-      maxRot = 100;
-    } else if (T_left) {
-      maxRot = 20;
-    } else if (H_left) {
-      maxRot = 25;
-    } else if (CO2_left) {
-      maxRot = 500;
-    }
-  } else if (scale_Innenraum1 == 2) {
-    if (eco2_left) {
-      maxRot = 1000;
-    } else if (tvoc_left) {
-      maxRot = 250;
-    } else if (T_left) {
-      maxRot = 30;
-    } else if (H_left) {
-      maxRot = 50;
-    } else if (CO2_left) {
-      maxRot = 1000;
-    }
-  } else if (scale_Innenraum1 == 3) {
-    if (eco2_left) {
-      maxRot = 2000;
-    } else if (tvoc_left) {
-      maxRot = 500;
-    } else if (T_left) {
-      maxRot = 40;
-    } else if (H_left) {
-      maxRot = 75;
-    } else if (CO2_left) {
-      maxRot = 2000;
-    }
-  } else if (scale_Innenraum1 == 4) {
-    if (eco2_left) {
-      maxRot = 5000;
-    } else if (tvoc_left) {
-      maxRot = 1000;
-    } else if (T_left) {
-      maxRot = 50;
-    } else if (H_left) {
-      maxRot = 100;
-    } else if (CO2_left) {
-      maxRot = 5000;
-    }
-  }
+  //if (scale_Innenraum1 == 0) {
+  //  if (wasZeichnenRot != -1) {
+  //    maxRot = findMax(Innenraumlufta[wasZeichnenRot]);
+  //    minRot = findMin(Innenraumlufta[wasZeichnenRot]);
+  //  }
+  //} else if (scale_Innenraum1 == 1) {
+  //  if (eco2_left) {
+  //    maxRot = 500;
+  //  } else if (tvoc_left) {
+  //    maxRot = 100;
+  //  } else if (T_left) {
+  //    maxRot = 20;
+  //  } else if (H_left) {
+  //    maxRot = 25;
+  //  } else if (CO2_left) {
+  //    maxRot = 500;
+  //  }
+  //} else if (scale_Innenraum1 == 2) {
+  //  if (eco2_left) {
+  //    maxRot = 1000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 250;
+  //  } else if (T_left) {
+  //    maxRot = 30;
+  //  } else if (H_left) {
+  //    maxRot = 50;
+  //  } else if (CO2_left) {
+  //    maxRot = 1000;
+  //  }
+  //} else if (scale_Innenraum1 == 3) {
+  //  if (eco2_left) {
+  //    maxRot = 2000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 500;
+  //  } else if (T_left) {
+  //    maxRot = 40;
+  //  } else if (H_left) {
+  //    maxRot = 75;
+  //  } else if (CO2_left) {
+  //    maxRot = 2000;
+  //  }
+  //} else if (scale_Innenraum1 == 4) {
+  //  if (eco2_left) {
+  //    maxRot = 5000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 1000;
+  //  } else if (T_left) {
+  //    maxRot = 50;
+  //  } else if (H_left) {
+  //    maxRot = 100;
+  //  } else if (CO2_left) {
+  //    maxRot = 5000;
+  //  }
+  //}
 
-  if (scale_Innenraum2 == 0) {
-    if (wasZeichnenBlau != -1) {
-      maxBlau = findMax(Innenraumlufta[wasZeichnenBlau]);
-      minBlau = findMin(Innenraumlufta[wasZeichnenBlau]);
-    }
-  } else if (scale_Innenraum2 == 1) {
-    if (eco2_right) {
-      maxBlau = 500;
-    } else if (tvoc_right) {
-      maxBlau = 100;
-    } else if (T_right) {
-      maxBlau = 20;
-    } else if (H_right) {
-      maxBlau = 25;
-    } else if (CO2_right) {
-      maxBlau = 500;
-    }
-  } else if (scale_Innenraum2 == 2) {
-    if (eco2_right) {
-      maxBlau = 1000;
-    } else if (tvoc_right) {
-      maxBlau = 250;
-    } else if (T_right) {
-      maxBlau = 30;
-    } else if (H_right) {
-      maxBlau = 50;
-    } else if (CO2_right) {
-      maxBlau = 1000;
-    }
-  } else if (scale_Innenraum2== 3) {
-    if (eco2_right) {
-      maxBlau = 2000;
-    } else if (tvoc_right) {
-      maxBlau = 500;
-    } else if (T_right) {
-      maxBlau = 40;
-    } else if (H_right) {
-      maxBlau = 75;
-    } else if (CO2_right) {
-      maxBlau = 2000;
-    }
-  } else if (scale_Innenraum2 == 4) {
-    if (eco2_right) {
-      maxBlau = 5000;
-    } else if (tvoc_right) {
-      maxBlau = 1000;
-    } else if (T_right) {
-      maxBlau = 50;
-    } else if (H_right) {
-      maxBlau = 100;
-    } else if (CO2_right) {
-      maxBlau = 5000;
-    }
-  }
-  innenraumluft_graph(Innenraumlufta, wasZeichnenRot, color(255, 0, 0), indexInnenraumlufta, minRot, maxRot, textRot);
-  innenraumluft_graph(Innenraumlufta, wasZeichnenBlau, color(0, 0, 255), indexInnenraumlufta, minBlau, maxBlau, textBlau);
+  //if (scale_Innenraum2 == 0) {
+  //  if (wasZeichnenBlau != -1) {
+  //    maxBlau = findMax(Innenraumlufta[wasZeichnenBlau]);
+  //    minBlau = findMin(Innenraumlufta[wasZeichnenBlau]);
+  //  }
+  //} else if (scale_Innenraum2 == 1) {
+  //  if (eco2_right) {
+  //    maxBlau = 500;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 100;
+  //  } else if (T_right) {
+  //    maxBlau = 20;
+  //  } else if (H_right) {
+  //    maxBlau = 25;
+  //  } else if (CO2_right) {
+  //    maxBlau = 500;
+  //  }
+  //} else if (scale_Innenraum2 == 2) {
+  //  if (eco2_right) {
+  //    maxBlau = 1000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 250;
+  //  } else if (T_right) {
+  //    maxBlau = 30;
+  //  } else if (H_right) {
+  //    maxBlau = 50;
+  //  } else if (CO2_right) {
+  //    maxBlau = 1000;
+  //  }
+  //} else if (scale_Innenraum2== 3) {
+  //  if (eco2_right) {
+  //    maxBlau = 2000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 500;
+  //  } else if (T_right) {
+  //    maxBlau = 40;
+  //  } else if (H_right) {
+  //    maxBlau = 75;
+  //  } else if (CO2_right) {
+  //    maxBlau = 2000;
+  //  }
+  //} else if (scale_Innenraum2 == 4) {
+  //  if (eco2_right) {
+  //    maxBlau = 5000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 1000;
+  //  } else if (T_right) {
+  //    maxBlau = 50;
+  //  } else if (H_right) {
+  //    maxBlau = 100;
+  //  } else if (CO2_right) {
+  //    maxBlau = 5000;
+  //  }
+  //}
+  //innenraumluft_graph(Innenraumlufta, wasZeichnenRot, color(255, 0, 0), indexInnenraumlufta, minRot, maxRot, textRot);
+  //innenraumluft_graph(Innenraumlufta, wasZeichnenBlau, color(0, 0, 255), indexInnenraumlufta, minBlau, maxBlau, textBlau);
   text("0", 160, 680);
   text("Zeit in Sekunden", 580, 700);
   strokeWeight(4);
@@ -410,280 +410,280 @@ void Innenraumluft_b() {
   down1.show();
   up2.show();
   down2.show();
-  boolean eco2_left = false;
-  boolean eco2_right = false;
-  boolean tvoc_left = false;
-  boolean tvoc_right = false;
-  boolean T_left = false;
-  boolean T_right = false;
-  boolean H_left = false;
-  boolean H_right = false;
-  boolean CO2_left = false;
-  boolean CO2_right = false;
-  String textBlau = "";
-  String textRot = "";
-  int wasZeichnenRot = int(Sensoren_Station4_Rot.getValue()-1);
-  int wasZeichnenBlau = int(Sensoren_Station4_Blau.getValue()-1);
-  if (Sensoren_Station4_Rot.getValue() == 1) {
-    T_left = true;
-    textRot = "Temperatur in °C";
-  } else if (Sensoren_Station4_Rot.getValue() == 2) {
-    H_left = true;
-    textRot = "Luftfeuchte in %";
-  } else if (Sensoren_Station4_Rot.getValue() == 3) {
-    CO2_left = true;
-    textRot = "CO2 in ppm";
-  } else if (Sensoren_Station4_Rot.getValue() == 4) {
-    tvoc_left = true;
-    textRot = "TVOC in ppb";
-  } else if (Sensoren_Station4_Rot.getValue() == 5) {
-    eco2_left = true;
-    textRot = "eCO2 in ppm";
-  }
-  if (Sensoren_Station4_Blau.getValue() == 1) {
-    T_right = true;
-    textBlau =  "Temperatur in °C";
-  } else if (Sensoren_Station4_Blau.getValue() == 2) {
-    H_right = true;
-    textBlau = "Luftfeuchte in %";
-  } else if (Sensoren_Station4_Blau.getValue() == 3) {
-    CO2_right = true;
-    textBlau =  "CO2 in ppm";
-  } else if (Sensoren_Station4_Blau.getValue() == 4) {
-    tvoc_right = true;
-    textBlau = "TVOC in ppb";
-  } else if (Sensoren_Station4_Blau.getValue() == 5) {
-    eco2_right = true;
-    textBlau = "eCO2 in ppm";
-  }
+  //boolean eco2_left = false;
+  //boolean eco2_right = false;
+  //boolean tvoc_left = false;
+  //boolean tvoc_right = false;
+  //boolean T_left = false;
+  //boolean T_right = false;
+  //boolean H_left = false;
+  //boolean H_right = false;
+  //boolean CO2_left = false;
+  //boolean CO2_right = false;
+  //String textBlau = "";
+  //String textRot = "";
+  //int wasZeichnenRot = int(Sensoren_Station4_Rot.getValue()-1);
+  //int wasZeichnenBlau = int(Sensoren_Station4_Blau.getValue()-1);
+  //if (Sensoren_Station4_Rot.getValue() == 1) {
+  //  T_left = true;
+  //  textRot = "Temperatur in °C";
+  //} else if (Sensoren_Station4_Rot.getValue() == 2) {
+  //  H_left = true;
+  //  textRot = "Luftfeuchte in %";
+  //} else if (Sensoren_Station4_Rot.getValue() == 3) {
+  //  CO2_left = true;
+  //  textRot = "CO2 in ppm";
+  //} else if (Sensoren_Station4_Rot.getValue() == 4) {
+  //  tvoc_left = true;
+  //  textRot = "TVOC in ppb";
+  //} else if (Sensoren_Station4_Rot.getValue() == 5) {
+  //  eco2_left = true;
+  //  textRot = "eCO2 in ppm";
+  //}
+  //if (Sensoren_Station4_Blau.getValue() == 1) {
+  //  T_right = true;
+  //  textBlau =  "Temperatur in °C";
+  //} else if (Sensoren_Station4_Blau.getValue() == 2) {
+  //  H_right = true;
+  //  textBlau = "Luftfeuchte in %";
+  //} else if (Sensoren_Station4_Blau.getValue() == 3) {
+  //  CO2_right = true;
+  //  textBlau =  "CO2 in ppm";
+  //} else if (Sensoren_Station4_Blau.getValue() == 4) {
+  //  tvoc_right = true;
+  //  textBlau = "TVOC in ppb";
+  //} else if (Sensoren_Station4_Blau.getValue() == 5) {
+  //  eco2_right = true;
+  //  textBlau = "eCO2 in ppm";
+  //}
 
 
 
-  if (up1.isClicked()) {
-    scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 4) {
-      scale_Innenraum1 = 0;
-    }
-  }
+  //if (up1.isClicked()) {
+  //  scale_Innenraum1 += 1;
+  //  if (scale_Innenraum1 > 4) {
+  //    scale_Innenraum1 = 0;
+  //  }
+  //}
 
-  if (down1.isClicked()) {
-    scale_Innenraum1 -= 1;
-    if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 4;
-    }
-  }
+  //if (down1.isClicked()) {
+  //  scale_Innenraum1 -= 1;
+  //  if (scale_Innenraum1 < 0) {
+  //    scale_Innenraum1 = 4;
+  //  }
+  //}
 
-  if (up2.isClicked()) {
-    scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 4) {
-      scale_Innenraum2 = 0;
-    }
-  }
+  //if (up2.isClicked()) {
+  //  scale_Innenraum2 += 1;
+  //  if (scale_Innenraum2 > 4) {
+  //    scale_Innenraum2 = 0;
+  //  }
+  //}
 
-  if (down2.isClicked()) {
-    scale_Innenraum2 -= 1;
-    if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 4;
-    }
-  }
-  textAlign(CENTER);
-  textSize(20);
-  text(t, 1100, 690);
-  fill(255);
-  rect(600, 150, 130, 40);
-  fill(0);
-  if ((millis() - currentTime4b)/1000 < t) {
-    text(nf((millis() - currentTime4b)/1000, 0, 1) + "s/" + t + "s", 665, 175);
-  }else{
-    text("0s/" + t + "s", 665, 175);
-  }
-  textAlign(CORNER);
-
-
-  if (Station4bgestartet == false) {
-    Station4Start.show();
-    reset_innenraum.hide();
-  } else {
-    Station4Start.hide();
-    reset_innenraum.show();
-  }
-
-  if (Station4Start.isClicked()) {
-    Station4bgestartet = true;
-    currentTime4b = millis();
-    indexInnenraumluftb = 0;
-  }
-  if (scale_Innenraum1 != 0 || scale_Innenraum2 != 0) {
-    stroke(200);
-    for (int i = 0; i < 4; i++) {
-      line(175, 290 + 90*i, 1105, 290 + 90*i);
-    }
-  }
+  //if (down2.isClicked()) {
+  //  scale_Innenraum2 -= 1;
+  //  if (scale_Innenraum2 < 0) {
+  //    scale_Innenraum2 = 4;
+  //  }
+  //}
+  //textAlign(CENTER);
+  //textSize(20);
+  //text(t, 1100, 690);
+  //fill(255);
+  //rect(600, 150, 130, 40);
+  //fill(0);
+  //if ((millis() - currentTime4b)/1000 < t) {
+  //  text(nf((millis() - currentTime4b)/1000, 0, 1) + "s/" + t + "s", 665, 175);
+  //}else{
+  //  text("0s/" + t + "s", 665, 175);
+  //}
+  //textAlign(CORNER);
 
 
-  stroke(0);
-  line(175 + 30*930/t, 200, 175 + 30*930/t, 650);
-  line(175 + 30*930/t, 200, 175 + 30*930/t, 650);
+  //if (Station4bgestartet == false) {
+  //  Station4Start.show();
+  //  reset_innenraum.hide();
+  //} else {
+  //  Station4Start.hide();
+  //  reset_innenraum.show();
+  //}
 
-  fill(200, 255, 200, 200);
-  rect(175, 200, 30*930/t, 450);
-  fill(255, 200, 200, 200);
-  rect(175 + 30*930/t, 200, 240*930/t, 450);
-  fill(255, 255, 200, 200);
-  rect(175 + 270*930/t, 200, 30*930/t, 450);
-  pushMatrix();
-  translate(width/2, height/2);
-  rotate(3*PI/2);
-  fill(200, 200);
-  textSize(30);
-  text("Einlaufphase", -165, -410);
-  rotate(PI);
-  text("Auslaufphase", -30, -410);
-  popMatrix();
-  textSize(40);
-  text("Messphase", 550, 450);
-  textSize(20);
+  //if (Station4Start.isClicked()) {
+  //  Station4bgestartet = true;
+  //  currentTime4b = millis();
+  //  indexInnenraumluftb = 0;
+  //}
+  //if (scale_Innenraum1 != 0 || scale_Innenraum2 != 0) {
+  //  stroke(200);
+  //  for (int i = 0; i < 4; i++) {
+  //    line(175, 290 + 90*i, 1105, 290 + 90*i);
+  //  }
+  //}
 
-  float maxRot = 0;
-  float minRot = 0;
-  float maxBlau = 0;
-  float minBlau = 0;
 
-  if (scale_Innenraum1 == 0) {
-    if (wasZeichnenRot != -1) {
-      maxRot = findMax(Innenraumluftb[wasZeichnenRot]);
-      minRot = findMin(Innenraumluftb[wasZeichnenRot]);
-    }
-  } else if (scale_Innenraum1 == 1) {
-    if (eco2_left) {
-      maxRot = 500;
-    } else if (tvoc_left) {
-      maxRot = 100;
-    } else if (T_left) {
-      maxRot = 20;
-    } else if (H_left) {
-      maxRot = 25;
-    } else if (CO2_left) {
-      maxRot = 500;
-    }
-  } else if (scale_Innenraum1 == 2) {
-    if (eco2_left) {
-      maxRot = 1000;
-    } else if (tvoc_left) {
-      maxRot = 250;
-    } else if (T_left) {
-      maxRot = 30;
-    } else if (H_left) {
-      maxRot = 50;
-    } else if (CO2_left) {
-      maxRot = 1000;
-    }
-  } else if (scale_Innenraum1 == 3) {
-    if (eco2_left) {
-      maxRot = 2000;
-    } else if (tvoc_left) {
-      maxRot = 500;
-    } else if (T_left) {
-      maxRot = 40;
-    } else if (H_left) {
-      maxRot = 75;
-    } else if (CO2_left) {
-      maxRot = 2000;
-    }
-  } else if (scale_Innenraum1 == 4) {
-    if (eco2_left) {
-      maxRot = 5000;
-    } else if (tvoc_left) {
-      maxRot = 1000;
-    } else if (T_left) {
-      maxRot = 50;
-    } else if (H_left) {
-      maxRot = 100;
-    } else if (CO2_left) {
-      maxRot = 5000;
-    }
-  }
+  //stroke(0);
+  //line(175 + 30*930/t, 200, 175 + 30*930/t, 650);
+  //line(175 + 30*930/t, 200, 175 + 30*930/t, 650);
 
-  if (scale_Innenraum2 == 0) {
-    if (wasZeichnenBlau != -1) {
-      maxBlau = findMax(Innenraumluftb[wasZeichnenBlau]);
-      minBlau = findMin(Innenraumluftb[wasZeichnenBlau]);
-    }
-  } else if (scale_Innenraum2 == 1) {
-    if (eco2_right) {
-      maxBlau = 500;
-    } else if (tvoc_right) {
-      maxBlau = 100;
-    } else if (T_right) {
-      maxBlau = 20;
-    } else if (H_right) {
-      maxBlau = 25;
-    } else if (CO2_right) {
-      maxBlau = 500;
-    }
-  } else if (scale_Innenraum2 == 2) {
-    if (eco2_right) {
-      maxBlau = 1000;
-    } else if (tvoc_right) {
-      maxBlau = 250;
-    } else if (T_right) {
-      maxBlau = 30;
-    } else if (H_right) {
-      maxBlau = 50;
-    } else if (CO2_right) {
-      maxBlau = 1000;
-    }
-  } else if (scale_Innenraum2== 3) {
-    if (eco2_right) {
-      maxBlau = 2000;
-    } else if (tvoc_right) {
-      maxBlau = 500;
-    } else if (T_right) {
-      maxBlau = 40;
-    } else if (H_right) {
-      maxBlau = 75;
-    } else if (CO2_right) {
-      maxBlau = 2000;
-    }
-  } else if (scale_Innenraum2 == 4) {
-    if (eco2_right) {
-      maxBlau = 5000;
-    } else if (tvoc_right) {
-      maxBlau = 1000;
-    } else if (T_right) {
-      maxBlau = 50;
-    } else if (H_right) {
-      maxBlau = 100;
-    } else if (CO2_right) {
-      maxBlau = 5000;
-    }
-  }
-  innenraumluft_graph(Innenraumluftb, wasZeichnenRot, color(255, 0, 0), indexInnenraumluftb, minRot, maxRot, textRot);
-  innenraumluft_graph(Innenraumluftb, wasZeichnenBlau, color(0, 0, 255), indexInnenraumluftb, minBlau, maxBlau, textBlau);
-  text("0", 160, 680);
-  text("Zeit in Sekunden", 580, 700);
-  strokeWeight(4);
+  //fill(200, 255, 200, 200);
+  //rect(175, 200, 30*930/t, 450);
+  //fill(255, 200, 200, 200);
+  //rect(175 + 30*930/t, 200, 240*930/t, 450);
+  //fill(255, 255, 200, 200);
+  //rect(175 + 270*930/t, 200, 30*930/t, 450);
+  //pushMatrix();
+  //translate(width/2, height/2);
+  //rotate(3*PI/2);
+  //fill(200, 200);
+  //textSize(30);
+  //text("Einlaufphase", -165, -410);
+  //rotate(PI);
+  //text("Auslaufphase", -30, -410);
+  //popMatrix();
+  //textSize(40);
+  //text("Messphase", 550, 450);
+  //textSize(20);
 
-  if (scale_Innenraum1 != 0) {
-    if (maxRot != 0 && minRot != 99999) {
-      fill(255, 0, 0);
-      for (int i = 1; i < 5; i++) {
-        text(nf(i*maxRot/5, 0, 0), 120, 650 - 90 * (i));
-      }
-    }
-  }
+  //float maxRot = 0;
+  //float minRot = 0;
+  //float maxBlau = 0;
+  //float minBlau = 0;
 
-  if (scale_Innenraum2 != 0) {
-    fill(0, 0, 255);
-    if (maxBlau != 0 && minBlau != 99999) {
-      for (int i = 1; i < 5; i++) {
-        text(nf(i*maxBlau/5, 0, 0), 1120, 650 - 90 * (i));
-      }
-    }
-  }
-  if ((millis() - currentTime4b)/1000 > t && currentTime4b > 0) {
-    Station4c.show();
-  }
+  //if (scale_Innenraum1 == 0) {
+  //  if (wasZeichnenRot != -1) {
+  //    maxRot = findMax(Innenraumluftb[wasZeichnenRot]);
+  //    minRot = findMin(Innenraumluftb[wasZeichnenRot]);
+  //  }
+  //} else if (scale_Innenraum1 == 1) {
+  //  if (eco2_left) {
+  //    maxRot = 500;
+  //  } else if (tvoc_left) {
+  //    maxRot = 100;
+  //  } else if (T_left) {
+  //    maxRot = 20;
+  //  } else if (H_left) {
+  //    maxRot = 25;
+  //  } else if (CO2_left) {
+  //    maxRot = 500;
+  //  }
+  //} else if (scale_Innenraum1 == 2) {
+  //  if (eco2_left) {
+  //    maxRot = 1000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 250;
+  //  } else if (T_left) {
+  //    maxRot = 30;
+  //  } else if (H_left) {
+  //    maxRot = 50;
+  //  } else if (CO2_left) {
+  //    maxRot = 1000;
+  //  }
+  //} else if (scale_Innenraum1 == 3) {
+  //  if (eco2_left) {
+  //    maxRot = 2000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 500;
+  //  } else if (T_left) {
+  //    maxRot = 40;
+  //  } else if (H_left) {
+  //    maxRot = 75;
+  //  } else if (CO2_left) {
+  //    maxRot = 2000;
+  //  }
+  //} else if (scale_Innenraum1 == 4) {
+  //  if (eco2_left) {
+  //    maxRot = 5000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 1000;
+  //  } else if (T_left) {
+  //    maxRot = 50;
+  //  } else if (H_left) {
+  //    maxRot = 100;
+  //  } else if (CO2_left) {
+  //    maxRot = 5000;
+  //  }
+  //}
+
+  //if (scale_Innenraum2 == 0) {
+  //  if (wasZeichnenBlau != -1) {
+  //    maxBlau = findMax(Innenraumluftb[wasZeichnenBlau]);
+  //    minBlau = findMin(Innenraumluftb[wasZeichnenBlau]);
+  //  }
+  //} else if (scale_Innenraum2 == 1) {
+  //  if (eco2_right) {
+  //    maxBlau = 500;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 100;
+  //  } else if (T_right) {
+  //    maxBlau = 20;
+  //  } else if (H_right) {
+  //    maxBlau = 25;
+  //  } else if (CO2_right) {
+  //    maxBlau = 500;
+  //  }
+  //} else if (scale_Innenraum2 == 2) {
+  //  if (eco2_right) {
+  //    maxBlau = 1000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 250;
+  //  } else if (T_right) {
+  //    maxBlau = 30;
+  //  } else if (H_right) {
+  //    maxBlau = 50;
+  //  } else if (CO2_right) {
+  //    maxBlau = 1000;
+  //  }
+  //} else if (scale_Innenraum2== 3) {
+  //  if (eco2_right) {
+  //    maxBlau = 2000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 500;
+  //  } else if (T_right) {
+  //    maxBlau = 40;
+  //  } else if (H_right) {
+  //    maxBlau = 75;
+  //  } else if (CO2_right) {
+  //    maxBlau = 2000;
+  //  }
+  //} else if (scale_Innenraum2 == 4) {
+  //  if (eco2_right) {
+  //    maxBlau = 5000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 1000;
+  //  } else if (T_right) {
+  //    maxBlau = 50;
+  //  } else if (H_right) {
+  //    maxBlau = 100;
+  //  } else if (CO2_right) {
+  //    maxBlau = 5000;
+  //  }
+  //}
+  //innenraumluft_graph(Innenraumluftb, wasZeichnenRot, color(255, 0, 0), indexInnenraumluftb, minRot, maxRot, textRot);
+  //innenraumluft_graph(Innenraumluftb, wasZeichnenBlau, color(0, 0, 255), indexInnenraumluftb, minBlau, maxBlau, textBlau);
+  //text("0", 160, 680);
+  //text("Zeit in Sekunden", 580, 700);
+  //strokeWeight(4);
+
+  //if (scale_Innenraum1 != 0) {
+  //  if (maxRot != 0 && minRot != 99999) {
+  //    fill(255, 0, 0);
+  //    for (int i = 1; i < 5; i++) {
+  //      text(nf(i*maxRot/5, 0, 0), 120, 650 - 90 * (i));
+  //    }
+  //  }
+  //}
+
+  //if (scale_Innenraum2 != 0) {
+  //  fill(0, 0, 255);
+  //  if (maxBlau != 0 && minBlau != 99999) {
+  //    for (int i = 1; i < 5; i++) {
+  //      text(nf(i*maxBlau/5, 0, 0), 1120, 650 - 90 * (i));
+  //    }
+  //  }
+  //}
+  //if ((millis() - currentTime4b)/1000 > t && currentTime4b > 0) {
+  //  Station4c.show();
+  //}
 }
 float[][] Innenraumluftc = new float[7][5000];
 boolean Station4cgestartet = false;
@@ -702,279 +702,279 @@ void Innenraumluft_c() {
   down1.show();
   up2.show();
   down2.show();
-  boolean eco2_left = false;
-  boolean eco2_right = false;
-  boolean tvoc_left = false;
-  boolean tvoc_right = false;
-  boolean T_left = false;
-  boolean T_right = false;
-  boolean H_left = false;
-  boolean H_right = false;
-  boolean CO2_left = false;
-  boolean CO2_right = false;
-  String textBlau = "";
-  String textRot = "";
-  int wasZeichnenRot = int(Sensoren_Station4_Rot.getValue()-1);
-  int wasZeichnenBlau = int(Sensoren_Station4_Blau.getValue()-1);
-  if (Sensoren_Station4_Rot.getValue() == 1) {
-    T_left = true;
-    textRot = "Temperatur in °C";
-  } else if (Sensoren_Station4_Rot.getValue() == 2) {
-    H_left = true;
-    textRot = "Luftfeuchte in %";
-  } else if (Sensoren_Station4_Rot.getValue() == 3) {
-    CO2_left = true;
-    textRot = "CO2 in ppm";
-  } else if (Sensoren_Station4_Rot.getValue() == 4) {
-    tvoc_left = true;
-    textRot = "TVOC in ppb";
-  } else if (Sensoren_Station4_Rot.getValue() == 5) {
-    eco2_left = true;
-    textRot = "eCO2 in ppm";
-  }
-  if (Sensoren_Station4_Blau.getValue() == 1) {
-    T_right = true;
-    textBlau =  "Temperatur in °C";
-  } else if (Sensoren_Station4_Blau.getValue() == 2) {
-    H_right = true;
-    textBlau = "Luftfeuchte in %";
-  } else if (Sensoren_Station4_Blau.getValue() == 3) {
-    CO2_right = true;
-    textBlau =  "CO2 in ppm";
-  } else if (Sensoren_Station4_Blau.getValue() == 4) {
-    tvoc_right = true;
-    textBlau = "TVOC in ppb";
-  } else if (Sensoren_Station4_Blau.getValue() == 5) {
-    eco2_right = true;
-    textBlau = "eCO2 in ppm";
-  }
+  //boolean eco2_left = false;
+  //boolean eco2_right = false;
+  //boolean tvoc_left = false;
+  //boolean tvoc_right = false;
+  //boolean T_left = false;
+  //boolean T_right = false;
+  //boolean H_left = false;
+  //boolean H_right = false;
+  //boolean CO2_left = false;
+  //boolean CO2_right = false;
+  //String textBlau = "";
+  //String textRot = "";
+  //int wasZeichnenRot = int(Sensoren_Station4_Rot.getValue()-1);
+  //int wasZeichnenBlau = int(Sensoren_Station4_Blau.getValue()-1);
+  //if (Sensoren_Station4_Rot.getValue() == 1) {
+  //  T_left = true;
+  //  textRot = "Temperatur in °C";
+  //} else if (Sensoren_Station4_Rot.getValue() == 2) {
+  //  H_left = true;
+  //  textRot = "Luftfeuchte in %";
+  //} else if (Sensoren_Station4_Rot.getValue() == 3) {
+  //  CO2_left = true;
+  //  textRot = "CO2 in ppm";
+  //} else if (Sensoren_Station4_Rot.getValue() == 4) {
+  //  tvoc_left = true;
+  //  textRot = "TVOC in ppb";
+  //} else if (Sensoren_Station4_Rot.getValue() == 5) {
+  //  eco2_left = true;
+  //  textRot = "eCO2 in ppm";
+  //}
+  //if (Sensoren_Station4_Blau.getValue() == 1) {
+  //  T_right = true;
+  //  textBlau =  "Temperatur in °C";
+  //} else if (Sensoren_Station4_Blau.getValue() == 2) {
+  //  H_right = true;
+  //  textBlau = "Luftfeuchte in %";
+  //} else if (Sensoren_Station4_Blau.getValue() == 3) {
+  //  CO2_right = true;
+  //  textBlau =  "CO2 in ppm";
+  //} else if (Sensoren_Station4_Blau.getValue() == 4) {
+  //  tvoc_right = true;
+  //  textBlau = "TVOC in ppb";
+  //} else if (Sensoren_Station4_Blau.getValue() == 5) {
+  //  eco2_right = true;
+  //  textBlau = "eCO2 in ppm";
+  //}
 
 
 
-  if (up1.isClicked()) {
-    scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 4) {
-      scale_Innenraum1 = 0;
-    }
-  }
+  //if (up1.isClicked()) {
+  //  scale_Innenraum1 += 1;
+  //  if (scale_Innenraum1 > 4) {
+  //    scale_Innenraum1 = 0;
+  //  }
+  //}
 
-  if (down1.isClicked()) {
-    scale_Innenraum1 -= 1;
-    if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 4;
-    }
-  }
+  //if (down1.isClicked()) {
+  //  scale_Innenraum1 -= 1;
+  //  if (scale_Innenraum1 < 0) {
+  //    scale_Innenraum1 = 4;
+  //  }
+  //}
 
-  if (up2.isClicked()) {
-    scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 4) {
-      scale_Innenraum2 = 0;
-    }
-  }
+  //if (up2.isClicked()) {
+  //  scale_Innenraum2 += 1;
+  //  if (scale_Innenraum2 > 4) {
+  //    scale_Innenraum2 = 0;
+  //  }
+  //}
 
-  if (down2.isClicked()) {
-    scale_Innenraum2 -= 1;
-    if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 4;
-    }
-  }
-  textAlign(CENTER);
-  textSize(20);
-  text(t, 1100, 690);
-  fill(255);
-  rect(600, 150, 130, 40);
-  fill(0);
-  if ((millis() - currentTime4c)/1000 < t) {
-    text(nf((millis() - currentTime4c)/1000, 0, 1) + "s/" + t + "s", 665, 175);
-  }else{
-    text("0s/" + t + "s", 665, 175);
-  }
-  textAlign(CORNER);
+  //if (down2.isClicked()) {
+  //  scale_Innenraum2 -= 1;
+  //  if (scale_Innenraum2 < 0) {
+  //    scale_Innenraum2 = 4;
+  //  }
+  //}
+  //textAlign(CENTER);
+  //textSize(20);
+  //text(t, 1100, 690);
+  //fill(255);
+  //rect(600, 150, 130, 40);
+  //fill(0);
+  //if ((millis() - currentTime4c)/1000 < t) {
+  //  text(nf((millis() - currentTime4c)/1000, 0, 1) + "s/" + t + "s", 665, 175);
+  //}else{
+  //  text("0s/" + t + "s", 665, 175);
+  //}
+  //textAlign(CORNER);
 
-  if (Station4cgestartet == false) {
-    Station4Start.show();
-    reset_innenraum.hide();
-  } else {
-    Station4Start.hide();
-    reset_innenraum.show();
-  }
+  //if (Station4cgestartet == false) {
+  //  Station4Start.show();
+  //  reset_innenraum.hide();
+  //} else {
+  //  Station4Start.hide();
+  //  reset_innenraum.show();
+  //}
 
-  if (Station4Start.isClicked()) {
-    Station4cgestartet = true;
-    currentTime4c = millis();
-    indexInnenraumluftc = 0;
-  }
-  if (scale_Innenraum1 != 0 || scale_Innenraum2 != 0) {
-    stroke(200);
-    for (int i = 0; i < 4; i++) {
-      line(175, 290 + 90*i, 1105, 290 + 90*i);
-    }
-  }
+  //if (Station4Start.isClicked()) {
+  //  Station4cgestartet = true;
+  //  currentTime4c = millis();
+  //  indexInnenraumluftc = 0;
+  //}
+  //if (scale_Innenraum1 != 0 || scale_Innenraum2 != 0) {
+  //  stroke(200);
+  //  for (int i = 0; i < 4; i++) {
+  //    line(175, 290 + 90*i, 1105, 290 + 90*i);
+  //  }
+  //}
 
 
-  stroke(0);
-  line(175 + 30*930/t, 200, 175 + 30*930/t, 650);
-  line(175 + 30*930/t, 200, 175 + 30*930/t, 650);
+  //stroke(0);
+  //line(175 + 30*930/t, 200, 175 + 30*930/t, 650);
+  //line(175 + 30*930/t, 200, 175 + 30*930/t, 650);
 
-  fill(200, 255, 200, 200);
-  rect(175, 200, 30*930/t, 450);
-  fill(255, 200, 200, 200);
-  rect(175 + 30*930/t, 200, 240*930/t, 450);
-  fill(255, 255, 200, 200);
-  rect(175 + 270*930/t, 200, 30*930/t, 450);
-  pushMatrix();
-  translate(width/2, height/2);
-  rotate(3*PI/2);
-  fill(200, 200);
-  textSize(30);
-  text("Einlaufphase", -165, -410);
-  rotate(PI);
-  text("Auslaufphase", -30, -410);
-  popMatrix();
-  textSize(40);
-  text("Messphase", 550, 450);
-  textSize(20);
+  //fill(200, 255, 200, 200);
+  //rect(175, 200, 30*930/t, 450);
+  //fill(255, 200, 200, 200);
+  //rect(175 + 30*930/t, 200, 240*930/t, 450);
+  //fill(255, 255, 200, 200);
+  //rect(175 + 270*930/t, 200, 30*930/t, 450);
+  //pushMatrix();
+  //translate(width/2, height/2);
+  //rotate(3*PI/2);
+  //fill(200, 200);
+  //textSize(30);
+  //text("Einlaufphase", -165, -410);
+  //rotate(PI);
+  //text("Auslaufphase", -30, -410);
+  //popMatrix();
+  //textSize(40);
+  //text("Messphase", 550, 450);
+  //textSize(20);
 
-  float maxRot = 0;
-  float minRot = 0;
-  float maxBlau = 0;
-  float minBlau = 0;
+  //float maxRot = 0;
+  //float minRot = 0;
+  //float maxBlau = 0;
+  //float minBlau = 0;
 
-  if (scale_Innenraum1 == 0) {
-    if (wasZeichnenRot != -1) {
-      maxRot = findMax(Innenraumluftc[wasZeichnenRot]);
-      minRot = findMin(Innenraumluftc[wasZeichnenRot]);
-    }
-  } else if (scale_Innenraum1 == 1) {
-    if (eco2_left) {
-      maxRot = 500;
-    } else if (tvoc_left) {
-      maxRot = 100;
-    } else if (T_left) {
-      maxRot = 20;
-    } else if (H_left) {
-      maxRot = 25;
-    } else if (CO2_left) {
-      maxRot = 500;
-    }
-  } else if (scale_Innenraum1 == 2) {
-    if (eco2_left) {
-      maxRot = 1000;
-    } else if (tvoc_left) {
-      maxRot = 250;
-    } else if (T_left) {
-      maxRot = 30;
-    } else if (H_left) {
-      maxRot = 50;
-    } else if (CO2_left) {
-      maxRot = 1000;
-    }
-  } else if (scale_Innenraum1 == 3) {
-    if (eco2_left) {
-      maxRot = 2000;
-    } else if (tvoc_left) {
-      maxRot = 500;
-    } else if (T_left) {
-      maxRot = 40;
-    } else if (H_left) {
-      maxRot = 75;
-    } else if (CO2_left) {
-      maxRot = 2000;
-    }
-  } else if (scale_Innenraum1 == 4) {
-    if (eco2_left) {
-      maxRot = 5000;
-    } else if (tvoc_left) {
-      maxRot = 1000;
-    } else if (T_left) {
-      maxRot = 50;
-    } else if (H_left) {
-      maxRot = 100;
-    } else if (CO2_left) {
-      maxRot = 5000;
-    }
-  }
+  //if (scale_Innenraum1 == 0) {
+  //  if (wasZeichnenRot != -1) {
+  //    maxRot = findMax(Innenraumluftc[wasZeichnenRot]);
+  //    minRot = findMin(Innenraumluftc[wasZeichnenRot]);
+  //  }
+  //} else if (scale_Innenraum1 == 1) {
+  //  if (eco2_left) {
+  //    maxRot = 500;
+  //  } else if (tvoc_left) {
+  //    maxRot = 100;
+  //  } else if (T_left) {
+  //    maxRot = 20;
+  //  } else if (H_left) {
+  //    maxRot = 25;
+  //  } else if (CO2_left) {
+  //    maxRot = 500;
+  //  }
+  //} else if (scale_Innenraum1 == 2) {
+  //  if (eco2_left) {
+  //    maxRot = 1000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 250;
+  //  } else if (T_left) {
+  //    maxRot = 30;
+  //  } else if (H_left) {
+  //    maxRot = 50;
+  //  } else if (CO2_left) {
+  //    maxRot = 1000;
+  //  }
+  //} else if (scale_Innenraum1 == 3) {
+  //  if (eco2_left) {
+  //    maxRot = 2000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 500;
+  //  } else if (T_left) {
+  //    maxRot = 40;
+  //  } else if (H_left) {
+  //    maxRot = 75;
+  //  } else if (CO2_left) {
+  //    maxRot = 2000;
+  //  }
+  //} else if (scale_Innenraum1 == 4) {
+  //  if (eco2_left) {
+  //    maxRot = 5000;
+  //  } else if (tvoc_left) {
+  //    maxRot = 1000;
+  //  } else if (T_left) {
+  //    maxRot = 50;
+  //  } else if (H_left) {
+  //    maxRot = 100;
+  //  } else if (CO2_left) {
+  //    maxRot = 5000;
+  //  }
+  //}
 
-  if (scale_Innenraum2 == 0) {
-    if (wasZeichnenBlau != -1) {
-      maxBlau = findMax(Innenraumluftc[wasZeichnenBlau]);
-      minBlau = findMin(Innenraumluftc[wasZeichnenBlau]);
-    }
-  } else if (scale_Innenraum2 == 1) {
-    if (eco2_right) {
-      maxBlau = 500;
-    } else if (tvoc_right) {
-      maxBlau = 100;
-    } else if (T_right) {
-      maxBlau = 20;
-    } else if (H_right) {
-      maxBlau = 25;
-    } else if (CO2_right) {
-      maxBlau = 500;
-    }
-  } else if (scale_Innenraum2 == 2) {
-    if (eco2_right) {
-      maxBlau = 1000;
-    } else if (tvoc_right) {
-      maxBlau = 250;
-    } else if (T_right) {
-      maxBlau = 30;
-    } else if (H_right) {
-      maxBlau = 50;
-    } else if (CO2_right) {
-      maxBlau = 1000;
-    }
-  } else if (scale_Innenraum2== 3) {
-    if (eco2_right) {
-      maxBlau = 2000;
-    } else if (tvoc_right) {
-      maxBlau = 500;
-    } else if (T_right) {
-      maxBlau = 40;
-    } else if (H_right) {
-      maxBlau = 75;
-    } else if (CO2_right) {
-      maxBlau = 2000;
-    }
-  } else if (scale_Innenraum2 == 4) {
-    if (eco2_right) {
-      maxBlau = 5000;
-    } else if (tvoc_right) {
-      maxBlau = 1000;
-    } else if (T_right) {
-      maxBlau = 50;
-    } else if (H_right) {
-      maxBlau = 100;
-    } else if (CO2_right) {
-      maxBlau = 5000;
-    }
-  }
-  innenraumluft_graph(Innenraumluftc, wasZeichnenRot, color(255, 0, 0), indexInnenraumluftc, minRot, maxRot, textRot);
-  innenraumluft_graph(Innenraumluftc, wasZeichnenBlau, color(0, 0, 255), indexInnenraumluftc, minBlau, maxBlau, textBlau);
-  text("0", 160, 680);
-  text("Zeit in Sekunden", 580, 700);
-  strokeWeight(4);
+  //if (scale_Innenraum2 == 0) {
+  //  if (wasZeichnenBlau != -1) {
+  //    maxBlau = findMax(Innenraumluftc[wasZeichnenBlau]);
+  //    minBlau = findMin(Innenraumluftc[wasZeichnenBlau]);
+  //  }
+  //} else if (scale_Innenraum2 == 1) {
+  //  if (eco2_right) {
+  //    maxBlau = 500;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 100;
+  //  } else if (T_right) {
+  //    maxBlau = 20;
+  //  } else if (H_right) {
+  //    maxBlau = 25;
+  //  } else if (CO2_right) {
+  //    maxBlau = 500;
+  //  }
+  //} else if (scale_Innenraum2 == 2) {
+  //  if (eco2_right) {
+  //    maxBlau = 1000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 250;
+  //  } else if (T_right) {
+  //    maxBlau = 30;
+  //  } else if (H_right) {
+  //    maxBlau = 50;
+  //  } else if (CO2_right) {
+  //    maxBlau = 1000;
+  //  }
+  //} else if (scale_Innenraum2== 3) {
+  //  if (eco2_right) {
+  //    maxBlau = 2000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 500;
+  //  } else if (T_right) {
+  //    maxBlau = 40;
+  //  } else if (H_right) {
+  //    maxBlau = 75;
+  //  } else if (CO2_right) {
+  //    maxBlau = 2000;
+  //  }
+  //} else if (scale_Innenraum2 == 4) {
+  //  if (eco2_right) {
+  //    maxBlau = 5000;
+  //  } else if (tvoc_right) {
+  //    maxBlau = 1000;
+  //  } else if (T_right) {
+  //    maxBlau = 50;
+  //  } else if (H_right) {
+  //    maxBlau = 100;
+  //  } else if (CO2_right) {
+  //    maxBlau = 5000;
+  //  }
+  //}
+  //innenraumluft_graph(Innenraumluftc, wasZeichnenRot, color(255, 0, 0), indexInnenraumluftc, minRot, maxRot, textRot);
+  //innenraumluft_graph(Innenraumluftc, wasZeichnenBlau, color(0, 0, 255), indexInnenraumluftc, minBlau, maxBlau, textBlau);
+  //text("0", 160, 680);
+  //text("Zeit in Sekunden", 580, 700);
+  //strokeWeight(4);
 
-  if (scale_Innenraum1 != 0) {
-    if (maxRot != 0 && minRot != 99999) {
-      fill(255, 0, 0);
-      for (int i = 1; i < 5; i++) {
-        text(nf(i*maxRot/5, 0, 0), 120, 650 - 90 * (i));
-      }
-    }
-  }
+  //if (scale_Innenraum1 != 0) {
+  //  if (maxRot != 0 && minRot != 99999) {
+  //    fill(255, 0, 0);
+  //    for (int i = 1; i < 5; i++) {
+  //      text(nf(i*maxRot/5, 0, 0), 120, 650 - 90 * (i));
+  //    }
+  //  }
+  //}
 
-  if (scale_Innenraum2 != 0) {
-    fill(0, 0, 255);
-    if (maxBlau != 0 && minBlau != 99999) {
-      for (int i = 1; i < 5; i++) {
-        text(nf(i*maxBlau/5, 0, 0), 1120, 650 - 90 * (i));
-      }
-    }
-  }
-  if ((millis() - currentTime4c)/1000 > t && currentTime4c > 0) {
-    Station4Auswertung.show();
-  }
+  //if (scale_Innenraum2 != 0) {
+  //  fill(0, 0, 255);
+  //  if (maxBlau != 0 && minBlau != 99999) {
+  //    for (int i = 1; i < 5; i++) {
+  //      text(nf(i*maxBlau/5, 0, 0), 1120, 650 - 90 * (i));
+  //    }
+  //  }
+  //}
+  //if ((millis() - currentTime4c)/1000 > t && currentTime4c > 0) {
+  //  Station4Auswertung.show();
+  //}
 }
 
 

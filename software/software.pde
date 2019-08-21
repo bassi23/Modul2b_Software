@@ -8,27 +8,21 @@ import processing.serial.*;
 Serial myPort;
 
 import controlP5.*;
-ControlP5 SPS_control, SGP_control, SCD_control, autosave_control, dateiformat_control, innenraumluft_control, Sensoren_SGP_Rot_control, Sensoren_SGP_Blau_control, Sensoren_SCD_Rot_control, Sensoren_SCD_Blau_control, Sensoren_SPS_Rot_control, Sensoren_SPS_Blau_control, Sensoren_Alle_Rot_Control, Sensoren_Alle_Blau_Control;
-ControlP5 Sensoren_SPS_Rot_Station1_control, Sensoren_SPS_Blau_Station1_control, Sensoren_SPS_Gruen_Station1_control;
-ControlP5 Sensoren_Station4_Rot_Control, Sensoren_Station4_Blau_Control;
 
-
-
-
-DropdownList Sensoren_SGP_Rot, Sensoren_SGP_Blau, Sensoren_SCD_Rot, Sensoren_SCD_Blau, Sensoren_SPS_Rot, Sensoren_SPS_Blau, Sensoren_SPS_Rot_Station1, Sensoren_SPS_Blau_Station1, Sensoren_Alle_Rot, Sensoren_Alle_Blau, Sensoren_SPS_Gruen_Station1;
-DropdownList Sensoren_Station4_Rot, Sensoren_Station4_Blau;
-
-CheckBox SPS_check, SGP_check, SCD_check, autosave, dateiformat, innenraumluft;
 //
 
 dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung;
+dropdown dateiformat, autosave;
+
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
-String[] Alle_Sensoren_Strings = {"TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
+String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 String[] SPS_Strings = {"", "PM1", "PM2.5", "PM4", "PM10"};
 String[] SGP_Strings = {"", "TVOC", "eCO2"};
 String[] SCD_Strings = {"", "Temperatur", "Luftfeuchte", "CO2"};
 String[] SPS_Strings_Station1 = {"", "PM2.5", "PM10"};
 String[] SPS_Strings_Station1_Auswertung = {"", "PM2.5 (Referenz)", "PM10 (Referenz)", "PM2.5 (trocken)", "PM10 (trocken)", "PM2.5 (nass)", "PM10 (nass)"};
+String[] dateiformat_Strings = {"Format: .csv", "Format: .txt"};
+String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "autosave"};
 
 
 //Logos und Hintergrundbilder
@@ -120,8 +114,6 @@ void setup() {
   catch(Exception e) {
     gotSerial = false;
   }
-
-
   Aufloesung = new dropdown("Auflösung", 500, 450, 300, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
   SGP_Rot = new dropdown("Links", 120, 20, 200, 30, 3, SGP_Strings, false, color(255, 0, 0));
   SGP_Blau = new dropdown("Rechts", 750, 20, 200, 30, 3, SGP_Strings, false, color(0, 0, 255));
@@ -135,172 +127,17 @@ void setup() {
 
   SPS_Blau_Station1 = new dropdown("Links", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));
   SPS_Rot_Station1 = new dropdown("Rechts", 120, 20, 200, 30, 3, SPS_Strings_Station1, false, color(255, 0, 0));
-  SPS_Blau_Station1_Auswertung = new dropdown("Rechts", 905, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 0,255));
+  SPS_Blau_Station1_Auswertung = new dropdown("Rechts", 905, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 0, 255));
   SPS_Rot_Station1_Auswertung = new dropdown("Links", 175, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(255, 0, 0));
   SPS_Gruen_Station1_Auswertung = new dropdown("Mitte", 545, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 255, 0));
 
 
-  Sensoren_SGP_Rot_control = new ControlP5(this);
-  Sensoren_SGP_Rot = Sensoren_SGP_Rot_control.addDropdownList(" ", 350, 20, 75, 200); 
-  Sensoren_SGP_Rot.setBackgroundColor(color(255, 100, 100));
-  Sensoren_SGP_Rot.setColorActive(color(255, 100, 100));
-  Sensoren_SGP_Rot.setColorBackground(color(255, 0, 0));
-  Sensoren_SGP_Rot.setColorForeground(color(255, 200, 0));
-  Sensoren_SGP_Rot.setFont(new ControlFont(createFont("Arial", 20), 20));
-  Sensoren_SGP_Rot.addItem(" ", 1);
-  Sensoren_SGP_Rot.addItem("TVOC", 2);
-  Sensoren_SGP_Rot.addItem("eCO2", 3);
-  Sensoren_SGP_Rot.setColorLabel(color(255));
-  Sensoren_SGP_Rot.setColorValue(color(255));
-  Sensoren_SGP_Rot.setBarHeight(50);
-  Sensoren_SGP_Rot.setItemHeight(50);
-  Sensoren_SGP_Rot.close();
-  Sensoren_SGP_Rot.hide();
+  Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
+  Alle_Sensoren_Blau = new dropdown("Rechts", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
-  Sensoren_SGP_Blau_control = new ControlP5(this);
-  Sensoren_SGP_Blau = Sensoren_SGP_Blau_control.addDropdownList(" ", 850, 20, 75, 200); 
-  Sensoren_SGP_Blau.setBackgroundColor(color(100, 100, 255));
-  Sensoren_SGP_Blau.setColorActive(color(100, 100, 255));
-  Sensoren_SGP_Blau.setColorBackground(color(0, 0, 255));
-  Sensoren_SGP_Blau.setColorForeground(color(0, 200, 255));
-  Sensoren_SGP_Blau.setFont(new ControlFont(createFont("Arial", 20), 20));
-  Sensoren_SGP_Blau.addItem(" ", 1);
-  Sensoren_SGP_Blau.addItem("TVOC", 2);
-  Sensoren_SGP_Blau.addItem("eCO2", 3);
-  Sensoren_SGP_Blau.setColorLabel(color(255));
-  Sensoren_SGP_Blau.setColorValue(color(255));
-  Sensoren_SGP_Blau.setBarHeight(50);
-  Sensoren_SGP_Blau.setItemHeight(50);
-  Sensoren_SGP_Blau.close();
-  Sensoren_SGP_Blau.hide();
+  dateiformat = new dropdown("Dateiformat", 350, 100, 200, 30, 2, dateiformat_Strings, false, color(255, 12, 23));
+  autosave = new dropdown("nicht speichern", 700, 100, 300, 30, 2, autosave_Strings, false, color(255, 34, 23));
 
-
-  Sensoren_SCD_Blau_control = new ControlP5(this);
-  Sensoren_SCD_Blau = Sensoren_SCD_Blau_control.addDropdownList(" ", 850, 20, 155, 250); 
-  Sensoren_SCD_Blau.setBackgroundColor(color(100, 100, 255));
-  Sensoren_SCD_Blau.setColorActive(color(100, 100, 255));
-  Sensoren_SCD_Blau.setColorBackground(color(0, 0, 255));
-  Sensoren_SCD_Blau.setColorForeground(color(0, 200, 255));
-  Sensoren_SCD_Blau.setFont(new ControlFont(createFont("Arial", 20), 20));
-  Sensoren_SCD_Blau.addItem(" ", 1);
-  Sensoren_SCD_Blau.addItem("Temperatur", 2);
-  Sensoren_SCD_Blau.addItem("Luftfeuchte", 3);
-  Sensoren_SCD_Blau.addItem("CO2", 3);
-  Sensoren_SCD_Blau.setColorLabel(color(255));
-  Sensoren_SCD_Blau.setColorValue(color(255));
-  Sensoren_SCD_Blau.setBarHeight(50);
-  Sensoren_SCD_Blau.setItemHeight(50);
-  Sensoren_SCD_Blau.close();
-  Sensoren_SCD_Blau.hide();
-
-
-  Sensoren_SCD_Rot_control = new ControlP5(this);
-  Sensoren_SCD_Rot = Sensoren_SCD_Rot_control.addDropdownList(" ", 350, 20, 155, 250); 
-  Sensoren_SCD_Rot.setBackgroundColor(color(255, 100, 100));
-  Sensoren_SCD_Rot.setColorActive(color(255, 100, 100));
-  Sensoren_SCD_Rot.setColorBackground(color(255, 0, 0));
-  Sensoren_SCD_Rot.setColorForeground(color(255, 200, 0));
-  Sensoren_SCD_Rot.setFont(new ControlFont(createFont("Arial", 20), 20));
-  Sensoren_SCD_Rot.addItem(" ", 1);
-  Sensoren_SCD_Rot.addItem("Temperatur", 2);
-  Sensoren_SCD_Rot.addItem("Luftfeuchte", 3);
-  Sensoren_SCD_Rot.addItem("CO2", 3);
-  Sensoren_SCD_Rot.setColorLabel(color(255));
-  Sensoren_SCD_Rot.setColorValue(color(255));
-  Sensoren_SCD_Rot.setBarHeight(50);
-  Sensoren_SCD_Rot.setItemHeight(50);
-  Sensoren_SCD_Rot.close();
-  Sensoren_SCD_Rot.hide();
-
-  Sensoren_SPS_Blau_control = new ControlP5(this);
-  Sensoren_SPS_Blau = Sensoren_SPS_Blau_control.addDropdownList(" ", 850, 20, 75, 300); 
-  Sensoren_SPS_Blau.setBackgroundColor(color(100, 100, 255));
-  Sensoren_SPS_Blau.setColorActive(color(100, 100, 255));
-  Sensoren_SPS_Blau.setColorBackground(color(0, 0, 255));
-  Sensoren_SPS_Blau.setColorForeground(color(0, 200, 255));
-  Sensoren_SPS_Blau.setFont(new ControlFont(createFont("Arial", 20), 20));
-  Sensoren_SPS_Blau.addItem(" ", 1);
-  Sensoren_SPS_Blau.addItem("PM1", 2);
-  Sensoren_SPS_Blau.addItem("PM2.5", 3);
-  Sensoren_SPS_Blau.addItem("PM4", 4);
-  Sensoren_SPS_Blau.addItem("PM10", 5);
-  Sensoren_SPS_Blau.setColorLabel(color(255));
-  Sensoren_SPS_Blau.setColorValue(color(255));
-  Sensoren_SPS_Blau.setBarHeight(50);
-  Sensoren_SPS_Blau.setItemHeight(50);
-  Sensoren_SPS_Blau.close();
-  Sensoren_SPS_Blau.hide();
-
-
-  Sensoren_SPS_Rot_control = new ControlP5(this);
-  Sensoren_SPS_Rot = Sensoren_SPS_Rot_control.addDropdownList(" ", 350, 20, 75, 300); 
-  Sensoren_SPS_Rot.setBackgroundColor(color(255, 100, 100));
-  Sensoren_SPS_Rot.setColorActive(color(255, 100, 100));
-  Sensoren_SPS_Rot.setColorBackground(color(255, 0, 0));
-  Sensoren_SPS_Rot.setColorForeground(color(255, 200, 0));
-  Sensoren_SPS_Rot.setFont(new ControlFont(createFont("Arial", 20), 20));
-  Sensoren_SPS_Rot.addItem(" ", 1);
-  Sensoren_SPS_Rot.addItem("PM1", 2);
-  Sensoren_SPS_Rot.addItem("PM2.5", 3);
-  Sensoren_SPS_Rot.addItem("PM4", 4);
-  Sensoren_SPS_Rot.addItem("PM10", 5);
-  Sensoren_SPS_Rot.setColorLabel(color(255));
-  Sensoren_SPS_Rot.setColorValue(color(255));
-  Sensoren_SPS_Rot.setBarHeight(50);
-  Sensoren_SPS_Rot.setItemHeight(50);
-  Sensoren_SPS_Rot.close();
-  Sensoren_SPS_Rot.hide();
-
-
- 
-
-
-  Sensoren_Station4_Rot_Control = new ControlP5(this);
-  Sensoren_Station4_Rot = Sensoren_Station4_Rot_Control.addDropdownList(" ", 350, 145, 200, 900); 
-  Sensoren_Station4_Rot.setBackgroundColor(color(255, 100, 100));
-  Sensoren_Station4_Rot.setColorActive(color(255, 100, 100));
-  Sensoren_Station4_Rot.setColorBackground(color(255, 0, 0));
-  Sensoren_Station4_Rot.setColorForeground(color(255, 200, 0));
-  Sensoren_Station4_Rot.setFont(new ControlFont(createFont("Arial", 20), 20));
-  Sensoren_Station4_Rot.addItem(" ", 0);
-  Sensoren_Station4_Rot.addItem("Temperatur", 1);
-  Sensoren_Station4_Rot.addItem("Luftfeuchte", 2);
-  Sensoren_Station4_Rot.addItem("CO2", 3);
-  Sensoren_Station4_Rot.addItem("TVOC", 4);
-  Sensoren_Station4_Rot.addItem("eCO2", 5);
-  Sensoren_Station4_Rot.setColorLabel(color(255));
-  Sensoren_Station4_Rot.setColorValue(color(255));
-  Sensoren_Station4_Rot.setBarHeight(50);
-  Sensoren_Station4_Rot.setItemHeight(50);
-  Sensoren_Station4_Rot.close();
-  Sensoren_Station4_Rot.hide();
-
-
-  Sensoren_Station4_Blau_Control = new ControlP5(this);
-  Sensoren_Station4_Blau = Sensoren_Station4_Blau_Control.addDropdownList(" ", 850, 145, 200, 900); 
-  Sensoren_Station4_Blau.setBackgroundColor(color(100, 100, 255));
-  Sensoren_Station4_Blau.setColorActive(color(100, 100, 255));
-  Sensoren_Station4_Blau.setColorBackground(color(0, 0, 255));
-  Sensoren_Station4_Blau.setColorForeground(color(200, 200, 255));
-  Sensoren_Station4_Blau.setFont(new ControlFont(createFont("Arial", 20), 20));
-  Sensoren_Station4_Blau.addItem(" ", 0);
-  Sensoren_Station4_Blau.addItem("Temperatur", 1);
-  Sensoren_Station4_Blau.addItem("Luftfeuchte", 2);
-  Sensoren_Station4_Blau.addItem("CO2", 3);
-  Sensoren_Station4_Blau.addItem("TVOC", 4);
-  Sensoren_Station4_Blau.addItem("eCO2", 5);
-  Sensoren_Station4_Blau.setColorLabel(color(255));
-  Sensoren_Station4_Blau.setColorValue(color(255));
-  Sensoren_Station4_Blau.setBarHeight(50);
-  Sensoren_Station4_Blau.setItemHeight(50);
-  Sensoren_Station4_Blau.close();
-  Sensoren_Station4_Blau.hide();
-
-
-
-
-  Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 9, Alle_Sensoren_Strings, false, color(255, 0, 0));
-  Alle_Sensoren_Blau = new dropdown("Rechts", 750, 10, 200, 30, 9, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
 
 
@@ -442,99 +279,6 @@ void setup() {
   Station4Auswertung = new button(1125, 495, 150, 100, "zur\nAuswertung", -12, true, 20); 
   Station4Start = new button(1110, 140, 160, 50, "Starte Messung", 5, true, 20); 
   reset_innenraum = new button(1175, 605, 100, 50, "Reset", 5, true, 20);
-
-
-
-  innenraumluft_control = new ControlP5(this);
-  innenraumluft = innenraumluft_control.addCheckBox("Innenraumluft")
-    .setPosition(235, 150)
-    .setColorForeground(color(120))
-    .setColorActive(color(0, 255, 0))
-    .setColorLabel(color(255, 255, 100))
-    .setSize(30, 30)
-    .setItemsPerRow(5)
-    .setSpacingColumn(180)
-    .setSpacingRow(225)
-    .addItem("T", 0)
-    .addItem("H", 0)
-    .addItem("TVOC", 0)
-    .addItem("CO2", 0)
-    .addItem("eCO2", 0)
-    .hide();
-
-  dateiformat_control = new ControlP5(this);
-  dateiformat = dateiformat_control.addCheckBox("Dateiformat")
-    .setPosition(500, 225)
-    .setColorForeground(color(120))
-    .setColorActive(color(0, 255, 0))
-    .setColorLabel(color(255, 255, 100))
-    .setSize(30, 30)
-    .setItemsPerRow(4)
-    .setSpacingColumn(100)
-    .setSpacingRow(100)
-    .addItem("txt", 0)
-    .addItem("csv", 0)
-    .hide();
-
-  // dateiformat.activate("csv");
-
-  autosave_control= new ControlP5(this);
-  autosave = autosave_control.addCheckBox("automatisch_speichern")
-    .setPosition(500, 175)
-    .setColorForeground(color(120))
-    .setColorActive(color(0, 255, 0))
-    .setColorLabel(color(255, 255, 100))
-    .setSize(30, 30)
-    .setItemsPerRow(4)
-    .setSpacingColumn(100)
-    .setSpacingRow(100)
-    .addItem("autosave", 0)
-    .hide();
-
-  SPS_control = new ControlP5(this);
-  SPS_check = SPS_control.addCheckBox("SPS")
-    .setPosition(400, 20)
-    .setColorForeground(color(120))
-    .setColorActive(color(0, 255, 0))
-    .setColorLabel(color(255, 255, 100))
-    .setSize(30, 30)
-    .setItemsPerRow(4)
-    .setSpacingColumn(100)
-    .setSpacingRow(100)
-    .addItem("PM1", 0)
-    .addItem("PM2.5", 50)
-    .addItem("PM4", 100)
-    .addItem("PM10", 150)
-    .hide();
-
-  SCD_control = new ControlP5(this);
-  SCD_check = SCD_control.addCheckBox("SCD")
-    .setPosition(500, 20)
-    .setColorForeground(color(120))
-    .setColorActive(color(0, 255, 0))
-    .setColorLabel(color(255, 255, 100))
-    .setSize(30, 30)
-    .setItemsPerRow(4)
-    .setSpacingColumn(175)
-    .setSpacingRow(250)
-    .addItem("T", 0)
-    .addItem("H", 50)
-    .addItem("CO2", 100)
-    .hide();
-
-  SGP_control = new ControlP5(this);
-  SGP_check = SGP_control.addCheckBox("SCD")
-    .setPosition(600, 20)
-    .setColorForeground(color(120))
-    .setColorActive(color(0, 255, 0))
-    .setColorLabel(color(255, 255, 100))
-    .setSize(30, 30)
-    .setItemsPerRow(4)
-    .setSpacingColumn(100)
-    .setSpacingRow(100)
-    .addItem("TVOC", 0)
-    .addItem("eCO2", 50)
-    .hide();
 }
 
 
@@ -578,33 +322,28 @@ void draw() {
 
 
   // Buttons werden zunächst alle "versteckt", und nur die benötigten an den entsprechenden Stellen "sichtbar" gemacht.
-  SCD_check.hide();
-  SPS_check.hide();
-  SGP_check.hide();
   sicher_ja.hide();
   einstellungen.hide();
   sicher_nein.hide();
-  dateiformat.hide();
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
   TVOC_Duelle_Start.hide();
   Sensormessung.hide();
   reset_Station2.hide();
-  innenraumluft.hide();
+
   reset_innenraum.hide();
   Station4b.hide();
   Station4c.hide();
   Station4Auswertung.hide();
   Station4a.visible = false;
-  Sensoren_SCD_Rot.hide();
-  Sensoren_SCD_Blau.hide();
+
   station1_weiter_ab.hide();
   station1_weiter_bc.hide();
   station1_zur_Auswertung.hide();
   zur_Auswertung2.hide();
   zur_Auswertung3.hide();
-  autosave.hide();
+
   aktualisierung_right.hide();
   aktualisierung_left.hide();
   start_stopp.hide();
@@ -638,9 +377,9 @@ void draw() {
     back.show();
   }
   Datenaufnahme();
-  boolean auto = autosave.getState("automatisch_speichern");
+  String auto = autosave.name;
 
-  if (auto) {
+  if (auto == "autosave") {
     saveData();
   }
   if (Stationen.isClicked()) {
@@ -751,8 +490,6 @@ void draw() {
     Innenraumluft_c();
   } else if (page == 10) {
     setting();
-    autosave.show();
-    dateiformat.show();
     Stationen.hide();
     Sensoren.hide();
     zumObermenu.hide();
@@ -854,7 +591,9 @@ void draw() {
     gotSerial = false;
   }
   if (back.isClicked()) {
-    saveData();
+    if (auto == "speichern bei 'zurück") {
+      saveData();
+    }
     if (page > 0 && page != 10) {
       if (page == 1.1 || page == 1.11 || page == 1.111 || page == 1.1111) {
         Station1Start = false;
@@ -1012,23 +751,13 @@ void draw() {
 
 
   if (page != -4) {
-    Sensoren_SGP_Rot.hide();
-    Sensoren_SGP_Blau.hide();
   }
   if (page != -3 && page != 1.1 && page != 1.11 && page != 1.111 && page != 1.11111) {
-    Sensoren_SPS_Rot.hide();
-    Sensoren_SPS_Blau.hide();
   }
   if (page != -5) {
-    Sensoren_SCD_Rot.hide(); 
-    Sensoren_SCD_Rot.hide();
   }
   if (page != 4.1 && page != 4.11 && page != 4.111) {
-    Sensoren_Station4_Rot.hide();
-    Sensoren_Station4_Blau.hide();
   } else {
-    Sensoren_Station4_Blau.show();
-    Sensoren_Station4_Rot.show();
   }
 
 
@@ -1078,13 +807,11 @@ void draw() {
     down1.y = 255;
     up2.y = 200;
     down2.y = 255;
-
   } else {
     up1.y = 140;
     down1.y = 195;
     up2.y = 140;
     down2.y = 195;
-
   }
 
   if (Station4Auswertung.isClicked()) {
@@ -1139,11 +866,9 @@ void saveDataInnenraum() {
   String[] CO2_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
   String[] eCO2_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
 
-  boolean txt_bool = dateiformat.getState("txt");
-  boolean csv_bool = dateiformat.getState("csv");
+  String txt_ = dateiformat.name;
 
-
-  if (txt_bool || csv_bool) {
+  if (txt_ == "Format: .txt" || txt_ == "Format: .csv") {
     for (int i = 0; i < indexInnenraumlufta; i++) {
       T_a[i] = str(Innenraumlufta[0][i]).replace('.', ',');
       H_a[i] = str(Innenraumlufta[1][i]).replace('.', ',');
@@ -1167,7 +892,7 @@ void saveDataInnenraum() {
     };
   }
 
-  if (txt_bool) {
+  if (txt_ == "Format: .txt") {
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+ "/Innenraum/Temperatur.txt", T_a);
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+"/Innenraum/Luftfeuchte.txt", H_a);
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+"/Innenraum/CO2.txt", CO2_a);
@@ -1175,7 +900,7 @@ void saveDataInnenraum() {
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() +"/Innenraum/eCO2.txt", eCO2_a);
   }
 
-  if (csv_bool) {
+  if (txt_ == "Format: .csv") {
     table.clearRows();
     for (int i = 1; i < (indexInnenraumlufta +indexInnenraumluftb + indexInnenraumluftc); i++) {
       TableRow newRow = table.addRow();
@@ -1223,11 +948,10 @@ void saveData() {
   String[] Zeit = new String[index];
 
 
-  boolean txt_bool = dateiformat.getState("txt");
-  boolean csv_bool = dateiformat.getState("csv");
+  String txt_ = dateiformat.name;
 
 
-  if (txt_bool || csv_bool) {
+  if (txt_ == "Format: .txt" || txt_ == "Format: .csv") {
     for (int i = 0; i < index; i++) {
       SCD_T[i] = str(scd_temperature_data[i]).replace('.', ',');
       SCD_H[i] = str(scd_humidity_data[i]).replace('.', ',');
@@ -1245,7 +969,7 @@ void saveData() {
     }
   }
 
-  if (txt_bool) {
+  if (txt_ == "Format: .txt") {
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+ "/SCD/Temperatur.txt", SCD_T);
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+"/SCD/Luftfeuchte.txt", SCD_H);
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+"/SCD/CO2.txt", SCD_CO2);
@@ -1258,7 +982,7 @@ void saveData() {
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/Zeit.txt", Zeit);
   }
 
-  if (csv_bool) {
+  if (txt_ == "Format: .csv") {
     table.clearRows();
 
     for (int i = 1; i < index+1; i++) {
