@@ -278,6 +278,7 @@ void Station2_Sensor() {
     }
   }
   if (letzteWiederholen.isClicked()) {
+
     if (prob > 0) {
       MenschSensorMessen = true;
 
@@ -483,12 +484,12 @@ void Station2_Sensor() {
     page = 2.11;
   }
   strokeWeight(1);
-  
+
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   text("TVOC in ppb", -95, - 160);
-  
+
   popMatrix();
 }
 

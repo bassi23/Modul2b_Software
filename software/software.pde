@@ -11,7 +11,7 @@ import controlP5.*;
 
 //
 
-dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung;
+dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau, Station4_Auswertung_Gruen;
 dropdown dateiformat, autosave;
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
@@ -21,6 +21,8 @@ String[] SGP_Strings = {"", "TVOC", "eCO2"};
 String[] SCD_Strings = {"", "Temperatur", "Luftfeuchte", "CO2"};
 String[] SPS_Strings_Station1 = {"", "PM2.5", "PM10"};
 String[] SPS_Strings_Station1_Auswertung = {"", "PM2.5 (Referenz)", "PM10 (Referenz)", "PM2.5 (trocken)", "PM10 (trocken)", "PM2.5 (nass)", "PM10 (nass)"};
+String[] Station4_Strings = {"", "Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
+String[] Station4_Auswertung_Strings = {"", "Temperatur (0%)", "Luftfeuchte (0%)", "CO2 (0%)", "TVOC (0%)", "eCO2 (0%)", "Temperatur (50%)", "Luftfeuchte (50%)", "CO2 (50%)", "TVOC (50%)", "eCO2 (50%)",  "Temperatur (100%)", "Luftfeuchte (100%)", "CO2 (100%)", "TVOC (100%)", "eCO2 (100%)"};
 String[] dateiformat_Strings = {"Format: .csv", "Format: .txt"};
 String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "autosave"};
 
@@ -48,7 +50,7 @@ button station1_referenz, station1_trocken, station1_nass, station1_MessungStart
 button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung, zur_Auswertung2, zur_Auswertung3;
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 button reset_innenraum;
-button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start;
+button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen;
 
 Probe A, B, C, D, E;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
@@ -57,7 +59,7 @@ TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, St
 boolean measure = true;
 
 
-float page = -1;
+float page = 4.1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -125,18 +127,25 @@ void setup() {
   SPS_Blau = new dropdown("Rechts", 750, 20, 200, 30, 5, SPS_Strings, false, color(0, 0, 255));
 
 
-  SPS_Blau_Station1 = new dropdown("Links", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));
-  SPS_Rot_Station1 = new dropdown("Rechts", 120, 20, 200, 30, 3, SPS_Strings_Station1, false, color(255, 0, 0));
+  SPS_Blau_Station1 = new dropdown("Rechts", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));
+  SPS_Rot_Station1 = new dropdown("Links", 120, 20, 200, 30, 3, SPS_Strings_Station1, false, color(255, 0, 0));
   SPS_Blau_Station1_Auswertung = new dropdown("Rechts", 905, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 0, 255));
   SPS_Rot_Station1_Auswertung = new dropdown("Links", 175, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(255, 0, 0));
   SPS_Gruen_Station1_Auswertung = new dropdown("Mitte", 545, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 255, 0));
 
 
+  Station4_Rot = new dropdown("Links", 120, 20, 200, 30, 6, Station4_Strings, false, color(255, 0, 0));
+  Station4_Blau = new dropdown("Rechts", 750, 20, 200, 30, 6, Station4_Strings, false, color(0, 0, 255));
+  
+  Station4_Auswertung_Rot = new dropdown("Links", 120, 20, 220, 30, 16, Station4_Auswertung_Strings, false, color(255, 0, 0));
+  Station4_Auswertung_Gruen = new dropdown("Mitte", 425, 20, 220, 30, 16, Station4_Auswertung_Strings, false, color(0, 255, 0));
+  Station4_Auswertung_Blau = new dropdown("Rechts", 730, 20, 220, 30, 16, Station4_Auswertung_Strings, false, color(0, 0, 255));
+  
   Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
   Alle_Sensoren_Blau = new dropdown("Rechts", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
   dateiformat = new dropdown("Dateiformat", 350, 100, 200, 30, 2, dateiformat_Strings, false, color(255, 12, 23));
-  autosave = new dropdown("nicht speichern", 700, 100, 300, 30, 2, autosave_Strings, false, color(255, 34, 23));
+  autosave = new dropdown("nicht speichern", 700, 100, 300, 30, 3, autosave_Strings, false, color(255, 34, 23));
 
 
 
@@ -155,10 +164,10 @@ void setup() {
 
 
   back = new button(1115, 660, 140, 50, "zurück", 5, true, 20);
-  up1 = new button(25, 100, 30, 50, "up_arrow", 5, true, 20);
-  down1 = new button(25, 155, 30, 50, "down_arrow", 5, true, 20);
-  up2 = new button(1025, 100, 30, 50, "up_arrow", 5, true, 20);
-  down2 = new button(1025, 155, 30, 50, "down_arrow", 5, true, 20);
+  up1 = new button(25, 140, 30, 50, "up_arrow", 5, true, 20);
+  down1 = new button(25, 195, 30, 50, "down_arrow", 5, true, 20);
+  up2 = new button(1025, 140, 30, 50, "up_arrow", 5, true, 20);
+  down2 = new button(1025, 195, 30, 50, "down_arrow", 5, true, 20);
   left1 = new button(1115, 330, 50, 30, "left_arrow", 5, true, 20);
   right1 = new button(1200, 330, 50, 30, "right_arrow", 5, true, 20);
   start_stopp = new button(1115, 100, 140, 50, "Start/Stopp", 5, true, 20);
@@ -248,7 +257,9 @@ void setup() {
   letzteWiederholen = new button(1050, 70, 150, 100, "letzte Messung\nwiederholen", -15, true, 20);
   ja_zufrieden = new button(400, 70, 150, 100, "Ja", 5, true, 20);
   reset_Station2 =  new button(970, 660, 140, 50, "Reset", 5, true, 20);
-
+  
+  
+station4_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederholen", -5, true, 20);
 
 
 
@@ -273,12 +284,11 @@ void setup() {
   zur_Auswertung = new button(1125, 580, 160, 75, "Zur Aus-\nwertung", -12, true, 20);
 
   // Station 4
-  Station4a = new button(565, 350, 150, 100, "zu Aufgabe a)", 5, true, 20); 
-  Station4b = new button(1125, 495, 150, 100, "zu Aufgabe b)", 5, true, 20); 
-  Station4c = new button(1125, 495, 150, 100, "zu Aufgabe c)", 5, true, 20); 
-  Station4Auswertung = new button(1125, 495, 150, 100, "zur\nAuswertung", -12, true, 20); 
-  Station4Start = new button(1110, 140, 160, 50, "Starte Messung", 5, true, 20); 
-  reset_innenraum = new button(1175, 605, 100, 50, "Reset", 5, true, 20);
+  Station4a = new button(1115, 390, 140, 50, "zu Aufgabe a)", 5, true, 20); 
+  Station4b = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20); 
+  Station4c = new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20); 
+  Station4Auswertung = new button(1115, 150, 140, 100, "zur\nAuswertung", -12, true, 20); 
+  Station4Start = new button(1115, 100, 140, 65, "Messung\nstarten", -5, true, 20); 
 }
 
 
@@ -332,7 +342,6 @@ void draw() {
   Sensormessung.hide();
   reset_Station2.hide();
 
-  reset_innenraum.hide();
   Station4b.hide();
   Station4c.hide();
   Station4Auswertung.hide();
@@ -424,7 +433,6 @@ void draw() {
   }
 
 
-
   if (page == -1) {
     Obermenu();
     einstellungen.show();
@@ -488,7 +496,9 @@ void draw() {
     Innenraumluft_b();
   } else if (page == 4.111) {
     Innenraumluft_c();
-  } else if (page == 10) {
+  } else if(page == 4.1111){
+   AuswertungInnenraum(); 
+  }else if (page == 10) {
     setting();
     Stationen.hide();
     Sensoren.hide();
@@ -617,7 +627,9 @@ void draw() {
         page = 4.1;
       } else if (page == 4.111) {
         page = 4.11;
-      } else {
+      }else if(page == 4.1111){
+       page = 4.111; 
+      }else {
         page = 0;
       }
     } else if (page < -2) {
@@ -749,18 +761,6 @@ void draw() {
     MesswertSensor[4] = 0;
   }
 
-
-  if (page != -4) {
-  }
-  if (page != -3 && page != 1.1 && page != 1.11 && page != 1.111 && page != 1.11111) {
-  }
-  if (page != -5) {
-  }
-  if (page != 4.1 && page != 4.11 && page != 4.111) {
-  } else {
-  }
-
-
   if (reset_Station2.isClicked()) {
     reset_bool_station2 = true;
   }
@@ -785,34 +785,6 @@ void draw() {
     }
   }
 
-  if (reset_innenraum.isClicked()) {
-    reset_bool_station4 = true;
-  }
-
-  if (reset_bool_station4) {
-    sicher();
-    if (sicher_ja.isClicked()) {
-      Station4agestartet = true;
-      currentTime4a = millis();
-      indexInnenraumlufta = 0;
-      reset_bool_station4 = false;
-    }
-    if (sicher_nein.isClicked()) {
-      reset_bool_station4 = false;
-    }
-  }
-
-  if (page == 4.1 || page == 4.11 || page == 4.111) {
-    up1.y = 200;
-    down1.y = 255;
-    up2.y = 200;
-    down2.y = 255;
-  } else {
-    up1.y = 140;
-    down1.y = 195;
-    up2.y = 140;
-    down2.y = 195;
-  }
 
   if (Station4Auswertung.isClicked()) {
     page = 4.1111;

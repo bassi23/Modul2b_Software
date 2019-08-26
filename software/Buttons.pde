@@ -111,7 +111,7 @@ void mouseReleased() {
 // Weil ControlP5 Probleme macht, wenn man scale oder translate anwendet, musste ich meine eigene dropdown Klasse schreiben
 class dropdown {
   float x, y, dx, dy;
-  String[] options = new String[10];
+  String[] options = new String[16];
   String name;
   int nOO;
   boolean active;
@@ -129,7 +129,7 @@ class dropdown {
       options[i] = options_[i];
     }
   }
-  boolean[] options_activated = new boolean[10];
+  boolean[] options_activated = new boolean[16];
   void show() {
     textSize(0.6*dy);
     textAlign(LEFT);

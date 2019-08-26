@@ -550,7 +550,6 @@ void referenzmessung() {
   textSize(30);
   text("Optionen", 1120, 50);
   fill(240);
-  ;
   stroke(0);
   rect(1105, 450, 155, 140);
   fill(0);
