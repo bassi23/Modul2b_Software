@@ -2,6 +2,9 @@
 
 ## Update
 
+## 26.08.2019
+- Station 4: Design an die aktuelle Version angepasst
+
 ## 21.08.2019
 - Station 1: Messungen sollten nun alle funktionieren
 - Station 1: kleine Designänderungen
