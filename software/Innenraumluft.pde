@@ -242,7 +242,7 @@ void Innenraumluft_a() {
   }
 }
 
-float time_Station4 = 2;
+float time_Station4 = 300;
 
 void plotStation4(float[][] array, int index, float min, float max, color c) {
   // 1 Sekunde entspricht "830/time_Station4" Pixel
@@ -746,14 +746,10 @@ void AuswertungInnenraum() {
   fill(0);
   textSize(20);
   int indexX = 6;
-  int indexY = 0;
+  int indexY = 6;
 
-
-
-  float maxRot = 0;
-  float minRot = 0;
   float maxBlau = 0;
-  float minBlau = 0;
+
 
 
   if (Station4_Auswertung_Rot.name == "Zeit") {
@@ -770,21 +766,18 @@ void AuswertungInnenraum() {
     indexX = 4;
   }
 
-  if (Station4_Auswertung_Blau.name == "Zeit") {
-    indexY = 6;
-    maxBlau = 10*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Blau.name == "Temperatur") {
+  if (Station4_Auswertung_Blau.name == "Temperatur") {
     indexY = 0;
-    maxBlau = 20*(scale_Innenraum1+1);
+    maxBlau = 10*(scale_Innenraum1+1);
   } else if (Station4_Auswertung_Blau.name == "Luftfeuchte") {
     indexY = 1;
-    maxBlau = 400*(scale_Innenraum1+1);
+    maxBlau = 20*(scale_Innenraum1+1);
   } else if (Station4_Auswertung_Blau.name == "CO2") {
     indexY = 2;
-    maxBlau = 100*(scale_Innenraum1+1);
+    maxBlau = 400*(scale_Innenraum1+1);
   } else if (Station4_Auswertung_Blau.name == "TVOC") {
     indexY = 3;
-    maxBlau = 400*(scale_Innenraum1+1);
+    maxBlau = 100*(scale_Innenraum1+1);
   } else if (Station4_Auswertung_Blau.name == "eCO2") {
     indexY = 4;
     maxBlau = 400*(scale_Innenraum1+1);
@@ -792,7 +785,8 @@ void AuswertungInnenraum() {
 
 
 
-
+  up1.show();
+  down1.show();
 
 
   if (up1.isClicked()) {
@@ -851,11 +845,12 @@ void AuswertungInnenraum() {
   //  }
   //}
 
-  //if (Blau != -1) {
-  //  for (int i = 5; i> -1; i--) {
-  //    text(nf((5-i)*maxBlau/(5), 0, 0), 985, 150 + 100*i);
-  //  }
-  //}
+  if (indexX == 6) {
+    for (int i = 5; i> -1; i--) {
+      text(nf((5-i)*maxBlau/(5), 0, 0), 98, 150 + 100*i);
+    }
+  }
+
   textAlign(CORNER);
   fill(0);
   noStroke();
@@ -865,36 +860,114 @@ void AuswertungInnenraum() {
   noStroke();
   textSize(20);
 
+  float absoluteMaxX = 0;
+  float absoluteMinX = 99999;
+  float absoluteMaxY = 0;
+  float absoluteMinY = 99999;
+
+
+  for (int i = 0; i < indexInnenraumlufta + 5; i++) {
+    if (Innenraumlufta[indexX][i] > absoluteMaxX) {
+      absoluteMaxX =  Innenraumlufta[indexX][i];
+    }
+    if (Innenraumluftb[indexX][i] > absoluteMaxX) {
+      absoluteMaxX =  Innenraumluftb[indexX][i];
+    }
+    if (Innenraumluftc[indexX][i] > absoluteMaxX) {
+      absoluteMaxX =  Innenraumluftc[indexX][i];
+    }
+
+
+    if (Innenraumlufta[indexX][i] < absoluteMinX && Innenraumlufta[indexX][i] != 0) {
+      absoluteMinX =  Innenraumlufta[indexX][i];
+    }
+    if (Innenraumluftb[indexX][i] < absoluteMinX && Innenraumluftb[indexX][i] != 0) {
+      absoluteMinX =  Innenraumluftb[indexX][i];
+    }
+    if (Innenraumluftc[indexX][i] < absoluteMinX && Innenraumluftc[indexX][i] != 0) {
+      absoluteMinX =  Innenraumluftc[indexX][i];
+    }
+
+
+    if (Innenraumlufta[indexY][i] > absoluteMaxY) {
+      absoluteMaxY =  Innenraumlufta[indexY][i];
+    }
+    if (Innenraumluftb[indexY][i] > absoluteMaxY) {
+      absoluteMaxY =  Innenraumluftb[indexY][i];
+    }
+    if (Innenraumluftc[indexY][i] > absoluteMaxY) {
+      absoluteMaxY =  Innenraumluftc[indexY][i];
+    }   
+
+    if (Innenraumlufta[indexY][i] < absoluteMinY && Innenraumlufta[indexY][i] != 0) {
+      absoluteMinY =  Innenraumlufta[indexY][i];
+    }
+    if (Innenraumluftb[indexY][i] < absoluteMinY && Innenraumluftb[indexY][i] != 0) {
+      absoluteMinY =  Innenraumluftb[indexY][i];
+    }
+    if (Innenraumluftc[indexY][i] < absoluteMinY && Innenraumluftc[indexY][i] != 0) {
+      absoluteMinY =  Innenraumluftc[indexY][i];
+    }
+  }
 
   //Luftfeuchtigkeit - TVOC
-  plotStation4_Auswertung(Innenraumlufta, color(255, 0, 0), indexX, indexY, maxBlau, indexInnenraumlufta-1);
-  plotStation4_Auswertung(Innenraumluftb, color(0, 0, 255), indexX, indexY, maxBlau, indexInnenraumluftb-1);
-  plotStation4_Auswertung(Innenraumluftc, color(0, 255, 0), indexX, indexY, maxBlau, indexInnenraumluftc-1);
+  plotStation4_Auswertung(Innenraumlufta, color(255, 0, 0), indexX, indexY, maxBlau, indexInnenraumlufta-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
+  plotStation4_Auswertung(Innenraumluftb, color(0, 0, 255), indexX, indexY, maxBlau, indexInnenraumluftb-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
+  plotStation4_Auswertung(Innenraumluftc, color(0, 255, 0), indexX, indexY, maxBlau, indexInnenraumluftc-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
 
   fill(0);
   textSize(20);
-  text("0", 115, 660);
-  text(nf(time_Station4, 0, 0), 938, 660);
+  if (indexX == 6) {
+    text(nf(time_Station4, 0, 0), 938, 660);
+    text("Zeit in Sekunden", 455, 700);
+  } else if (indexX == 0) {
+    text("Temperatur in °C", 455, 700);
+  } else if (indexX == 1) {
+    text("Luftfeuchte in %", 455, 700);
+  } else if (indexX == 2) {
+    text("CO2 in ppm", 455, 700);
+  } else if (indexX == 3) {
+    text("TVOC in ppb", 455, 700);
+  } else if (indexX == 4) {
+    text("eCO2 in ppm", 455, 700);
+  }
 
-  text("Zeit in Sekunden", 455, 700);
-  fill(0);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  if (indexY == 6) {
+    text(nf(time_Station4, 0, 0), 938, 660);
+    text("Zeit in Sekunden", -100, -580);
+  } else if (indexY == 0) {
+    text("Temperatur in °C", -100, -580);
+  } else if (indexY == 1) {
+    text("Luftfeuchte in %", -100, -580);
+  } else if (indexY == 2) {
+    text("CO2 in ppm", -100, -580);
+  } else if (indexY == 3) {
+    text("TVOC in ppb", -100, -580);
+  } else if (indexY == 4) {
+    text("eCO2 in ppm", -100, -580);
+  }
+
+
+  popMatrix();
   back.show();
   zumObermenu.show();
-  //if (Blau != -1) {
-  //  up2.show();
-  //  down2.show();
-  //} else {
-  //  up2.hide();
-  //  down2.hide();
-  //}
 
-  //if (Rot != -1) {
-  //  up1.show();
-  //  down1.show();
-  //} else {
-  //  up1.hide();
-  //  down1.hide();
-  //}
+  fill(0);
+  text("Ordinate", 620, 40);
+  text("Abszisse", 140, 40);
+
+  fill(255, 0, 0);
+  ellipse(150, 100, 20, 20);
+  text("0 % Lüfter", 170, 107);
+  fill(0, 255, 0);
+  ellipse(500, 100, 20, 20);
+  text("50 % Lüfter", 520, 107);
+  fill(0, 0, 255);
+  ellipse(810, 100, 20, 20);
+  text("100 % Lüfter", 830, 107);
   Station4_Auswertung_Rot.show();
   Station4_Auswertung_Blau.show();
 }
@@ -973,36 +1046,73 @@ void onlyOne(CheckBox check, String state1, String state2, String state3, String
 
 
 
-void plotStation4_Auswertung(float[][] array, color c, int indexX, int indexY, float max, int maxIndex) {
+void plotStation4_Auswertung(float[][] array, color c, int indexX, int indexY, float max, int maxIndex, float absMinX, float absMaxX, float absMinY, float absMaxY) {
   // 1 Sekunde entspricht "830/time_Station4" Pixel
   stroke(c);
   fill(c);
   strokeWeight(2);
   //rect(120, 140, 830, 500);
-
+  boolean schonmalgezeichnet = false;
 
   if (indexX == 6) {
     for (int i = 1; i < maxIndex+1; i++) {
       float x1 = 120 + 830*(array[indexX][i-1] - array[indexX][0])/(array[indexX][maxIndex] - array[indexX][0]);
       float x2 = 120 + 830*(array[indexX][i] - array[indexX][0])/(array[indexX][maxIndex] - array[indexX][0]);
-      float y1 = 640 - 500*array[indexY][i-1]/max;
-      float y2 = 640 - 500*array[indexY][i]/max;
-      line(x1, y1, x2, y2);
-    }
-  } else {
-    float maxX = 0;
-    float maxY = 0;
-    for (int i = 0; i < maxIndex; i++) {
-      if (array[indexX][i] > maxX) {
-        maxX = array[indexX][i];
-      }
-      if (array[indexY][i] > maxY) {
-        maxY= array[indexY][i];
+      float y1, y2;
+      if (indexY == 6) {
+        max = array[indexY][maxIndex];
+        y1 = 640 - 500*(array[indexY][i-1]-array[indexY][0])/(max-array[indexY][0]);
+        y2 = 640 - 500*(array[indexY][i]-array[indexY][0])/(max-array[indexY][0]);
+      } else {
+        y1 = 640 - 500*array[indexY][i-1]/max;
+        y2 = 640 - 500*array[indexY][i]/max;
       }
 
-      float x = 120 + 830*array[indexX][i]/maxX;
-      float y = 640 - 500*array[indexY][i]/maxY;
+      float m = (y2 - y1)/(x2-x1);
+      float b = y1 - m*x1;
+      if (y1 > 640 && y2 < 640 && y2 > 140) {
+        y1 = 640;
+        x1 = -(b - y1)/m;
+      } else if (y2 > 640 && y1 < 640 && y1 > 140) {
+        y2 = 640;
+        x1 = -(b-y2)/m;
+      } else if (y1 < 140 && y2 > 140 && y2 < 640) {
+
+        y1 = 140;
+        x1 = (y1-b)/m;
+      } else if (y2 < 140 && y1 > 140 && y1 < 640) {
+        y2 = 140;
+        x2 = -(b-y2)/m;
+      } else if (y1 < 140 && y2 > 640) {
+        y1 = 140;
+        x1 = (y1-b)/m;
+        y2 = 640;
+        x2 = -(b-y2)/m;
+      } else if (y2 < 140 && y1> 640) {
+        y2 = 140;
+        x2 = (y1-b)/m;
+        y1 = 640;
+        x1 = -(b-y2)/m;
+      }
+      if (y1 >= 140 && y2>= 140 && y1 < 640 && y2< 640) {
+        line(x1, y1, x2, y2);
+      }
+    }
+    fill(0);
+    text(nf((array[indexX][maxIndex] - array[indexX][0]),0,1), 938, 660);
+  } else {
+    for (int i = 0; i < maxIndex; i++) {
+      fill(c);
+      float x = 120 + 830*(array[indexX][i]-absMinX)/(absMaxX-absMinX);
+      float y = 640 - 500*(array[indexY][i]-absMinY)/(absMaxY-absMinY);
       ellipse(x, y, 10, 10);
+      fill(0);
+      if (!schonmalgezeichnet) {
+        strokeWeight(1);
+        text(nf(absMaxX,0,1), 938, 660);
+        text(nf(absMinX,0,1), 105, 660);
+        schonmalgezeichnet = true;
+      }
     }
   }
 } 

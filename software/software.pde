@@ -59,7 +59,7 @@ TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, St
 boolean measure = true;
 
 
-float page = 4.1;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -137,7 +137,7 @@ void setup() {
   Station4_Rot = new dropdown("Links", 120, 20, 200, 30, 6, Station4_Strings, false, color(255, 0, 0));
   Station4_Blau = new dropdown("Rechts", 750, 20, 200, 30, 6, Station4_Strings, false, color(0, 0, 255));
   
-  Station4_Auswertung_Rot = new dropdown("Abszisse", 120, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
+  Station4_Auswertung_Rot = new dropdown("Abszisse", 250, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
   Station4_Auswertung_Blau = new dropdown("Ordinate", 730, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(0, 0, 255));
   
   Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
