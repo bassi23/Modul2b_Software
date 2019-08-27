@@ -11,7 +11,7 @@ import controlP5.*;
 
 //
 
-dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau, Station4_Auswertung_Gruen;
+dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
 dropdown dateiformat, autosave;
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
@@ -22,7 +22,7 @@ String[] SCD_Strings = {"", "Temperatur", "Luftfeuchte", "CO2"};
 String[] SPS_Strings_Station1 = {"", "PM2.5", "PM10"};
 String[] SPS_Strings_Station1_Auswertung = {"", "PM2.5 (Referenz)", "PM10 (Referenz)", "PM2.5 (trocken)", "PM10 (trocken)", "PM2.5 (nass)", "PM10 (nass)"};
 String[] Station4_Strings = {"", "Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
-String[] Station4_Auswertung_Strings = {"", "Temperatur (0%)", "Luftfeuchte (0%)", "CO2 (0%)", "TVOC (0%)", "eCO2 (0%)", "Temperatur (50%)", "Luftfeuchte (50%)", "CO2 (50%)", "TVOC (50%)", "eCO2 (50%)",  "Temperatur (100%)", "Luftfeuchte (100%)", "CO2 (100%)", "TVOC (100%)", "eCO2 (100%)"};
+String[] Station4_Auswertung_Strings = {"Zeit", "Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
 String[] dateiformat_Strings = {"Format: .csv", "Format: .txt"};
 String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "autosave"};
 
@@ -137,9 +137,8 @@ void setup() {
   Station4_Rot = new dropdown("Links", 120, 20, 200, 30, 6, Station4_Strings, false, color(255, 0, 0));
   Station4_Blau = new dropdown("Rechts", 750, 20, 200, 30, 6, Station4_Strings, false, color(0, 0, 255));
   
-  Station4_Auswertung_Rot = new dropdown("Links", 120, 20, 220, 30, 16, Station4_Auswertung_Strings, false, color(255, 0, 0));
-  Station4_Auswertung_Gruen = new dropdown("Mitte", 425, 20, 220, 30, 16, Station4_Auswertung_Strings, false, color(0, 255, 0));
-  Station4_Auswertung_Blau = new dropdown("Rechts", 730, 20, 220, 30, 16, Station4_Auswertung_Strings, false, color(0, 0, 255));
+  Station4_Auswertung_Rot = new dropdown("Abszisse", 120, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
+  Station4_Auswertung_Blau = new dropdown("Ordinate", 730, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(0, 0, 255));
   
   Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
   Alle_Sensoren_Blau = new dropdown("Rechts", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
@@ -287,7 +286,7 @@ station4_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederho
   Station4a = new button(1115, 390, 140, 50, "zu Aufgabe a)", 5, true, 20); 
   Station4b = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20); 
   Station4c = new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20); 
-  Station4Auswertung = new button(1115, 150, 140, 100, "zur\nAuswertung", -12, true, 20); 
+  Station4Auswertung = new button(1115, 250, 140, 100, "zur\nAuswertung", -12, true, 20); 
   Station4Start = new button(1115, 100, 140, 65, "Messung\nstarten", -5, true, 20); 
 }
 
@@ -490,14 +489,19 @@ void draw() {
   } else if (page == 4) {
     Innenraumluft();
     zumObermenu.hide();
+    reset.hide();
   } else if (page == 4.1) {
     Innenraumluft_a();
+    reset.hide();
   } else if (page == 4.11) {
     Innenraumluft_b();
+    reset.hide();
   } else if (page == 4.111) {
     Innenraumluft_c();
+    reset.hide();
   } else if(page == 4.1111){
    AuswertungInnenraum(); 
+   reset.hide();
   }else if (page == 10) {
     setting();
     Stationen.hide();
@@ -787,8 +791,10 @@ void draw() {
 
 
   if (Station4Auswertung.isClicked()) {
+    delay(200);
     page = 4.1111;
     saveDataInnenraum();
+    reset_bool = false;
   }
   if (Station4c.isClicked()) {
     delay(200);

@@ -7,6 +7,7 @@ void Feinstaub() {
   four.active = false;
   one.active = false;
   settings.active = false;
+  reset.hide();
 
   boolean PM1_left = false;
   boolean PM1_right = false;
@@ -1089,6 +1090,7 @@ void nasserSchwamm() {
   zumObermenu.show();
   aktualisierung_right.show();
   aktualisierung_left.show();
+  reset.hide();
 }
 
 
@@ -1106,6 +1108,7 @@ void Vergleich_Feinstaub() {
 
 
 void Vergleich_Feinstaub_Graphen() {
+    reset.hide();
   boolean PM25_referenz_rot = false;
   boolean PM10_referenz_rot = false;
 

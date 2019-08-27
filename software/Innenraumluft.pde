@@ -105,6 +105,11 @@ void Innenraumluft_a() {
   }
 
   if (Station4Start.isClicked()) {
+    for (int i = 0; i < 5000; i++) {
+      for (int j = 0; j < 7; j++) {
+        Innenraumlufta[j][i] = 0;
+      }
+    }
     Station4agestartet = true;
     if (page == 4.1) {
       currentTime4a = millis();
@@ -121,6 +126,11 @@ void Innenraumluft_a() {
     if (page == 4.1) {
       currentTime4a = millis();
       indexInnenraumlufta = 0;
+      for (int i = 0; i < 5000; i++) {
+        for (int j = 0; j < 7; j++) {
+          Innenraumlufta[j][i] = 0;
+        }
+      }
     } else if (page == 4.11) {
       currentTime4a = millis();
       indexInnenraumlufta = 0;
@@ -176,7 +186,7 @@ void Innenraumluft_a() {
     text(nf(del, 0, 0) + " s", 1185, 565);
   }
   textAlign(CORNER);
-  plotStation4(Innenraumlufta, 4, minRot, maxRot, color(255, 0, 0));
+  plotStation4(Innenraumlufta, Rot, minRot, maxRot, color(255, 0, 0));
   plotStation4(Innenraumlufta, Blau, minBlau, maxBlau, color(0, 0, 255));
 
   fill(0);
@@ -206,7 +216,6 @@ void Innenraumluft_a() {
 
   if (!Station4agestartet) {
     Station4Start.show();
-
     station4_MessungWiederholen.hide();
   } else {
     Station4Start.hide();
@@ -220,6 +229,7 @@ void Innenraumluft_a() {
   for (int i = 0; i < 5000; i++) {
     if (Innenraumlufta[6][i] > time_Station4) {
       Station4aFertig = true;
+      Station4agestartet = false;
       break;
     } else {
       Station4aFertig = false;
@@ -398,11 +408,21 @@ void Innenraumluft_b() {
   }
 
   if (Station4Start.isClicked()) {
+    for (int i = 0; i < 5000; i++) {
+      for (int j = 0; j < 7; j++) {
+        Innenraumluftb[j][i] = 0;
+      }
+    }
     Station4bgestartet = true;
     currentTime4b = millis();
     indexInnenraumluftb = 0;
   }
   if (station4_MessungWiederholen.isClicked()) {
+    for (int i = 0; i < 5000; i++) {
+      for (int j = 0; j < 7; j++) {
+        Innenraumluftb[j][i] = 0;
+      }
+    }
     currentTime4b = millis();
     indexInnenraumluftb = 0;
   }
@@ -497,6 +517,7 @@ void Innenraumluft_b() {
   for (int i = 0; i < 5000; i++) {
     if (Innenraumluftb[6][i] > time_Station4) {
       Station4bFertig = true;
+      Station4bgestartet = false;
       break;
     } else {
       Station4bFertig = false;
@@ -592,11 +613,21 @@ void Innenraumluft_c() {
   }
 
   if (Station4Start.isClicked()) {
+    for (int i = 0; i < 5000; i++) {
+      for (int j = 0; j < 7; j++) {
+        Innenraumluftc[j][i] = 0;
+      }
+    }
     Station4cgestartet = true;
     currentTime4c = millis();
     indexInnenraumluftc = 0;
   }
   if (station4_MessungWiederholen.isClicked()) {
+    for (int i = 0; i < 5000; i++) {
+      for (int j = 0; j < 7; j++) {
+        Innenraumluftc[j][i] = 0;
+      }
+    }
     currentTime4c = millis();
     indexInnenraumluftc = 0;
   }
@@ -691,6 +722,7 @@ void Innenraumluft_c() {
   for (int i = 0; i < 5000; i++) {
     if (Innenraumluftc[6][i] > time_Station4) {
       Station4cFertig = true;
+      Station4cgestartet = false;
       break;
     } else {
       Station4cFertig = false;
@@ -713,119 +745,55 @@ void AuswertungInnenraum() {
 
   fill(0);
   textSize(20);
-  int Rot = -1;
-  int Blau = -1;
-  int Gruen = -1;
+  int indexX = 6;
+  int indexY = 0;
 
-  boolean Rot0 = false;
-  boolean Rot50 = false;
-  boolean Rot100 = false;
-
-  boolean Gruen0 = false;
-  boolean Gruen50 = false;
-  boolean Gruen100 = false;
-
-
-  boolean Blau0 = false;
-  boolean Blau50 = false;
-  boolean Blau100 = false;
 
 
   float maxRot = 0;
   float minRot = 0;
   float maxBlau = 0;
   float minBlau = 0;
-  float maxGruen = 0;
-  float minGruen = 0;
 
-  if (Station4_Auswertung_Rot.name == "Temperatur (0%)") {
-    Rot = 0;
-    Rot0 = true;
-    maxRot = 10*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Rot.name == "Luftfeuchte (0%)") {
-    Rot = 1;
-    Rot0 = true;
-    maxRot = 20*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Rot.name == "CO2 (0%)") {
-    Rot = 2;
-    Rot0 = true;
-    maxRot = 400*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Rot.name == "TVOC (0%)") {
-    Rot = 3;
-    Rot0 = true;
-    maxRot = 100*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Rot.name == "eCO2 (0%)") {
-    Rot = 4;
-    Rot0 = true;
-    maxRot = 400*(scale_Innenraum1+1);
+
+  if (Station4_Auswertung_Rot.name == "Zeit") {
+    indexX = 6;
+  } else if (Station4_Auswertung_Rot.name == "Temperatur") {
+    indexX = 0;
+  } else if (Station4_Auswertung_Rot.name == "Luftfeuchte") {
+    indexX = 1;
+  } else if (Station4_Auswertung_Rot.name == "CO2") {
+    indexX = 2;
+  } else if (Station4_Auswertung_Rot.name == "TVOC") {
+    indexX = 3;
+  } else if (Station4_Auswertung_Rot.name == "eCO2") {
+    indexX = 4;
   }
 
-  if (Station4_Auswertung_Rot.name == "Temperatur (50%)" || Station4_Auswertung_Rot.name == "Luftfeuchte (50%)" || Station4_Auswertung_Rot.name == "CO2 (50%)" || Station4_Auswertung_Rot.name == "TVOC (50%)" || Station4_Auswertung_Rot.name == "eCO2 (50%)") {
-    Rot50 = true;
-  }
-  if (Station4_Auswertung_Rot.name == "Temperatur (100%)" || Station4_Auswertung_Rot.name == "Luftfeuchte (100%)" || Station4_Auswertung_Rot.name == "CO2 (100%)" || Station4_Auswertung_Rot.name == "TVOC (100%)" || Station4_Auswertung_Rot.name == "eCO2 (100%)") {
-    Rot100 = true;
-  }
-
-  if (Station4_Auswertung_Gruen.name == "Temperatur (0%)") {
-    Gruen = 0;
-    Gruen0 = true;
-    maxGruen = 10*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Gruen.name == "Luftfeuchte (0%)") {
-    Gruen = 1;
-    Gruen0 = true;
-    maxGruen = 20*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Gruen.name == "CO2 (0%)") {
-    Gruen = 2;
-    Gruen0 = true;
-    maxGruen = 400*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Gruen.name == "TVOC (0%)") {
-    Gruen = 3;
-    Gruen0 = true;
-    maxGruen = 100*(scale_Innenraum1+1);
-  } else if (Station4_Auswertung_Gruen.name == "eCO2 (0%)") {
-    Gruen = 4;
-    Gruen0 = true;
-    maxGruen = 400*(scale_Innenraum1+1);
-  }
-
-  if (Station4_Auswertung_Gruen.name == "Temperatur (50%)" || Station4_Auswertung_Gruen.name == "Luftfeuchte (50%)" || Station4_Auswertung_Gruen.name == "CO2 (50%)" || Station4_Auswertung_Gruen.name == "TVOC (50%)" || Station4_Auswertung_Gruen.name == "eCO2 (50%)") {
-    Gruen50 = true;
-  }
-  if (Station4_Auswertung_Gruen.name == "Temperatur (100%)" || Station4_Auswertung_Gruen.name == "Luftfeuchte (100%)" || Station4_Auswertung_Gruen.name == "CO2 (100%)" || Station4_Auswertung_Gruen.name == "TVOC (100%)" || Station4_Auswertung_Gruen.name == "eCO2 (100%)") {
-    Gruen100 = true;
+  if (Station4_Auswertung_Blau.name == "Zeit") {
+    indexY = 6;
+    maxBlau = 10*(scale_Innenraum1+1);
+  } else if (Station4_Auswertung_Blau.name == "Temperatur") {
+    indexY = 0;
+    maxBlau = 20*(scale_Innenraum1+1);
+  } else if (Station4_Auswertung_Blau.name == "Luftfeuchte") {
+    indexY = 1;
+    maxBlau = 400*(scale_Innenraum1+1);
+  } else if (Station4_Auswertung_Blau.name == "CO2") {
+    indexY = 2;
+    maxBlau = 100*(scale_Innenraum1+1);
+  } else if (Station4_Auswertung_Blau.name == "TVOC") {
+    indexY = 3;
+    maxBlau = 400*(scale_Innenraum1+1);
+  } else if (Station4_Auswertung_Blau.name == "eCO2") {
+    indexY = 4;
+    maxBlau = 400*(scale_Innenraum1+1);
   }
 
 
 
 
-  if (Station4_Auswertung_Blau.name == "Temperatur (0%)") {
-    Blau = 0;
-    Blau0 = true;
-    maxBlau = 10*(scale_Innenraum2+1);
-  } else if (Station4_Auswertung_Blau.name == "Luftfeuchte (0%)") {
-    Blau = 1;
-    Blau0 = true;
-    maxBlau = 20*(scale_Innenraum2+1);
-  } else if (Station4_Auswertung_Blau.name == "CO2 (0%)") {
-    Blau = 2;
-    Blau0 = true;
-    maxBlau = 400*(scale_Innenraum2+1);
-  } else if (Station4_Auswertung_Blau.name == "TVOC (0%)") {
-    Blau = 3;
-    Blau0 = true;
-    maxBlau = 100*(scale_Innenraum2+1);
-  } else if (Station4_Auswertung_Blau.name == "eCO2 (0%)") {
-    Blau = 4;
-    Blau0 = true;
-    maxBlau = 400*(scale_Innenraum2+1);
-  }
-  if (Station4_Auswertung_Blau.name == "Temperatur (50%)" || Station4_Auswertung_Blau.name == "Luftfeuchte (50%)" || Station4_Auswertung_Blau.name == "CO2 (50%)" || Station4_Auswertung_Blau.name == "TVOC (50%)" || Station4_Auswertung_Blau.name == "eCO2 (50%)") {
-    Blau50 = true;
-  }
-  if (Station4_Auswertung_Blau.name == "Temperatur (100%)" || Station4_Auswertung_Blau.name == "Luftfeuchte (100%)" || Station4_Auswertung_Blau.name == "CO2 (100%)" || Station4_Auswertung_Blau.name == "TVOC (100%)" || Station4_Auswertung_Blau.name == "eCO2 (100%)") {
-    Blau100 = true;
-  }
+
 
   if (up1.isClicked()) {
     scale_Innenraum1 += 1;
@@ -877,17 +845,17 @@ void AuswertungInnenraum() {
   }
   fill(0);
   textAlign(CENTER);
-  if (Rot != -1) {
-    for (int i = 5; i> -1; i--) {
-      text(nf((5-i)*maxRot/(5), 0, 0), 85, 150 + 100*i);
-    }
-  }
+  //if (Rot != -1) {
+  //  for (int i = 5; i> -1; i--) {
+  //    text(nf((5-i)*maxRot/(5), 0, 0), 85, 150 + 100*i);
+  //  }
+  //}
 
-  if (Blau != -1) {
-    for (int i = 5; i> -1; i--) {
-      text(nf((5-i)*maxBlau/(5), 0, 0), 985, 150 + 100*i);
-    }
-  }
+  //if (Blau != -1) {
+  //  for (int i = 5; i> -1; i--) {
+  //    text(nf((5-i)*maxBlau/(5), 0, 0), 985, 150 + 100*i);
+  //  }
+  //}
   textAlign(CORNER);
   fill(0);
   noStroke();
@@ -898,29 +866,10 @@ void AuswertungInnenraum() {
   textSize(20);
 
 
-  if (Rot0) {
-    plotStation4(Innenraumlufta, Rot, minRot, maxRot, color(255, 0, 0));
-  } else if (Rot50) {
-    plotStation4(Innenraumluftb, Rot, minRot, maxRot, color(255, 0, 0));
-  } else if (Rot100) {
-    plotStation4(Innenraumluftc, Rot, minRot, maxRot, color(255, 0, 0));
-  }
-
-  if (Gruen0) {
-    plotStation4(Innenraumlufta, Gruen, minGruen, maxGruen, color(0, 255, 0));
-  } else if (Gruen50) {
-    plotStation4(Innenraumluftb, Gruen, minGruen, maxGruen, color(0, 255, 0));
-  } else if (Gruen100) {
-    plotStation4(Innenraumluftc, Gruen, minGruen, maxGruen, color(0, 255, 0));
-  }
-
-  if (Blau0) {
-    plotStation4(Innenraumlufta, Blau, minBlau, maxBlau, color(0, 0, 255));
-  } else if (Blau50) {
-    plotStation4(Innenraumluftb, Blau, minBlau, maxBlau, color(0, 0, 255));
-  } else if (Blau100) {
-    plotStation4(Innenraumluftc, Blau, minBlau, maxBlau, color(0, 0, 255));
-  }
+  //Luftfeuchtigkeit - TVOC
+  plotStation4_Auswertung(Innenraumlufta, color(255, 0, 0), indexX, indexY, maxBlau, indexInnenraumlufta-1);
+  plotStation4_Auswertung(Innenraumluftb, color(0, 0, 255), indexX, indexY, maxBlau, indexInnenraumluftb-1);
+  plotStation4_Auswertung(Innenraumluftc, color(0, 255, 0), indexX, indexY, maxBlau, indexInnenraumluftc-1);
 
   fill(0);
   textSize(20);
@@ -931,23 +880,22 @@ void AuswertungInnenraum() {
   fill(0);
   back.show();
   zumObermenu.show();
-  if (Blau != -1) {
-    up2.show();
-    down2.show();
-  } else {
-    up2.hide();
-    down2.hide();
-  }
+  //if (Blau != -1) {
+  //  up2.show();
+  //  down2.show();
+  //} else {
+  //  up2.hide();
+  //  down2.hide();
+  //}
 
-  if (Rot != -1) {
-    up1.show();
-    down1.show();
-  } else {
-    up1.hide();
-    down1.hide();
-  }
+  //if (Rot != -1) {
+  //  up1.show();
+  //  down1.show();
+  //} else {
+  //  up1.hide();
+  //  down1.hide();
+  //}
   Station4_Auswertung_Rot.show();
-  Station4_Auswertung_Gruen.show();
   Station4_Auswertung_Blau.show();
 }
 
@@ -1019,3 +967,42 @@ void onlyOne(CheckBox check, String state1, String state2, String state3, String
     check.deactivate(state4);
   }
 }
+
+
+
+
+
+
+void plotStation4_Auswertung(float[][] array, color c, int indexX, int indexY, float max, int maxIndex) {
+  // 1 Sekunde entspricht "830/time_Station4" Pixel
+  stroke(c);
+  fill(c);
+  strokeWeight(2);
+  //rect(120, 140, 830, 500);
+
+
+  if (indexX == 6) {
+    for (int i = 1; i < maxIndex+1; i++) {
+      float x1 = 120 + 830*(array[indexX][i-1] - array[indexX][0])/(array[indexX][maxIndex] - array[indexX][0]);
+      float x2 = 120 + 830*(array[indexX][i] - array[indexX][0])/(array[indexX][maxIndex] - array[indexX][0]);
+      float y1 = 640 - 500*array[indexY][i-1]/max;
+      float y2 = 640 - 500*array[indexY][i]/max;
+      line(x1, y1, x2, y2);
+    }
+  } else {
+    float maxX = 0;
+    float maxY = 0;
+    for (int i = 0; i < maxIndex; i++) {
+      if (array[indexX][i] > maxX) {
+        maxX = array[indexX][i];
+      }
+      if (array[indexY][i] > maxY) {
+        maxY= array[indexY][i];
+      }
+
+      float x = 120 + 830*array[indexX][i]/maxX;
+      float y = 640 - 500*array[indexY][i]/maxY;
+      ellipse(x, y, 10, 10);
+    }
+  }
+} 
