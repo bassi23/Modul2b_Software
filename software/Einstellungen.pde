@@ -43,8 +43,3 @@ float scroll = 0;
 //   scroll = 0; 
 //  }
 //}
-
-
-
-void mousePressed() {
-}

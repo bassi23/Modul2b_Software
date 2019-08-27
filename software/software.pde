@@ -50,7 +50,7 @@ button station1_referenz, station1_trocken, station1_nass, station1_MessungStart
 button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung, zur_Auswertung2, zur_Auswertung3;
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 button reset_innenraum;
-button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen;
+button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred;
 
 Probe A, B, C, D, E;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
@@ -59,7 +59,7 @@ TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, St
 boolean measure = true;
 
 
-float page = -1;
+float page = 4.1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -288,6 +288,11 @@ station4_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederho
   Station4c = new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20); 
   Station4Auswertung = new button(1115, 250, 140, 100, "zur\nAuswertung", -12, true, 20); 
   Station4Start = new button(1115, 100, 140, 65, "Messung\nstarten", -5, true, 20); 
+  
+  zero = new button(120, 90, 150, 50, "0% Lüfter", 5, true, 20);
+  fifty = new button(420, 90, 150, 50, "50% Lüfter", 5, true, 20);
+  hundred = new button(750, 90, 150, 50, "100% Lüfter", 5, true, 20);
+  
 }
 
 
@@ -340,6 +345,9 @@ void draw() {
   TVOC_Duelle_Start.hide();
   Sensormessung.hide();
   reset_Station2.hide();
+  zero.hide();
+  fifty.hide();
+  hundred.hide();
 
   Station4b.hide();
   Station4c.hide();
