@@ -2,6 +2,9 @@
 
 ## Update
 
+## 27.08.2019
+- Station 4: Auswertung hinzugefügt. Man kann jetzt auch Messgrößen gegeneinander auftragen, um beispielsweise einen Zusammenhang zwischen CO2 und TVOC sichtbar zu machen.
+
 ## 26.08.2019
 - Station 4: Design an die aktuelle Version angepasst
 
