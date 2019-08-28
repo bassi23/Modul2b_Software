@@ -62,7 +62,7 @@ slider s;
 boolean measure = true;
 
 
-float page = 4.1;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
