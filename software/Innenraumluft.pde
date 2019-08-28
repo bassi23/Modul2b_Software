@@ -227,7 +227,7 @@ void Innenraumluft_a() {
   aktualisierung_left.show();
 
   for (int i = 0; i < 5000; i++) {
-    if (Innenraumlufta[6][i] > time_Station4) {
+    if (Innenraumlufta[6][i] > 0.99*time_Station4) {
       Station4aFertig = true;
       Station4agestartet = false;
       break;
@@ -550,7 +550,7 @@ void Innenraumluft_b() {
   aktualisierung_left.show();
 
   for (int i = 0; i < 5000; i++) {
-    if (Innenraumluftb[6][i] > time_Station4) {
+    if (Innenraumluftb[6][i] > 0.99*time_Station4) {
       Station4bFertig = true;
       Station4bgestartet = false;
       break;
@@ -1263,32 +1263,47 @@ void analyse() {
     Steigung_Nenner_C += (Innenraumluftc[6][i] - MWC_fuerSteigung)*(Innenraumluftc[6][i] - MWC_fuerSteigung);
   }
   SteigungC = Steigung_Zaehler_C/Steigung_Nenner_C;
-
+  fill(255, 100, 100, 100);
+  stroke(0);
+  rect(1080, 100, 200, 25);
+  fill(100,255,100,100);
+  rect(1080, 250, 200, 25);
+  
+  fill(100,100, 255,100);
+  rect(1080,400, 200, 25);
+  fill(255);
+  rect(1080, 425, 200, 115);
+  rect(1080, 275,200, 115);
+  rect(1080, 125, 200, 115);
   fill(0);
   stroke(0);
   line(1080, 125, 1280, 125);
   line(1080, 275, 1280, 275);
   line(1080, 425, 1280, 425);
+
   noStroke();
 
-  text("0% Lüfter", 1130, 120);
-  text("50% Lüfter", 1125, 270);
-  text("100% Lüfter", 1120, 420);
+  textSize(16);
+textAlign(CENTER);
+  text("0% Lüfter", 1180, 120);
+  text("50% Lüfter", 1180, 270);
+  text("100% Lüfter", 1180, 420);
 
-  text("Maximum: " + nf(MaxA, 0, 1), 1090, 150);
-  text("Minimum: " + nf(MinA, 0, 1), 1090, 175);
-  text("Mittelwert: " + nf(MWA, 0, 1), 1090, 200);
-  text("Steigung: " + nf(SteigungA, 0, 1), 1090, 225);
+  text("Maximum: " + nf(MaxA, 0, 1), 1180, 150);
+  text("Minimum: " + nf(MinA, 0, 1), 1180, 175);
+  text("Mittelwert: " + nf(MWA, 0, 1), 1180, 200);
+  text("Steigung: " + nf(SteigungA, 0, 1), 1180, 225);
 
-  text("Maximum: " + nf(MaxB, 0, 1), 1090, 300);
-  text("Minimum: " + nf(MinB, 0, 1), 1090, 325);
-  text("Mittelwert: " + nf(MWB, 0, 1), 1090, 350);
-  text("Steigung: " + nf(SteigungB, 0, 1), 1090, 375);
+  text("Maximum: " + nf(MaxB, 0, 1), 1180, 300);
+  text("Minimum: " + nf(MinB, 0, 1), 1180, 325);
+  text("Mittelwert: " + nf(MWB, 0, 1), 1180, 350);
+  text("Steigung: " + nf(SteigungB, 0, 1), 1180, 375);
 
-  text("Maximum: " + nf(MaxC, 0, 1), 1090, 450);
-  text("Minimum: " + nf(MinC, 0, 1), 1090, 475);
-  text("Mittelwert: " + nf(MWC, 0, 1), 1090, 500);
-  text("Steigung: " + nf(SteigungC, 0, 1), 1090, 525);
+  text("Maximum: " + nf(MaxC, 0, 1), 1180, 450);
+  text("Minimum: " + nf(MinC, 0, 1), 1180, 475);
+  text("Mittelwert: " + nf(MWC, 0, 1), 1180, 500);
+  text("Steigung: " + nf(SteigungC, 0, 1), 1180, 525);
+  textAlign(CORNER);
 }
 
 
@@ -1342,10 +1357,10 @@ class slider {
 
 
   void move() {
-    if (mouseX > x1 - 10 && mouseX < x1 + 10 && mousePressed) {
+    if (mouseX > (x1 - 10)*scale_factor && mouseX < (x1 + 10)*scale_factor && mousePressed) {
       active1 = true;
     }
-    if (mouseX > x2 - 10 && mouseX < x2 + 10 && mousePressed) {
+    if (mouseX > (x2 - 10)*scale_factor && mouseX < (x2 + 10)*scale_factor && mousePressed) {
       active2 = true;
     }
 
@@ -1383,10 +1398,10 @@ class slider {
 
 
 void mouseReleased() {
-  if (mouseX > s.x1 - 10 && mouseX < s.x1 + 10) {
+  if (mouseX > (s.x1 - 10)*scale_factor && mouseX < (s.x1 + 10)*scale_factor) {
     s.active1 = false;
   }
-  if (mouseX > s.x2 - 10 && mouseX < s.x2 + 10) {
+  if (mouseX > (s.x2 - 10)*scale_factor && mouseX < (s.x2 + 10)*scale_factor) {
     s.active2 = false;
   }
 }

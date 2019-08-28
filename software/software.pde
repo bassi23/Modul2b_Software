@@ -69,7 +69,7 @@ float zeroTime3 = 0; //Feinstaubzeit
 float zeroTime4 = 0;
 float zeroTime5 = 0;
 
-float time_Station4 = 300;
+float time_Station4 = 30;
 
 int anzahlCOMPorts = 0;
 int ausgewaehlterPort = 0;
@@ -142,8 +142,8 @@ void setup() {
   Station4_Rot = new dropdown("Links", 120, 20, 200, 30, 6, Station4_Strings, false, color(255, 0, 0));
   Station4_Blau = new dropdown("Rechts", 750, 20, 200, 30, 6, Station4_Strings, false, color(0, 0, 255));
 
-  Station4_Auswertung_Rot = new dropdown("Abszisse", 250, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
-  Station4_Auswertung_Blau = new dropdown("Ordinate", 730, 20, 220, 30, 5, Station4_Auswertung_Strings2, false, color(0, 0, 255));
+  Station4_Auswertung_Rot = new dropdown("Zeit", 250, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
+  Station4_Auswertung_Blau = new dropdown("Temperatur", 730, 20, 220, 30, 5, Station4_Auswertung_Strings2, false, color(0, 0, 255));
 
   Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
   Alle_Sensoren_Blau = new dropdown("Rechts", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
@@ -288,7 +288,7 @@ void setup() {
   zur_Auswertung = new button(1125, 580, 160, 75, "Zur Aus-\nwertung", -12, true, 20);
 
   // Station 4
-  Station4a = new button(1115, 390, 140, 50, "zu Aufgabe a)", 5, true, 20); 
+  Station4a = new button(570, 390, 140, 50, "zu Aufgabe a)", 5, true, 20); 
   Station4b = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20); 
   Station4c = new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20); 
   Station4Auswertung = new button(1115, 250, 140, 100, "zur\nAuswertung", -12, true, 20); 
