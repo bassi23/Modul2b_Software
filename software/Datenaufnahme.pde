@@ -144,7 +144,7 @@ void Datenaufnahme() {
         }
 
         if (Station4agestartet) {
-          if (index > 1 && (millis() - currentTime4a)/1000 < (time_Station4+830/time_Station4)) {
+          if (index > 1 && (millis() - currentTime4a)/1000 < (time_Station4+2*del + 0.5)) {
             Innenraumlufta[0][indexInnenraumlufta] =  scd_temperature_data[index-1];
             Innenraumlufta[1][indexInnenraumlufta] =  scd_humidity_data[index-1];
             Innenraumlufta[2][indexInnenraumlufta] =  scd_co2_data[index-1];
@@ -156,7 +156,7 @@ void Datenaufnahme() {
         }
 
         if (Station4bgestartet) {
-          if (index > 1 && (millis() - currentTime4b)/1000 < (time_Station4+830/time_Station4)) {
+          if (index > 1 && (millis() - currentTime4b)/1000 < ((time_Station4+2*del + 0.5))) {
             Innenraumluftb[0][indexInnenraumluftb] =  scd_temperature_data[index-1];
             Innenraumluftb[1][indexInnenraumluftb] =  scd_humidity_data[index-1];
             Innenraumluftb[2][indexInnenraumluftb] =  scd_co2_data[index-1];
@@ -167,13 +167,13 @@ void Datenaufnahme() {
           }
         }
         if (Station4cgestartet) {
-          if (index > 1 && (millis() - currentTime4c)/1000  < (time_Station4+830/time_Station4)) {
+          if (index > 1 && (millis() - currentTime4c)/1000  < (time_Station4+2*del + 0.5)) {
             Innenraumluftc[0][indexInnenraumluftc] =  scd_temperature_data[index-2];
             Innenraumluftc[1][indexInnenraumluftc] =  scd_humidity_data[index-2];
             Innenraumluftc[2][indexInnenraumluftc] =  scd_co2_data[index-2];
             Innenraumluftc[3][indexInnenraumluftc] =  sgp_tvoc_data[index-2];
             Innenraumluftc[4][indexInnenraumluftc] =  sgp_eco2_data[index-2];
-            Innenraumluftc[6][indexInnenraumluftc] = zeit[index - 2]- currentTime4c/1000;
+            Innenraumluftc[6][indexInnenraumluftc] = zeit[index - 1]- currentTime4c/1000;
             indexInnenraumluftc += 1;
           }
         }
