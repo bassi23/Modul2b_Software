@@ -49,16 +49,16 @@ void Innenraumluft_a() {
     maxRot = 10*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "Luftfeuchte") {
     Rot = 1;
-    maxRot = 20*(scale_Innenraum1+1);
+    maxRot = 16.667*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "CO2") {
     Rot = 2;
-    maxRot = 400*(scale_Innenraum1+1);
+    maxRot = 500*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "TVOC") {
     Rot = 3;
     maxRot = 100*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "eCO2") {
     Rot = 4;
-    maxRot = 400*(scale_Innenraum1+1);
+    maxRot = 500*(scale_Innenraum1+1);
   }
 
   if (Station4_Blau.name == "Temperatur") {
@@ -66,18 +66,17 @@ void Innenraumluft_a() {
     maxBlau = 10*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "Luftfeuchte") {
     Blau = 1;
-    maxBlau = 20*(scale_Innenraum2+1);
+    maxBlau = 16.667*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "CO2") {
     Blau = 2;
-    maxBlau = 400*(scale_Innenraum2+1);
+    maxBlau = 500*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "TVOC") {
     Blau = 3;
     maxBlau = 100*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "eCO2") {
     Blau = 4;
-    maxBlau = 400*(scale_Innenraum2+1);
+    maxBlau = 500*(scale_Innenraum2+1);
   }
-
 
   if (up1.isClicked()) {
     scale_Innenraum1 += 1;
@@ -387,16 +386,16 @@ void Innenraumluft_b() {
     maxRot = 10*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "Luftfeuchte") {
     Rot = 1;
-    maxRot = 20*(scale_Innenraum1+1);
+    maxRot = 16.667*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "CO2") {
     Rot = 2;
-    maxRot = 400*(scale_Innenraum1+1);
+    maxRot = 500*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "TVOC") {
     Rot = 3;
     maxRot = 100*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "eCO2") {
     Rot = 4;
-    maxRot = 400*(scale_Innenraum1+1);
+    maxRot = 500*(scale_Innenraum1+1);
   }
 
   if (Station4_Blau.name == "Temperatur") {
@@ -404,16 +403,16 @@ void Innenraumluft_b() {
     maxBlau = 10*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "Luftfeuchte") {
     Blau = 1;
-    maxBlau = 20*(scale_Innenraum2+1);
+    maxBlau = 16.667*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "CO2") {
     Blau = 2;
-    maxBlau = 400*(scale_Innenraum2+1);
+    maxBlau = 500*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "TVOC") {
     Blau = 3;
     maxBlau = 100*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "eCO2") {
     Blau = 4;
-    maxBlau = 400*(scale_Innenraum2+1);
+    maxBlau = 500*(scale_Innenraum2+1);
   }
 
 
@@ -628,16 +627,16 @@ void Innenraumluft_c() {
     maxRot = 10*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "Luftfeuchte") {
     Rot = 1;
-    maxRot = 20*(scale_Innenraum1+1);
+    maxRot = 16.667*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "CO2") {
     Rot = 2;
-    maxRot = 400*(scale_Innenraum1+1);
+    maxRot = 500*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "TVOC") {
     Rot = 3;
     maxRot = 100*(scale_Innenraum1+1);
   } else if (Station4_Rot.name == "eCO2") {
     Rot = 4;
-    maxRot = 400*(scale_Innenraum1+1);
+    maxRot = 500*(scale_Innenraum1+1);
   }
 
   if (Station4_Blau.name == "Temperatur") {
@@ -645,16 +644,16 @@ void Innenraumluft_c() {
     maxBlau = 10*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "Luftfeuchte") {
     Blau = 1;
-    maxBlau = 20*(scale_Innenraum2+1);
+    maxBlau = 16.667*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "CO2") {
     Blau = 2;
-    maxBlau = 400*(scale_Innenraum2+1);
+    maxBlau = 500*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "TVOC") {
     Blau = 3;
     maxBlau = 100*(scale_Innenraum2+1);
   } else if (Station4_Blau.name == "eCO2") {
     Blau = 4;
-    maxBlau = 400*(scale_Innenraum2+1);
+    maxBlau = 500*(scale_Innenraum2+1);
   }
 
 
@@ -907,7 +906,7 @@ void AuswertungInnenraum() {
     maxBlau = 10*(scale_Innenraum1+1);
   } else if (Station4_Auswertung_Blau.name == "Luftfeuchte") {
     indexY = 1;
-    maxBlau = 20*(scale_Innenraum1+1);
+    maxBlau = 16.667*(scale_Innenraum1+1);
   } else if (Station4_Auswertung_Blau.name == "CO2") {
     indexY = 2;
     maxBlau = 400*(scale_Innenraum1+1);
@@ -916,7 +915,7 @@ void AuswertungInnenraum() {
     maxBlau = 100*(scale_Innenraum1+1);
   } else if (Station4_Auswertung_Blau.name == "eCO2") {
     indexY = 4;
-    maxBlau = 400*(scale_Innenraum1+1);
+    maxBlau = 500*(scale_Innenraum1+1);
   }
 
 
@@ -927,26 +926,26 @@ void AuswertungInnenraum() {
 
   if (up1.isClicked()) {
     scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 4) {
+    if (scale_Innenraum1 > 5) {
       scale_Innenraum1 = 0;
     }
   }
   if (down1.isClicked()) {
     scale_Innenraum1 -= 1;
     if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 4;
+      scale_Innenraum1 = 5;
     }
   }
   if (up2.isClicked()) {
     scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 4) {
+    if (scale_Innenraum2 > 5) {
       scale_Innenraum2 = 0;
     }
   }
   if (down2.isClicked()) {
     scale_Innenraum2 -= 1;
     if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 4;
+      scale_Innenraum2 = 5;
     }
   }
 
