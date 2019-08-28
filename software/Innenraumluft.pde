@@ -81,26 +81,26 @@ void Innenraumluft_a() {
 
   if (up1.isClicked()) {
     scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 4) {
+    if (scale_Innenraum1 > 5) {
       scale_Innenraum1 = 0;
     }
   }
   if (down1.isClicked()) {
     scale_Innenraum1 -= 1;
     if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 4;
+      scale_Innenraum1 = 5;
     }
   }
   if (up2.isClicked()) {
     scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 4) {
+    if (scale_Innenraum2 > 5) {
       scale_Innenraum2 = 0;
     }
   }
   if (down2.isClicked()) {
     scale_Innenraum2 -= 1;
     if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 4;
+      scale_Innenraum2 = 5;
     }
   }
 
@@ -417,28 +417,29 @@ void Innenraumluft_b() {
   }
 
 
+
   if (up1.isClicked()) {
     scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 4) {
+    if (scale_Innenraum1 > 5) {
       scale_Innenraum1 = 0;
     }
   }
   if (down1.isClicked()) {
     scale_Innenraum1 -= 1;
     if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 4;
+      scale_Innenraum1 = 5;
     }
   }
   if (up2.isClicked()) {
     scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 4) {
+    if (scale_Innenraum2 > 5) {
       scale_Innenraum2 = 0;
     }
   }
   if (down2.isClicked()) {
     scale_Innenraum2 -= 1;
     if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 4;
+      scale_Innenraum2 = 5;
     }
   }
 
@@ -657,28 +658,29 @@ void Innenraumluft_c() {
   }
 
 
+
   if (up1.isClicked()) {
     scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 4) {
+    if (scale_Innenraum1 > 5) {
       scale_Innenraum1 = 0;
     }
   }
   if (down1.isClicked()) {
     scale_Innenraum1 -= 1;
     if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 4;
+      scale_Innenraum1 = 5;
     }
   }
   if (up2.isClicked()) {
     scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 4) {
+    if (scale_Innenraum2 > 5) {
       scale_Innenraum2 = 0;
     }
   }
   if (down2.isClicked()) {
     scale_Innenraum2 -= 1;
     if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 4;
+      scale_Innenraum2 = 5;
     }
   }
 
