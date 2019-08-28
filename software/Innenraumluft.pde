@@ -278,7 +278,6 @@ void Innenraumluft_a() {
   popMatrix();
 }
 
-float time_Station4 = 30;
 
 void plotStation4(float[][] array, int index, float min, float max, color c) {
   // 1 Sekunde entspricht "830/time_Station4" Pixel
@@ -791,7 +790,7 @@ void Innenraumluft_c() {
   aktualisierung_left.show();
 
   for (int i = 0; i < 5000; i++) {
-    if (Innenraumluftc[6][i] > time_Station4) {
+    if (Innenraumluftc[6][i] > (0.99*time_Station4)) {
       Station4cFertig = true;
       Station4cgestartet = false;
       break;
@@ -1049,11 +1048,11 @@ void AuswertungInnenraum() {
   if (zeroPercent) {
     plotStation4_Auswertung(Innenraumlufta, color(255, 0, 0), indexX, indexY, maxBlau, indexInnenraumlufta-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
   }
-  if (hundredPercent) {
-    plotStation4_Auswertung(Innenraumluftb, color(0, 0, 255), indexX, indexY, maxBlau, indexInnenraumluftb-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
-  }
   if (fiftyPercent) {
-    plotStation4_Auswertung(Innenraumluftc, color(0, 255, 0), indexX, indexY, maxBlau, indexInnenraumluftc-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
+    plotStation4_Auswertung(Innenraumluftb, color(0, 255, 0), indexX, indexY, maxBlau, indexInnenraumluftb-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
+  }
+  if (hundredPercent) {
+    plotStation4_Auswertung(Innenraumluftc, color(0, 0, 255), indexX, indexY, maxBlau, indexInnenraumluftc-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
   }
 
 

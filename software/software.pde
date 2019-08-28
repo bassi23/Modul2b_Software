@@ -62,12 +62,14 @@ slider s;
 boolean measure = true;
 
 
-float page = -1;
+float page = 4.1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
 float zeroTime4 = 0;
 float zeroTime5 = 0;
+
+float time_Station4 = 300;
 
 int anzahlCOMPorts = 0;
 int ausgewaehlterPort = 0;
