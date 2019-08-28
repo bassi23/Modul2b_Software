@@ -104,8 +104,6 @@ class button {
 }
 
 
-void mouseReleased() {
-}
 
 
 // Weil ControlP5 Probleme macht, wenn man scale oder translate anwendet, musste ich meine eigene dropdown Klasse schreiben

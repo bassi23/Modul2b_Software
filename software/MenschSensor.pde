@@ -35,6 +35,158 @@ void MenschSensor() {
   C.show();
   D.show();
   E.show();
+
+  for (int i = 0; i < 5; i++) {
+    if (!A.active) {
+
+      if (A.x + 50 > 305 + 150*i && A.x - 50 < 405+ 150*i && A.y + 50 > 350 && A.y  - 50 < 450 ) {
+        A.x = 355+ 150*i; 
+        A.y = 400;
+      }
+      if (!B.active) {
+        if (B.x + 50 > 305 + 150*i && B.x - 50 < 405+ 150*i && B.y + 50 > 350 && B.y  - 50 < 450 ) {
+          B.x = 355+ 150*i; 
+          B.y = 400;
+        }
+      }
+      if (!C.active) {
+        if (C.x + 50 > 305 + 150*i && C.x - 50 < 405+ 150*i && C.y + 50 > 350 && C.y  - 50 < 450 ) {
+          C.x = 355+ 150*i; 
+          C.y = 400;
+        }
+      }
+      if (!D.active) {
+        if (D.x + 50 > 305 + 150*i && D.x - 50 < 405+ 150*i && D.y + 50 > 350 && D.y  - 50 < 450 ) {
+          D.x = 355+ 150*i; 
+          D.y = 400;
+        }
+      }
+      if (!E.active) {
+        if (E.x + 50 > 305 + 150*i && E.x - 50 < 405+ 150*i && E.y + 50 > 350 && E.y  - 50 < 450 ) {
+          E.x = 355+ 150*i; 
+          E.y = 400;
+        }
+      }
+    }
+  }
+
+
+  if (A.active) {
+    A.overlaps(B);
+    A.overlaps(C);
+    A.overlaps(D);
+    A.overlaps(E);
+    B.overlaps(A);
+    B.overlaps(C);
+    B.overlaps(D);
+    B.overlaps(E);
+    C.overlaps(A);
+    C.overlaps(B);
+    C.overlaps(D);
+    C.overlaps(E);
+    D.overlaps(A);
+    D.overlaps(B);
+    D.overlaps(C);
+    D.overlaps(E);
+    E.overlaps(A);
+    E.overlaps(B);
+    E.overlaps(C);
+    E.overlaps(D);
+    //
+  }
+
+  if (B.active) {
+    B.overlaps(A);
+    B.overlaps(C);
+    B.overlaps(D);
+    B.overlaps(E);
+    A.overlaps(B);
+    A.overlaps(C);
+    A.overlaps(D);
+    A.overlaps(E);
+    C.overlaps(A);
+    C.overlaps(B);
+    C.overlaps(D);
+    C.overlaps(E);
+    E.overlaps(A);
+    E.overlaps(B);
+    E.overlaps(C);
+    E.overlaps(D);
+    D.overlaps(A);
+    D.overlaps(B);
+    D.overlaps(C);
+    D.overlaps(E);
+  }
+
+  if (C.active) {
+    C.overlaps(A);
+    C.overlaps(B);
+    C.overlaps(D);
+    C.overlaps(E);
+    B.overlaps(A);
+    B.overlaps(C);
+    B.overlaps(D);
+    B.overlaps(E);
+    A.overlaps(B);
+    A.overlaps(C);
+    A.overlaps(D);
+    A.overlaps(E);
+    E.overlaps(A);
+    E.overlaps(B);
+    E.overlaps(C);
+    E.overlaps(D);
+    D.overlaps(A);
+    D.overlaps(B);
+    D.overlaps(C);
+    D.overlaps(E);
+  }
+
+  if (D.active) {
+    D.overlaps(A);
+    D.overlaps(B);
+    D.overlaps(C);
+    D.overlaps(E);
+    C.overlaps(A);
+    C.overlaps(B);
+    C.overlaps(D);
+    C.overlaps(E);
+    B.overlaps(A);
+    B.overlaps(C);
+    B.overlaps(D);
+    B.overlaps(E);
+    A.overlaps(B);
+    A.overlaps(C);
+    A.overlaps(D);
+    A.overlaps(E);
+    E.overlaps(A);
+    E.overlaps(B);
+    E.overlaps(C);
+    E.overlaps(D);
+  }
+
+  if (E.active) {
+    E.overlaps(A);
+    E.overlaps(B);
+    E.overlaps(C);
+    E.overlaps(D);
+    D.overlaps(A);
+    D.overlaps(B);
+    D.overlaps(C);
+    D.overlaps(E);
+    C.overlaps(A);
+    C.overlaps(B);
+    C.overlaps(D);
+    C.overlaps(E);
+    B.overlaps(A);
+    B.overlaps(C);
+    B.overlaps(D);
+    B.overlaps(E);
+    A.overlaps(B);
+    A.overlaps(C);
+    A.overlaps(D);
+    A.overlaps(E);
+  }
+
   if (A.inPlace && B.inPlace && C.inPlace && D.inPlace && E.inPlace) {
     Sensormessung.show();
   } else {
@@ -59,6 +211,18 @@ class Probe {
   }
 
   void show() {
+    if (x > width - 50) {
+      x = width- 50;
+    }
+    if (x < 50) {
+      x = 50;
+    }
+    if (y < 50) {
+      y = 50;
+    }
+    if (y > height - 50) {
+      y = height - 50;
+    }
     if (text == "A") {
       fill(255, 200, 200);
     } else if (text == "B") {
@@ -105,6 +269,26 @@ class Probe {
       return -1;
     } else {
       return 1;
+    }
+  }
+
+  void overlaps(Object o) {
+    Probe e = (Probe)o;
+    //von links
+
+    if (x + 50 > e.x -50 && x - 50 < e.x && y > e.y - 50 && y < e.y+50) {
+      e.x = x + 100;
+    }
+    //von rechts
+    if (x -50 < e.x + 50 && x - 50 > e.x && y > e.y - 50 && y < e.y+50) {
+      e.x = x - 100;
+    }
+    //von oben
+    if (y + 50 > e.y - 50 && y + 50 < e.y && x - 50 < e.x + 50 && x  + 50> e.x - 50) {
+      e.y = y + 100;
+    }
+    if (y - 50 < e.y + 50 && y - 50 > e.y && x - 50 < e.x + 50 && x  + 50> e.x - 50) {
+      e.y = y - 100;
     }
   }
 }

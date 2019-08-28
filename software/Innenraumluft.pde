@@ -244,6 +244,7 @@ void Innenraumluft_a() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
+  fill(255, 0, 0);
   if (Rot == 6) {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -590);
@@ -262,6 +263,7 @@ void Innenraumluft_a() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(PI/2);
+  fill(0, 0, 255);
   if (Blau == 0) {
     text("Temperatur in °C", -50, -405);
   } else if (Blau == 1) {
@@ -276,7 +278,7 @@ void Innenraumluft_a() {
   popMatrix();
 }
 
-float time_Station4 = 300;
+float time_Station4 = 30;
 
 void plotStation4(float[][] array, int index, float min, float max, color c) {
   // 1 Sekunde entspricht "830/time_Station4" Pixel
@@ -565,6 +567,7 @@ void Innenraumluft_b() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
+  fill(255, 0, 0);
   if (Rot == 6) {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -590);
@@ -583,6 +586,7 @@ void Innenraumluft_b() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(PI/2);
+  fill(0, 0, 255);
   if (Blau == 0) {
     text("Temperatur in °C", -50, -405);
   } else if (Blau == 1) {
@@ -804,24 +808,26 @@ void Innenraumluft_c() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
+  fill(255, 0, 0);
   if (Rot == 6) {
     text(nf(time_Station4, 0, 0), 938, 660);
-    text("Zeit in Sekunden", -100, -580);
+    text("Zeit in Sekunden", -100, -590);
   } else if (Rot == 0) {
-    text("Temperatur in °C", -100, -580);
+    text("Temperatur in °C", -100, -590);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", -100, -580);
+    text("Luftfeuchte in %", -100, -590);
   } else if (Rot == 2) {
-    text("CO2 in ppm", -100, -580);
+    text("CO2 in ppm", -100, -590);
   } else if (Rot == 3) {
-    text("TVOC in ppb", -100, -580);
+    text("TVOC in ppb", -100, -590);
   } else if (Rot == 4) {
-    text("eCO2 in ppm", -100, -580);
+    text("eCO2 in ppm", -100, -590);
   }
   popMatrix();
   pushMatrix();
   translate(width/2, height/2);
   rotate(PI/2);
+  fill(0, 0, 255);
   if (Blau == 0) {
     text("Temperatur in °C", -50, -405);
   } else if (Blau == 1) {
@@ -842,7 +848,8 @@ void Innenraumluft_c() {
 boolean zeroPercent = true;
 boolean fiftyPercent = true;
 boolean hundredPercent = true;
-
+int indexX = 6;
+int indexY = 6;
 
 
 void AuswertungInnenraum() {
@@ -873,8 +880,8 @@ void AuswertungInnenraum() {
   }
   fill(0);
   textSize(20);
-  int indexX = 6;
-  int indexY = 6;
+  indexX = 6;
+  indexY = 6;
 
   float maxBlau = 0;
 
@@ -975,7 +982,7 @@ void AuswertungInnenraum() {
 
   if (indexX == 6) {
     for (int i = 5; i> -1; i--) {
-      text(nf((5-i)*maxBlau/(5), 0, 0), 98, 150 + 100*i);
+      text(nf((5-i)*maxBlau/(5), 0, 0), 95, 150 + 100*i);
     }
   }
 
@@ -1050,7 +1057,7 @@ void AuswertungInnenraum() {
   }
 
 
-  fill(0);
+  fill(255, 0, 0);
   textSize(20);
   if (indexX == 6) {
     text(nf(time_Station4, 0, 0), 938, 660);
@@ -1070,6 +1077,7 @@ void AuswertungInnenraum() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
+  fill(0, 0, 255);
   if (indexY == 6) {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -590);
@@ -1094,7 +1102,7 @@ void AuswertungInnenraum() {
   text("Ordinate", 620, 40);
   text("Abszisse", 140, 40);
   if (zeroPercent) {
-    stroke(255,0,0);
+    stroke(255, 0, 0);
     fill(255, 0, 0);
   } else {
     fill(255);
@@ -1113,20 +1121,276 @@ void AuswertungInnenraum() {
 
   if (hundredPercent) {
     fill(0, 0, 255);
-    stroke(0,0,255);
+    stroke(0, 0, 255);
   } else {
     fill(255);
     stroke(0, 0, 255);
   }
   ellipse(925, 110, 20, 20);
+  if (analyse_bool) {
+    s.show();
+    s.move();
+    analyse();
+  }
   Station4_Auswertung_Rot.show();
   Station4_Auswertung_Blau.show();
+  if (indexX == 6) {
+    genaueAnalyse.show();
+  }
+
+  if (genaueAnalyse.isClicked()) {
+    if (analyse_bool) {
+      analyse_bool = false;
+    } else {
+      analyse_bool = true;
+    }
+  }
+
+  if (indexX != 6) {
+    analyse_bool = false;
+  }
+}
+
+
+void analyse() {
+  float x1 = s.x1-120;
+  float x2 = s.x2-120;
+
+  // 1. Schritt: Finde die entsprechenden Array Indizes
+  // Es gibt "indexInnenraumluftabc" Daten im Array, die auf 830 Pixel verteilt sind
+
+  float dichteA = float(indexInnenraumlufta)/830;
+  float dichteB = float(indexInnenraumluftb)/830;
+  float dichteC = float(indexInnenraumluftc)/830;
+
+  // Entsprechender Index zu x1, x2
+
+  int indexX1A = round(x1*dichteA);
+  int indexX2A = floor(x2*dichteA);
+
+  int indexX1B = round(x1*dichteB);
+  int indexX2B = floor(x2*dichteB);
+
+  int indexX1C = round(x1*dichteC);
+  int indexX2C = floor(x2*dichteC);
+
+
+  // 2. Schritt: Merkmale Maximum, Minimum, Steigung und Mittelwert in diesem Intervall berechnen
+
+  float MaxA = 0;
+  float MinA = 99999;
+  float MWA = 0;
+  float SteigungA = 0;
+
+  float MaxB = 0;
+  float MinB = 99999;
+  float MWB = 0;
+  float SteigungB = 0;
+
+  float MaxC = 0;
+  float MinC = 99999;
+  float MWC = 0;
+  float SteigungC = 0;
+
+
+  float MWA_fuerSteigung = 0;
+  float MWB_fuerSteigung = 0;
+  float MWC_fuerSteigung = 0;
+  //Merkmale A
+  for (int i = indexX1A; i < indexX2A + 1; i++) {
+    if (Innenraumlufta[indexY][i] > MaxA) {
+      MaxA = Innenraumlufta[indexY][i];
+    }
+    if (Innenraumlufta[indexY][i] < MinA && Innenraumlufta[indexY][i] != 0) {
+      MinA =  Innenraumlufta[indexY][i];
+    }
+    MWA += Innenraumlufta[indexY][i];
+
+    // Für die Steigung
+    MWA_fuerSteigung += Innenraumlufta[6][i];
+  }
+  MWA = MWA/(indexX2A+ 1 - indexX1A);
+  MWA_fuerSteigung = MWA_fuerSteigung/(indexX2A+ 1 - indexX1A);
+
+  float Steigung_Zaehler_A = 0;
+  float Steigung_Nenner_A = 0;
+  for (int i = indexX1A; i < indexX2A + 1; i++) {
+    Steigung_Zaehler_A += (Innenraumlufta[6][i] - MWA_fuerSteigung)*(Innenraumlufta[indexY][i] - MWA);
+    Steigung_Nenner_A += (Innenraumlufta[6][i] - MWA_fuerSteigung)*(Innenraumlufta[6][i] - MWA_fuerSteigung);
+  }
+  SteigungA = Steigung_Zaehler_A/Steigung_Nenner_A;
+
+  //Merkmale B
+  for (int i = indexX1B; i < indexX2B + 1; i++) {
+    if (Innenraumluftb[indexY][i] > MaxB) {
+      MaxB = Innenraumluftb[indexY][i];
+    }
+    if (Innenraumluftb[indexY][i] < MinB && Innenraumluftb[indexY][i] != 0) {
+      MinB =  Innenraumluftb[indexY][i];
+    }
+    MWB += Innenraumluftb[indexY][i];
+    MWB_fuerSteigung += Innenraumluftb[6][i];
+  }
+  MWB = MWB/(indexX2B + 1 - indexX1B);
+  MWB_fuerSteigung = MWB_fuerSteigung/(indexX2B+ 1 - indexX1B);
+
+  float Steigung_Zaehler_B = 0;
+  float Steigung_Nenner_B = 0;
+  for (int i = indexX1B; i < indexX2B + 1; i++) {
+    Steigung_Zaehler_B += (Innenraumluftb[6][i] - MWB_fuerSteigung)*(Innenraumluftb[indexY][i] - MWB);
+    Steigung_Nenner_B += (Innenraumluftb[6][i] - MWB_fuerSteigung)*(Innenraumluftb[6][i] - MWB_fuerSteigung);
+  }
+  SteigungB = Steigung_Zaehler_B/Steigung_Nenner_B;
+
+  // Merkmale C
+
+  for (int i = indexX1C; i < indexX2C + 1; i++) {
+    if (Innenraumluftc[indexY][i] > MaxC) {
+      MaxC = Innenraumluftc[indexY][i];
+    }
+    if (Innenraumluftc[indexY][i] < MinC && Innenraumluftc[indexY][i] != 0) {
+      MinC =  Innenraumluftc[indexY][i];
+    }
+    MWC += Innenraumluftc[indexY][i];
+    MWC_fuerSteigung += Innenraumluftc[6][i];
+  }
+  MWC = MWC/(indexX2C + 1 - indexX1C);
+  MWC_fuerSteigung = MWC_fuerSteigung/(indexX2C+ 1 - indexX1C);
+
+  float Steigung_Zaehler_C = 0;
+  float Steigung_Nenner_C = 0;
+  for (int i = indexX1C; i < indexX2C + 1; i++) {
+    Steigung_Zaehler_C += (Innenraumluftc[6][i] - MWC_fuerSteigung)*(Innenraumluftc[indexY][i] - MWC);
+    Steigung_Nenner_C += (Innenraumluftc[6][i] - MWC_fuerSteigung)*(Innenraumluftc[6][i] - MWC_fuerSteigung);
+  }
+  SteigungC = Steigung_Zaehler_C/Steigung_Nenner_C;
+
+  fill(0);
+  stroke(0);
+  line(1080, 125, 1280, 125);
+  line(1080, 275, 1280, 275);
+  line(1080, 425, 1280, 425);
+  noStroke();
+
+  text("0% Lüfter", 1130, 120);
+  text("50% Lüfter", 1125, 270);
+  text("100% Lüfter", 1120, 420);
+
+  text("Maximum: " + nf(MaxA, 0, 1), 1090, 150);
+  text("Minimum: " + nf(MinA, 0, 1), 1090, 175);
+  text("Mittelwert: " + nf(MWA, 0, 1), 1090, 200);
+  text("Steigung: " + nf(SteigungA, 0, 1), 1090, 225);
+
+  text("Maximum: " + nf(MaxB, 0, 1), 1090, 300);
+  text("Minimum: " + nf(MinB, 0, 1), 1090, 325);
+  text("Mittelwert: " + nf(MWB, 0, 1), 1090, 350);
+  text("Steigung: " + nf(SteigungB, 0, 1), 1090, 375);
+
+  text("Maximum: " + nf(MaxC, 0, 1), 1090, 450);
+  text("Minimum: " + nf(MinC, 0, 1), 1090, 475);
+  text("Mittelwert: " + nf(MWC, 0, 1), 1090, 500);
+  text("Steigung: " + nf(SteigungC, 0, 1), 1090, 525);
 }
 
 
 
+boolean analyse_bool = false;
+
+class slider {
+  float x1;
+  float x2;
+  boolean active1;
+  boolean active2;
+
+  slider(float x1_, float x2_, boolean active1_, boolean active2_) {
+    x1 = x1_;
+    x2 = x2_;
+    active1 = active1_;
+    active2 = active2_;
+  }
 
 
+  void show() {
+    //Boden = Dreieck
+    stroke(100, 100, 255);
+    fill(100, 100, 255);
+    beginShape();
+    vertex(x1-10, 650);
+    vertex(x1, 640);
+    vertex(x1+10, 650);
+    vertex(x1-10, 650);
+    endShape();
+    strokeWeight(3);
+    stroke(200);
+    line(x1, 140, x1, 637);
+
+    stroke(100, 100, 255);
+    fill(100, 100, 255);
+    beginShape();
+    vertex(x2-10, 650);
+    vertex(x2, 640);
+    vertex(x2+10, 650);
+    vertex(x2-10, 650);
+    endShape();
+    strokeWeight(3);
+    stroke(200);
+    line(x2, 140, x2, 637);
+    strokeWeight(1);
+
+    fill(200, 200, 255, 100);
+    rect(x1, 140, (x2-x1), 500);
+  }
+
+
+  void move() {
+    if (mouseX > x1 - 10 && mouseX < x1 + 10 && mousePressed) {
+      active1 = true;
+    }
+    if (mouseX > x2 - 10 && mouseX < x2 + 10 && mousePressed) {
+      active2 = true;
+    }
+
+    if (!mousePressed) {
+      active1 = false;
+      active2 = false;
+    }
+
+    if (active1) {
+      x1 = mouseX; 
+      if (x1 < 120) {
+        x1 = 120;
+      }
+      if (x1 > 930) {
+        x1 = 930;
+      }
+    }
+    if (active2) {
+      x2 = mouseX; 
+      if (x2 < 140) {
+        x2 = 140;
+      }
+      if (x2 > 950) {
+        x2 = 950;
+      }
+    }
+
+    if (abs(x1 - x2) < 50) {
+      x1 = x2- 50;
+      x2 = x1 + 50;
+    }
+  }
+}
+
+
+
+void mouseReleased() {
+  if (mouseX > s.x1 - 10 && mouseX < s.x1 + 10) {
+    s.active1 = false;
+  }
+  if (mouseX > s.x2 - 10 && mouseX < s.x2 + 10) {
+    s.active2 = false;
+  }
+}
 
 
 
@@ -1250,7 +1514,7 @@ void plotStation4_Auswertung(float[][] array, color c, int indexX, int indexY, f
       }
     }
     fill(0);
-    text(nf((array[indexX][maxIndex] - array[indexX][0]), 0, 1), 938, 660);
+    //text(nf((array[indexX][maxIndex] - array[indexX][0]), 0, 1), 938, 660);
   } else {
     for (int i = 0; i < maxIndex; i++) {
       fill(c);

@@ -23,6 +23,7 @@ String[] SPS_Strings_Station1 = {"", "PM2.5", "PM10"};
 String[] SPS_Strings_Station1_Auswertung = {"", "PM2.5 (Referenz)", "PM10 (Referenz)", "PM2.5 (trocken)", "PM10 (trocken)", "PM2.5 (nass)", "PM10 (nass)"};
 String[] Station4_Strings = {"", "Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
 String[] Station4_Auswertung_Strings = {"Zeit", "Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
+String[] Station4_Auswertung_Strings2 = {"Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
 String[] dateiformat_Strings = {"Format: .csv", "Format: .txt"};
 String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "autosave"};
 
@@ -50,11 +51,13 @@ button station1_referenz, station1_trocken, station1_nass, station1_MessungStart
 button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung, zur_Auswertung2, zur_Auswertung3;
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 button reset_innenraum;
-button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred;
+button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred, genaueAnalyse;
 
 Probe A, B, C, D, E;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
+
+slider s;
 
 boolean measure = true;
 
@@ -136,10 +139,10 @@ void setup() {
 
   Station4_Rot = new dropdown("Links", 120, 20, 200, 30, 6, Station4_Strings, false, color(255, 0, 0));
   Station4_Blau = new dropdown("Rechts", 750, 20, 200, 30, 6, Station4_Strings, false, color(0, 0, 255));
-  
+
   Station4_Auswertung_Rot = new dropdown("Abszisse", 250, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
-  Station4_Auswertung_Blau = new dropdown("Ordinate", 730, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(0, 0, 255));
-  
+  Station4_Auswertung_Blau = new dropdown("Ordinate", 730, 20, 220, 30, 5, Station4_Auswertung_Strings2, false, color(0, 0, 255));
+
   Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
   Alle_Sensoren_Blau = new dropdown("Rechts", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
@@ -256,9 +259,9 @@ void setup() {
   letzteWiederholen = new button(1050, 70, 150, 100, "letzte Messung\nwiederholen", -15, true, 20);
   ja_zufrieden = new button(400, 70, 150, 100, "Ja", 5, true, 20);
   reset_Station2 =  new button(970, 660, 140, 50, "Reset", 5, true, 20);
-  
-  
-station4_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederholen", -5, true, 20);
+
+
+  station4_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederholen", -5, true, 20);
 
 
 
@@ -288,11 +291,13 @@ station4_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederho
   Station4c = new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20); 
   Station4Auswertung = new button(1115, 250, 140, 100, "zur\nAuswertung", -12, true, 20); 
   Station4Start = new button(1115, 100, 140, 65, "Messung\nstarten", -5, true, 20); 
-  
+
   zero = new button(120, 90, 150, 50, "0% Lüfter", 5, true, 20);
   fifty = new button(420, 90, 150, 50, "50% Lüfter", 5, true, 20);
   hundred = new button(750, 90, 150, 50, "100% Lüfter", 5, true, 20);
   
+  genaueAnalyse =  new button(1115, 550, 140, 50, "Analyse", 5, true, 20);
+  s = new slider(200, 400, false, false);
 }
 
 
@@ -313,6 +318,7 @@ void draw() {
   if (!gotSerial) {
     try {
       myPort = new Serial(this, Serial.list()[ausgewaehlterPort], 57600);
+      myPort.clear();
       gotSerial = true;
       anzahlCOMPorts = Serial.list().length;
     }
@@ -507,10 +513,10 @@ void draw() {
   } else if (page == 4.111) {
     Innenraumluft_c();
     reset.hide();
-  } else if(page == 4.1111){
-   AuswertungInnenraum(); 
-   reset.hide();
-  }else if (page == 10) {
+  } else if (page == 4.1111) {
+    AuswertungInnenraum(); 
+    reset.hide();
+  } else if (page == 10) {
     setting();
     Stationen.hide();
     Sensoren.hide();
@@ -639,9 +645,9 @@ void draw() {
         page = 4.1;
       } else if (page == 4.111) {
         page = 4.11;
-      }else if(page == 4.1111){
-       page = 4.111; 
-      }else {
+      } else if (page == 4.1111) {
+        page = 4.111;
+      } else {
         page = 0;
       }
     } else if (page < -2) {
