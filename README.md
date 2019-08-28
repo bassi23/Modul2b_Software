@@ -2,6 +2,10 @@
 
 ## Update
 
+## 28.08.2019
+- Station 4: Integration eines Analysetools der Daten. Sobald man einen Wert gegen die Zeit aufträgt kann man ab sofort einzelne Bereiche genauer analysieren, indem Merkmale, wie Maximum, Minimum, Mittelwert und Steigung in einem Intervall berechnet werden. Zur Berechnung der Steigung wird eine Regressionsgerade gebildet.
+
+
 ## 27.08.2019
 - Station 4: Auswertung hinzugefügt. Man kann jetzt auch Messgrößen gegeneinander auftragen, um beispielsweise einen Zusammenhang zwischen CO2 und TVOC sichtbar zu machen.
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station4.png) <br>
