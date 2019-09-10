@@ -12,7 +12,7 @@
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/CO2_TVOC.png) <br>
 Im Programm selbst sah es so aus:
 
-![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Zusammenfassung_TVOC2.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Zusammenfassung_TVOC.png) <br>
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Zusammenfassung_CO2.png) <br>
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/ohne_Lüfter.png) <br>
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/50_Lüfter.png) <br>
