@@ -2,6 +2,22 @@
 
 ## Update
 
+## 10.09.2019
+- Allgemein: Optionen erweitert --> Fehlerbalken, Messwerte verbinden und die Möglichkeit alle Stationen frei zu geben, falls es ein Problem  gibt (insbesondere wenn der weiter Button bei Station 4 nicht erscheint. Ich habe nämlich keine Ahnung warum er das manchmal nicht tut.)
+- Station 4: Noch einmal eine Messung mit neuen Sensoren durchgeführt. Hier die Ergebnisse
+
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station4_Temperatur.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station4_CO2.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station4_TVOC.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/CO2_TVOC.png) <br>
+Im Programm selbst sah es so aus:
+
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Zusammenfassung_TVOC2.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Zusammenfassung_CO2.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/ohne_Lüfter.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/50_Lüfter.png) <br>
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/100_Lüfter.png) <br>
+
 ## 28.08.2019
 - Station 4: Integration eines Analysetools der Daten. Sobald man einen Wert gegen die Zeit aufträgt kann man ab sofort einzelne Bereiche genauer analysieren, indem Merkmale, wie Maximum, Minimum, Mittelwert und Steigung in einem Intervall berechnet werden. Zur Berechnung der Steigung wird eine Regressionsgerade gebildet.
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Analyse_Station4.png) <br>
