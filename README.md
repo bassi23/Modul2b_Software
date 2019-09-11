@@ -6,6 +6,20 @@
 - Fehler werden von nun an auch beim aktuellen Wert angezeigt
 - Integration von Checkboxen, um nicht immer in die Optionen gehen zu müssen, um einzustellen ob Fehlerbalken gezeichnet werden sollen oder die Messwerte verbunden werden sollen
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Fehlerbalken.png) <br>
+
+Die Fehler basieren auf den Datenblättern der Sensoren:
+
+<b>SCD</b> <br>
+CO2: 30 +/- 3%<br>
+Luftfeuchte: +/- 2% Relative Feuchte (= absoluter Messwert)<br>
+Temperatur: +/- 0,5 °C<br>
+<br>
+<b>SGP</b><br>
+TVOC: +/- 15% <br>
+eCO2: +/- 10% <br>
+<br>
+<b>SGP</b><br>
+alle PM: 10 (wenn < 100 µg/m³), 10% darüber<br>
 ## 10.09.2019
 - Allgemein: Optionen erweitert --> Fehlerbalken, Messwerte verbinden und die Möglichkeit alle Stationen frei zu geben, falls es ein Problem  gibt (insbesondere wenn der weiter Button bei Station 4 nicht erscheint. Ich habe nämlich keine Ahnung warum er das manchmal nicht tut.)
 - Station 4: Noch einmal eine Messung mit neuen Sensoren durchgeführt. Hier die Ergebnisse
