@@ -3,7 +3,9 @@
 ## Update
 ## 11.09.2019
 - Allgemein: Problem mit Fehlerbalken behoben
-
+- Fehler werden von nun an auch beim aktuellen Wert angezeigt
+- Integration von Checkboxen, um nicht immer in die Optionen gehen zu müssen, um einzustellen ob Fehlerbalken gezeichnet werden sollen oder die Messwerte verbunden werden sollen
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Fehlerbalken.png) <br>
 ## 10.09.2019
 - Allgemein: Optionen erweitert --> Fehlerbalken, Messwerte verbinden und die Möglichkeit alle Stationen frei zu geben, falls es ein Problem  gibt (insbesondere wenn der weiter Button bei Station 4 nicht erscheint. Ich habe nämlich keine Ahnung warum er das manchmal nicht tut.)
 - Station 4: Noch einmal eine Messung mit neuen Sensoren durchgeführt. Hier die Ergebnisse
