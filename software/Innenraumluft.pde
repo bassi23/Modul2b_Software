@@ -179,14 +179,23 @@ void Innenraumluft_a() {
   fill(0);
   textAlign(CENTER);
   if (Rot != -1) {
+
     for (int i = 0; i< 6; i++) {
-      text(nf(minRot + i*(maxRot-minRot)/(5), 0, 1), 85, 650 - 100*i);
+      if (Rot != 0 && Rot != 1) {
+        text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
+      } else {
+        text(nf(minRot + i*(maxRot-minRot)/(5), 0, 1), 85, 650 - 100*i);
+      }
     }
   }
 
   if (Blau != -1) {
     for (int i = 0; i< 6; i++) {
-      text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      if (Blau != 0 && Blau != 1) {
+        text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
+      } else {
+        text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      }
     }
   }
   textAlign(CORNER);
@@ -266,6 +275,9 @@ void Innenraumluft_a() {
     Station4b.show();
   } else {
     Station4b.hide();
+  }
+  if (freie_stationen.name == "freigeben") {
+    Station4b.show();
   }
 
   pushMatrix();
@@ -350,7 +362,12 @@ void plotStation4(float[][] array, int index, float min, float max, color c) {
             x1 = -(b-y2)/m;
           }
           if (y1 >= 140 && y2>= 140 && y1 <= 640 && y2<= 640 && array[index][i] != 0) {
-            line(x1, y1, x2, y2);
+            if (connect.name == "verbinden") {
+              line(x1, y1, x2, y2);
+            } else {
+              line(x2-5, y2, x2+5, y2);
+              line(x2, y2-5, x2, y2+5);
+            }
           }
         } else {
           float m = (y2 - y1)/(x2-x1);
@@ -531,14 +548,23 @@ void Innenraumluft_b() {
   fill(0);
   textAlign(CENTER);
   if (Rot != -1) {
+
     for (int i = 0; i< 6; i++) {
-      text(nf(minRot + i*(maxRot-minRot)/(5), 0, 1), 85, 650 - 100*i);
+      if (Rot != 0 && Rot != 1) {
+        text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
+      } else {
+        text(nf(minRot + i*(maxRot-minRot)/(5), 0, 1), 85, 650 - 100*i);
+      }
     }
   }
 
   if (Blau != -1) {
     for (int i = 0; i< 6; i++) {
-      text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      if (Blau != 0 && Blau != 1) {
+        text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
+      } else {
+        text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      }
     }
   }
   textAlign(CORNER);
@@ -619,6 +645,10 @@ void Innenraumluft_b() {
     Station4c.show();
   } else {
     Station4c.hide();
+  }
+
+  if (freie_stationen.name == "freigeben") {
+    Station4c.show();
   }
   pushMatrix();
   translate(width/2, height/2);
@@ -801,16 +831,24 @@ void Innenraumluft_c() {
       }
     }
   }
-
   if (Rot != -1) {
+
     for (int i = 0; i< 6; i++) {
-      text(nf(minRot + i*(maxRot-minRot)/(5), 0, 1), 85, 650 - 100*i);
+      if (Rot != 0 && Rot != 1) {
+        text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
+      } else {
+        text(nf(minRot + i*(maxRot-minRot)/(5), 0, 1), 85, 650 - 100*i);
+      }
     }
   }
 
   if (Blau != -1) {
     for (int i = 0; i< 6; i++) {
-      text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      if (Blau != 0 && Blau != 1) {
+        text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
+      } else {
+        text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      }
     }
   }
   textAlign(CORNER);
@@ -895,7 +933,9 @@ void Innenraumluft_c() {
   } else {
     Station4Auswertung.hide();
   }
-
+  if (freie_stationen.name == "freigeben") {
+    Station4Auswertung.show();
+  }
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
@@ -1131,9 +1171,9 @@ void AuswertungInnenraum() {
   }
 
 
-    for (int i = 0; i< 6; i++) {
-      text(nf(absoluteMinY + i*(absoluteMaxY-absoluteMinY)/(5), 0, 1), 985, 650 - 100*i);
-    }
+  for (int i = 0; i< 6; i++) {
+    text(nf(absoluteMinY + i*(absoluteMaxY-absoluteMinY)/(5), 0, 1), 985, 650 - 100*i);
+  }
 
 
 
@@ -1377,26 +1417,42 @@ void analyse() {
 
   noStroke();
 
+  String Einheit = "";
+
+
+
+  if (indexY == 0) {
+    Einheit = "°C";
+  } else if (indexY == 1) {
+    Einheit = "%";
+  } else if (indexY == 2) {
+    Einheit = "ppm";
+  } else if (indexY == 3) {
+    Einheit = "ppb";
+  } else if (indexY == 4) {
+    Einheit = "ppm";
+  }
+
   textSize(16);
   textAlign(CENTER);
   text("0% Lüfter", 1180, 120);
   text("50% Lüfter", 1180, 270);
   text("100% Lüfter", 1180, 420);
 
-  text("Maximum: " + nf(MaxA, 0, 1), 1180, 150);
-  text("Minimum: " + nf(MinA, 0, 1), 1180, 175);
-  text("Mittelwert: " + nf(MWA, 0, 1), 1180, 200);
-  text("Steigung: " + nf(SteigungA, 0, 1), 1180, 225);
+  text("Maximum: " + nf(MaxA, 0, 1) + "in " + Einheit, 1180, 150);
+  text("Minimum: " + nf(MinA, 0, 1) + "in " + Einheit, 1180, 175);
+  text("Mittelwert: " + nf(MWA, 0, 1) + "in " + Einheit, 1180, 200);
+  text("Steigung: " + nf(SteigungA, 0, 1) + "in " + Einheit + "/s", 1180, 225);
 
-  text("Maximum: " + nf(MaxB, 0, 1), 1180, 300);
-  text("Minimum: " + nf(MinB, 0, 1), 1180, 325);
-  text("Mittelwert: " + nf(MWB, 0, 1), 1180, 350);
-  text("Steigung: " + nf(SteigungB, 0, 1), 1180, 375);
+  text("Maximum: " + nf(MaxB, 0, 1) + "in " + Einheit, 1180, 300);
+  text("Minimum: " + nf(MinB, 0, 1) + "in " + Einheit, 1180, 325);
+  text("Mittelwert: " + nf(MWB, 0, 1) + "in " + Einheit, 1180, 350);
+  text("Steigung: " + nf(SteigungB, 0, 1)+ "in " + Einheit + "/s", 1180, 375);
 
-  text("Maximum: " + nf(MaxC, 0, 1), 1180, 450);
-  text("Minimum: " + nf(MinC, 0, 1), 1180, 475);
-  text("Mittelwert: " + nf(MWC, 0, 1), 1180, 500);
-  text("Steigung: " + nf(SteigungC, 0, 1), 1180, 525);
+  text("Maximum: " + nf(MaxC, 0, 1) + "in " + Einheit, 1180, 450);
+  text("Minimum: " + nf(MinC, 0, 1) + "in " + Einheit, 1180, 475);
+  text("Mittelwert: " + nf(MWC, 0, 1) + "in " + Einheit, 1180, 500);
+  text("Steigung: " + nf(SteigungC, 0, 1)+ "in " + Einheit + "/s", 1180, 525);
   textAlign(CORNER);
 }
 
@@ -1618,7 +1674,12 @@ void plotStation4_Auswertung(float[][] array, color c, int indexX, int indexY, f
         x1 = -(b-y2)/m;
       }
       if (y1 >= 140 && y2>= 140 && y1 <= 640 && y2<= 640) {
-        line(x1, y1, x2, y2);
+        if (connect.name == "verbinden") {
+          line(x1, y1, x2, y2);
+        } else {
+          line(x2-5, y2, x2+5, y2);
+          line(x2, y2-5, x2, y2+5);
+        }
       }
     }
     fill(0);

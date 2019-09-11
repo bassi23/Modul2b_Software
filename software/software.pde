@@ -12,7 +12,7 @@ import controlP5.*;
 //
 
 dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
-dropdown dateiformat, autosave;
+dropdown dateiformat, autosave, connect, error_bars, freie_stationen;
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
 String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
@@ -26,7 +26,9 @@ String[] Station4_Auswertung_Strings = {"Zeit", "Temperatur", "Luftfeuchte", "CO
 String[] Station4_Auswertung_Strings2 = {"Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
 String[] dateiformat_Strings = {"Format: .csv", "Format: .txt"};
 String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "autosave"};
-
+String[] connect_Strings = {"verbinden", "nicht verbinden"};
+String[] error_bars_Strings = {"anzeigen", "nicht anzeigen"};
+String[] freie_stationen_Strings = {"nicht freigeben", "freigeben"};
 
 //Logos und Hintergrundbilder
 PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil, hintergrund;
@@ -62,14 +64,14 @@ slider s;
 boolean measure = true;
 
 
-float page = 4.1;
+float page = -6;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
 float zeroTime4 = 0;
 float zeroTime5 = 0;
 
-float time_Station4 = 30;
+float time_Station4 = 300;
 
 int anzahlCOMPorts = 0;
 int ausgewaehlterPort = 0;
@@ -121,7 +123,7 @@ void setup() {
   catch(Exception e) {
     gotSerial = false;
   }
-  Aufloesung = new dropdown("Auflösung", 500, 450, 300, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
+  Aufloesung = new dropdown("Auflösung", 350, 480, 250, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
   SGP_Rot = new dropdown("Links", 120, 20, 200, 30, 3, SGP_Strings, false, color(255, 0, 0));
   SGP_Blau = new dropdown("Rechts", 750, 20, 200, 30, 3, SGP_Strings, false, color(0, 0, 255));
 
@@ -148,10 +150,12 @@ void setup() {
   Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
   Alle_Sensoren_Blau = new dropdown("Rechts", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
-  dateiformat = new dropdown("Dateiformat", 350, 100, 200, 30, 2, dateiformat_Strings, false, color(255, 12, 23));
-  autosave = new dropdown("nicht speichern", 700, 100, 300, 30, 3, autosave_Strings, false, color(255, 34, 23));
+  dateiformat = new dropdown("Dateiformat", 350, 40, 200, 30, 2, dateiformat_Strings, false, color(255, 12, 23));
+  autosave = new dropdown("nicht speichern", 700, 40, 300, 30, 3, autosave_Strings, false, color(255, 34, 23));
 
-
+  connect = new dropdown("verbinden", 350, 180, 200, 30, 2, connect_Strings, false, color(12, 4, 45));
+  error_bars = new dropdown("anzeigen", 700, 180, 200, 30, 2, error_bars_Strings, false, color(23,4,5));
+  freie_stationen = new dropdown("nicht freigeben", 700, 480, 200, 30, 2, freie_stationen_Strings, false, color(1,2,3));
 
 
   table = new Table();
@@ -198,12 +202,12 @@ void setup() {
 
   //
   einstellungen = new button(20, 630, 150, 75, "Einstellungen", 5, true, 20);
-  Port1 = new button(750, 275, 30, 30, " x ", 5, true, 20);
-  Port2 = new button(750, 325, 30, 30, " x ", 5, true, 20);
-  Port3 = new button(750, 375, 30, 30, " x ", 5, true, 20);
-  Port4 = new button(750, 425, 30, 30, " x ", 5, true, 20);
-  Port5 = new button(750, 475, 30, 30, " x ", 5, true, 20);
-  Port6 = new button(750, 525, 30, 30, " x ", 5, true, 20);
+  Port1 = new button(730, 335, 30, 30, " x ", 5, true, 20);
+  Port2 = new button(730, 370, 30, 30, " x ", 5, true, 20);
+  Port3 = new button(730, 405, 30, 30, " x ", 5, true, 20);
+  Port4 = new button(730, 440, 30, 30, " x ", 5, true, 20);
+  Port5 = new button(730, 475, 30, 30, " x ", 5, true, 20);
+  Port6 = new button(730, 510, 30, 30, " x ", 5, true, 20);
   //
   station1_referenz = new button(150, 300, 300, 150, "Referenzmessung", 5, true, 30);
   station1_trocken = new button(500, 300, 300, 150, "trockener\nSchwamm", -20, true, 30);
@@ -297,7 +301,7 @@ void setup() {
   zero = new button(120, 90, 150, 50, "0% Lüfter", 5, true, 20);
   fifty = new button(420, 90, 150, 50, "50% Lüfter", 5, true, 20);
   hundred = new button(750, 90, 150, 50, "100% Lüfter", 5, true, 20);
-  
+
   genaueAnalyse =  new button(1115, 550, 140, 50, "Analyse", 5, true, 20);
   s = new slider(200, 400, false, false);
 }
