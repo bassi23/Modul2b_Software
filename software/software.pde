@@ -13,6 +13,8 @@ import controlP5.*;
 
 dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
 dropdown dateiformat, autosave, connect, error_bars, freie_stationen;
+checkbox verbinde, fehler;
+
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
 String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
@@ -154,8 +156,12 @@ void setup() {
   autosave = new dropdown("nicht speichern", 700, 40, 300, 30, 3, autosave_Strings, false, color(255, 34, 23));
 
   connect = new dropdown("verbinden", 350, 180, 200, 30, 2, connect_Strings, false, color(12, 4, 45));
-  error_bars = new dropdown("anzeigen", 700, 180, 200, 30, 2, error_bars_Strings, false, color(23,4,5));
-  freie_stationen = new dropdown("nicht freigeben", 700, 480, 200, 30, 2, freie_stationen_Strings, false, color(1,2,3));
+  error_bars = new dropdown("anzeigen", 700, 180, 200, 30, 2, error_bars_Strings, false, color(23, 4, 5));
+  freie_stationen = new dropdown("nicht freigeben", 700, 480, 200, 30, 2, freie_stationen_Strings, false, color(1, 2, 3));
+
+  fehler = new checkbox(1225, 160, 30, false);
+  verbinde = new checkbox(1225, 200, 30, false);
+
 
 
   table = new Table();
@@ -178,12 +184,12 @@ void setup() {
   down2 = new button(1025, 195, 30, 50, "down_arrow", 5, true, 20);
   left1 = new button(1115, 330, 50, 30, "left_arrow", 5, true, 20);
   right1 = new button(1200, 330, 50, 30, "right_arrow", 5, true, 20);
-  start_stopp = new button(1115, 100, 140, 50, "Start/Stopp", 5, true, 20);
+  start_stopp = new button(1115, 35, 140, 50, "Start/Stopp", 5, true, 20);
   aktualisierung_right = new button(1200, 500, 50, 30, "right_arrow", 5, true, 20);
   aktualisierung_left = new button(1115, 500, 50, 30, "left_arrow", 5, true, 20);
 
   //
-  reset = new button(1115, 155, 140, 50, "Reset", 5, true, 20);
+  reset = new button(1115, 90, 140, 50, "Reset", 5, true, 20);
   sicher_ja = new button(450, 340, 150, 75, "Ja", 5, true, 20);
   sicher_nein = new button(700, 340, 150, 75, "Nein", 5, true, 20);
 
@@ -214,7 +220,7 @@ void setup() {
   station1_nass = new button(850, 300, 300, 150, "nasser\nSchwamm", -20, true, 30);
   zur_Auswertung2 = new button(500, 570, 300, 140, "zur Auswertung", 5, true, 30);
 
-  station1_MessungStarten = new button(1115, 100, 140, 65, "Messung\nstarten", -5, true, 20);
+  station1_MessungStarten = new button(1115, 70, 140, 65, "Messung\nstarten", -5, true, 20);
   station1_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederholen", -5, true, 20);
   station1_weiter_ab = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20);
   station1_weiter_bc =  new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20);
@@ -317,8 +323,8 @@ void draw() {
   imageMode(CORNER);
   translate(0, scroll);
   // Die Performance wird durch ein Bild als Hintergrund verbessert
-  background(255);
-  image(hintergrund, 0, 0);
+  background(240);
+  //image(hintergrund, 0, 0);
 
   // Falls die serielle Verbinding unterbrochen wird, wird nach einer neuen gesucht
   if (!gotSerial) {

@@ -202,7 +202,7 @@ void Datenaufnahme() {
             }
             indexStation1_trocken += 1;
           } else if (page == 1.111) {// nasser Schwamm
-
+            println(sps_pm1_data[index-2]);
             Station1_PM1_nass[indexStation1_nass] = sps_pm1_data[index-2];
             Station1_PM25_nass[indexStation1_nass] = sps_pm25_data[index-2];
             Station1_PM4_nass[indexStation1_nass] = sps_pm4_data[index-2];

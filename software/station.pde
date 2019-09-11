@@ -8,8 +8,6 @@ class station {
     y = y_;
     active = active_;
   }
-
-
     void show() {
       if (mouseX > x && mouseX < (x + 400) && (mouseY - scroll) > y && (mouseY - scroll) < (y + 300)) {
         fill(150, 255, 150);
@@ -18,17 +16,13 @@ class station {
       }
       rect(x, y, 400, 300);
     }
-
     boolean isOver() {
       if (mouseX > x && mouseX < (x + 400) && (mouseY - scroll) > y && (mouseY - scroll) < (y + 300) && active) {
         return true;
       } else {
         return false;
-      }
-      
+      } 
     }
-
-
     boolean isClicked() {
       if (this.isOver() && mousePressed && active) {
         return true;
@@ -36,5 +30,4 @@ class station {
         return false;
       }
     }
-  
 }

@@ -30,7 +30,7 @@ void alleSensoren() {
     tvoc_right = true;
     up2.show();
     down2.show();
-  } else if (Alle_Sensoren_Blau.name == "eCO2") {
+  } else if (Alle_Sensoren_Blau.name == "eCO2" || Alle_Sensoren_Blau.name == "eCO") {
     eco2_right = true;
     up2.show();
     down2.show();
@@ -42,7 +42,7 @@ void alleSensoren() {
     H_right = true;
     up2.show();
     down2.show();
-  } else if (Alle_Sensoren_Blau.name == "CO2") {
+  } else if (Alle_Sensoren_Blau.name == "CO2"  || Alle_Sensoren_Blau.name == "CO") {
     CO2_right = true;
     up2.show();
     down2.show();
@@ -72,7 +72,7 @@ void alleSensoren() {
     tvoc_left = true;
     up1.show();
     down1.show();
-  } else if (Alle_Sensoren_Rot.name == "eCO2") {
+  } else if (Alle_Sensoren_Rot.name == "eCO2" || Alle_Sensoren_Rot.name == "eCO") {
     eco2_left = true;
     up1.show();
     down1.show();
@@ -84,7 +84,7 @@ void alleSensoren() {
     H_left = true;
     up1.show();
     down1.show();
-  } else if (Alle_Sensoren_Rot.name == "CO2") {
+  } else if (Alle_Sensoren_Rot.name == "CO2" || Alle_Sensoren_Rot.name == "CO") {
     CO2_left = true;
     up1.show();
     down1.show();
@@ -238,12 +238,13 @@ void alleSensoren() {
   }
   fill(0);
   noStroke();
-  textSize(30);
-  text("Optionen", 1120, 50);
-  fill(240);;
+  textSize(24);
+  text("Optionen", 1130, 22);
+  fill(240);
   stroke(0);
-  rect(1105, 450, 155, 140);
+  rect(1105, 445, 155, 140);
   rect(1105, 250, 155, 180);
+  rect(1105, 155, 155, 80);
   fill(0);
   noStroke();
   textSize(20);
@@ -257,14 +258,17 @@ void alleSensoren() {
   }
   text("Anzeige\nMesswerte", 1185, 280);
   text(intervall, 1185, 390);
+  textSize(15);
+  text("Fehlerbalken", 1165, 180);
+  text("verbinden", 1165, 220);
   textAlign(CORNER);
   stroke(0);
-  if(measure){
-   fill(0,255,0); 
-  }else{
-   fill(255,0,0); 
+  if (measure) {
+    fill(0, 255, 0);
+  } else {
+    fill(255, 0, 0);
   }
-  ellipse(1098, 125, 20, 20);
+  ellipse(1098, 60, 20, 20);
 
   Alle_Sensoren_Rot.show();
   Alle_Sensoren_Blau.show();
@@ -276,4 +280,17 @@ void alleSensoren() {
   aktualisierung_left.show();
   start_stopp.show();
   zumObermenu.show();
+  verbinde.show();
+  fehler.show();
+
+  if (fehler.checked) {
+    error_bars.name = "anzeigen";
+  } else {
+    error_bars.name = "nicht anzeigen";
+  }
+  if (verbinde.checked) {
+    connect.name = "verbinden";
+  } else {
+    connect.name = "nicht verbinden";
+  }
 }

@@ -15,7 +15,7 @@ void TVOC_eCO2() {
     tvoc_left = true;
     up1.show();
     down1.show();
-  } else if (SGP_Rot.name == "eCO2") {
+  } else if (SGP_Rot.name == "eCO2" || SGP_Rot.name == "eCO") {
     eco2_left = true;
     up1.show();
     down1.show();
@@ -28,7 +28,7 @@ void TVOC_eCO2() {
     tvoc_right = true;
     up2.show();
     down2.show();
-  } else if (SGP_Blau.name == "eCO2") {
+  } else if (SGP_Blau.name == "eCO2" ||SGP_Blau.name == "eCO" ) {
     eco2_right = true;
     up2.show();
     down2.show();
@@ -139,13 +139,13 @@ void TVOC_eCO2() {
 
   fill(0);
   noStroke();
-  textSize(30);
-  text("Optionen", 1120, 50);
+  textSize(24);
+  text("Optionen", 1130, 22);
   fill(240);
-  ;
   stroke(0);
-  rect(1105, 450, 155, 140);
+  rect(1105, 445, 155, 140);
   rect(1105, 250, 155, 180);
+  rect(1105, 155, 155, 80);
   fill(0);
   noStroke();
   textSize(20);
@@ -159,6 +159,9 @@ void TVOC_eCO2() {
   }
   text("Anzeige\nMesswerte", 1185, 280);
   text(intervall, 1185, 390);
+  textSize(15);
+  text("Fehlerbalken", 1165, 180);
+  text("verbinden", 1165, 220);
   textAlign(CORNER);
   stroke(0);
   if (measure) {
@@ -166,7 +169,7 @@ void TVOC_eCO2() {
   } else {
     fill(255, 0, 0);
   }
-  ellipse(1098, 125, 20, 20);
+  ellipse(1098, 60, 20, 20);
 
 
   left1.show();
@@ -179,4 +182,17 @@ void TVOC_eCO2() {
   zumObermenu.show();
   SGP_Blau.show();
   SGP_Rot.show();
+  verbinde.show();
+  fehler.show();
+
+  if (fehler.checked) {
+    error_bars.name = "anzeigen";
+  } else {
+    error_bars.name = "nicht anzeigen";
+  }
+  if (verbinde.checked) {
+    connect.name = "verbinden";
+  } else {
+    connect.name = "nicht verbinden";
+  }
 }

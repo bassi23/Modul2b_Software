@@ -50,13 +50,13 @@ void Innenraumluft_a() {
   } else if (Station4_Rot.name == "Luftfeuchte") {
     Rot = 1;
     maxRot = 20*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "CO2") {
+  } else if (Station4_Rot.name == "CO") {
     Rot = 2;
     maxRot = 500*(scale_Innenraum1);
   } else if (Station4_Rot.name == "TVOC") {
     Rot = 3;
     maxRot = 100*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "eCO2") {
+  } else if (Station4_Rot.name == "eCO") {
     Rot = 4;
     maxRot = 500*(scale_Innenraum1);
   }
@@ -67,13 +67,13 @@ void Innenraumluft_a() {
   } else if (Station4_Blau.name == "Luftfeuchte") {
     Blau = 1;
     maxBlau = 20*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "CO2") {
+  } else if (Station4_Blau.name == "CO") {
     Blau = 2;
     maxBlau = 500*(scale_Innenraum2);
   } else if (Station4_Blau.name == "TVOC") {
     Blau = 3;
     maxBlau = 100*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "eCO2") {
+  } else if (Station4_Blau.name == "eCO") {
     Blau = 4;
     maxBlau = 500*(scale_Innenraum2);
   }
@@ -432,13 +432,13 @@ void Innenraumluft_b() {
   } else if (Station4_Rot.name == "Luftfeuchte") {
     Rot = 1;
     maxRot = 20*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "CO2") {
+  } else if (Station4_Rot.name == "CO") {
     Rot = 2;
     maxRot = 500*(scale_Innenraum1);
   } else if (Station4_Rot.name == "TVOC") {
     Rot = 3;
     maxRot = 100*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "eCO2") {
+  } else if (Station4_Rot.name == "eCO") {
     Rot = 4;
     maxRot = 500*(scale_Innenraum1);
   }
@@ -449,13 +449,13 @@ void Innenraumluft_b() {
   } else if (Station4_Blau.name == "Luftfeuchte") {
     Blau = 1;
     maxBlau = 20*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "CO2") {
+  } else if (Station4_Blau.name == "CO") {
     Blau = 2;
     maxBlau = 500*(scale_Innenraum2);
   } else if (Station4_Blau.name == "TVOC") {
     Blau = 3;
     maxBlau = 100*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "eCO2") {
+  } else if (Station4_Blau.name == "eCO") {
     Blau = 4;
     maxBlau = 500*(scale_Innenraum2);
   }
@@ -715,13 +715,13 @@ void Innenraumluft_c() {
   } else if (Station4_Rot.name == "Luftfeuchte") {
     Rot = 1;
     maxRot = 20*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "CO2") {
+  } else if (Station4_Rot.name == "CO") {
     Rot = 2;
     maxRot = 500*(scale_Innenraum1);
   } else if (Station4_Rot.name == "TVOC") {
     Rot = 3;
     maxRot = 100*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "eCO2") {
+  } else if (Station4_Rot.name == "eCO") {
     Rot = 4;
     maxRot = 500*(scale_Innenraum1);
   }
@@ -732,13 +732,13 @@ void Innenraumluft_c() {
   } else if (Station4_Blau.name == "Luftfeuchte") {
     Blau = 1;
     maxBlau = 20*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "CO2") {
+  } else if (Station4_Blau.name == "CO") {
     Blau = 2;
     maxBlau = 500*(scale_Innenraum2);
   } else if (Station4_Blau.name == "TVOC") {
     Blau = 3;
     maxBlau = 100*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "eCO2") {
+  } else if (Station4_Blau.name == "eCO") {
     Blau = 4;
     maxBlau = 500*(scale_Innenraum2);
   }
@@ -1024,11 +1024,11 @@ void AuswertungInnenraum() {
     indexX = 0;
   } else if (Station4_Auswertung_Rot.name == "Luftfeuchte") {
     indexX = 1;
-  } else if (Station4_Auswertung_Rot.name == "CO2") {
+  } else if (Station4_Auswertung_Rot.name == "CO") {
     indexX = 2;
   } else if (Station4_Auswertung_Rot.name == "TVOC") {
     indexX = 3;
-  } else if (Station4_Auswertung_Rot.name == "eCO2") {
+  } else if (Station4_Auswertung_Rot.name == "eCO") {
     indexX = 4;
   }
 
@@ -1038,13 +1038,13 @@ void AuswertungInnenraum() {
   } else if (Station4_Auswertung_Blau.name == "Luftfeuchte") {
     indexY = 1;
     maxBlau =  (100/5)*(scale_Innenraum1);
-  } else if (Station4_Auswertung_Blau.name == "CO2") {
+  } else if (Station4_Auswertung_Blau.name == "CO") {
     indexY = 2;
     maxBlau = 400*(scale_Innenraum1);
   } else if (Station4_Auswertung_Blau.name == "TVOC") {
     indexY = 3;
     maxBlau = 100*(scale_Innenraum1);
-  } else if (Station4_Auswertung_Blau.name == "eCO2") {
+  } else if (Station4_Auswertung_Blau.name == "eCO") {
     indexY = 4;
     maxBlau = 500*(scale_Innenraum1);
   }
@@ -1439,20 +1439,20 @@ void analyse() {
   text("50% Lüfter", 1180, 270);
   text("100% Lüfter", 1180, 420);
 
-  text("Maximum: " + nf(MaxA, 0, 1) + "in " + Einheit, 1180, 150);
-  text("Minimum: " + nf(MinA, 0, 1) + "in " + Einheit, 1180, 175);
-  text("Mittelwert: " + nf(MWA, 0, 1) + "in " + Einheit, 1180, 200);
-  text("Steigung: " + nf(SteigungA, 0, 1) + "in " + Einheit + "/s", 1180, 225);
+  text("Maximum: " + nf(MaxA, 0, 1) + " in " + Einheit, 1180, 150);
+  text("Minimum: " + nf(MinA, 0, 1) + " in " + Einheit, 1180, 175);
+  text("Mittelwert: " + nf(MWA, 0, 1) + " in " + Einheit, 1180, 200);
+  text("Steigung: " + nf(SteigungA, 0, 1) + " in " + Einheit + "/s", 1180, 225);
 
-  text("Maximum: " + nf(MaxB, 0, 1) + "in " + Einheit, 1180, 300);
-  text("Minimum: " + nf(MinB, 0, 1) + "in " + Einheit, 1180, 325);
-  text("Mittelwert: " + nf(MWB, 0, 1) + "in " + Einheit, 1180, 350);
-  text("Steigung: " + nf(SteigungB, 0, 1)+ "in " + Einheit + "/s", 1180, 375);
+  text("Maximum: " + nf(MaxB, 0, 1) + " in " + Einheit, 1180, 300);
+  text("Minimum: " + nf(MinB, 0, 1) + " in " + Einheit, 1180, 325);
+  text("Mittelwert: " + nf(MWB, 0, 1) + " in " + Einheit, 1180, 350);
+  text("Steigung: " + nf(SteigungB, 0, 1)+ " in " + Einheit + "/s", 1180, 375);
 
-  text("Maximum: " + nf(MaxC, 0, 1) + "in " + Einheit, 1180, 450);
-  text("Minimum: " + nf(MinC, 0, 1) + "in " + Einheit, 1180, 475);
-  text("Mittelwert: " + nf(MWC, 0, 1) + "in " + Einheit, 1180, 500);
-  text("Steigung: " + nf(SteigungC, 0, 1)+ "in " + Einheit + "/s", 1180, 525);
+  text("Maximum: " + nf(MaxC, 0, 1) + " in " + Einheit, 1180, 450);
+  text("Minimum: " + nf(MinC, 0, 1) + " in " + Einheit, 1180, 475);
+  text("Mittelwert: " + nf(MWC, 0, 1) + " in " + Einheit, 1180, 500);
+  text("Steigung: " + nf(SteigungC, 0, 1)+ " in " + Einheit + "/s", 1180, 525);
   textAlign(CORNER);
 }
 
