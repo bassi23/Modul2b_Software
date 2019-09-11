@@ -164,14 +164,13 @@ void Feinstaub() {
   }
   fill(0);
   noStroke();
-  textSize(24);
-  text("Optionen", 1130, 22);
+  textSize(30);
+  text("Optionen", 1120, 50);
   fill(240);
-
+  ;
   stroke(0);
-  rect(1105, 445, 155, 140);
+  rect(1105, 450, 155, 140);
   rect(1105, 250, 155, 180);
-  rect(1105, 155, 155, 80);
   fill(0);
   noStroke();
   textSize(20);
@@ -185,9 +184,6 @@ void Feinstaub() {
   }
   text("Anzeige\nMesswerte", 1185, 280);
   text(intervall, 1185, 390);
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
-  text("verbinden", 1165, 220);
   textAlign(CORNER);
   stroke(0);
   if (measure) {
@@ -206,19 +202,6 @@ void Feinstaub() {
   aktualisierung_left.show();
   start_stopp.show();
   zumObermenu.show();
-  verbinde.show();
-  fehler.show();
-
-  if (fehler.checked) {
-    error_bars.name = "anzeigen";
-  } else {
-    error_bars.name = "nicht anzeigen";
-  }
-  if (verbinde.checked) {
-    connect.name = "verbinden";
-  } else {
-    connect.name = "nicht verbinden";
-  }
 }
 
 
@@ -499,7 +482,6 @@ void referenzmessung() {
   fill(255);
   stroke(0);
   rect(470, 20, 130, 50);
-  rect(1105, 155, 155, 80);
 
   if (PM1_left) {
     graph(Station1_PM1, 1, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
@@ -566,8 +548,8 @@ void referenzmessung() {
 
   fill(0);
   noStroke();
-  textSize(24);
-  text("Optionen", 1120, 30);
+  textSize(30);
+  text("Optionen", 1120, 50);
   fill(240);
   stroke(0);
   rect(1105, 450, 155, 140);
@@ -582,27 +564,11 @@ void referenzmessung() {
     text("Messintervall", 1185, 480);
     text(nf(del, 0, 0) + " s", 1185, 565);
   }
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
-  text("verbinden", 1165, 220);
   textAlign(CORNER);
   back.show();
   zumObermenu.show();
   aktualisierung_right.show();
   aktualisierung_left.show();
-  verbinde.show();
-  fehler.show();
-
-  if (fehler.checked) {
-    error_bars.name = "anzeigen";
-  } else {
-    error_bars.name = "nicht anzeigen";
-  }
-  if (verbinde.checked) {
-    connect.name = "verbinden";
-  } else {
-    connect.name = "nicht verbinden";
-  }
 }
 
 
@@ -740,7 +706,7 @@ void trockenerSchwamm() {
   text("Auslaufen", 821, 130);
   textSize(80);
   fill(170, 50);
-  text("trockener Schwamm", 200, 420);
+  text("Referenzmessung", 200, 420);
   stroke(100, 100);
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
@@ -778,7 +744,6 @@ void trockenerSchwamm() {
   fill(255);
   stroke(0);
   rect(470, 20, 130, 50);
-  rect(1105, 155, 155, 80);
 
   if (PM1_left) {
     graph(Station1_PM1_trocken, 2, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
@@ -845,9 +810,10 @@ void trockenerSchwamm() {
 
   fill(0);
   noStroke();
-  textSize(24);
-  text("Optionen", 1135, 30);
+  textSize(30);
+  text("Optionen", 1120, 50);
   fill(240);
+  ;
   stroke(0);
   rect(1105, 450, 155, 140);
   fill(0);
@@ -861,27 +827,11 @@ void trockenerSchwamm() {
     text("Messintervall", 1185, 480);
     text(nf(del, 0, 0) + " s", 1185, 565);
   }
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
-  text("verbinden", 1165, 220);
   textAlign(CORNER);
   back.show();
   zumObermenu.show();
   aktualisierung_right.show();
   aktualisierung_left.show();
-  verbinde.show();
-  fehler.show();
-
-  if (fehler.checked) {
-    error_bars.name = "anzeigen";
-  } else {
-    error_bars.name = "nicht anzeigen";
-  }
-  if (verbinde.checked) {
-    connect.name = "verbinden";
-  } else {
-    connect.name = "nicht verbinden";
-  }
 }
 
 
@@ -1014,7 +964,7 @@ void nasserSchwamm() {
   text("Auslaufen", 821, 130);
   textSize(80);
   fill(170, 50);
-  text("nasser Schwamm", 200, 420);
+  text("Referenzmessung", 200, 420);
   stroke(100, 100);
   if (y_scale[0] != 0 || y_scale[1] != 0) {
     for (int i = 0; i < 4; i++) {
@@ -1052,26 +1002,25 @@ void nasserSchwamm() {
   fill(255);
   stroke(0);
   rect(470, 20, 130, 50);
-  rect(1105, 155, 155, 80);
 
   if (PM1_left) {
-    graph(Station1_PM1_nass, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
+    graph(Station1_PM1_trocken, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
   } else if (PM2_5_left) {
-    graph(Station1_PM25_nass, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
+    graph(Station1_PM25_trocken, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
   } else if (PM4_left) {
-    graph(Station1_PM4_nass, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
+    graph(Station1_PM4_trocken, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
   } else if (PM10_left) {
-    graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
+    graph(Station1_PM10_trocken, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
   }
 
   if (PM1_right) {
-    graph(Station1_PM1_nass, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, false);
+    graph(Station1_PM1_trocken, 3, "Feinstaub PM1 in μg/m³", x_scale, y_scale, false);
   } else if (PM2_5_right) {
-    graph(Station1_PM25_nass, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
+    graph(Station1_PM25_trocken, 3, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
   } else if (PM4_right) {
-    graph(Station1_PM4_nass, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
+    graph(Station1_PM4_trocken, 3, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
   } else if (PM10_right) {
-    graph(Station1_PM10_nass, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+    graph(Station1_PM10_trocken, 3, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
   }
   fill(0);
   textSize(20);
@@ -1119,9 +1068,10 @@ void nasserSchwamm() {
 
   fill(0);
   noStroke();
-  textSize(24);
-  text("Optionen", 1135, 30);
+  textSize(30);
+  text("Optionen", 1120, 50);
   fill(240);
+
   stroke(0);
   rect(1105, 450, 155, 140);
   fill(0);
@@ -1135,27 +1085,12 @@ void nasserSchwamm() {
     text("Messintervall", 1185, 480);
     text(nf(del, 0, 0) + " s", 1185, 565);
   }
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
-  text("verbinden", 1165, 220);
   textAlign(CORNER);
   back.show();
   zumObermenu.show();
   aktualisierung_right.show();
   aktualisierung_left.show();
-  verbinde.show();
-  fehler.show();
-
-  if (fehler.checked) {
-    error_bars.name = "anzeigen";
-  } else {
-    error_bars.name = "nicht anzeigen";
-  }
-  if (verbinde.checked) {
-    connect.name = "verbinden";
-  } else {
-    connect.name = "nicht verbinden";
-  }
+  reset.hide();
 }
 
 
@@ -1173,7 +1108,7 @@ void Vergleich_Feinstaub() {
 
 
 void Vergleich_Feinstaub_Graphen() {
-  reset.hide();
+    reset.hide();
   boolean PM25_referenz_rot = false;
   boolean PM10_referenz_rot = false;
 

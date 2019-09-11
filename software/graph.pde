@@ -579,7 +579,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
         if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
           if (error_bars.name == "anzeigen") {
             strokeWeight(0.5);
-
+    
             if (e1 < 100) {
               e1 = 100;
             }
@@ -707,7 +707,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
         } else if (name == "relative Luftfeuchte in %") {
           error = 2;
         } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³" || name == "Feinstaub in μg/m³") {
-          if (newArray[i] < 100) {
+          if (array[i] < 100) {
             error = 10;
           } else {
             error = 0.1*newArray[i];
@@ -759,13 +759,6 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
               line(x1, e1, x1, e2);
               line(x1-2, e1, x1+2, e1);
               line(x1-2, e2, x1+2, e2);
-
-              float a1 = 170 + (newArray_time[929] - x_anfang)*830/x_intervall;
-              float e11 = 600 - 500*(newArray[929] - error - min)/(max-min);
-              float e22 = 600 - 500*(newArray[929] + error - min)/(max-min);
-              line(a1, e1, a1, e2);
-              line(a1-2, e11, a1+2, e11);
-              line(a1-2, e22, a1+2, e22);
             }
           }
         }
@@ -785,94 +778,12 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     }
   } else if (zeitskala1 == 1) {
     for (int i = (indexStation1 - xValues); i < indexStation1 - 1; i++) {
-
-      if (array[i] < 100) {
-        error = 10;
-      } else {
-        error = 0.1*array[i];
-      }
-
-
-      float x_anfang = zeitskala[indexStation1 - xValues];
-      float x_ende = zeitskala[indexStation1 - 1];
-      x_ende = gesamtzeit_station1;
-      float x_intervall = x_ende - x_anfang;
-      float x1 = 170 + (zeitskala[i] - x_anfang)*830/x_intervall;
-      float x2 = 170 + (zeitskala[i+1] - x_anfang)*830/x_intervall;
-      float y1 = 600 - 500*(array[i]-min)/(max - min);
-      float y2 = 600 - 500*(array[i+1] - min)/(max - min);
-      float e1 = 600 - 500*(array[i]-error-min)/(max-min);
-      float e2 = 600- 500*(array[i]+error - min)/(max-min);
-      float m = ((y2 - y1)/(x2 - x1));
-      if (x1 <= 170) {
-        y1 = m*170 + y1 - m*x1;
-        x1 = 170;
-      }
-      if (x2 >= 1105) {
-        y2 = m*1105 + y1 - m*x1;
-        x2 = 1105;
-      }
-      if (y2 < 100) {
-        x2 = (100 + m*x2-y2)/m;
-        y2 = 100;
-      }
-      if (y1 < 100) {
-        x1 = (100 + m*x1-y1)/m;
-        y1 = 100;
-      }
-      if (x2 > 1000) {
-        x2 = 1000;
-        y2 = m*1000 + y1 - m*x1;
-      }
-      if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
-        if (error_bars.name == "anzeigen") {
-          strokeWeight(2);
-          if (e1 < 100) {
-            e1 = 100;
-          }
-          if (e2 < 100) {
-            e2 = 100;
-          }
-          if (e2 > 600) {
-            e2 = 600;
-          }
-          if (e1 > 600) {
-            e1 = 600;
-          }
-          line(x1, e1, x1, e2);
-          line(x1-2, e1, x1+2, e1);
-          line(x1-2, e2, x1+2, e2);
-          if (first_error) {
-            first_error = false;
-            line(x1, e1, x1, e2);
-            line(x1-2, e1, x1+2, e1);
-            line(x1-2, e2, x1+2, e2);
-
-            float a1 = 170 + (zeitskala[indexStation1 - 1] - x_anfang)*830/x_intervall;
-            float e11 = 600 - 500*(array[indexStation1 - 1] - error - min)/(max-min);
-            float e22 = 600 - 500*(array[indexStation1 - 1] + error - min)/(max-min);
-            line(a1, e1, a1, e2);
-            line(a1-2, e11, a1+2, e11);
-            line(a1-2, e22, a1+2, e22);
-          }
-        }
-      }
-      if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
-        if (connect.name == "verbinden") {
-          line(x1, y1, x2, y2);
-        } else {
-          line(x2-5, y2, x2+5, y2);
-          line(x2, y2-5, x2, y2+5);
-        }
+      if (indexStation1 < xValues) {
+        return;
       }
     }
   } else if (zeitskala1 == 2) {
     for (int i = (indexStation1_trocken - xValues); i < indexStation1_trocken - 1; i++) {
-      if (array[i] < 100) {
-        error = 10;
-      } else {
-        error = 0.1*array[i];
-      }
       float x_anfang = zeitskala[indexStation1_trocken - xValues];
       float x_ende = zeitskala[indexStation1_trocken - 1];
       x_ende = gesamtzeit_station1;
@@ -927,19 +838,11 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
             line(x1, e1, x1, e2);
             line(x1-2, e1, x1+2, e1);
             line(x1-2, e2, x1+2, e2);
-
-            float a1 = 170 + (zeitskala[indexStation1_trocken - 1] - x_anfang)*830/x_intervall;
-            float e11 = 600 - 500*(array[indexStation1_trocken - 1] - error - min)/(max-min);
-            float e22 = 600 - 500*(array[indexStation1_trocken - 1] + error - min)/(max-min);
-
-            line(a1, e1, a1, e2);
-            line(a1-2, e11, a1+2, e11);
-            line(a1-2, e22, a1+2, e22);
           }
         }
       }
 
-      strokeWeight(1);
+
 
       if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
         if (connect.name == "verbinden") {
@@ -952,11 +855,6 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     }
   } else if (zeitskala1 == 3) {
     for (int i = (indexStation1_nass - xValues); i < indexStation1_nass - 1; i++) {
-      if (array[i] < 100) {
-        error = 10;
-      } else {
-        error = 0.1*array[i];
-      }
       float x_anfang = zeitskala[indexStation1_nass - xValues];
       float x_ende = zeitskala[indexStation1_nass - 1];
       x_ende = gesamtzeit_station1;
@@ -1012,20 +910,12 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
             line(x1, e1, x1, e2);
             line(x1-2, e1, x1+2, e1);
             line(x1-2, e2, x1+2, e2);
-
-            float a1 = 170 + (zeitskala[indexStation1_nass - 1] - x_anfang)*830/x_intervall;
-            float e11 = 600 - 500*(array[indexStation1_nass - 1] - error - min)/(max-min);
-            float e22 = 600 - 500*(array[indexStation1_nass - 1] + error - min)/(max-min);
-
-            line(a1, e1, a1, e2);
-            line(a1-2, e11, a1+2, e11);
-            line(a1-2, e22, a1+2, e22);
           }
         }
       }
 
 
-      strokeWeight(1);
+
       if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
         if (connect.name == "verbinden") {
           line(x1, y1, x2, y2);
@@ -1106,11 +996,11 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     noStroke();
     fill(255, 0, 0);
     textAlign(LEFT);
-    text("Aktueller Wert: " + str(round(array[xValues-1])).replace(".", ",") + " " + Einheit, 170, 55);
+    text("Aktueller Wert: " + nf(array[xValues-1], 0, 1).replace(".", ",") + " " + Einheit, 170, 55);
   } else {
     fill(0, 0, 255);
     textAlign(RIGHT);
-    text("Aktueller Wert: " + str(round(array[xValues-1])).replace(".", ",") + " " + Einheit, 995, 55);
+    text("Aktueller Wert: " + nf(array[xValues-1], 0, 1).replace(".", ",") + " " + Einheit, 995, 55);
   }
   textSize(20);
   textAlign(LEFT);
