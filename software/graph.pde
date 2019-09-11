@@ -605,7 +605,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
               float a1 = 170 + (zeitskala[index-1] - x_anfang)*830/x_intervall;
               float e11 = 600 - 500*(array[index-1] - error - min)/(max-min);
               float e22 = 600 - 500*(array[index-1] + error - min)/(max-min);
-              line(a1, e1, a1, e2);
+              line(a1, e11, a1, e22);
               line(a1-2, e11, a1+2, e11);
               line(a1-2, e22, a1+2, e22);
               println(a1);
@@ -771,7 +771,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
               float a1 = 170 + (newArray_time[929] - x_anfang)*830/x_intervall;
               float e11 = 600 - 500*(newArray[929] - error - min)/(max-min);
               float e22 = 600 - 500*(newArray[929] + error - min)/(max-min);
-              line(a1, e1, a1, e2);
+              line(a1, e11, a1, e22);
               line(a1-2, e11, a1+2, e11);
               line(a1-2, e22, a1+2, e22);
             }
@@ -940,7 +940,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
             float e11 = 600 - 500*(array[indexStation1_trocken - 1] - error - min)/(max-min);
             float e22 = 600 - 500*(array[indexStation1_trocken - 1] + error - min)/(max-min);
 
-            line(a1, e1, a1, e2);
+            line(a1, e11, a1, e22);
             line(a1-2, e11, a1+2, e11);
             line(a1-2, e22, a1+2, e22);
           }
@@ -1025,7 +1025,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
             float e11 = 600 - 500*(array[indexStation1_nass - 1] - error - min)/(max-min);
             float e22 = 600 - 500*(array[indexStation1_nass - 1] + error - min)/(max-min);
 
-            line(a1, e1, a1, e2);
+            line(a1, e11, a1, e22);
             line(a1-2, e11, a1+2, e11);
             line(a1-2, e22, a1+2, e22);
           }
@@ -1114,11 +1114,19 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     noStroke();
     fill(255, 0, 0);
     textAlign(LEFT);
-    text("Aktueller Wert: " + str(round(array[xValues-1])).replace(".", ",") + " " + Einheit, 170, 55);
+    if (error != 0.5) {
+      text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 55);
+    } else {
+      text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 55);
+    }
   } else {
     fill(0, 0, 255);
     textAlign(RIGHT);
-    text("Aktueller Wert: " + str(round(array[xValues-1])).replace(".", ",") + " " + Einheit, 995, 55);
+    if (error != 0.5) {
+      text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
+    }else{
+     text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55); 
+    }
   }
   textSize(20);
   textAlign(LEFT);
