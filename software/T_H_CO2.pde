@@ -152,13 +152,14 @@ void T_H_CO2() {
 
   fill(0);
   noStroke();
-  textSize(30);
-  text("Optionen", 1120, 50);
+  textSize(24);
+  text("Optionen", 1130, 22);
   fill(240);
   
   stroke(0);
-  rect(1105, 450, 155, 140);
+  rect(1105, 445, 155, 140);
   rect(1105, 250, 155, 180);
+    rect(1105, 155, 155, 80);
   fill(0);
   noStroke();
   textSize(20);
@@ -172,6 +173,9 @@ void T_H_CO2() {
   }
   text("Anzeige\nMesswerte", 1185, 280);
   text(intervall, 1185, 390);
+    textSize(15);
+  text("Fehlerbalken", 1165, 180);
+  text("verbinden", 1165, 220);
   textAlign(CORNER);
   stroke(0);
   if (measure) {
@@ -179,7 +183,7 @@ void T_H_CO2() {
   } else {
     fill(255, 0, 0);
   }
-  ellipse(1098, 125, 20, 20);
+  ellipse(1098, 60, 20, 20);
 
 
 
@@ -193,4 +197,17 @@ void T_H_CO2() {
   zumObermenu.show();
   SCD_Blau.show();
   SCD_Rot.show();
+    verbinde.show();
+  fehler.show();
+
+  if (fehler.checked) {
+    error_bars.name = "anzeigen";
+  } else {
+    error_bars.name = "nicht anzeigen";
+  }
+  if (verbinde.checked) {
+    connect.name = "verbinden";
+  } else {
+    connect.name = "nicht verbinden";
+  }
 }
