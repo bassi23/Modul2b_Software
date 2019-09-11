@@ -1,10 +1,11 @@
 # Modul2b_Software
 
 ## Update
+## 11.09.2019
+- Allgemein: Problem mit Fehlerbalken behoben
 
 ## 10.09.2019
 - Allgemein: Optionen erweitert --> Fehlerbalken, Messwerte verbinden und die Möglichkeit alle Stationen frei zu geben, falls es ein Problem  gibt (insbesondere wenn der weiter Button bei Station 4 nicht erscheint. Ich habe nämlich keine Ahnung warum er das manchmal nicht tut.)
-### - Fehlerbalken funktionieren aber noch nicht einwandfrei.
 - Station 4: Noch einmal eine Messung mit neuen Sensoren durchgeführt. Hier die Ergebnisse
 
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Station4_Temperatur.png) <br>
