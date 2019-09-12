@@ -13,8 +13,9 @@ import controlP5.*;
 
 dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
 dropdown dateiformat, autosave, connect, error_bars, freie_stationen;
-checkbox verbinde, fehler;
+checkbox verbinde, fehler, verbinde_tutorial, fehler_tutorial;
 
+dropdown tutorial_Rot, tutorial_Blau;
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
 String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
@@ -31,7 +32,8 @@ String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "auto
 String[] connect_Strings = {"verbinden", "nicht verbinden"};
 String[] error_bars_Strings = {"anzeigen", "nicht anzeigen"};
 String[] freie_stationen_Strings = {"nicht freigeben", "freigeben"};
-
+String[] tutorial_Rot_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
+String[] tutorial_Blau_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 //Logos und Hintergrundbilder
 PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil, hintergrund;
 // Bilder der zu messenden Stoffe für Station 3 - TVOC-Duelle
@@ -57,6 +59,12 @@ button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 button reset_innenraum;
 button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred, genaueAnalyse;
 
+button tutorial_ueberspringen, tutorial_weiter, tutorial_zum, tutorial_back, tutorial_Start_Stopp;
+button tutorial_skalierung_rot_up, tutorial_skalierung_rot_down, tutorial_skalierung_blau_up, tutorial_skalierung_blau_down;
+button tutorial_reset, sicher_ja_reset, sicher_nein_reset, left_tutorial, right_tutorial, aktualisierung_right_tutorial, aktualisierung_left_tutorial;
+
+
+
 Probe A, B, C, D, E;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
@@ -64,9 +72,11 @@ TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, St
 slider s;
 
 boolean measure = true;
+boolean tutorial_Start = false;
+boolean tutorial_Start_first_time = false;
+boolean tutorial_resettet = false;
 
-
-float page = -6;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -79,6 +89,9 @@ int anzahlCOMPorts = 0;
 int ausgewaehlterPort = 0;
 
 // Das Programm ist in Seiten unterteilt
+
+// -7: Tutorial
+// -7.1: Tutorial
 // -1: Hauptmenü
 // -2: Sensoren - Auswahl
 // -3: Sensoren - Feinstaub
@@ -161,6 +174,12 @@ void setup() {
 
   fehler = new checkbox(1225, 160, 30, false);
   verbinde = new checkbox(1225, 200, 30, false);
+  fehler_tutorial = new checkbox(1215, 240, 25, false);
+  verbinde_tutorial = new checkbox(1215, 275, 25, true);
+
+  tutorial_Rot = new dropdown("TVOC", 125, 115, 200, 30, 10, tutorial_Rot_Strings, false, color(255, 0, 0));
+  tutorial_Blau = new dropdown("CO2", 725, 115, 200, 30, 10, tutorial_Blau_Strings, false, color(0, 0, 255));
+
 
 
 
@@ -193,7 +212,12 @@ void setup() {
   sicher_ja = new button(450, 340, 150, 75, "Ja", 5, true, 20);
   sicher_nein = new button(700, 340, 150, 75, "Nein", 5, true, 20);
 
+  //
 
+  sicher_ja_reset = new button(450, 340, 150, 75, "Ja", 5, true, 20);
+  sicher_nein_reset = new button(700, 340, 150, 75, "Nein", 5, true, 20);
+  left_tutorial = new button(1097, 375, 50, 30, "left_arrow", 5, true, 20);
+  right_tutorial = new button(1187, 375, 50, 30, "right_arrow", 5, true, 20);
   //
   Stationen = new button(100, 100, 500, 400, "Stationen", 20, true, 70);
   Sensoren = new button(650, 100, 500, 400, "Sensoren", 20, true, 70);
@@ -226,6 +250,22 @@ void setup() {
   station1_weiter_bc =  new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20);
   station1_zur_Auswertung = new button(1105, 390, 160, 50, "zur Auswertung", 5, true, 20);
   zur_Auswertung3 = new button(1075, 600, 180, 50, "zu den Graphen", 5, true, 20);
+
+  tutorial_ueberspringen = new button(550, 635, 170, 70, "Tutorial\nüberspringen", -10, true, 20);
+  tutorial_weiter = new button(1120, 650, 140, 50, "weiter", 5, true, 20);
+  tutorial_zum = new button(1075, 630, 150, 75, "zum Tutorial", 5, true, 20);
+  tutorial_back = new button(20, 650, 140, 50, "zurück", 5, true, 20);
+  tutorial_Start_Stopp = new button(1100, 140, 130, 40, "Start/Stopp", 5, true, 20);
+
+  tutorial_skalierung_rot_up = new button(15, 175, 25, 40, "up_arrow", 5, true, 20);
+  tutorial_skalierung_rot_down = new button(15, 220, 25, 40, "down_arrow", 5, true, 20);
+  tutorial_skalierung_blau_up = new button(1005, 175, 25, 40, "up_arrow", 5, true, 20);
+  tutorial_skalierung_blau_down =new button(1005, 220, 25, 40, "down_arrow", 5, true, 20);
+  tutorial_reset = new button(1100, 185, 130, 40, "Reset", 5, true, 20);
+  aktualisierung_right_tutorial = new button(1183, 515, 50, 30, "right_arrow", 5, true, 20);
+  aktualisierung_left_tutorial = new button(1098, 515, 50, 30, "left_arrow", 5, true, 20);
+
+
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
@@ -310,6 +350,20 @@ void setup() {
 
   genaueAnalyse =  new button(1115, 550, 140, 50, "Analyse", 5, true, 20);
   s = new slider(200, 400, false, false);
+
+
+  for (int j = 0; j < 1000; j++) {
+    tutorial_data[0][j] = 20 + noise(0.1*j + 123);
+    tutorial_data[1][j] = 50 + 5*noise(0.1*j+ 234);
+    tutorial_data[2][j] = 450 + 100*noise(0.1*j+ 345);
+    tutorial_data[3][j] = 30 + 20*noise(0.1*j+ 456);
+    tutorial_data[4][j] = 450 + 100*noise(0.1*j+ 2344);
+    tutorial_data[5][j] = 30 + 5*noise(0.01*j+ 3412);
+    tutorial_data[6][j] =  tutorial_data[5][j] + 1*noise(0.1*j+ 1231);
+    tutorial_data[7][j] =  tutorial_data[6][j] + 2*noise(0.1*j+ 1);
+    tutorial_data[8][j] =  tutorial_data[7][j] + 3*noise(0.1*j+ 3);
+    tutorial_data[9][j] =  0.5*j;
+  }
 }
 
 
@@ -366,7 +420,9 @@ void draw() {
   zero.hide();
   fifty.hide();
   hundred.hide();
-
+  tutorial_zum.hide();
+  tutorial_weiter.hide();
+  tutorial_back.hide();
   Station4b.hide();
   Station4c.hide();
   Station4Auswertung.hide();
@@ -381,6 +437,16 @@ void draw() {
   aktualisierung_right.hide();
   aktualisierung_left.hide();
   start_stopp.hide();
+
+  tutorial_back.hide();
+
+  tutorial_Start_Stopp.hide();
+  tutorial_reset.hide();
+
+
+
+
+
   // Aufloesung.hide();
   ////////////////////////////////////////////////////////
   zumObermenu.x = 1115;
@@ -407,7 +473,7 @@ void draw() {
     Sensoren.hide();
   }
 
-  if (page != 0 && page != -1) {
+  if (page != 0 && page != -1 && page != -7 && page != -7.1 && page != -7.11 && page != -7.111&& page != -7.1111 && page != -7.11111 && page != -7.111111 && page != -7.2 && page != -7.22 && page != -7.222) {
     back.show();
   }
   Datenaufnahme();
@@ -595,6 +661,26 @@ void draw() {
     SGP30.hide();
     alle_Sensoren.hide();
     Stationen.hide();
+  } else if (page == -7) {
+    Tutorial0();
+  } else if (page == -7.1) {
+    Tutorial1();
+  } else if (page == -7.11) {
+    Tutorial2();
+  } else if (page == -7.111) {
+    Tutorial3();
+  } else if (page == -7.1111) {
+    Tutorial4();
+  } else if (page == -7.11111) {
+    Tutorial5();
+  } else if (page == -7.111111) {
+    Tutorial6();
+  } else if (page == -7.2) {
+    Tutorial7();
+  } else if (page == -7.22) {
+    Tutorial8();
+  } else if (page == -7.222) {
+    Tutorial9();
   }
 
   if (page != 10) {
@@ -761,6 +847,13 @@ void draw() {
     page = 1.1111;
   }
 
+  if (tutorial_ueberspringen.isClicked()) {
+    page = -1;
+  }
+  if (tutorial_zum.isClicked()) {
+    page = -7;
+  }
+
   if (station1_MessungWiederholen.isClicked()) {
     Station1Start = true;
     time_station1 = millis();
@@ -793,6 +886,22 @@ void draw() {
 
   if (reset_Station2.isClicked()) {
     reset_bool_station2 = true;
+  }
+
+  if (tutorial_reset.isClicked()) {
+    reset_bool_tutorial = true;
+  }
+
+  if (reset_bool_tutorial) {
+    sicher_tutorial();
+    if (sicher_ja_reset.isClicked()) {
+      start_time_tutorial = millis();
+      reset_bool_tutorial = false;
+      tutorial_resettet = true;
+    }
+    if (sicher_nein_reset.isClicked()) {
+      reset_bool_tutorial = false;
+    }
   }
 
   if (reset_bool_station2) {
@@ -846,9 +955,87 @@ void draw() {
       measure = true;
     }
   }
+
+
+  if (tutorial_weiter.isClicked()) {
+    if (page == -7.222) {
+      page = -1;
+    }
+    if (page == -7.22) {
+      page = -7.222;
+    }
+    if (page == -7.2) {
+      page = -7.22;
+    }
+    if (page == -7.111111) {
+      page = -7.2;
+    }
+    if (page == -7.11111) {
+      page = -7.111111;
+    }
+    if (page == -7.1111) {
+      page = -7.11111;
+    }
+    if (page == -7.111) {
+      page = -7.1111;
+    }
+    if (page == -7.11) {
+      page = -7.111;
+    }
+    if (page == -7.1) {
+      page = -7.11;
+    }
+    if (page == -7) {
+      page = -7.1;
+    }
+  }
+
+
+  if (tutorial_back.isClicked()) {
+    if (page == -7.1) {
+      page = -7;
+    }
+    if (page == -7.11) {
+      page = -7.1;
+    }
+    if (page == -7.111) {
+      page = -7.11;
+    }
+    if (page == -7.1111) {
+      page = -7.111;
+    }
+    if (page == -7.11111) {
+      page = -7.1111;
+    }
+    if (page == -7.111111) {
+      page = -7.11111;
+    }
+    if (page == -7.2) {
+      page = -7.111111;
+    }
+    if (page == -7.22) {
+      page = -7.2;
+    }
+    if (page == -7.222) {
+      page = -7.22;
+    }
+  }
+
+  if (tutorial_Start_Stopp.isClicked()) {
+    if (tutorial_Start) {
+      tutorial_Start = false;
+    } else {
+      tutorial_Start = true;
+      if (tutorial_Start_first_time == false) {
+        start_time_tutorial = millis();
+        tutorial_Start_first_time = true;
+      }
+    }
+  }
 }
 
 boolean reset_bool = false;
+boolean reset_bool_tutorial = false;
 boolean reset_bool_station2 = false;
 
 void sicher() {
@@ -860,6 +1047,17 @@ void sicher() {
   text("Bist du sicher, dass du die Daten löschen möchtest?", 250, 300);
   sicher_ja.show();
   sicher_nein.show();
+}
+
+void sicher_tutorial() {
+  fill(255, 100, 100);
+  rect(225, 250, 830, 200);
+  fill(0);
+  textSize(30);
+  textAlign(CORNER);
+  text("Bist du sicher, dass du die Daten löschen möchtest?", 250, 300);
+  sicher_ja_reset.show();
+  sicher_nein_reset.show();
 }
 
 void saveDataInnenraum() {

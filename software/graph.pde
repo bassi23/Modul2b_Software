@@ -172,6 +172,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     max = maxValue(array, xValues, zeitskala1);
   } else if (y == 1) {
     if (name == "Temperatur in °C") {
+      max = 20;
       error = 0.5;
     } else if (name == "CO2 in ppm" || name == "eCO2 in ppm") {
       max = 500;
@@ -605,10 +606,21 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
               float a1 = 170 + (zeitskala[index-1] - x_anfang)*830/x_intervall;
               float e11 = 600 - 500*(array[index-1] - error - min)/(max-min);
               float e22 = 600 - 500*(array[index-1] + error - min)/(max-min);
+              if (e11 < 100) {
+                e11 = 100;
+              }
+              if (e22 < 100) {
+                e22 = 100;
+              }
+              if (e22 > 600) {
+                e22 = 600;
+              }
+              if (e11 > 600) {
+                e11 = 600;
+              }
               line(a1, e11, a1, e22);
               line(a1-2, e11, a1+2, e11);
               line(a1-2, e22, a1+2, e22);
-              println(a1);
             }
           }
         }
@@ -1124,8 +1136,8 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     textAlign(RIGHT);
     if (error != 0.5) {
       text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
-    }else{
-     text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55); 
+    } else {
+      text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55);
     }
   }
   textSize(20);

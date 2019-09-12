@@ -1,3 +1,8 @@
+float[][] tutorial_data = new float[10][1000];
+int index_tutorial = 0;
+float start_time_tutorial = 0;
+
+
 float[] scd_temperature_data = new float[999999];
 float[] scd_humidity_data =new float[999999];
 float[] scd_co2_data = new float[999999];
@@ -55,6 +60,17 @@ boolean Station1Start = false;
 float del = 1;
 
 void Datenaufnahme() {
+  // tutorial
+  
+  if(tutorial_Start){
+   //if(round(millis()) % 2 == 0){
+   //  tutorial_data[9][index_tutorial] = millis() - start_time_tutorial;
+   //  index_tutorial += 1;
+   //}
+  }
+  
+  
+  
   boolean received = false;
   try {
     if (myPort.available() > 0) {

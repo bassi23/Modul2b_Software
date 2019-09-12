@@ -8,12 +8,12 @@ void Obermenu() {
 
 
 
-  image(LMT, 200, 600);
-  image(iPhysicsLab, 400, 600);
-  image(DBU, 1100, 550);
-  image(SFZSLS, 700, 600);
+  image(LMT, 200, 605);
+  image(iPhysicsLab, 350, 605);
+  image(DBU, 890, 555);
+  image(SFZSLS, 580, 605);
   back.hide();
-
+  tutorial_zum.show();
   Stationen.show();
   Sensoren.show();
 
