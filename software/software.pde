@@ -177,8 +177,8 @@ void setup() {
   fehler_tutorial = new checkbox(1215, 240, 25, false);
   verbinde_tutorial = new checkbox(1215, 275, 25, true);
 
-  tutorial_Rot = new dropdown("TVOC", 125, 115, 200, 30, 10, tutorial_Rot_Strings, false, color(255, 0, 0));
-  tutorial_Blau = new dropdown("CO2", 725, 115, 200, 30, 10, tutorial_Blau_Strings, false, color(0, 0, 255));
+  tutorial_Rot = new dropdown("Links", 125, 115, 200, 30, 10, tutorial_Rot_Strings, false, color(255, 0, 0));
+  tutorial_Blau = new dropdown("Rechts", 725, 115, 200, 30, 10, tutorial_Blau_Strings, false, color(0, 0, 255));
 
 
 
