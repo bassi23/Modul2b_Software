@@ -2,6 +2,7 @@
 
 ## Update
 ## 12.09.2019
+- Performance-Verbesserung. Das Programm geht in den "Sleep-Modus" (3 Frames pro Sekunde) sobald 3 Sekunden weder die Maus innerhalb des Programmfensters bewegt wird, oder eine Maustaste geklickt wird. Ansonsten wird das Programm auf 20 FPS gedrosselt.
 - 10-teiliges Tutorial zur Bedienung der Software integriert (Seite 9 muss noch etwas überarbeitet werden)
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Tutorial.png) <br>
 ## 11.09.2019
