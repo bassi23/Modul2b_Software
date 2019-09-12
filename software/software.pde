@@ -366,332 +366,333 @@ void setup() {
   }
 }
 
-
 float mouse_time = 0;
 
 
 void draw() {
-  if(mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height){
+  if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
-  if(millis() - mouse_time > 3000){
-   frameRate(5); 
-  }else{
-   frameRate(20); 
+  if (millis() - mouse_time > 3000) {
+    frameRate(5);
+  } else {
+    frameRate(20);
   }
-  scale(scale_factor);
-  pushMatrix();
-  //Aufloesung.setPosition(950/0.75, 150/0.75);
-  popMatrix();
-  scale(1);
-  imageMode(CORNER);
-  translate(0, scroll);
-  // Die Performance wird durch ein Bild als Hintergrund verbessert
-  background(240);
-  //image(hintergrund, 0, 0);
 
-  // Falls die serielle Verbinding unterbrochen wird, wird nach einer neuen gesucht
-  if (!gotSerial) {
-    try {
-      myPort = new Serial(this, Serial.list()[ausgewaehlterPort], 57600);
-      myPort.clear();
-      gotSerial = true;
-      anzahlCOMPorts = Serial.list().length;
+    scale(scale_factor);
+    pushMatrix();
+    //Aufloesung.setPosition(950/0.75, 150/0.75);
+    popMatrix();
+    scale(1);
+    imageMode(CORNER);
+    translate(0, scroll);
+    // Die Performance wird durch ein Bild als Hintergrund verbessert
+    background(240);
+    //image(hintergrund, 0, 0);
+
+    // Falls die serielle Verbinding unterbrochen wird, wird nach einer neuen gesucht
+    if (!gotSerial) {
+      try {
+        myPort = new Serial(this, Serial.list()[ausgewaehlterPort], 57600);
+        myPort.clear();
+        gotSerial = true;
+        anzahlCOMPorts = Serial.list().length;
+      }
+      catch(Exception e) {
+        println(e);
+        gotSerial = false;
+      }
     }
-    catch(Exception e) {
-      println(e);
+    if (Serial.list().length != anzahlCOMPorts) {
       gotSerial = false;
     }
-  }
-  if (Serial.list().length != anzahlCOMPorts) {
-    gotSerial = false;
-  }
 
 
-  // Debug - Informationen
-  //noStroke();
-  //fill(0);
-  //textSize(16);
-  //text(nf(frameRate, 0, 0), 20, 20);
-  //text("Aufgenommene Messwerte: " + index, 420, 20);
+    // Debug - Informationen
+    //noStroke();
+    //fill(0);
+    //textSize(16);
+    //text(nf(frameRate, 0, 0), 20, 20);
+    //text("Aufgenommene Messwerte: " + index, 420, 20);
 
 
 
-  // Buttons werden zunächst alle "versteckt", und nur die benötigten an den entsprechenden Stellen "sichtbar" gemacht.
-  sicher_ja.hide();
-  einstellungen.hide();
-  sicher_nein.hide();
-  station1_referenz.hide();
-  station1_trocken.hide();
-  station1_nass.hide();
-  TVOC_Duelle_Start.hide();
-  Sensormessung.hide();
-  reset_Station2.hide();
-  zero.hide();
-  fifty.hide();
-  hundred.hide();
-  tutorial_zum.hide();
-  tutorial_weiter.hide();
-  tutorial_back.hide();
-  Station4b.hide();
-  Station4c.hide();
-  Station4Auswertung.hide();
-  Station4a.visible = false;
+    // Buttons werden zunächst alle "versteckt", und nur die benötigten an den entsprechenden Stellen "sichtbar" gemacht.
+    sicher_ja.hide();
+    einstellungen.hide();
+    sicher_nein.hide();
+    station1_referenz.hide();
+    station1_trocken.hide();
+    station1_nass.hide();
+    TVOC_Duelle_Start.hide();
+    Sensormessung.hide();
+    reset_Station2.hide();
+    zero.hide();
+    fifty.hide();
+    hundred.hide();
+    tutorial_zum.hide();
+    tutorial_weiter.hide();
+    tutorial_back.hide();
+    Station4b.hide();
+    Station4c.hide();
+    Station4Auswertung.hide();
+    Station4a.visible = false;
 
-  station1_weiter_ab.hide();
-  station1_weiter_bc.hide();
-  station1_zur_Auswertung.hide();
-  zur_Auswertung2.hide();
-  zur_Auswertung3.hide();
+    station1_weiter_ab.hide();
+    station1_weiter_bc.hide();
+    station1_zur_Auswertung.hide();
+    zur_Auswertung2.hide();
+    zur_Auswertung3.hide();
 
-  aktualisierung_right.hide();
-  aktualisierung_left.hide();
-  start_stopp.hide();
+    aktualisierung_right.hide();
+    aktualisierung_left.hide();
+    start_stopp.hide();
 
-  tutorial_back.hide();
+    tutorial_back.hide();
 
-  tutorial_Start_Stopp.hide();
-  tutorial_reset.hide();
+    tutorial_Start_Stopp.hide();
+    tutorial_reset.hide();
 
 
 
 
 
-  // Aufloesung.hide();
-  ////////////////////////////////////////////////////////
-  zumObermenu.x = 1115;
+    // Aufloesung.hide();
+    ////////////////////////////////////////////////////////
+    zumObermenu.x = 1115;
 
-  if (page == 2.1) {
-    up2.y = 190;
-    down2.y = 245;
-    up2.x = 1210;
-    down2.x = 1210;
-  } else if (page != 4.1 && page != 4.11 && page != 4.111) {
-    up2.y = 140;
-    down2.y = 195;
-    up2.x = 1025;
-    down2.x = 1025;
-  }
-
-  if (page != -2) {
-    SPS30.hide();
-    SGP30.hide();
-    SCD30.hide();
-  }
-  if (page != -1) {
-    Stationen.hide();
-    Sensoren.hide();
-  }
-
-  if (page != 0 && page != -1 && page != -7 && page != -7.1 && page != -7.11 && page != -7.111&& page != -7.1111 && page != -7.11111 && page != -7.111111 && page != -7.2 && page != -7.22 && page != -7.222) {
-    back.show();
-  }
-  Datenaufnahme();
-  String auto = autosave.name;
-
-  if (auto == "autosave") {
-    saveData();
-  }
-  if (Stationen.isClicked()) {
-    page = 0;
-  }
-  if (Sensoren.isClicked()) {
-    page = -2;
-  }
-  if (index > 0) {
-    if (SPS30.isClicked()) {
-      page = -3;
+    if (page == 2.1) {
+      up2.y = 190;
+      down2.y = 245;
+      up2.x = 1210;
+      down2.x = 1210;
+    } else if (page != 4.1 && page != 4.11 && page != 4.111) {
+      up2.y = 140;
+      down2.y = 195;
+      up2.x = 1025;
+      down2.x = 1025;
     }
-    if (SGP30.isClicked()) {
-      page = -4;
+
+    if (page != -2) {
+      SPS30.hide();
+      SGP30.hide();
+      SCD30.hide();
     }
-    if (SCD30.isClicked()) {
-      page = -5;
+    if (page != -1) {
+      Stationen.hide();
+      Sensoren.hide();
     }
-    if (alle_Sensoren.isClicked()) {
-      page = -6;
+
+    if (page != 0 && page != -1 && page != -7 && page != -7.1 && page != -7.11 && page != -7.111&& page != -7.1111 && page != -7.11111 && page != -7.111111 && page != -7.2 && page != -7.22 && page != -7.222) {
+      back.show();
     }
-    if (one.isClicked()) {
-      delay(200);
-      page = 1;
+    Datenaufnahme();
+    String auto = autosave.name;
+
+    if (auto == "autosave") {
+      saveData();
     }
-    if (two_three.isClicked()) {
-      delay(200);
-      page = 2.5;
+    if (Stationen.isClicked()) {
+      page = 0;
     }
-    if (two.isClicked()) {
-      delay(200);
-      page = 2;
+    if (Sensoren.isClicked()) {
+      page = -2;
     }
-    if (three.isClicked()) {
-      delay(200);
-      page = 3;
+    if (index > 0) {
+      if (SPS30.isClicked()) {
+        page = -3;
+      }
+      if (SGP30.isClicked()) {
+        page = -4;
+      }
+      if (SCD30.isClicked()) {
+        page = -5;
+      }
+      if (alle_Sensoren.isClicked()) {
+        page = -6;
+      }
+      if (one.isClicked()) {
+        delay(200);
+        page = 1;
+      }
+      if (two_three.isClicked()) {
+        delay(200);
+        page = 2.5;
+      }
+      if (two.isClicked()) {
+        delay(200);
+        page = 2;
+      }
+      if (three.isClicked()) {
+        delay(200);
+        page = 3;
+      }
+      if (four.isClicked()) {
+        delay(200);
+        page = 4;
+      }
     }
-    if (four.isClicked()) {
-      delay(200);
-      page = 4;
-    }
-  }
 
 
-  if (page == -1) {
-    Obermenu();
-    einstellungen.show();
-    reset.hide();
-    SPS30.hide();
-    SCD30.hide();
-    SGP30.hide();
-  } else if (page == 0) {
-    hauptmenu();
-    zumObermenu.show();
-    Sensoren.hide();
-    two_three.active = true;
-    four.active = true;
-    one.active = true;
-    settings.active = true;
-    two.active = false;
-    three.active = false;
-    reset.hide();
-  } else if (page == 1) {
-    //Feinstaub();
-    Station1();
-    Sensoren.hide();
-    zumObermenu.hide();
-  } else if (page == 1.1) {
-    referenzmessung();
-  } else if (page == 1.11) {
-    trockenerSchwamm();
-  } else if (page == 1.111) {
-    nasserSchwamm();
-  } else if (page == 1.1111) {
-    Vergleich_Feinstaub();
-  } else if (page == 1.11111) {
-    Vergleich_Feinstaub_Graphen();
-  } else if (page == 2) {
-    MenschSensor();
-    zumObermenu.hide();
-  } else if (page == 2.1) {
-    Station2_Sensor();
-  } else if (page == 2.11) {
-    Station2_Vergleich();
-  } else if (page == 2.5) {
-    Station2Oder3();
-    zumObermenu.hide();
-    two.active = true;
-    three.active = true;
-  } else if (page == 3) {
-    TVOC_Duelle();
-    zumObermenu.hide();
-  } else if (page == 3.1) {
-    TVOC_Duelle_Riechen();
-  } else if (page == 3.11) {
-    TVOC_Duelle_Messen();
-  } else if (page == 3.111) {
-    Auswertung_Station3();
-  } else if (page == 4) {
-    Innenraumluft();
-    zumObermenu.hide();
-    reset.hide();
-  } else if (page == 4.1) {
-    Innenraumluft_a();
-    reset.hide();
-  } else if (page == 4.11) {
-    Innenraumluft_b();
-    reset.hide();
-  } else if (page == 4.111) {
-    Innenraumluft_c();
-    reset.hide();
-  } else if (page == 4.1111) {
-    AuswertungInnenraum(); 
-    reset.hide();
-  } else if (page == 10) {
-    setting();
-    Stationen.hide();
-    Sensoren.hide();
-    zumObermenu.hide();
+    if (page == -1) {
+      Obermenu();
+      einstellungen.show();
+      reset.hide();
+      SPS30.hide();
+      SCD30.hide();
+      SGP30.hide();
+    } else if (page == 0) {
+      hauptmenu();
+      zumObermenu.show();
+      Sensoren.hide();
+      two_three.active = true;
+      four.active = true;
+      one.active = true;
+      settings.active = true;
+      two.active = false;
+      three.active = false;
+      reset.hide();
+    } else if (page == 1) {
+      //Feinstaub();
+      Station1();
+      Sensoren.hide();
+      zumObermenu.hide();
+    } else if (page == 1.1) {
+      referenzmessung();
+    } else if (page == 1.11) {
+      trockenerSchwamm();
+    } else if (page == 1.111) {
+      nasserSchwamm();
+    } else if (page == 1.1111) {
+      Vergleich_Feinstaub();
+    } else if (page == 1.11111) {
+      Vergleich_Feinstaub_Graphen();
+    } else if (page == 2) {
+      MenschSensor();
+      zumObermenu.hide();
+    } else if (page == 2.1) {
+      Station2_Sensor();
+    } else if (page == 2.11) {
+      Station2_Vergleich();
+    } else if (page == 2.5) {
+      Station2Oder3();
+      zumObermenu.hide();
+      two.active = true;
+      three.active = true;
+    } else if (page == 3) {
+      TVOC_Duelle();
+      zumObermenu.hide();
+    } else if (page == 3.1) {
+      TVOC_Duelle_Riechen();
+    } else if (page == 3.11) {
+      TVOC_Duelle_Messen();
+    } else if (page == 3.111) {
+      Auswertung_Station3();
+    } else if (page == 4) {
+      Innenraumluft();
+      zumObermenu.hide();
+      reset.hide();
+    } else if (page == 4.1) {
+      Innenraumluft_a();
+      reset.hide();
+    } else if (page == 4.11) {
+      Innenraumluft_b();
+      reset.hide();
+    } else if (page == 4.111) {
+      Innenraumluft_c();
+      reset.hide();
+    } else if (page == 4.1111) {
+      AuswertungInnenraum(); 
+      reset.hide();
+    } else if (page == 10) {
+      setting();
+      Stationen.hide();
+      Sensoren.hide();
+      zumObermenu.hide();
 
-    int anzahlPorts = Serial.list().length;
-    if (anzahlPorts > 0) {
-      Port1.show();
-    } else {
-      Port1.hide();
+      int anzahlPorts = Serial.list().length;
+      if (anzahlPorts > 0) {
+        Port1.show();
+      } else {
+        Port1.hide();
+      }
+      if (anzahlPorts > 1) {
+        Port2.show();
+      } else {
+        Port2.hide();
+      }
+      if (anzahlPorts > 2) {
+        Port3.show();
+      } else {
+        Port3.hide();
+      }
+      if (anzahlPorts > 3) {
+        Port4.show();
+      } else {
+        Port4.hide();
+      }
+      if (anzahlPorts > 4) {
+        Port5.show();
+      } else {
+        Port5.hide();
+      }
+      if (anzahlPorts > 5) {
+        Port6.show();
+      } else {
+        Port6.hide();
+      }
+    } else if (page == -2) {
+      SensorAuswahl();
+    } else if (page == -3) {
+      Feinstaub();
+      SPS30.hide();
+      SCD30.hide();
+      SGP30.hide();
+      alle_Sensoren.hide();
+      Stationen.hide();
+    } else if (page == -4) {
+      TVOC_eCO2();
+      SPS30.hide();
+      SCD30.hide();
+      SGP30.hide();
+      alle_Sensoren.hide();
+      Stationen.hide();
+    } else if (page == -5) {
+      T_H_CO2();
+      SPS30.hide();
+      SCD30.hide();
+      SGP30.hide();
+      alle_Sensoren.hide();
+      Stationen.hide();
+    } else if (page == -6) {
+      alleSensoren();
+      SPS30.hide();
+      SCD30.hide();
+      SGP30.hide();
+      alle_Sensoren.hide();
+      Stationen.hide();
+    } else if (page == -7) {
+      Tutorial0();
+    } else if (page == -7.1) {
+      Tutorial1();
+    } else if (page == -7.11) {
+      Tutorial2();
+    } else if (page == -7.111) {
+      Tutorial3();
+    } else if (page == -7.1111) {
+      Tutorial4();
+    } else if (page == -7.11111) {
+      Tutorial5();
+    } else if (page == -7.111111) {
+      Tutorial6();
+    } else if (page == -7.2) {
+      Tutorial7();
+    } else if (page == -7.22) {
+      Tutorial8();
+    } else if (page == -7.222) {
+      Tutorial9();
     }
-    if (anzahlPorts > 1) {
-      Port2.show();
-    } else {
-      Port2.hide();
-    }
-    if (anzahlPorts > 2) {
-      Port3.show();
-    } else {
-      Port3.hide();
-    }
-    if (anzahlPorts > 3) {
-      Port4.show();
-    } else {
-      Port4.hide();
-    }
-    if (anzahlPorts > 4) {
-      Port5.show();
-    } else {
-      Port5.hide();
-    }
-    if (anzahlPorts > 5) {
-      Port6.show();
-    } else {
-      Port6.hide();
-    }
-  } else if (page == -2) {
-    SensorAuswahl();
-  } else if (page == -3) {
-    Feinstaub();
-    SPS30.hide();
-    SCD30.hide();
-    SGP30.hide();
-    alle_Sensoren.hide();
-    Stationen.hide();
-  } else if (page == -4) {
-    TVOC_eCO2();
-    SPS30.hide();
-    SCD30.hide();
-    SGP30.hide();
-    alle_Sensoren.hide();
-    Stationen.hide();
-  } else if (page == -5) {
-    T_H_CO2();
-    SPS30.hide();
-    SCD30.hide();
-    SGP30.hide();
-    alle_Sensoren.hide();
-    Stationen.hide();
-  } else if (page == -6) {
-    alleSensoren();
-    SPS30.hide();
-    SCD30.hide();
-    SGP30.hide();
-    alle_Sensoren.hide();
-    Stationen.hide();
-  } else if (page == -7) {
-    Tutorial0();
-  } else if (page == -7.1) {
-    Tutorial1();
-  } else if (page == -7.11) {
-    Tutorial2();
-  } else if (page == -7.111) {
-    Tutorial3();
-  } else if (page == -7.1111) {
-    Tutorial4();
-  } else if (page == -7.11111) {
-    Tutorial5();
-  } else if (page == -7.111111) {
-    Tutorial6();
-  } else if (page == -7.2) {
-    Tutorial7();
-  } else if (page == -7.22) {
-    Tutorial8();
-  } else if (page == -7.222) {
-    Tutorial9();
-  }
+  
 
   if (page != 10) {
     Port1.hide();
