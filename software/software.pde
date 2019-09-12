@@ -367,8 +367,18 @@ void setup() {
 }
 
 
+float mouse_time = 0;
+
 
 void draw() {
+  if(mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height){
+    mouse_time = millis();
+  }
+  if(millis() - mouse_time > 3000){
+   frameRate(5); 
+  }else{
+   frameRate(20); 
+  }
   scale(scale_factor);
   pushMatrix();
   //Aufloesung.setPosition(950/0.75, 150/0.75);
