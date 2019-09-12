@@ -1,6 +1,9 @@
 # Modul2b_Software
 
 ## Update
+## 12.09.2019
+- 10-teiliges Tutorial zur Bedienung der Software integriert
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Tutorial.png) <br>
 ## 11.09.2019
 - Allgemein: Problem mit Fehlerbalken behoben
 - Fehler werden von nun an auch beim aktuellen Wert angezeigt
