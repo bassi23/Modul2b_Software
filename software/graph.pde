@@ -796,8 +796,8 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
             if (connect.name == "verbinden") {
               line(x1, y1, x2, y2);
             } else {
-              line(x2-5, y2, x2+5, y2);
-              line(x2, y2-5, x2, y2+5);
+              line(x1-2, y1, x1+2, y1);
+              line(x1, y1-2, x1, y1+2);
             }
           }
         }
