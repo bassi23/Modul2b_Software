@@ -372,8 +372,8 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     translate(width/2, height/2);
     rotate(3*PI/2);
     if (name == "CO2 in ppm") {
-   
-      text("CO   in ppm",height/2 - 350, -width/2 + 100);
+
+      text("CO   in ppm", height/2 - 350, -width/2 + 100);
       textSize(16);
       text("2", height/2 - 370, -width/2 + 110);
       textSize(20);
@@ -403,14 +403,14 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     translate(width/2, height/2);
     rotate(PI/2);
     if (name == "CO2 in ppm") {
-      text("CO   in ppm",-height/2 + 350, width/2 - 1070);
+      text("CO   in ppm", -height/2 + 350, width/2 - 1070);
       textSize(16);
-      text("2",-height/2 + 330, width/2 - 1060);
+      text("2", -height/2 + 330, width/2 - 1060);
       textSize(20);
     } else if (name == "eCO2 in ppm") {
-       text("eCO   in ppm", -height/2 + 350, width/2 - 1070);
+      text("eCO   in ppm", -height/2 + 350, width/2 - 1070);
       textSize(16);
-      text("2",  -height/2 + 335, width/2 - 1060);
+      text("2", -height/2 + 335, width/2 - 1060);
       textSize(20);
     } else {
       textSize(20);
@@ -759,23 +759,24 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
           y1 = 100;
         }
         if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
+
+          strokeWeight(0.5);
+          if (e1 < 100) {
+            e1 = 100;
+          }
+          if (e2 < 100) {
+            e2 = 100;
+          }
+          if (e2 > 600) {
+            e2 = 600;
+          }
+          if (e1 > 600) {
+            e1 = 600;
+          }
+          line(x1, e1, x1, e2);
+          line(x1-2, e1, x1+2, e1);
+          line(x1-2, e2, x1+2, e2);
           if (error_bars.name == "anzeigen") {
-            strokeWeight(0.5);
-            if (e1 < 100) {
-              e1 = 100;
-            }
-            if (e2 < 100) {
-              e2 = 100;
-            }
-            if (e2 > 600) {
-              e2 = 600;
-            }
-            if (e1 > 600) {
-              e1 = 600;
-            }
-            line(x1, e1, x1, e2);
-            line(x1-2, e1, x1+2, e1);
-            line(x1-2, e2, x1+2, e2);
             if (first_error) {
               first_error = false;
               line(x1, e1, x1, e2);
@@ -793,14 +794,13 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
         }
 
 
-        if (connect.name == "verbinden") {
-          if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
-            if (connect.name == "verbinden") {
-              line(x1, y1, x2, y2);
-            } else {
-              line(x1-2, y1, x1+2, y1);
-              line(x1, y1-2, x1, y1+2);
-            }
+
+        if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
+          if (connect.name == "verbinden") {
+            line(x1, y1, x2, y2);
+          } else {
+            line(x1-2, y1, x1+2, y1);
+            line(x1, y1-2, x1, y1+2);
           }
         }
       }
@@ -1373,7 +1373,7 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
- // text(name, height/2 -400, -width/2 + 80);
+  // text(name, height/2 -400, -width/2 + 80);
   text(name, 0, -540);
   popMatrix();
   fill(0);
