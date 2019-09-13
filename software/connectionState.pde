@@ -69,7 +69,7 @@ void checkConnection() {
     }
 
 
-    if (connected[1]) {
+    if (connected[2]) {
       fill(0, 255, 0);
       text("verbunden", 210, 420);
     } else {
@@ -77,7 +77,7 @@ void checkConnection() {
       text("nicht verbunden", 210, 420);
     }
 
-    if (connected[2]) {
+    if (connected[1]) {
       fill(0, 255, 0);
       text("verbunden", 210, 620);
     } else {
@@ -92,14 +92,14 @@ void checkConnection() {
     }
     ellipse(80, 380, 50, 50);
 
-    if (connected[1]) {
+    if (connected[2]) {
       fill(0, 255, 0);
     } else {
       fill(255, 0, 0);
     }
     ellipse(420, 80, 50, 50);
 
-    if (connected[2]) {
+    if (connected[1]) {
       fill(0, 255, 0);
     } else {
       fill(255, 0, 0);
