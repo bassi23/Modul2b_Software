@@ -566,12 +566,12 @@ void alleSensoren2() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  text(y_achse, -50, -590);
+  text(y_achse, height/2 -400, -width/2 + 80);
   textSize(15);
   if (y_achse == "eCO  in ppm") {
-    text(suby, -67, -580);
+    text(suby, height/2 -415, -width/2 + 90);
   } else {
-    text(suby, -72, -580);
+    text(suby, height/2 -422, -width/2 + 90);
   }
   popMatrix();
   textSize(15);

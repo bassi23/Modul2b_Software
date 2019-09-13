@@ -372,17 +372,18 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     translate(width/2, height/2);
     rotate(3*PI/2);
     if (name == "CO2 in ppm") {
-      text("CO   in ppm", 0, -545);
+   
+      text("CO   in ppm",height/2 - 350, -width/2 + 100);
       textSize(16);
-      text("2", -20, -540);
+      text("2", height/2 - 370, -width/2 + 110);
       textSize(20);
     } else if (name == "eCO2 in ppm") {
-      text("eCO   in ppm", -5, -545);
+      text("eCO   in ppm", height/2 -350, -width/2 + 100);
       textSize(16);
-      text("2", -20, -540);
+      text("2", height/2 -365, -width/2 + 110);
       textSize(20);
     } else {
-      text(name, 0, -545);
+      text(name, height/2 -350, -width/2 + 100);
     }
     popMatrix();
   } else {
@@ -402,18 +403,19 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     translate(width/2, height/2);
     rotate(PI/2);
     if (name == "CO2 in ppm") {
-      text("CO   in ppm", 0, -440);
+      text("CO   in ppm",-height/2 + 350, width/2 - 1070);
       textSize(16);
-      text("2", -17, -435);
+      text("2",-height/2 + 330, width/2 - 1060);
       textSize(20);
     } else if (name == "eCO2 in ppm") {
-      text("eCO   in ppm", -5, -440);
+       text("eCO   in ppm", -height/2 + 350, width/2 - 1070);
       textSize(16);
-      text("2", -17, -435);
+      text("2",  -height/2 + 335, width/2 - 1060);
       textSize(20);
     } else {
       textSize(20);
-      text(name, 0, -440);
+      text(name, -height/2 + 350, width/2 - 1070);
+      //text(name, 0, -440);
     }
     popMatrix();
   }
@@ -1371,6 +1373,7 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
+ // text(name, height/2 -400, -width/2 + 80);
   text(name, 0, -540);
   popMatrix();
   fill(0);

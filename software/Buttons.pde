@@ -286,7 +286,7 @@ class checkbox {
   }
 
   boolean isOver() {
-    return (mouseX > x && mouseX < x + size && mouseY > y && mouseY < y + size);
+    return (mouseX > x*scale_factor && mouseX < (x + size)*scale_factor && mouseY > y*scale_factor && mouseY < (y + size)*scale_factor);
   }
 
   boolean isClicked() {
