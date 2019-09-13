@@ -922,7 +922,6 @@ void Innenraumluft_c() {
     if (Innenraumluftc[6][i] > time_Station4) {
       Station4cFertig = true;
       Station4cgestartet = false;
-      println(Innenraumluftc[6][i]);
       break;
     } else {
       Station4cFertig = false;

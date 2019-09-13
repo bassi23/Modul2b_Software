@@ -1234,7 +1234,6 @@ void Tutorial8() {
       skalierung_rot = 0;
     }
   }
-  println(skalierung_rot);
 
   if (tutorial_skalierung_rot_down.isClicked()) {
     skalierung_rot -= 1;

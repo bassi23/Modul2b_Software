@@ -842,9 +842,6 @@ void freePlot(float[] arr_X, float[] arr_Y, int time_scale, int x_scale, int y_s
     xValues = index;
   }
 
-
-  println(time_scale, xValues);
-
   // 1. Max und Min der beiden Array bestimmen
 
   float maxX = 0;

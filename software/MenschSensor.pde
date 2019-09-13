@@ -211,17 +211,17 @@ class Probe {
   }
 
   void show() {
-    if (x > width - 50) {
-      x = width- 50;
+    if (x > (width - 50)*scale_factor) {
+      x =(width - 50)*scale_factor;
     }
-    if (x < 50) {
-      x = 50;
+    if (x < 50*scale_factor) {
+      x = 50*scale_factor;
     }
-    if (y < 50) {
-      y = 50;
+    if (y < 50*scale_factor) {
+      y = 50*scale_factor;
     }
-    if (y > height - 50) {
-      y = height - 50;
+    if (y > (height - 50)*scale_factor) {
+      y = (height - 50)*scale_factor;
     }
     if (text == "A") {
       fill(255, 200, 200);
@@ -238,7 +238,7 @@ class Probe {
     rect(x-50, y - 50, 100, 100);
     fill(0);
     text(text, x-15, y+15);
-    if (this.y > 350 && this.y < 450 && this.x > 300 && this.x < 1000) {
+    if (this.y > 350*scale_factor && this.y < 450*scale_factor && this.x > 300*scale_factor && this.x < 1000*scale_factor) {
       this.inPlace = true;
     } else {
       this.inPlace = false;
@@ -253,7 +253,7 @@ class Probe {
     this.inPlace = true;
   }
   boolean isOver() {
-    if (mouseX > x - 50 && mouseX  < x + 50 && (mouseY - scroll) > y - 50 && (mouseY - scroll) < y + 50) {
+    if (mouseX/scale_factor > (x - 50) && mouseX/scale_factor  < (x + 50) && (mouseY - scroll)/scale_factor > (y - 50) && (mouseY - scroll)/scale_factor < (y + 50)) {
       this.active = true;
       onlyOneProbe();
       return true;
@@ -265,7 +265,7 @@ class Probe {
   }
   float compareTo(Object o) {
     Probe e = (Probe)o;
-    if (x < e.x) {
+    if (x*scale_factor < e.x) {
       return -1;
     } else {
       return 1;
@@ -277,18 +277,18 @@ class Probe {
     //von links
 
     if (x + 50 > e.x -50 && x - 50 < e.x && y > e.y - 50 && y < e.y+50) {
-      e.x = x + 100;
+      e.x = x + 100*scale_factor;
     }
     //von rechts
     if (x -50 < e.x + 50 && x - 50 > e.x && y > e.y - 50 && y < e.y+50) {
-      e.x = x - 100;
+      e.x = x - 100*scale_factor;
     }
     //von oben
     if (y + 50 > e.y - 50 && y + 50 < e.y && x - 50 < e.x + 50 && x  + 50> e.x - 50) {
-      e.y = y + 100;
+      e.y = y + 100*scale_factor;
     }
     if (y - 50 < e.y + 50 && y - 50 > e.y && x - 50 < e.x + 50 && x  + 50> e.x - 50) {
-      e.y = y - 100;
+      e.y = y - 100*scale_factor;
     }
   }
 }
@@ -672,7 +672,7 @@ void Station2_Sensor() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  text("TVOC in ppb", -95, - 160);
+  text("TVOC in ppb",height/2 -440, -width/2 + 475);
 
   popMatrix();
 }
