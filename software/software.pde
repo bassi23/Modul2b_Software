@@ -11,7 +11,7 @@ import controlP5.*;
 
 //
 
-dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot, SPS_Blau, SGP_Rot, SGP_Blau, SCD_Rot, SCD_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
+dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
 dropdown dateiformat, autosave, connect, error_bars, freie_stationen;
 checkbox verbinde, fehler, verbinde_tutorial, fehler_tutorial;
 
@@ -19,9 +19,8 @@ dropdown tutorial_Rot, tutorial_Blau;
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
 String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
-String[] SPS_Strings = {"", "PM1", "PM2.5", "PM4", "PM10"};
-String[] SGP_Strings = {"", "TVOC", "eCO2"};
-String[] SCD_Strings = {"", "Temperatur", "Luftfeuchte", "CO2"};
+
+
 String[] SPS_Strings_Station1 = {"", "PM2.5", "PM10"};
 String[] SPS_Strings_Station1_Auswertung = {"", "PM2.5 (Referenz)", "PM10 (Referenz)", "PM2.5 (trocken)", "PM10 (trocken)", "PM2.5 (nass)", "PM10 (nass)"};
 String[] Station4_Strings = {"", "Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
@@ -46,11 +45,11 @@ Table table;
 station one, two_three, two, three, four, settings;
 
 // Buttons zur Steuerung der Skalierung des Graphen (up, down) und 
-button back, up1, down1, up2, down2, left1, right1, start_stopp;
+button back, up1, down1, up2, down2, left1, right1, start_stopp, x_up, x_down, y_up, y_down;
 button reset, sicher_ja, sicher_nein;
 button aktualisierung_right, aktualisierung_left;
 button Stationen, Sensoren, zumObermenu;
-button SPS30, SGP30, SCD30, alle_Sensoren;
+button SPS30, SGP30, SCD30, alle_Sensoren, alle_Sensoren2;
 button einstellungen;
 button Port1, Port2, Port3, Port4, Port5, Port6;
 button station1_referenz, station1_trocken, station1_nass, station1_MessungStarten, station1_MessungWiederholen, station1_weiter_ab, station1_weiter_bc, station1_zur_Auswertung;
@@ -76,7 +75,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = -1;
+float page = -2;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -94,10 +93,17 @@ int ausgewaehlterPort = 0;
 // -7.1: Tutorial
 // -1: Hauptmenü
 // -2: Sensoren - Auswahl
+
+
 // -3: Sensoren - Feinstaub
 // -4: Sensoren - TVOC, eCO2
 // -5: Sensoren - Temperatur, Luftfeuchte, CO2
-// -6: Sensoren - Alle Sensoren
+
+
+// -5: Sensoren - Messwert gegen Messwert
+// -6: Sensoren - Messwert gegen Zeit
+
+
 // 0: Stationen - Auswahl
 // 1: Stationen - Station 1 Hauptmenü
 // 1.1: Stationen - Station 1 - Aufgabe a)
@@ -139,14 +145,6 @@ void setup() {
     gotSerial = false;
   }
   Aufloesung = new dropdown("Auflösung", 350, 480, 250, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
-  SGP_Rot = new dropdown("Links", 120, 20, 200, 30, 3, SGP_Strings, false, color(255, 0, 0));
-  SGP_Blau = new dropdown("Rechts", 750, 20, 200, 30, 3, SGP_Strings, false, color(0, 0, 255));
-
-  SCD_Rot = new dropdown("Links", 120, 20, 200, 30, 4, SCD_Strings, false, color(255, 0, 0));
-  SCD_Blau = new dropdown("Rechts", 750, 20, 200, 30, 4, SCD_Strings, false, color(0, 0, 255));
-
-  SPS_Rot = new dropdown("Links", 120, 20, 200, 30, 5, SPS_Strings, false, color(255, 0, 0));
-  SPS_Blau = new dropdown("Rechts", 750, 20, 200, 30, 5, SPS_Strings, false, color(0, 0, 255));
 
 
   SPS_Blau_Station1 = new dropdown("Rechts", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));
@@ -162,8 +160,8 @@ void setup() {
   Station4_Auswertung_Rot = new dropdown("Zeit", 250, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
   Station4_Auswertung_Blau = new dropdown("Temperatur", 730, 20, 220, 30, 5, Station4_Auswertung_Strings2, false, color(0, 0, 255));
 
-  Alle_Sensoren_Rot = new dropdown("Links", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
-  Alle_Sensoren_Blau = new dropdown("Rechts", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
+  Alle_Sensoren_Rot = new dropdown("", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
+  Alle_Sensoren_Blau = new dropdown("", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
   dateiformat = new dropdown("Dateiformat", 350, 40, 200, 30, 2, dateiformat_Strings, false, color(255, 12, 23));
   autosave = new dropdown("nicht speichern", 700, 40, 300, 30, 3, autosave_Strings, false, color(255, 34, 23));
@@ -206,6 +204,12 @@ void setup() {
   start_stopp = new button(1115, 35, 140, 50, "Start/Stopp", 5, true, 20);
   aktualisierung_right = new button(1200, 500, 50, 30, "right_arrow", 5, true, 20);
   aktualisierung_left = new button(1115, 500, 50, 30, "left_arrow", 5, true, 20);
+  
+  
+  x_up = new button(900, 680, 50, 30, "right_arrow", 5, true, 20);
+  x_down = new button(840, 680, 50, 30, "left_arrow", 5, true, 20);
+  y_up = new button(25, 140, 30, 50, "up_arrow", 5, true, 20);
+  y_down = new button(25, 195, 30, 50, "down_arrow", 5, true, 20);
 
   //
   reset = new button(1115, 90, 140, 50, "Reset", 5, true, 20);
@@ -228,7 +232,8 @@ void setup() {
   SPS30 = new button(100, 50, 450, 300, "Feinstaub", 15, true, 50);
   SGP30 = new button(650, 50, 450, 300, "TVOC, eCO2", 15, true, 50);
   SCD30 = new button(100, 375, 450, 300, "Temperatur,\nLuftfeuchte,\nCO2", -40, true, 50);
-  alle_Sensoren = new button(650, 375, 450, 300, "Alle Sensoren", 15, true, 50);
+  alle_Sensoren = new button(720, 100, 300, 150, "Messwert gegen\nZeit", -10, true, 30);
+  alle_Sensoren2 = new button(720, 400, 300, 150, "Messwert gegen\nMesswert", -10, true, 30);
 
   //
   einstellungen = new button(20, 630, 150, 75, "Einstellungen", 5, true, 20);
@@ -374,10 +379,12 @@ void draw() {
     mouse_time = millis();
   }
   if (millis() - mouse_time > 3000) {
-    frameRate(5);
-  } else {
     frameRate(20);
+  } else {
+    frameRate(60);
   }
+  
+  println(page);
 
     scale(scale_factor);
     pushMatrix();
@@ -453,8 +460,14 @@ void draw() {
     tutorial_Start_Stopp.hide();
     tutorial_reset.hide();
 
-
-
+alle_Sensoren2.hide();
+  if(page == -2){
+    alle_Sensoren.show();
+    alle_Sensoren2.show();
+  }else{
+    alle_Sensoren.hide();
+    alle_Sensoren2.hide();
+  }
 
 
     // Aufloesung.hide();
@@ -538,9 +551,6 @@ void draw() {
       Obermenu();
       einstellungen.show();
       reset.hide();
-      SPS30.hide();
-      SCD30.hide();
-      SGP30.hide();
     } else if (page == 0) {
       hauptmenu();
       zumObermenu.show();
@@ -644,32 +654,17 @@ void draw() {
     } else if (page == -2) {
       SensorAuswahl();
     } else if (page == -3) {
-      Feinstaub();
-      SPS30.hide();
-      SCD30.hide();
-      SGP30.hide();
-      alle_Sensoren.hide();
-      Stationen.hide();
-    } else if (page == -4) {
-      TVOC_eCO2();
-      SPS30.hide();
-      SCD30.hide();
-      SGP30.hide();
+      //Feinstaub();
       alle_Sensoren.hide();
       Stationen.hide();
     } else if (page == -5) {
-      T_H_CO2();
-      SPS30.hide();
-      SCD30.hide();
-      SGP30.hide();
+      alleSensoren2();
       alle_Sensoren.hide();
       Stationen.hide();
     } else if (page == -6) {
       alleSensoren();
-      SPS30.hide();
-      SCD30.hide();
-      SGP30.hide();
       alle_Sensoren.hide();
+      alle_Sensoren2.hide();
       Stationen.hide();
     } else if (page == -7) {
       Tutorial0();
@@ -703,11 +698,6 @@ void draw() {
     Port6.hide();
   }
 
-  if (page == -2) {
-    alle_Sensoren.show();
-  } else {
-    alle_Sensoren.hide();
-  }
   if (Port1.isClicked()) {
     ausgewaehlterPort = 0;
     gotSerial = false;
@@ -965,6 +955,11 @@ void draw() {
     } else {
       measure = true;
     }
+  }
+  
+  
+  if(alle_Sensoren2.isClicked()){
+   page = -5; 
   }
 
 

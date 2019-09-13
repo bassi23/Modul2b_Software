@@ -56,24 +56,54 @@ void checkConnection() {
       }
     }
   }
-  if (connected[0]) {
-    fill(0, 255, 0);
-  } else {
-    fill(255, 0, 0);
-  }
-  ellipse(80, 380, 50, 50);
 
-  if (connected[1]) {
-    fill(0, 255, 0);
-  } else {
-    fill(255, 0, 0);
-  }
-  ellipse(420, 80, 50, 50);
+  if (page == -2) {
+    textAlign(CENTER);
+    textSize(26);
+    if (connected[0]) {
+      fill(0, 255, 0);
+      text("verbunden", 210, 220);
+    } else {
+      fill(255, 0, 0);
+      text("nicht verbunden", 210, 220);
+    }
 
-  if (connected[2]) {
-    fill(0, 255, 0);
+
+    if (connected[1]) {
+      fill(0, 255, 0);
+      text("verbunden", 210, 420);
+    } else {
+      fill(255, 0, 0);
+      text("nicht verbunden", 210, 420);
+    }
+
+    if (connected[2]) {
+      fill(0, 255, 0);
+      text("verbunden", 210, 620);
+    } else {
+      fill(255, 0, 0);
+      text("nicht verbunden", 210, 620);
+    }
   } else {
-    fill(255, 0, 0);
+    if (connected[0]) {
+      fill(0, 255, 0);
+    } else {
+      fill(255, 0, 0);
+    }
+    ellipse(80, 380, 50, 50);
+
+    if (connected[1]) {
+      fill(0, 255, 0);
+    } else {
+      fill(255, 0, 0);
+    }
+    ellipse(420, 80, 50, 50);
+
+    if (connected[2]) {
+      fill(0, 255, 0);
+    } else {
+      fill(255, 0, 0);
+    }
+    ellipse(820, 80, 50, 50);
   }
-  ellipse(820, 80, 50, 50);
 }
