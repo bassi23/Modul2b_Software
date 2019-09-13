@@ -759,33 +759,46 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
           y1 = 100;
         }
         if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
-
-          strokeWeight(0.5);
-          if (e1 < 100) {
-            e1 = 100;
-          }
-          if (e2 < 100) {
-            e2 = 100;
-          }
-          if (e2 > 600) {
-            e2 = 600;
-          }
-          if (e1 > 600) {
-            e1 = 600;
-          }
-          line(x1, e1, x1, e2);
-          line(x1-2, e1, x1+2, e1);
-          line(x1-2, e2, x1+2, e2);
           if (error_bars.name == "anzeigen") {
+            strokeWeight(0.5);
+
+            if (e1 < 100) {
+              e1 = 100;
+            }
+            if (e2 < 100) {
+              e2 = 100;
+            }
+            if (e2 > 600) {
+              e2 = 600;
+            }
+            if (e1 > 600) {
+              e1 = 600;
+            }
+
+            line(x1, e1, x1, e2);
+            line(x1-2, e1, x1+2, e1);
+            line(x1-2, e2, x1+2, e2);
             if (first_error) {
               first_error = false;
               line(x1, e1, x1, e2);
               line(x1-2, e1, x1+2, e1);
               line(x1-2, e2, x1+2, e2);
-
-              float a1 = 170 + (newArray_time[929] - x_anfang)*830/x_intervall;
-              float e11 = 600 - 500*(newArray[929] - error - min)/(max-min);
-              float e22 = 600 - 500*(newArray[929] + error - min)/(max-min);
+              
+              float a1 = 170 + (newArray_time[i] - x_anfang)*830/x_intervall;
+              float e11 = 600 - 500*(newArray[i] - error - min)/(max-min);
+              float e22 = 600 - 500*(newArray[i] + error - min)/(max-min);
+              if (e11 < 100) {
+                e11 = 100;
+              }
+              if (e22 < 100) {
+                e22 = 100;
+              }
+              if (e22 > 600) {
+                e22 = 600;
+              }
+              if (e11 > 600) {
+                e11 = 600;
+              }
               line(a1, e11, a1, e22);
               line(a1-2, e11, a1+2, e11);
               line(a1-2, e22, a1+2, e22);
@@ -794,13 +807,14 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
         }
 
 
-
         if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
+          strokeWeight(1);
+
           if (connect.name == "verbinden") {
             line(x1, y1, x2, y2);
           } else {
-            line(x1-2, y1, x1+2, y1);
-            line(x1, y1-2, x1, y1+2);
+            line(x2-2, y2, x2+2, y2);
+            line(x2, y2-2, x2, y2+2);
           }
         }
       }
