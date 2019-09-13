@@ -379,9 +379,9 @@ void draw() {
     mouse_time = millis();
   }
   if (millis() - mouse_time > 3000) {
-    frameRate(20);
+    frameRate(5);
   } else {
-    frameRate(60);
+    frameRate(20);
   }
   scale(scale_factor);
   pushMatrix();
