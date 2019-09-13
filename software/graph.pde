@@ -1129,20 +1129,20 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     fill(255, 0, 0);
     textAlign(LEFT);
     if (error != 0.5 && index > 1) {
-      text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 55);
+      text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 55);
     } else {
       if (index > 1) {
-        text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 55);
+        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 55);
       }
     }
   } else {
     fill(0, 0, 255);
     textAlign(RIGHT);
     if (error != 0.5 && index > 1) {
-      text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
+      text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
     } else {
       if (index > 1) {
-        text("Aktueller Wert: (" + str(round(array[index-2])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55);
+        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55);
       }
     }
   }
