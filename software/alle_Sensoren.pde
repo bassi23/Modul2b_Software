@@ -1073,18 +1073,18 @@ void freePlot(float[] arr_X, float[] arr_Y, int time_scale, int x_scale, int y_s
   textSize(16);
   fill(0);
   if (errorX != 0.5 && index > 1) {
-    text("Aktueller Wert: (" + str(round(arr_X[index-2])).replace(".", ",") + " +/- " + round(errorX) + ") " + EinheitX, 120, 75);
+    text("Aktueller Wert: (" + str(round(arr_X[index-1])).replace(".", ",") + " +/- " + round(errorX) + ") " + EinheitX, 120, 75);
   } else {
     if (index > 1) {
-      text("Aktueller Wert: (" + str(round(arr_X[index-2])).replace(".", ",") + " +/- 0,5) " + EinheitX, 150, 75);
+      text("Aktueller Wert: (" + str(round(arr_X[index-1])).replace(".", ",") + " +/- 0,5) " + EinheitX, 150, 75);
     }
   }
   
     if (errorY != 0.5 && index > 1) {
-    text("Aktueller Wert: (" + str(round(arr_Y[index-2])).replace(".", ",") + " +/- " + round(errorY) + ") " + EinheitY, 675, 75);
+    text("Aktueller Wert: (" + str(round(arr_Y[index-1])).replace(".", ",") + " +/- " + round(errorY) + ") " + EinheitY, 675, 75);
   } else {
     if (index > 1) {
-      text("Aktueller Wert: (" + str(round(arr_Y[index-2])).replace(".", ",") + " +/- 0,5) " + EinheitY, 750, 75);
+      text("Aktueller Wert: (" + str(round(arr_Y[index-1])).replace(".", ",") + " +/- 0,5) " + EinheitY, 750, 75);
     }
   }
 }
