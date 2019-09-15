@@ -113,13 +113,21 @@ void Tutorial2() {
   tutorial_Rot.show();
   tutorial_Blau.show();
   textSize(20);
+  
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
   fill(255, 0, 0);
   if (tutorial_Rot.name != "Links") {
-    text(tutorial_Rot.name + " " + einheit_Rot, -0, -560);
+    text(tutorial_Rot.name + " " + einheit_Rot, height/2 -380, -width/2 + 50);
+    textSize(16);
+    if (tutorial_Rot.name == "CO") {
+      text("2", height/2 -400, -width/2 + 60);
+    } else if (tutorial_Rot.name == "eCO") {
+      text("2", height/2 -395, -width/2 + 60);
+    }
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -128,7 +136,14 @@ void Tutorial2() {
   textAlign(CENTER);
   fill(0, 0, 255);
   if (tutorial_Blau.name != "Rechts") {
-    text(tutorial_Blau.name + " " + einheit_Blau, 0, -360);
+    text(tutorial_Blau.name + " " + einheit_Blau, -height/2 +380, width/2 - 990);
+    textSize(16);
+    if (tutorial_Blau.name == "CO") {
+      text("2", -height/2 +360, width/2 - 980);
+    } else if (tutorial_Blau.name == "eCO") {
+      text("2", -height/2 +365, width/2 - 980);
+    }
+    textSize(20);
   }
   popMatrix();
 }
@@ -235,13 +250,20 @@ void Tutorial3() {
   }
 
   textSize(20);
-  pushMatrix();
+ pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
   fill(255, 0, 0);
   if (tutorial_Rot.name != "Links") {
-    text(tutorial_Rot.name + " " + einheit_Rot, -0, -560);
+    text(tutorial_Rot.name + " " + einheit_Rot, height/2 -380, -width/2 + 50);
+    textSize(16);
+    if (tutorial_Rot.name == "CO") {
+      text("2", height/2 -400, -width/2 + 60);
+    } else if (tutorial_Rot.name == "eCO") {
+      text("2", height/2 -395, -width/2 + 60);
+    }
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -250,7 +272,14 @@ void Tutorial3() {
   textAlign(CENTER);
   fill(0, 0, 255);
   if (tutorial_Blau.name != "Rechts") {
-    text(tutorial_Blau.name + " " + einheit_Blau, 0, -360);
+    text(tutorial_Blau.name + " " + einheit_Blau, -height/2 +380, width/2 - 990);
+    textSize(16);
+    if (tutorial_Blau.name == "CO") {
+      text("2", -height/2 +360, width/2 - 980);
+    } else if (tutorial_Blau.name == "eCO") {
+      text("2", -height/2 +365, width/2 - 980);
+    }
+    textSize(20);
   }
   popMatrix();
   textSize(20);
@@ -378,13 +407,20 @@ void Tutorial4() {
   }
 
   textSize(20);
-  pushMatrix();
+ pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
   fill(255, 0, 0);
   if (tutorial_Rot.name != "Links") {
-    text(tutorial_Rot.name + " " + einheit_Rot, -0, -560);
+    text(tutorial_Rot.name + " " + einheit_Rot, height/2 -380, -width/2 + 50);
+    textSize(16);
+    if (tutorial_Rot.name == "CO") {
+      text("2", height/2 -400, -width/2 + 60);
+    } else if (tutorial_Rot.name == "eCO") {
+      text("2", height/2 -395, -width/2 + 60);
+    }
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -393,7 +429,14 @@ void Tutorial4() {
   textAlign(CENTER);
   fill(0, 0, 255);
   if (tutorial_Blau.name != "Rechts") {
-    text(tutorial_Blau.name + " " + einheit_Blau, 0, -360);
+    text(tutorial_Blau.name + " " + einheit_Blau, -height/2 +380, width/2 - 990);
+    textSize(16);
+    if (tutorial_Blau.name == "CO") {
+      text("2", -height/2 +360, width/2 - 980);
+    } else if (tutorial_Blau.name == "eCO") {
+      text("2", -height/2 +365, width/2 - 980);
+    }
+    textSize(20);
   }
   popMatrix();
   textSize(20);
@@ -566,7 +609,14 @@ void Tutorial5() {
   textAlign(CENTER);
   fill(255, 0, 0);
   if (tutorial_Rot.name != "Links") {
-    text(tutorial_Rot.name + " " + einheit_Rot, -0, -560);
+    text(tutorial_Rot.name + " " + einheit_Rot, height/2 -380, -width/2 + 50);
+    textSize(16);
+    if (tutorial_Rot.name == "CO") {
+      text("2", height/2 -400, -width/2 + 60);
+    } else if (tutorial_Rot.name == "eCO") {
+      text("2", height/2 -395, -width/2 + 60);
+    }
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -575,7 +625,14 @@ void Tutorial5() {
   textAlign(CENTER);
   fill(0, 0, 255);
   if (tutorial_Blau.name != "Rechts") {
-    text(tutorial_Blau.name + " " + einheit_Blau, 0, -360);
+    text(tutorial_Blau.name + " " + einheit_Blau, -height/2 +380, width/2 - 990);
+    textSize(16);
+    if (tutorial_Blau.name == "CO") {
+      text("2", -height/2 +360, width/2 - 980);
+    } else if (tutorial_Blau.name == "eCO") {
+      text("2", -height/2 +365, width/2 - 980);
+    }
+    textSize(20);
   }
   popMatrix();
   textSize(20);
@@ -730,13 +787,20 @@ void Tutorial6() {
 
 
   textSize(20);
-  pushMatrix();
+ pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
   fill(255, 0, 0);
   if (tutorial_Rot.name != "Links") {
-    text(tutorial_Rot.name + " " + einheit_Rot, -0, -560);
+    text(tutorial_Rot.name + " " + einheit_Rot, height/2 -380, -width/2 + 50);
+    textSize(16);
+    if (tutorial_Rot.name == "CO") {
+      text("2", height/2 -400, -width/2 + 60);
+    } else if (tutorial_Rot.name == "eCO") {
+      text("2", height/2 -395, -width/2 + 60);
+    }
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -745,7 +809,14 @@ void Tutorial6() {
   textAlign(CENTER);
   fill(0, 0, 255);
   if (tutorial_Blau.name != "Rechts") {
-    text(tutorial_Blau.name + " " + einheit_Blau, 0, -360);
+    text(tutorial_Blau.name + " " + einheit_Blau, -height/2 +380, width/2 - 990);
+    textSize(16);
+    if (tutorial_Blau.name == "CO") {
+      text("2", -height/2 +360, width/2 - 980);
+    } else if (tutorial_Blau.name == "eCO") {
+      text("2", -height/2 +365, width/2 - 980);
+    }
+    textSize(20);
   }
   popMatrix();
   textSize(20);
@@ -930,7 +1001,14 @@ void Tutorial7() {
   textAlign(CENTER);
   fill(255, 0, 0);
   if (tutorial_Rot.name != "Links") {
-    text(tutorial_Rot.name + " " + einheit_Rot, -0, -560);
+    text(tutorial_Rot.name + " " + einheit_Rot, height/2 -380, -width/2 + 50);
+    textSize(16);
+    if (tutorial_Rot.name == "CO") {
+      text("2", height/2 -400, -width/2 + 60);
+    } else if (tutorial_Rot.name == "eCO") {
+      text("2", height/2 -395, -width/2 + 60);
+    }
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -939,7 +1017,14 @@ void Tutorial7() {
   textAlign(CENTER);
   fill(0, 0, 255);
   if (tutorial_Blau.name != "Rechts") {
-    text(tutorial_Blau.name + " " + einheit_Blau, 0, -360);
+    text(tutorial_Blau.name + " " + einheit_Blau, -height/2 +380, width/2 - 990);
+    textSize(16);
+    if (tutorial_Blau.name == "CO") {
+      text("2", -height/2 +360, width/2 - 980);
+    } else if (tutorial_Blau.name == "eCO") {
+      text("2", -height/2 +365, width/2 - 980);
+    }
+    textSize(20);
   }
   popMatrix();
   textSize(20);
@@ -1149,13 +1234,20 @@ void Tutorial8() {
 
 
   textSize(20);
-  pushMatrix();
+ pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
   fill(255, 0, 0);
   if (tutorial_Rot.name != "Links") {
-    text(tutorial_Rot.name + " " + einheit_Rot, -0, -560);
+    text(tutorial_Rot.name + " " + einheit_Rot, height/2 -380, -width/2 + 50);
+    textSize(16);
+    if (tutorial_Rot.name == "CO") {
+      text("2", height/2 -400, -width/2 + 60);
+    } else if (tutorial_Rot.name == "eCO") {
+      text("2", height/2 -395, -width/2 + 60);
+    }
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -1164,7 +1256,14 @@ void Tutorial8() {
   textAlign(CENTER);
   fill(0, 0, 255);
   if (tutorial_Blau.name != "Rechts") {
-    text(tutorial_Blau.name + " " + einheit_Blau, 0, -360);
+    text(tutorial_Blau.name + " " + einheit_Blau, -height/2 +380, width/2 - 990);
+    textSize(16);
+    if (tutorial_Blau.name == "CO") {
+      text("2", -height/2 +360, width/2 - 980);
+    } else if (tutorial_Blau.name == "eCO") {
+      text("2", -height/2 +365, width/2 - 980);
+    }
+    textSize(20);
   }
   popMatrix();
   textSize(20);

@@ -783,7 +783,7 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
               line(x1, e1, x1, e2);
               line(x1-2, e1, x1+2, e1);
               line(x1-2, e2, x1+2, e2);
-              
+
               float a1 = 170 + (newArray_time[i] - x_anfang)*830/x_intervall;
               float e11 = 600 - 500*(newArray[i] - error - min)/(max-min);
               float e22 = 600 - 500*(newArray[i] + error - min)/(max-min);
@@ -1135,30 +1135,57 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     Einheit = "ppm";
   }
 
-
+  println(page);
   textSize(18);
+  int indexStation11 = 1;
+    if(zeitskala1 == 1){
+      indexStation11 = indexStation1;
+    }else if(zeitskala1 == 2){
+      indexStation11 = indexStation1_trocken;
+    }else if(zeitskala1 == 3){
+      indexStation11 = indexStation1_nass;      
+    }
 
   if (left) {
     noStroke();
     fill(255, 0, 0);
-    textAlign(LEFT);
-    if (error != 0.5 && index > 1) {
-      text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 55);
+    textAlign(LEFT);    
+    if (page == 1.1 || page == 1.11 || page == 1.111) {
+      if (error != 0.5 && indexStation11 >= 1) {
+        text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 55);
+      } else {
+        if (indexStation11 > 1) {
+          text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 55);
+        }
+      }
     } else {
-      if (index > 1) {
-        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 55);
+      if (error != 0.5 && index > 1) {
+        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 55);
+      } else {
+        if (index > 1) {
+          text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 55);
+        }
       }
     }
   } else {
     fill(0, 0, 255);
     textAlign(RIGHT);
-    if (error != 0.5 && index > 1) {
-      text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
-    } else {
-      if (index > 1) {
-        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55);
+    if (page == 1.1 || page == 1.11 || page == 1.111) {
+      if (error != 0.5 && indexStation11 >= 1) {
+        text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
+      } else {
+        if (indexStation11 > 1) {
+          text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55);
+        }
       }
-    }
+    } else
+      if (error != 0.5 && index > 1) {
+        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
+      } else {
+        if (index > 1) {
+          text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55);
+        }
+      }
   }
   textSize(20);
   textAlign(LEFT);

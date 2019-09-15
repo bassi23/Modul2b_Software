@@ -178,7 +178,7 @@ void Innenraumluft_a() {
   }
   fill(0);
   textAlign(CENTER);
-  if (Rot != -1) {
+  if (Rot != -1 && maxRot != 0) {
 
     for (int i = 0; i< 6; i++) {
       if (Rot != 0 && Rot != 1) {
@@ -189,7 +189,7 @@ void Innenraumluft_a() {
     }
   }
 
-  if (Blau != -1) {
+  if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
       if (Blau != 0 && Blau != 1) {
         text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
@@ -288,15 +288,21 @@ void Innenraumluft_a() {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -595);
   } else if (Rot == 0) {
-    text("Temperatur in °C", -100, -595);
+    text("Temperatur in °C", height/2 -490, -width/2 + 60);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", -100, -595);
+    text("Luftfeuchte in %", height/2 -490, -width/2 + 60);
   } else if (Rot == 2) {
-    text("CO2 in ppm", -100, -595);
+    text("CO  in ppm", height/2 -490, -width/2 + 60);
+    textSize(16);
+    text("2", height/2 -462, -width/2 + 70);
+    textSize(20);
   } else if (Rot == 3) {
-    text("TVOC in ppb", -100, -595);
+    text("TVOC in ppb", height/2 -490, -width/2 + 60);
   } else if (Rot == 4) {
-    text("eCO2 in ppm", -100, -595);
+    text("eCO  in ppm", height/2 -490, -width/2 + 60);
+    textSize(16);
+    text("2", height/2 -455, -width/2 + 70);
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -304,15 +310,21 @@ void Innenraumluft_a() {
   rotate(PI/2);
   fill(0, 0, 255);
   if (Blau == 0) {
-    text("Temperatur in °C", -50, -405);
+    text("Temperatur in °C", -height/2 +300, width/2 - 1050);
   } else if (Blau == 1) {
-    text("Luftfeuchte in %", -50, -405);
+    text("Luftfeuchte in %", -height/2 +300, width/2 - 1050);
   } else if (Blau == 2) {
-    text("CO2 in ppm", -50, -405);
+    text("CO  in ppm", -height/2 +300, width/2 - 1050);
+    textSize(16);
+    text("2", -height/2 +330, width/2 - 1040);
+    textSize(20);
   } else if (Blau == 3) {
-    text("TVOC in ppb", -50, -405);
+    text("TVOC in ppb", -height/2 +300, width/2 - 1050);
   } else if (Blau == 4) {
-    text("eCO2 in ppm", -50, -405);
+    text("eCO  in ppm", -height/2 +300, width/2 - 1050);
+    textSize(16);
+    text("2", -height/2 +343, width/2 - 1040);
+    textSize(20);
   }
   popMatrix();
 }
@@ -547,7 +559,7 @@ void Innenraumluft_b() {
   }
   fill(0);
   textAlign(CENTER);
-  if (Rot != -1) {
+  if (Rot != -1 && maxRot != 0) {
 
     for (int i = 0; i< 6; i++) {
       if (Rot != 0 && Rot != 1) {
@@ -558,7 +570,7 @@ void Innenraumluft_b() {
     }
   }
 
-  if (Blau != -1) {
+  if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
       if (Blau != 0 && Blau != 1) {
         text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
@@ -658,15 +670,21 @@ void Innenraumluft_b() {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -595);
   } else if (Rot == 0) {
-    text("Temperatur in °C", -100, -595);
+    text("Temperatur in °C", height/2 -490, -width/2 + 60);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", -100, -595);
+    text("Luftfeuchte in %", height/2 -490, -width/2 + 60);
   } else if (Rot == 2) {
-    text("CO2 in ppm", -100, -595);
+    text("CO  in ppm", height/2 -490, -width/2 + 60);
+    textSize(16);
+    text("2", height/2 -462, -width/2 + 70);
+    textSize(20);
   } else if (Rot == 3) {
-    text("TVOC in ppb", -100, -595);
+    text("TVOC in ppb", height/2 -490, -width/2 + 60);
   } else if (Rot == 4) {
-    text("eCO2 in ppm", -100, -595);
+    text("eCO  in ppm", height/2 -490, -width/2 + 60);
+    textSize(16);
+    text("2", height/2 -455, -width/2 + 70);
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -674,15 +692,21 @@ void Innenraumluft_b() {
   rotate(PI/2);
   fill(0, 0, 255);
   if (Blau == 0) {
-    text("Temperatur in °C", -50, -405);
+    text("Temperatur in °C", -height/2 +300, width/2 - 1050);
   } else if (Blau == 1) {
-    text("Luftfeuchte in %", -50, -405);
+    text("Luftfeuchte in %", -height/2 +300, width/2 - 1050);
   } else if (Blau == 2) {
-    text("CO2 in ppm", -50, -405);
+    text("CO  in ppm", -height/2 +300, width/2 - 1050);
+    textSize(16);
+    text("2", -height/2 +330, width/2 - 1040);
+    textSize(20);
   } else if (Blau == 3) {
-    text("TVOC in ppb", -50, -405);
+    text("TVOC in ppb", -height/2 +300, width/2 - 1050);
   } else if (Blau == 4) {
-    text("eCO2 in ppm", -50, -405);
+    text("eCO  in ppm", -height/2 +300, width/2 - 1050);
+    textSize(16);
+    text("2", -height/2 +343, width/2 - 1040);
+    textSize(20);
   }
   popMatrix();
 }
@@ -831,7 +855,7 @@ void Innenraumluft_c() {
       }
     }
   }
-  if (Rot != -1) {
+  if (Rot != -1 && maxRot != 0) {
 
     for (int i = 0; i< 6; i++) {
       if (Rot != 0 && Rot != 1) {
@@ -842,7 +866,7 @@ void Innenraumluft_c() {
     }
   }
 
-  if (Blau != -1) {
+  if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
       if (Blau != 0 && Blau != 1) {
         text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
@@ -943,15 +967,21 @@ void Innenraumluft_c() {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -595);
   } else if (Rot == 0) {
-    text("Temperatur in °C", -100, -595);
+    text("Temperatur in °C", height/2 -490, -width/2 + 60);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", -100, -595);
+    text("Luftfeuchte in %", height/2 -490, -width/2 + 60);
   } else if (Rot == 2) {
-    text("CO2 in ppm", -100, -595);
+    text("CO  in ppm", height/2 -490, -width/2 + 60);
+    textSize(16);
+    text("2", height/2 -462, -width/2 + 70);
+    textSize(20);
   } else if (Rot == 3) {
-    text("TVOC in ppb", -100, -595);
+    text("TVOC in ppb", height/2 -490, -width/2 + 60);
   } else if (Rot == 4) {
-    text("eCO2 in ppm", -100, -595);
+    text("eCO  in ppm", height/2 -490, -width/2 + 60);
+    textSize(16);
+    text("2", height/2 -455, -width/2 + 70);
+    textSize(20);
   }
   popMatrix();
   pushMatrix();
@@ -959,15 +989,21 @@ void Innenraumluft_c() {
   rotate(PI/2);
   fill(0, 0, 255);
   if (Blau == 0) {
-    text("Temperatur in °C", -50, -405);
+    text("Temperatur in °C", -height/2 +300, width/2 - 1050);
   } else if (Blau == 1) {
-    text("Luftfeuchte in %", -50, -405);
+    text("Luftfeuchte in %", -height/2 +300, width/2 - 1050);
   } else if (Blau == 2) {
-    text("CO2 in ppm", -50, -405);
+    text("CO  in ppm", -height/2 +300, width/2 - 1050);
+    textSize(16);
+    text("2", -height/2 +330, width/2 - 1040);
+    textSize(20);
   } else if (Blau == 3) {
-    text("TVOC in ppb", -50, -405);
+    text("TVOC in ppb", -height/2 +300, width/2 - 1050);
   } else if (Blau == 4) {
-    text("eCO2 in ppm", -50, -405);
+    text("eCO  in ppm", -height/2 +300, width/2 - 1050);
+    textSize(16);
+    text("2", -height/2 +343, width/2 - 1040);
+    textSize(20);
   }
   popMatrix();
 }
@@ -1205,25 +1241,36 @@ void AuswertungInnenraum() {
   } else if (indexX == 4) {
     text("eCO2 in ppm", 455, 700);
   }
-
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  fill(0, 0, 255);
-  if (indexY == 6) {
-    text(nf(time_Station4, 0, 0), 938, 660);
-    text("Zeit in Sekunden", -100, -595);
-  } else if (indexY == 0) {
-    text("Temperatur in °C", -100, -595);
+  fill(255, 0, 0);
+  if (indexY == 0) {
+    text("Temperatur in °C", height/2 -490, -width/2 + 60);
   } else if (indexY == 1) {
-    text("Luftfeuchte in %", -100, -595);
+    text("Luftfeuchte in %", height/2 -490, -width/2 + 60);
   } else if (indexY == 2) {
-    text("CO2 in ppm", -100, -595);
+    text("CO  in ppm", height/2 -490, -width/2 + 60);
+    textSize(16);
+    text("2", height/2 -462, -width/2 + 70);
+    textSize(20);
   } else if (indexY == 3) {
-    text("TVOC in ppb", -100, -595);
+    text("TVOC in ppb", height/2 -490, -width/2 + 60);
   } else if (indexY == 4) {
-    text("eCO2 in ppm", -100, -595);
+    text("eCO  in ppm", height/2 -490, -width/2 + 60);
+    textSize(16);
+    text("2", height/2 -455, -width/2 + 70);
+    textSize(20);
   }
+  popMatrix();
+
+
+
+
+
+
+
+
 
 
   popMatrix();
