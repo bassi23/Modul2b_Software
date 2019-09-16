@@ -3,6 +3,14 @@
 ## Update
 ## 16.09.2019
 - Allgemein: kleinere Verbesserungen (Fehlerbalken in Station 4, Kurzbeschreibung der Stationen, fette Schrift, ...)
+<br>
+Ich würde behaupten, dass das Programm zu 90% fertig ist. Die Platzhalter der TVOC Duelle müssen noch ersetzt werden, und der Ausschlag bei der Sensormessung justiert werden. Anschließend noch eine Integration der Daten einer chemischen Analyse.
+
+
+### Bekannte Fehler
+- Messintervall im Tutorial (schwierig einzustellen, da die Tutorial Daten zufällig beim Start des Programms initialisiert werden)
+- Manchmal stimmt die Einstellung der Achsenskalierung nicht mit den vorgegebenen Werten überein --> Detail
+- Station 1: Manchmal erscheint nach Ablauf der Zeit kein Button zur nächsten Aufgabe. In den Einstellungen können aber alle Aufgaben  dieser Station freigegeben werden, falls das der Fall ist.
 
 ## 13.09.2019
 - Allgemein: Das alte Sensormenü (Auswahl zwischen verschiedenen Sensoren) ist rausgeflogen und wurde durch zwei andere Menüpunkte ersetzt. Ich persönlich habe sowieso immer "alle Sensoren" benutzt. Jetzt hat man die Auswahl zwischen "Messwerte gegen Zeit" oder "Messwerte gegen Messwerte" auftragen zu lassen. <br>
