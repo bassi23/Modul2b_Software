@@ -2,8 +2,8 @@
 
 ## Update
 ## 16.09.2019
-- Allgemein: kleinere Verbesserungen (Fehlerbalken in Station 4, Kurzbeschreibung der Stationen, fette Schrift, ...)
-<br>
+- Allgemein: kleinere Verbesserungen (Fehlerbalken in Station 4, Kurzbeschreibung der Stationen, fette Schrift, ...)<br>
+- Daten werden automatisch gespeichert, sobald man das Programm beendet (auf das "X" oben rechts klickt)<br>
 Ich würde behaupten, dass das Programm zu 90% fertig ist. Die Platzhalter der TVOC Duelle müssen noch ersetzt werden, und der Ausschlag bei der Sensormessung justiert werden. Anschließend noch eine Integration der Daten einer chemischen Analyse.
 
 
