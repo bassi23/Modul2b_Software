@@ -1,6 +1,9 @@
 # Modul2b_Software
 
 ## Update
+## 16.09.2019
+- Allgemein: kleinere Verbesserungen (Fehlerbalken in Station 4, Kurzbeschreibung der Stationen, fette Schrift, ...)
+
 ## 13.09.2019
 - Allgemein: Das alte Sensormenü (Auswahl zwischen verschiedenen Sensoren) ist rausgeflogen und wurde durch zwei andere Menüpunkte ersetzt. Ich persönlich habe sowieso immer "alle Sensoren" benutzt. Jetzt hat man die Auswahl zwischen "Messwerte gegen Zeit" oder "Messwerte gegen Messwerte" auftragen zu lassen. 
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Sensormenue.png) <br>
