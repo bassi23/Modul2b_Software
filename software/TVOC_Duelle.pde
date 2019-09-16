@@ -4,12 +4,17 @@ void TVOC_Duelle() {
   Sensormessung.visible = false;
   textSize(20);
   fill(0);
+  textFont(bold);
   text("Station 3 - TVOC-Duelle", 20, 50);
+  textFont(normal);
   text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
   stroke(0);
   line(0, 180, 1280, 180);
   noStroke();
-  text("a) Riechen\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
+  textFont(bold);
+  text("a) Riechen", 20, 220);
+  textFont(normal);
+  text("\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
   TVOC_Duelle_Start.show();
   if (TVOC_Duelle_Start.isClicked()) {
     delay(200);
@@ -24,12 +29,17 @@ void TVOC_Duelle_Riechen() {
   weiter_zum_Sensor.hide();
   textSize(20);
   fill(0);
+  textFont(bold);
   text("Station 3 - TVOC-Duelle", 20, 50);
+  textFont(normal);
   text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
   stroke(0);
   line(0, 180, 1280, 180);
   noStroke();
-  text("a) Riechen\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6 (extrem stark).", 20, 220); 
+  textFont(bold);
+  text("a) Riechen", 20, 220);
+  textFont(normal);
+  text("\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
   text("nicht wahrnehmbar (0)", 50, 480);
   text("extrem stark (6)", 1050, 480);
   TVOC_Duelle_Start.hide();
@@ -193,15 +203,16 @@ void TVOC_Duelle_Messen() {
     page = 3.111;
   }
   strokeWeight(1);
-  text("b) Messen\nMiss nun die verschiedenen Stoffe, indem du sie in die Gläser legst und unter den Sensor schraubst. Vergleiche die Messwerte\nmit deiner Vorhersage.", 20, 50);
-
+  textFont(bold);
+  text("b) Messen", 20, 50);
+  textFont(normal);
+  text("\nMiss nun die verschiedenen Stoffe, indem du sie in die Gläser legst und unter den Sensor schraubst. Vergleiche die Messwerte\nmit deiner Vorhersage.", 20, 50);
 
   text("Miss die Emission von Stoff " + tvoc_stoff +". Warte dabei bis sich ein Gleichgewicht eingestellt hat.", 20, 150);
-
+  textFont(bold);
   text("Deine Einschätzung", 20, 200);
-
-
   text("Messung des\nSensors", 20, 450);
+  textFont(normal);
   stroke(0);
   line(0, 125, 1280, 125);
   noStroke();
@@ -358,7 +369,9 @@ void TVOC_Duelle_Messen() {
 void Auswertung_Station3() {
 
   fill(0);
+  textFont(bold);
   text("TVOC - Emission", 570, 50);
+  textFont(normal);
   image(Stoff1_bild, 340, 80);
   image(Stoff2_bild, 840, 80);
 

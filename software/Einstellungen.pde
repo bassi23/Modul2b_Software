@@ -20,9 +20,9 @@ text("Stationen freigeben", 1050, 500);
 
   stroke(0);
   strokeWeight(4);
-  line(800, 350 + 50*ausgewaehlterPort, 900, 350 + 50*ausgewaehlterPort);
-  line(800, 350 + 50*ausgewaehlterPort, 825, 340 + 50*ausgewaehlterPort);
-  line(800, 350 + 50*ausgewaehlterPort, 825, 360 + 50*ausgewaehlterPort);
+  line(800, 350 + 40*ausgewaehlterPort, 900, 350 + 40*ausgewaehlterPort);
+  line(800, 350 + 40*ausgewaehlterPort, 825, 340 + 40*ausgewaehlterPort);
+  line(800, 350 + 40*ausgewaehlterPort, 825, 360 + 40*ausgewaehlterPort);
 
   if (Aufloesung.name == "Niedrig (800x450)") {
     scale_factor = 0.625;

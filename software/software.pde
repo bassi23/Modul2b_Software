@@ -332,14 +332,14 @@ void setup() {
 
 
   TVOC_Duelle_Start = new button(565, 400, 150, 100, "Start", 5, true, 20);
-  Stoff1 = new TVOC_Kandidat(640, 360, Stoff1_bild, "Stoff 1");
-  Stoff2 = new TVOC_Kandidat(640, 600, Stoff2_bild, "Stoff 2");
-  Stoff3 = new TVOC_Kandidat(640, 360, Stoff3_bild, "Stoff 3");
-  Stoff4 = new TVOC_Kandidat(640, 600, Stoff4_bild, "Stoff 4");
-  Stoff5 = new TVOC_Kandidat(640, 360, Stoff5_bild, "Stoff 5");
-  Stoff6 = new TVOC_Kandidat(640, 600, Stoff6_bild, "Stoff 6");
-  Stoff7 = new TVOC_Kandidat(640, 360, Stoff7_bild, "Stoff 7");
-  Stoff8 = new TVOC_Kandidat(640, 600, Stoff8_bild, "Stoff 8");
+  Stoff1 = new TVOC_Kandidat(640, 360, Stoff1_bild, "Lack");
+  Stoff2 = new TVOC_Kandidat(640, 600, Stoff2_bild, "Lack mit Umweltsiegel");
+  Stoff3 = new TVOC_Kandidat(640, 360, Stoff3_bild, "Herkömmlicher Filzstift");
+  Stoff4 = new TVOC_Kandidat(640, 600, Stoff4_bild, "VOC-freier Filzstift");
+  Stoff5 = new TVOC_Kandidat(640, 360, Stoff5_bild, "VOC-freier Kleber");
+  Stoff6 = new TVOC_Kandidat(640, 600, Stoff6_bild, "Herkömmlicher Klebstoff");
+  Stoff7 = new TVOC_Kandidat(640, 360, Stoff7_bild, "Parkettboden");
+  Stoff8 = new TVOC_Kandidat(640, 600, Stoff8_bild, "PVC-Boden");
   Stoff9 = new TVOC_Kandidat(640, 360, Stoff9_bild, "Stoff 9");
   Stoff10 = new TVOC_Kandidat(640, 600, Stoff10_bild, "Stoff 10");
 
@@ -347,7 +347,7 @@ void setup() {
   naechster_Stoff = new button(1125, 150, 150, 75, "Nächster\nStoff", -12, true, 20);
   vorheriges_Duell = new button(1125, 280, 150, 75, "Vorheriges\nDuell", -12, true, 20);
   vorheriger_Stoff = new button(1125, 230, 150, 75, "Vorheriger\nStoff", -12, true, 20);
-  weiter_zum_Sensor = new button(1020, 640, 150, 75, "Sensor-\nmessung", -12, true, 20);
+  weiter_zum_Sensor = new button(1125, 550, 150, 75, "Sensor-\nmessung", -12, true, 20);
 
   zur_Auswertung = new button(1125, 580, 160, 75, "Zur Aus-\nwertung", -12, true, 20);
 
@@ -392,7 +392,7 @@ void draw() {
   } else {
     frameRate(30);
   }
- textFont(normal);
+  textFont(normal);
   scale(scale_factor);
   pushMatrix();
   //Aufloesung.setPosition(950/0.75, 150/0.75);
@@ -1221,4 +1221,26 @@ void saveData() {
       }
     }
   }
+}
+
+
+void exit() {
+  for (int i = 1; i < index+1; i++) {
+    if (zeit[index-1] != 0) {
+      TableRow newRow = table.addRow();
+      newRow.setInt("Zeit", i);
+      newRow.setFloat("Zeit", zeit[i]);
+      newRow.setFloat("Temperatur", scd_temperature_data[i-1]);
+      newRow.setFloat("Luftfeuchte", scd_humidity_data[i-1]);
+      newRow.setFloat("CO2", scd_co2_data[i-1]);
+      newRow.setFloat("eCO2", sgp_eco2_data[i-1]);
+      newRow.setFloat("TVOC", sgp_tvoc_data[i-1]);
+      newRow.setFloat("PM1", sps_pm1_data[i-1]);
+      newRow.setFloat("PM2.5", sps_pm25_data[i-1]);
+      newRow.setFloat("PM4", sps_pm4_data[i-1]);
+      newRow.setFloat("PM10", sps_pm10_data[i-1]);
+      saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+  "  um " + hour() + "_" + minute() + " Uhr" + "/alleDaten.csv");
+    }
+  }
+  super.exit();
 }
