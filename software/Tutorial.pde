@@ -293,7 +293,6 @@ void Tutorial3() {
   if (graph_rechts != 999) {
     tutorial_graph(graph_rechts, color(0, 0, 255), skalierung_blau, false, true, 0, 0);
   }
-  text(index_tutorial, 925, 600);
   text("0", 125, 600);
   tutorial_back.show();
   tutorial_Rot.show();
@@ -672,7 +671,6 @@ void Tutorial5() {
   if (graph_rechts != 999) {
     tutorial_graph(graph_rechts, color(0, 0, 255), skalierung_blau, false, true, 0, 0);
   }
-  text(index_tutorial, 925, 600);
   text("0", 125, 600);
 
   tutorial_back.show();
@@ -873,7 +871,7 @@ void Tutorial6() {
   if (graph_rechts != 999) {
     tutorial_graph(graph_rechts, color(0, 0, 255), skalierung_blau, error, connect, 0, 0);
   }
-  text(index_tutorial, 925, 600);
+
   text("0", 125, 600);
 
   if (fehler_tutorial.checked) {
@@ -1474,6 +1472,7 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
   if (tutorial_Start_first_time && tutorial_Start) {
     index_tutorial = floor((millis() - start_time_tutorial)/factor);
   }
+
   if (!tutorial_Start && tutorial_Start_first_time) {
     tutorial_data[index][index_tutorial] = (millis() - start_time_tutorial)/1000;
   }
@@ -1641,5 +1640,5 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
     }
   }
   fill(0);
-  text(anzahl_werte, 925, 600);
+  text(round(tutorial_data[9][anzahl_werte]), 925, 600);
 }

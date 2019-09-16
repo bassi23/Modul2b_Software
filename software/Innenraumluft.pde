@@ -224,8 +224,8 @@ void Innenraumluft_a() {
 
 
 
-  plotStation4(Innenraumlufta, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked);
-  plotStation4(Innenraumlufta, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked);
+  plotStation4(Innenraumlufta, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked, "a");
+  plotStation4(Innenraumlufta, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked, "a");
 
   fill(0);
   textSize(20);
@@ -343,7 +343,7 @@ void Innenraumluft_a() {
 }
 
 
-void plotStation4(float[][] array, int index, float min, float max, color c, boolean connect, boolean error) {
+void plotStation4(float[][] array, int index, float min, float max, color c, boolean connect, boolean error, String aufgabe) {
   // 1 Sekunde entspricht "830/time_Station4" Pixel
   stroke(c);
   fill(c);
@@ -354,29 +354,30 @@ void plotStation4(float[][] array, int index, float min, float max, color c, boo
 
   boolean plot_first = true;
 
-
-
   float e = 0;
 
 
-
-
-
+  // Aktueller Messwert
+  String Einheit = "";
 
   if (index != -1) {
     for (int i = 1; i < 5000; i++) {
-      if (error) {
-        if (index == 0) {
-          e = 0.5;
-        } else if (index == 1) {
-          e = 2;
-        } else if (index == 2) {
-          e = 30 + 0.03*array[2][i];
-        } else if (index == 3) {
-          e =  0.15*array[3][i];
-        } else if (index == 4) {
-          e = 0.1*array[3][i];
-        }
+
+      if (index == 0) {
+        e = 0.5;
+        Einheit = "°C";
+      } else if (index == 1) {
+        e = 2;
+        Einheit = "%";
+      } else if (index == 2) {
+        e = 30 + 0.03*array[2][i];
+        Einheit = "ppm";
+      } else if (index == 3) {
+        e =  0.15*array[3][i];
+        Einheit = "ppb";
+      } else if (index == 4) {
+        e = 0.1*array[3][i];
+        Einheit = "ppm";
       }
 
 
@@ -475,6 +476,65 @@ void plotStation4(float[][] array, int index, float min, float max, color c, boo
           x1 = 950;
           y1 = m*x2 + b;
           line(x1, y1, x2, y2);
+        }
+      }
+    }
+  }
+  textSize(16);
+
+  if (index != -1) {
+    if (c == color(255, 0, 0)) {
+      textAlign(LEFT);
+      if (aufgabe == "a") {
+        if (e != 0.5 && indexInnenraumlufta > 1) {
+          text("Aktueller Wert: (" + str(round(array[index][indexInnenraumlufta-1])).replace(".", ",") + " +/- " + round(e) + ") " + Einheit, 120, 80);
+        } else {
+          if (indexInnenraumlufta > 1) {
+            text("Aktueller Wert: (" + str(round(array[index][indexInnenraumlufta-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 120, 80);
+          }
+        }
+      } else if (aufgabe == "b") {
+        if (e != 0.5 && indexInnenraumluftb > 1) {
+          text("Aktueller Wert: (" + str(round(array[index][indexInnenraumluftb-1])).replace(".", ",") + " +/- " + round(e) + ") " + Einheit, 120, 80);
+        } else {
+          if (indexInnenraumluftb > 1) {
+            text("Aktueller Wert: (" + str(round(array[index][indexInnenraumluftb-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 120,80);
+          }
+        }
+      } else if (aufgabe == "c") {
+        if (e != 0.5 && indexInnenraumluftc > 1) {
+          text("Aktueller Wert: (" + str(round(array[index][indexInnenraumluftc-1])).replace(".", ",") + " +/- " + round(e) + ") " + Einheit, 120, 80);
+        } else {
+          if (indexInnenraumluftc > 1) {
+            text("Aktueller Wert: (" + str(round(array[index][indexInnenraumluftc-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 120, 80);
+          }
+        }
+      }
+    } else if (c == color(0, 0, 255)) {
+      textAlign(RIGHT);
+      if (aufgabe == "a") {
+        if (e != 0.5 && indexInnenraumlufta > 1) {
+          text("Aktueller Wert: (" + str(round(array[index][indexInnenraumlufta-1])).replace(".", ",") + " +/- " + round(e) + ") " + Einheit, 950, 80);
+        } else {
+          if (indexInnenraumlufta > 1) {
+            text("Aktueller Wert: (" + str(round(array[index][indexInnenraumlufta-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 950, 80);
+          }
+        }
+      } else if (aufgabe == "b") {
+        if (e != 0.5 && indexInnenraumluftb > 1) {
+          text("Aktueller Wert: (" + str(round(array[index][indexInnenraumluftb-1])).replace(".", ",") + " +/- " + round(e) + ") " + Einheit, 950, 80);
+        } else {
+          if (indexInnenraumluftb > 1) {
+            text("Aktueller Wert: (" + str(round(array[index][indexInnenraumluftb-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 950, 80);
+          }
+        }
+      } else if (aufgabe == "c") {
+        if (e != 0.5 && indexInnenraumluftc > 1) {
+          text("Aktueller Wert: (" + str(round(array[index][indexInnenraumluftc-1])).replace(".", ",") + " +/- " + round(e) + ") " + Einheit, 950, 80);
+        } else {
+          if (indexInnenraumluftc > 1) {
+            text("Aktueller Wert: (" + str(round(array[index][indexInnenraumluftc-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 950, 80);
+          }
         }
       }
     }
@@ -690,8 +750,8 @@ void Innenraumluft_b() {
 
 
 
-  plotStation4(Innenraumluftb, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked);
-  plotStation4(Innenraumluftb, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked);
+  plotStation4(Innenraumluftb, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked, "b");
+  plotStation4(Innenraumluftb, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked, "b");
 
   fill(0);
   textSize(20);
@@ -998,8 +1058,8 @@ void Innenraumluft_c() {
 
 
 
-  plotStation4(Innenraumluftc, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked);
-  plotStation4(Innenraumluftc, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked);
+  plotStation4(Innenraumluftc, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked, "c");
+  plotStation4(Innenraumluftc, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked, "c");
 
   fill(0);
   textSize(20);

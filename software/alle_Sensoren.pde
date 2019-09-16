@@ -1072,6 +1072,8 @@ void freePlot(float[] arr_X, float[] arr_Y, int time_scale, int x_scale, int y_s
   textAlign(LEFT);
   textSize(16);
   fill(0);
+  
+  
   if (errorX != 0.5 && index > 1) {
     text("Aktueller Wert: (" + str(round(arr_X[index-1])).replace(".", ",") + " +/- " + round(errorX) + ") " + EinheitX, 120, 75);
   } else {

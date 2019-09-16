@@ -1134,8 +1134,6 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
   } else if (name == "eCO2 in ppm") {
     Einheit = "ppm";
   }
-
-  println(page);
   textSize(18);
   int indexStation11 = 1;
     if(zeitskala1 == 1){
