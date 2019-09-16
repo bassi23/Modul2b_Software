@@ -11,7 +11,9 @@ void MenschSensor() {
   onlyOneProbe();
   fill(0);
   textSize(20);
+  textFont(bold);
   text("Station 2 - Mensch vs. Sensor", 20, 50);
+  textFont(normal);
   text("Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir dir Reihen-\nfolge.\n\nKlicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'.", 20, 100);
   stroke(0);
   line(0, 200, 1280, 200);
@@ -27,8 +29,9 @@ void MenschSensor() {
     text(">", 415 + 150*i, 410);
   }
   fill(255);
+  stroke(0);
   for (int i = 0; i < 5; i++) {
-    rect(300 + 150*i, 350, 110, 100);
+    rect(300 + 150*i, 345, 110, 110);
   }
   A.show();
   B.show();
@@ -394,7 +397,9 @@ void Station2_Sensor() {
     }
   }
   textSize(20);
-  text("Deine Reihenfolge: " + Reihenfolge[0] + " > " + Reihenfolge[1] + " > " + Reihenfolge[2] + " > " +Reihenfolge[3] + " > " +Reihenfolge[4], 50, 50);
+  textFont(bold);
+  text("Deine Reihenfolge: " + Reihenfolge[0] + " > " + Reihenfolge[1] + " > " + Reihenfolge[2] + " > " +Reihenfolge[3] + " > " +Reihenfolge[4], 20, 50);
+  textFont(normal);
   String temp = "A";
   if (prob == 1) {
     temp = "B";
@@ -405,11 +410,11 @@ void Station2_Sensor() {
   } else if (prob == 4) {
     temp = "E";
   }
-  textSize(25);
+  textSize(20);
   if ((millis() - currentTime)/1000 > 60) {
     MenschSensorMessen = false;
     if (prob != 5) {
-      text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'.\nEine Messung dauert 60 Sekunden.", 20, 120);
+      text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'. Eine Messung\ndauert 60 Sekunden.", 20, 120);
       messen.show();
     }
     letzteWiederholen.show();

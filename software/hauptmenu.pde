@@ -7,19 +7,20 @@ void hauptmenu() {
   two_three.show();
   four.show();
   settings.show();
-  
+
   image(sps, 150, 100);
   image(sgp, 620, 120);
   image(scd, 150, 470);
   image(nodemcu, 600, 400);
-    checkConnection();
+  checkConnection();
 
   fill(0);
   textSize(20);
+
   text("Station 1 - Feinstaubmessung", 60, 70);
   text("Station 2 - Mensch vs. Sensor", 460, 70);
   text("Station 3 - TVOC-Duelle", 460, 100);
-  text("Station 4 - Innenraumluftqualität", 60, 640);
+  text("Station 4 - Dicke Luft", 60, 640);
   text("Einstellungen", 460, 640);
 
   strokeWeight(5);
@@ -49,15 +50,21 @@ void hauptmenu() {
     line(720, 300, 780, 300);
     line(780, 300, 780, 455);
     line(780, 455, 730, 455);
-    
-    
-    noStroke();
+
     fill(0);
     textSize(20);
-    text("Station 2 - Mensch vs. Sensor", 880, 70);
-    text("Wie gut ist deine Nase? Finde es heraus\nund tritt gegen einen Sensor an.\nOrdne 5 verschiedene Ethanolkonzen-\ntrationen der Größe nach an.", 880, 120);
-    text("Station 3 - TVOC-Duelle", 880, 300);
-    text("Coole Beschreibung für das Experiment", 880, 350);
+    stroke(0);
+    strokeWeight(2);
+    textFont(bold);
+    text("Station 2 - Mensch vs. Sensor", 875, 70);
+    strokeWeight(1);
+    textFont(normal);
+    noStroke();
+    text("Wie gut ist deine Nase? Finde es heraus\nund tritt gegen einen Sensor an.\nOrdne 5 verschiedene Ethanolkonzen-\ntrationen der Größe nach an.", 875, 120);
+    textFont(bold);
+    text("Station 3 - TVOC-Duelle", 875, 380);
+    textFont(normal);
+    text("Untersuche Alltagsgegenstände auf ihre\nEmission von Schadstoffen.", 875, 430);
   }
 
 
@@ -81,6 +88,13 @@ void hauptmenu() {
     line(298, 370, 780, 370);
     line(780, 370, 780, 455);
     line(780, 455, 730, 455);
+    strokeWeight(2);
+    textFont(bold);
+    text("Station 4 - Dicke Luft", 875, 70);
+    strokeWeight(1);
+    textFont(normal);
+    noStroke();
+    text("Setze dich in eine Messkammer, und un-\ntersuche, wie sich die Luftqualität ändert.", 875, 120);
   }
 
   if (one.isOver()) {
@@ -122,16 +136,23 @@ void hauptmenu() {
 
     //Widerstände
     strokeWeight(3);
-    stroke(104,54,26);
-    fill(104,64,26);
+    stroke(104, 54, 26);
+    fill(104, 64, 26);
     line(350, 420, 350, 380);
     line(330, 400, 330, 380);
 
     rect(347, 394, 5, 9);
     rect(327, 386, 5, 9);
     text("R = 10 kΩ", 305, 370);
-    
-    
+
+    strokeWeight(2);
+    fill(0);
+    textFont(bold);
+    text("Station 1 - Feinstaub", 875, 70);
+    strokeWeight(1);
+    textFont(normal);
+    noStroke();
+    text("Sollte man die Schultafel lieber nass abw-\nischen? Untersuche die Feinstaubemissi-\non von trockenen und nassen Schwäm-\nmen!", 875, 120);
   }
 
 

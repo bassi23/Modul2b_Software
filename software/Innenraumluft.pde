@@ -6,7 +6,9 @@ void Innenraumluft() {
   two_three.active = false;
   fill(0);
   textSize(20);
-  text("Station 4 - Innenraumluftqualität", 20, 50);
+  textFont(bold);
+  text("Station 4 - Dicke Luft", 20, 50);
+  textFont(normal);
   text("In diesem Experiment werden wir die Innenraumluftqualität bestimmen. Setze dich jeweils für 5 Minuten in eine Messkammer\nund nimm den Verlauf der Parameter Temperatur, Luftfeuchte, TVOC, CO  und eCO  auf.\nVariiere die Belüftung, indem du den integrierten Ventilator \n\n\n\n\nlaufen lässt. Warte nach jeder Runde, bis sich die Werte wieder normalisiert haben.", 20, 100);
   text("a) ausgeschaltet\nb) auf halber Kraft\nc) auf voller Kraft", 500, 200);
 
@@ -222,14 +224,23 @@ void Innenraumluft_a() {
 
 
 
-  plotStation4(Innenraumlufta, Rot, minRot, maxRot, color(255, 0, 0));
-  plotStation4(Innenraumlufta, Blau, minBlau, maxBlau, color(0, 0, 255));
+  plotStation4(Innenraumlufta, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked);
+  plotStation4(Innenraumlufta, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked);
 
   fill(0);
   textSize(20);
   text("0", 115, 670);
   text(nf(time_Station4, 0, 0), 938, 670);
-
+  textSize(15);
+  strokeWeight(1);
+  fill(240);
+  stroke(0);
+  rect(1105, 190, 155, 85);
+  fill(0);
+  textAlign(LEFT);
+  text("Fehlerbalken", 1110, 217);
+  text("verbinden", 1110, 260);
+  textAlign(CENTER);
   text("Zeit in Sekunden", 455, 700);
   fill(0);
   back.show();
@@ -261,6 +272,8 @@ void Innenraumluft_a() {
   Station4_Blau.show();
   aktualisierung_right.show();
   aktualisierung_left.show();
+  fehler_innenraum.show();
+  verbinde_innenraum.show();
 
   for (int i = 0; i < 5000; i++) {
     if (Innenraumlufta[6][i] > time_Station4) {
@@ -288,20 +301,20 @@ void Innenraumluft_a() {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -595);
   } else if (Rot == 0) {
-    text("Temperatur in °C", height/2 -490, -width/2 + 60);
+    text("Temperatur in °C", height/2 -490, -width/2 + 50);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", height/2 -490, -width/2 + 60);
+    text("Luftfeuchte in %", height/2 -490, -width/2 + 50);
   } else if (Rot == 2) {
-    text("CO  in ppm", height/2 -490, -width/2 + 60);
+    text("CO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
-    text("2", height/2 -462, -width/2 + 70);
+    text("2", height/2 -462, -width/2 + 60);
     textSize(20);
   } else if (Rot == 3) {
-    text("TVOC in ppb", height/2 -490, -width/2 + 60);
+    text("TVOC in ppb", height/2 -490, -width/2 + 50);
   } else if (Rot == 4) {
-    text("eCO  in ppm", height/2 -490, -width/2 + 60);
+    text("eCO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
-    text("2", height/2 -455, -width/2 + 70);
+    text("2", height/2 -455, -width/2 + 60);
     textSize(20);
   }
   popMatrix();
@@ -330,21 +343,81 @@ void Innenraumluft_a() {
 }
 
 
-void plotStation4(float[][] array, int index, float min, float max, color c) {
+void plotStation4(float[][] array, int index, float min, float max, color c, boolean connect, boolean error) {
   // 1 Sekunde entspricht "830/time_Station4" Pixel
   stroke(c);
   fill(c);
-  strokeWeight(2);
+  strokeWeight(1);
   //rect(120, 140, 830, 500);
   float oneSecond = 830/time_Station4;
   float xOff = array[6][0];
 
+  boolean plot_first = true;
+
+
+
+  float e = 0;
+
+
+
+
+
+
   if (index != -1) {
     for (int i = 1; i < 5000; i++) {
+      if (error) {
+        if (index == 0) {
+          e = 0.5;
+        } else if (index == 1) {
+          e = 2;
+        } else if (index == 2) {
+          e = 30 + 0.03*array[2][i];
+        } else if (index == 3) {
+          e =  0.15*array[3][i];
+        } else if (index == 4) {
+          e = 0.1*array[3][i];
+        }
+      }
+
+
+
       float x1 = 120 + (array[6][i] - xOff)*oneSecond;
       float x2 = 120 + (array[6][i-1] - xOff)*oneSecond;
       float y1 = 640 - 500*(array[index][i]-min)/(max-min);
       float y2 = 640 - 500*(array[index][i-1]-min)/(max-min);
+
+      float e12 =  640 - 500*(array[index][i-1] - e -min)/(max-min);
+      float e22 =  640 - 500*(array[index][i-1] + e -min)/(max-min);
+
+      float e11 =  640 - 500*(array[index][i] - e -min)/(max-min);
+      float e21 =  640 - 500*(array[index][i] + e -min)/(max-min);
+
+
+      if (e11 < 140) {
+        e11 = 140;
+      }
+      if (e21 < 140) {
+        e21 = 140;
+      }
+      if (e21 > 640) {
+        e21 = 640;
+      }
+      if (e11 > 640) {
+        e11 = 640;
+      }
+      if (e12 < 140) {
+        e12 = 140;
+      }
+      if (e22 < 140) {
+        e22 = 101400;
+      }
+      if (e22 > 640) {
+        e22 = 640;
+      }
+      if (e12 > 640) {
+        e12 = 640;
+      }
+
       if (x2 < 950) {
         if (x1 < 950) {
           float m = (y2 - y1)/(x2-x1);
@@ -374,11 +447,26 @@ void plotStation4(float[][] array, int index, float min, float max, color c) {
             x1 = -(b-y2)/m;
           }
           if (y1 >= 140 && y2>= 140 && y1 <= 640 && y2<= 640 && array[index][i] != 0) {
-            if (connect.name == "verbinden") {
+            if (connect) {
               line(x1, y1, x2, y2);
+              if (error) {
+                line(x1, e11, x1, e21);
+                line(x1-2, e11, x1+2, e11);
+                line(x1-2, e21, x1+2, e21);
+              }
             } else {
-              line(x2-5, y2, x2+5, y2);
-              line(x2, y2-5, x2, y2+5);
+              if (error) {
+                line(x1, e11, x1, e21);
+                line(x1-2, e11, x1+2, e11);
+                line(x1-2, e21, x1+2, e21);
+              }
+              if (plot_first) {
+                plot_first = false;
+                line(x2-2, y2, x2+2, y2);
+                line(x2, y2-2, x2, y2+2);
+              }
+              line(x1-2, y1, x1+2, y1);
+              line(x1, y1-2, x1, y1+2);
             }
           }
         } else {
@@ -602,14 +690,21 @@ void Innenraumluft_b() {
 
 
 
-  plotStation4(Innenraumluftb, Rot, minRot, maxRot, color(255, 0, 0));
-  plotStation4(Innenraumluftb, Blau, minBlau, maxBlau, color(0, 0, 255));
+  plotStation4(Innenraumluftb, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked);
+  plotStation4(Innenraumluftb, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked);
 
   fill(0);
   textSize(20);
   text("0", 115, 670);
   text(nf(time_Station4, 0, 0), 938, 670);
-
+  strokeWeight(1);
+  fill(240);
+  stroke(0);
+  rect(1105, 190, 155, 85);
+  fill(0);
+  textAlign(LEFT);
+  text("Fehlerbalken", 1110, 217);
+  text("verbinden", 1110, 260);
 
   text("Zeit in Sekunden", 455, 700);
   fill(0);
@@ -643,6 +738,9 @@ void Innenraumluft_b() {
   Station4_Blau.show();
   aktualisierung_right.show();
   aktualisierung_left.show();
+  fehler_innenraum.show();
+  verbinde_innenraum.show();
+
 
   for (int i = 0; i < 5000; i++) {
     if (Innenraumluftb[6][i] > time_Station4) {
@@ -670,20 +768,20 @@ void Innenraumluft_b() {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -595);
   } else if (Rot == 0) {
-    text("Temperatur in °C", height/2 -490, -width/2 + 60);
+    text("Temperatur in °C", height/2 -490, -width/2 + 50);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", height/2 -490, -width/2 + 60);
+    text("Luftfeuchte in %", height/2 -490, -width/2 + 50);
   } else if (Rot == 2) {
-    text("CO  in ppm", height/2 -490, -width/2 + 60);
+    text("CO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
-    text("2", height/2 -462, -width/2 + 70);
+    text("2", height/2 -462, -width/2 + 60);
     textSize(20);
   } else if (Rot == 3) {
-    text("TVOC in ppb", height/2 -490, -width/2 + 60);
+    text("TVOC in ppb", height/2 -490, -width/2 + 50);
   } else if (Rot == 4) {
-    text("eCO  in ppm", height/2 -490, -width/2 + 60);
+    text("eCO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
-    text("2", height/2 -455, -width/2 + 70);
+    text("2", height/2 -455, -width/2 + 60);
     textSize(20);
   }
   popMatrix();
@@ -900,14 +998,21 @@ void Innenraumluft_c() {
 
 
 
-  plotStation4(Innenraumluftc, Rot, minRot, maxRot, color(255, 0, 0));
-  plotStation4(Innenraumluftc, Blau, minBlau, maxBlau, color(0, 0, 255));
+  plotStation4(Innenraumluftc, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked);
+  plotStation4(Innenraumluftc, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked);
 
   fill(0);
   textSize(20);
   text("0", 115, 670);
   text(nf(time_Station4, 0, 0), 938, 670);
-
+  strokeWeight(1);
+  fill(240);
+  stroke(0);
+  rect(1105, 190, 155, 85);
+  fill(0);
+  textAlign(LEFT);
+  text("Fehlerbalken", 1110, 217);
+  text("verbinden", 1110, 260);
 
   text("Zeit in Sekunden", 455, 700);
   fill(0);
@@ -941,7 +1046,9 @@ void Innenraumluft_c() {
   Station4_Blau.show();
   aktualisierung_right.show();
   aktualisierung_left.show();
-  int k = 0;
+  fehler_innenraum.show();
+  verbinde_innenraum.show();
+
   for (int i = 0; i < 5000; i++) {
     if (Innenraumluftc[6][i] > time_Station4) {
       Station4cFertig = true;
@@ -967,20 +1074,20 @@ void Innenraumluft_c() {
     text(nf(time_Station4, 0, 0), 938, 660);
     text("Zeit in Sekunden", -100, -595);
   } else if (Rot == 0) {
-    text("Temperatur in °C", height/2 -490, -width/2 + 60);
+    text("Temperatur in °C", height/2 -490, -width/2 + 50);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", height/2 -490, -width/2 + 60);
+    text("Luftfeuchte in %", height/2 -490, -width/2 + 50);
   } else if (Rot == 2) {
-    text("CO  in ppm", height/2 -490, -width/2 + 60);
+    text("CO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
-    text("2", height/2 -462, -width/2 + 70);
+    text("2", height/2 -462, -width/2 + 60);
     textSize(20);
   } else if (Rot == 3) {
-    text("TVOC in ppb", height/2 -490, -width/2 + 60);
+    text("TVOC in ppb", height/2 -490, -width/2 + 50);
   } else if (Rot == 4) {
-    text("eCO  in ppm", height/2 -490, -width/2 + 60);
+    text("eCO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
-    text("2", height/2 -455, -width/2 + 70);
+    text("2", height/2 -455, -width/2 + 60);
     textSize(20);
   }
   popMatrix();

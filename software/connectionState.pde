@@ -62,27 +62,27 @@ void checkConnection() {
     textSize(26);
     if (connected[0]) {
       fill(0, 255, 0);
-      text("verbunden", 210, 220);
+      text("verbunden", 210, 210);
     } else {
       fill(255, 0, 0);
-      text("nicht verbunden", 210, 220);
+      text("nicht verbunden", 210, 210);
     }
 
 
     if (connected[2]) {
       fill(0, 255, 0);
-      text("verbunden", 210, 420);
+      text("verbunden", 210, 425);
     } else {
       fill(255, 0, 0);
-      text("nicht verbunden", 210, 420);
+      text("nicht verbunden", 210, 425);
     }
 
     if (connected[1]) {
       fill(0, 255, 0);
-      text("verbunden", 210, 620);
+      text("verbunden", 210, 630);
     } else {
       fill(255, 0, 0);
-      text("nicht verbunden", 210, 620);
+      text("nicht verbunden", 210, 630);
     }
   } else {
     if (connected[0]) {

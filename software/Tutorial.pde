@@ -113,7 +113,7 @@ void Tutorial2() {
   tutorial_Rot.show();
   tutorial_Blau.show();
   textSize(20);
-  
+
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
@@ -250,7 +250,7 @@ void Tutorial3() {
   }
 
   textSize(20);
- pushMatrix();
+  pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
@@ -407,7 +407,7 @@ void Tutorial4() {
   }
 
   textSize(20);
- pushMatrix();
+  pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
@@ -787,7 +787,7 @@ void Tutorial6() {
 
 
   textSize(20);
- pushMatrix();
+  pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
@@ -1234,7 +1234,7 @@ void Tutorial8() {
 
 
   textSize(20);
- pushMatrix();
+  pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
   textAlign(CENTER);
@@ -1431,7 +1431,8 @@ void Tutorial9() {
 
 
 
-
+int index_tutorial2 = 0;
+float time_tutorial = 0;
 
 void tutorial_graph(int index, color c, int scale, boolean error, boolean connect, int anzeige, int intervall) {
   float max = 0;
@@ -1471,10 +1472,10 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
   }
 
   if (tutorial_Start_first_time && tutorial_Start) {
-    index_tutorial = round((millis() - start_time_tutorial)/factor);
+    index_tutorial = floor((millis() - start_time_tutorial)/factor);
   }
   if (!tutorial_Start && tutorial_Start_first_time) {
-    tutorial_data[index][floor((millis() - start_time_tutorial)/factor)] = tutorial_data[index][index_tutorial];
+    tutorial_data[index][index_tutorial] = (millis() - start_time_tutorial)/1000;
   }
   if (index_tutorial == 1000) {
     start_time_tutorial = millis();

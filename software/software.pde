@@ -13,7 +13,7 @@ import controlP5.*;
 
 dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
 dropdown dateiformat, autosave, connect, error_bars, freie_stationen;
-checkbox verbinde, fehler, verbinde_tutorial, fehler_tutorial;
+checkbox verbinde, fehler, verbinde_tutorial, fehler_tutorial, fehler_innenraum, verbinde_innenraum;
 
 dropdown tutorial_Rot, tutorial_Blau;
 
@@ -69,6 +69,7 @@ TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, St
 
 
 slider s;
+PFont bold, normal, bold1, bold2, bold3;
 
 boolean measure = true;
 boolean tutorial_Start = false;
@@ -137,6 +138,11 @@ void setup() {
   size(1280, 720);
   surface.setResizable(true);
   anzahlCOMPorts = Serial.list().length;
+  bold = createFont("Arial Bold", 22);
+  normal = createFont("Lucida Sans", 20);
+  bold1 = createFont("Arial Bold", 30);
+  bold2 = createFont("Arial Bold", 25);
+  bold3 = createFont("Arial Bold", 16);
   try {
     myPort = new Serial(this, Serial.list()[ausgewaehlterPort], 57600);
     gotSerial = true;
@@ -174,6 +180,9 @@ void setup() {
   verbinde = new checkbox(1225, 200, 30, false);
   fehler_tutorial = new checkbox(1215, 240, 25, false);
   verbinde_tutorial = new checkbox(1215, 275, 25, true);
+
+  fehler_innenraum = new checkbox(1225, 195, 30, false);
+  verbinde_innenraum = new checkbox(1225, 240, 30, true);
 
   tutorial_Rot = new dropdown("Links", 125, 115, 200, 30, 10, tutorial_Rot_Strings, false, color(255, 0, 0));
   tutorial_Blau = new dropdown("Rechts", 725, 115, 200, 30, 10, tutorial_Blau_Strings, false, color(0, 0, 255));
@@ -378,11 +387,12 @@ void draw() {
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
-  if (millis() - mouse_time > 3000) {
+  if (millis() - mouse_time > 60000) {
     frameRate(5);
   } else {
     frameRate(30);
   }
+ textFont(normal);
   scale(scale_factor);
   pushMatrix();
   //Aufloesung.setPosition(950/0.75, 150/0.75);
@@ -665,6 +675,7 @@ void draw() {
     Stationen.hide();
   } else if (page == -7) {
     Tutorial0();
+    time_tutorial = millis();
   } else if (page == -7.1) {
     Tutorial1();
   } else if (page == -7.11) {
