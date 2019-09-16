@@ -5,12 +5,14 @@
 - Allgemein: kleinere Verbesserungen (Fehlerbalken in Station 4, Kurzbeschreibung der Stationen, fette Schrift, ...)
 
 ## 13.09.2019
-- Allgemein: Das alte Sensormenü (Auswahl zwischen verschiedenen Sensoren) ist rausgeflogen und wurde durch zwei andere Menüpunkte ersetzt. Ich persönlich habe sowieso immer "alle Sensoren" benutzt. Jetzt hat man die Auswahl zwischen "Messwerte gegen Zeit" oder "Messwerte gegen Messwerte" auftragen zu lassen. 
+- Allgemein: Das alte Sensormenü (Auswahl zwischen verschiedenen Sensoren) ist rausgeflogen und wurde durch zwei andere Menüpunkte ersetzt. Ich persönlich habe sowieso immer "alle Sensoren" benutzt. Jetzt hat man die Auswahl zwischen "Messwerte gegen Zeit" oder "Messwerte gegen Messwerte" auftragen zu lassen. <br>
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Sensormenue.png) <br>
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/MesswertMesswert.png) <br>
 ![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/MesswertMesswert2.png) <br>
 <br>
-- Station 2: Ordnen der Proben funktioniert nur bei normaler Auflösung
+- Station 2: Ordnen der Proben funktioniert nur bei normaler Auflösung <br>
+
+
 ## 12.09.2019
 - Performance-Verbesserung. Das Programm geht in den "Sleep-Modus" (5 Frames pro Sekunde) sobald 3 Sekunden weder die Maus innerhalb des Programmfensters bewegt, noch eine Maustaste geklickt wird. Ansonsten wird das Programm auf 20 FPS gedrosselt.
 - 10-teiliges Tutorial zur Bedienung der Software integriert (Seite 9 muss noch etwas überarbeitet werden)
