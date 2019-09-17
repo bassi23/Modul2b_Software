@@ -68,7 +68,7 @@ Probe A, B, C, D, E;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
 
-slider s;
+slider s, sFeinstaub;
 PFont bold, normal, bold1, bold2, bold3;
 
 boolean measure = true;
@@ -76,7 +76,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = -1;
+float page = 1.11111;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -155,9 +155,9 @@ void setup() {
 
   SPS_Blau_Station1 = new dropdown("Rechts", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));
   SPS_Rot_Station1 = new dropdown("Links", 120, 20, 200, 30, 3, SPS_Strings_Station1, false, color(255, 0, 0));
-  SPS_Blau_Station1_Auswertung = new dropdown("Rechts", 905, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 0, 255));
-  SPS_Rot_Station1_Auswertung = new dropdown("Links", 175, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(255, 0, 0));
-  SPS_Gruen_Station1_Auswertung = new dropdown("Mitte", 545, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 255, 0));
+  SPS_Blau_Station1_Auswertung = new dropdown("Rechts", 750, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 0, 255));
+  SPS_Rot_Station1_Auswertung = new dropdown("Links", 120, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(255, 0, 0));
+  SPS_Gruen_Station1_Auswertung = new dropdown("Mitte", 435, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 255, 0));
 
 
   Station4_Rot = new dropdown("Links", 120, 20, 200, 30, 6, Station4_Strings, false, color(255, 0, 0));
@@ -364,6 +364,7 @@ void setup() {
 
   genaueAnalyse =  new button(1115, 550, 140, 50, "Analyse", 5, true, 20);
   s = new slider(200, 400, false, false);
+  sFeinstaub = new slider(200, 400, false, false);
 
 
   for (int j = 0; j < 1000; j++) {
@@ -392,6 +393,8 @@ void draw() {
   } else {
     frameRate(30);
   }
+
+  println(page);
   textFont(normal);
   scale(scale_factor);
   pushMatrix();
@@ -553,6 +556,13 @@ void draw() {
     }
   }
 
+  if (page == 1.11111) {
+    verbinde.y = 570;
+    fehler.y = 610;
+  } else {
+    verbinde.y = 200;
+    fehler.y = 160;
+  }
 
   if (page == -1) {
     Obermenu();

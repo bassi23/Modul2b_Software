@@ -1136,13 +1136,13 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
   }
   textSize(18);
   int indexStation11 = 1;
-    if(zeitskala1 == 1){
-      indexStation11 = indexStation1;
-    }else if(zeitskala1 == 2){
-      indexStation11 = indexStation1_trocken;
-    }else if(zeitskala1 == 3){
-      indexStation11 = indexStation1_nass;      
-    }
+  if (zeitskala1 == 1) {
+    indexStation11 = indexStation1;
+  } else if (zeitskala1 == 2) {
+    indexStation11 = indexStation1_trocken;
+  } else if (zeitskala1 == 3) {
+    indexStation11 = indexStation1_nass;
+  }
 
   if (left) {
     noStroke();
@@ -1413,13 +1413,17 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
   translate(width/2, height/2);
   rotate(3*PI/2);
   // text(name, height/2 -400, -width/2 + 80);
-  text(name, 0, -540);
+  text(name, height/2 -350, -width/2 + 100);
   popMatrix();
   fill(0);
   textSize(20);
-  text("Zeit in Sekunden", 700, 655);
+  text("Zeit in Sekunden", 580, 655);
   ///////////////// MESSWERTE ZEICHNEN //////////////////////////////////////////
   textAlign(CORNER);
+  fill(255);
+  stroke(0);
+
+
   boolean first_error = true;
   if (zeitskala1 == 1) {
     for (int i = (indexStation1 - xValues); i < indexStation1 - 1; i++) {
@@ -1431,44 +1435,44 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
       float x_ende = 180;
       //x_ende = gesamtzeit_station1;
       float x_intervall = x_ende - x_anfang;
-      float x1 = 170 + (zeitskala[i] - x_anfang)*830/x_intervall;
-      float x2 = 170 + (zeitskala[i+1] - x_anfang)*830/x_intervall;
-      float y1 = 600 - 500*(array[i]-min)/(max - min);
-      float y2 = 600 - 500*(array[i+1] - min)/(max - min);
-      float e1 = 600 - 500*(array[i] - error - min)/(max-min);
-      float e2 = 600 - 500*(array[i] + error - min)/(max-min);
+      float x1 = 140 + (zeitskala[i] - x_anfang)*830/x_intervall;
+      float x2 = 140 + (zeitskala[i+1] - x_anfang)*830/x_intervall;
+      float y1 = 640 - 500*(array[i]-min)/(max - min);
+      float y2 = 640 - 500*(array[i+1] - min)/(max - min);
+      float e1 = 640 - 500*(array[i] - error - min)/(max-min);
+      float e2 = 640 - 500*(array[i] + error - min)/(max-min);
 
       float m = ((y2 - y1)/(x2 - x1));
-      if (x1 <= 170) {
-        y1 = m*170 + y1 - m*x1;
-        x1 = 170;
+      if (x1 <= 140) {
+        y1 = m*140 + y1 - m*x1;
+        x1 = 140;
       }
-      if (y2 < 100) {
-        x2 = (100 + m*x2-y2)/m;
-        y2 = 100;
+      if (y2 < 140) {
+        x2 = (140 + m*x2-y2)/m;
+        y2 = 140;
       }
-      if (y1 < 100) {
-        x1 = (100 + m*x1-y1)/m;
-        y1 = 100;
+      if (y1 < 140) {
+        x1 = (140 + m*x1-y1)/m;
+        y1 = 140;
       }
-      if (x2 > 1000) {
-        x2 = 1000;
-        y2 = m*1000 + y1 - m*x1;
+      if (x2 > 970) {
+        x2 = 970;
+        y2 = m*970 + y1 - m*x1;
       }
-      if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
-        if (error_bars.name == "anzeigen") {
+      if (y1 >= 140 && y2 >= 140 && x2 >= 140 && x1 <= 950 && x2 <= 970) {
+        if (fehler.checked) {
           strokeWeight(2);
-          if (e1 < 100) {
-            e1 = 100;
+          if (e1 < 140) {
+            e1 = 140;
           }
-          if (e2 < 100) {
-            e2 = 100;
+          if (e2 < 140) {
+            e2 = 140;
           }
-          if (e2 > 600) {
-            e2 = 600;
+          if (e2 > 640) {
+            e2 = 640;
           }
-          if (e1 > 600) {
-            e1 = 600;
+          if (e1 > 640) {
+            e1 = 640;
           }
           line(x1, e1, x1, e2);
           line(x1-2, e1, x1+2, e1);
@@ -1483,8 +1487,8 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
       }
       stroke(c);
       fill(c);
-      if (y1 >= 100 && y2 >= 100 && x2 >= 225 && x1 <= 1105 && x2 <= 1105) {
-        if (connect.name == "verbinden") {
+      if (y1 >= 140 && y2 >= 140 && x2 >= 140 && x1 <= 950 && x2 <= 970) {
+        if (verbinde.checked) {
           line(x1, y1, x2, y2);
         } else {
           line(x2-5, y2, x2+5, y2);
@@ -1498,31 +1502,31 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
       float x_ende = 180;
       //x_ende = gesamtzeit_station1;
       float x_intervall = x_ende - x_anfang;
-      float x1 = 225 + (zeitskala[i] - x_anfang)*930/x_intervall;
-      float x2 = 225 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
-      float y1 =560 - 500*(array[i]-min)/(max - min);
-      float y2 = 560 - 500*(array[i+1] - min)/(max - min);
+      float x1 = 140 + (zeitskala[i] - x_anfang)*830/x_intervall;
+      float x2 = 140 + (zeitskala[i+1] - x_anfang)*830/x_intervall;
+      float y1 = 640 - 500*(array[i]-min)/(max - min);
+      float y2 = 640 - 500*(array[i+1] - min)/(max - min);
       float m = ((y2 - y1)/(x2 - x1));
-      if (x1 <= 225) {
-        y1 = m*225 + y1 - m*x1;
-        x1 = 225;
+      if (x1 <= 140) {
+        y1 = m*140 + y1 - m*x1;
+        x1 = 140;
       }
-      if (y2 < 100) {
-        x2 = (100 + m*x2-y2)/m;
-        y2 = 100;
+      if (y2 < 140) {
+        x2 = (140 + m*x2-y2)/m;
+        y2 = 140;
       }
-      if (y1 < 100) {
-        x1 = (100 + m*x1-y1)/m;
-        y1 = 100;
+      if (y1 < 140) {
+        x1 = (140 + m*x1-y1)/m;
+        y1 = 140;
       }
-      if (x2 > 1105) {
-        x2 = 1105;
-        y2 = m*1105 + y1 - m*x1;
+      if (x2 > 970) {
+        x2 = 970;
+        y2 = m*970 + y1 - m*x1;
       }
       stroke(c);
       fill(c);
-      if (y1 >= 100 && y2 >= 100 && x2 >= 225 && x1 <= 1105 && x2 <= 1105) {
-        if (connect.name == "verbinden") {
+      if (y1 >= 140 && y2 >= 140 && x2 >= 140 && x1 <= 970 && x2 <= 950) {
+        if (verbinde.checked) {
           line(x1, y1, x2, y2);
         } else {
           line(x2-5, y2, x2+5, y2);
@@ -1536,31 +1540,31 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
       float x_ende = 180;
       x_ende = gesamtzeit_station1;
       float x_intervall = x_ende - x_anfang;
-      float x1 = 225 + (zeitskala[i] - x_anfang)*930/x_intervall;
-      float x2 = 225 + (zeitskala[i+1] - x_anfang)*930/x_intervall;
-      float y1 = 560 - 500*(array[i]-min)/(max - min);
-      float y2 = 560 - 500*(array[i+1] - min)/(max - min);
+      float x1 = 140 + (zeitskala[i] - x_anfang)*830/x_intervall;
+      float x2 = 140 + (zeitskala[i+1] - x_anfang)*830/x_intervall;
+      float y1 = 640 - 500*(array[i]-min)/(max - min);
+      float y2 = 640 - 500*(array[i+1] - min)/(max - min);
       float m = ((y2 - y1)/(x2 - x1));
-      if (x1 <= 225) {
-        y1 = m*225 + y1 - m*x1;
-        x1 = 225;
+      if (x1 <= 140) {
+        y1 = m*140 + y1 - m*x1;
+        x1 = 140;
       }
-      if (y2 < 100) {
-        x2 = (100 + m*x2-y2)/m;
-        y2 = 100;
+      if (y2 < 140) {
+        x2 = (140 + m*x2-y2)/m;
+        y2 = 140;
       }
-      if (y1 < 100) {
-        x1 = (100 + m*x1-y1)/m;
-        y1 = 100;
+      if (y1 < 140) {
+        x1 = (140 + m*x1-y1)/m;
+        y1 = 140;
       }
-      if (x2 > 1105) {
-        x2 = 1105;
-        y2 = m*1105 + y1 - m*x1;
+      if (x2 > 970) {
+        x2 = 970;
+        y2 = m*970 + y1 - m*x1;
       }
       stroke(c);
       fill(c);
-      if (y1 >= 100 && y2 >= 100 && x2 >= 225 && x1 <= 1105 && x2 <= 1105) {
-        if (connect.name == "verbinden") {
+      if (y1 >= 140 && y2 >= 140 && x2 >= 140 && x1 <= 950 && x2 <= 970) {
+        if (verbinde.checked) {
           line(x1, y1, x2, y2);
         } else {
           line(x2-5, y2, x2+5, y2);
