@@ -56,7 +56,7 @@ button station1_referenz, station1_trocken, station1_nass, station1_MessungStart
 button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, naechster_Stoff, vorheriger_Stoff, zur_Auswertung, zur_Auswertung2, zur_Auswertung3;
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 button reset_innenraum;
-button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred, genaueAnalyse;
+button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred, genaueAnalyse, up2_Station4, down2_Station4;
 
 button tutorial_ueberspringen, tutorial_weiter, tutorial_zum, tutorial_back, tutorial_Start_Stopp;
 button tutorial_skalierung_rot_up, tutorial_skalierung_rot_down, tutorial_skalierung_blau_up, tutorial_skalierung_blau_down;
@@ -163,8 +163,8 @@ void setup() {
   Station4_Rot = new dropdown("Links", 120, 20, 200, 30, 6, Station4_Strings, false, color(255, 0, 0));
   Station4_Blau = new dropdown("Rechts", 750, 20, 200, 30, 6, Station4_Strings, false, color(0, 0, 255));
 
-  Station4_Auswertung_Rot = new dropdown("Zeit", 250, 20, 220, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
-  Station4_Auswertung_Blau = new dropdown("Temperatur", 730, 20, 220, 30, 5, Station4_Auswertung_Strings2, false, color(0, 0, 255));
+  Station4_Auswertung_Rot = new dropdown("Zeit", 120, 15, 200, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
+  Station4_Auswertung_Blau = new dropdown("Temperatur", 750, 15, 200, 30, 5, Station4_Auswertung_Strings2, false, color(0, 0, 255));
 
   Alle_Sensoren_Rot = new dropdown("", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
   Alle_Sensoren_Blau = new dropdown("", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
@@ -327,7 +327,7 @@ void setup() {
   reset_Station2 =  new button(970, 660, 140, 50, "Reset", 5, true, 20);
 
 
-  station4_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederholen", -5, true, 20);
+  station4_MessungWiederholen = new button(1115, 290, 140, 65, "Messung \nwiederholen", -5, true, 20);
 
 
 
@@ -355,8 +355,13 @@ void setup() {
   Station4a = new button(570, 390, 140, 50, "zu Aufgabe a)", 5, true, 20); 
   Station4b = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20); 
   Station4c = new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20); 
-  Station4Auswertung = new button(1115, 250, 140, 100, "zur\nAuswertung", -12, true, 20); 
+  Station4Auswertung = new button(1115, 365, 140, 70, "zur\nAuswertung", -12, true, 20); 
   Station4Start = new button(1115, 100, 140, 65, "Messung\nstarten", -5, true, 20); 
+
+
+  up2_Station4 = new button(900, 670, 50, 30, "right_arrow", 5, true, 20);
+  down2_Station4 = new button(840, 670, 50, 30, "left_arrow", 5, true, 20);
+
 
   zero = new button(120, 90, 150, 50, "0% Lüfter", 5, true, 20);
   fifty = new button(420, 90, 150, 50, "50% Lüfter", 5, true, 20);
@@ -394,7 +399,7 @@ void draw() {
     frameRate(30);
   }
 
-  println(page);
+
   textFont(normal);
   scale(scale_factor);
   pushMatrix();
@@ -1234,6 +1239,7 @@ void saveData() {
 }
 
 
+
 void exit() {
   for (int i = 1; i < index+1; i++) {
     if (zeit[index-1] != 0) {
@@ -1252,5 +1258,6 @@ void exit() {
       saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+  "  um " + hour() + "_" + minute() + " Uhr" + "/alleDaten.csv");
     }
   }
+
   super.exit();
 }
