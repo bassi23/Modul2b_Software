@@ -174,7 +174,7 @@ void setup() {
 
   connect = new dropdown("verbinden", 350, 180, 200, 30, 2, connect_Strings, false, color(12, 4, 45));
   error_bars = new dropdown("anzeigen", 700, 180, 200, 30, 2, error_bars_Strings, false, color(23, 4, 5));
-  freie_stationen = new dropdown("nicht freigeben", 700, 480, 200, 30, 2, freie_stationen_Strings, false, color(1, 2, 3));
+  freie_stationen = new dropdown("freigeben", 700, 480, 200, 30, 2, freie_stationen_Strings, false, color(1, 2, 3));
 
   fehler = new checkbox(1225, 160, 30, false);
   verbinde = new checkbox(1225, 200, 30, false);

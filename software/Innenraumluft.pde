@@ -1188,6 +1188,7 @@ int indexX = 6;
 int indexY = 6;
 
 
+
 void AuswertungInnenraum() {
   zero.show();
   fifty.show();
@@ -1219,62 +1220,66 @@ void AuswertungInnenraum() {
   indexX = 6;
   indexY = 6;
 
-  float maxBlau = 0;
-
   float absoluteMaxX = 0;
   float absoluteMinX = 99999;
   float absoluteMaxY = 0;
   float absoluteMinY = 99999;
-  
-  if(scale_Innenraum1 != 0){
+
+  if (scale_Innenraum2 != 0) {
+    absoluteMinX = 0;
+    absoluteMinY = 0;
+  }
+  if (scale_Innenraum1 != 0) {
     absoluteMinX = 0;
     absoluteMinY = 0;
   }
 
   if (Station4_Auswertung_Rot.name == "Zeit") {
     indexX = 6;
+    absoluteMaxX = 300;
+    absoluteMinX = 0;
   } else if (Station4_Auswertung_Rot.name == "Temperatur") {
     indexX = 0;
-    if (scale_Innenraum1 == 1) {
+    if (scale_Innenraum2 == 1) {
       absoluteMaxX = 10;
-    } else if (scale_Innenraum1 == 2) {
+    } else if (scale_Innenraum2 == 2) {
       absoluteMaxX = 15;
-    } else if (scale_Innenraum1 == 3) {
+    } else if (scale_Innenraum2 == 3) {
       absoluteMaxX = 20;
-    } else if (scale_Innenraum1 == 4) {
+    } else if (scale_Innenraum2 == 4) {
       absoluteMaxX = 25;
-    } else if (scale_Innenraum1 == 5) {
+    } else if (scale_Innenraum2 == 5) {
       absoluteMaxX = 30;
     }
   } else if (Station4_Auswertung_Rot.name == "Luftfeuchte") {
     indexX = 1;
-    absoluteMaxX = 20*scale_Innenraum1;
+    absoluteMaxX = 20*scale_Innenraum2;
   } else if (Station4_Auswertung_Rot.name == "CO") {
     indexX = 2;
-    absoluteMaxX = 500*scale_Innenraum1;
+    absoluteMaxX = 500*scale_Innenraum2;
   } else if (Station4_Auswertung_Rot.name == "TVOC") {
     indexX = 3;
-    absoluteMaxX = 50*scale_Innenraum1;
+    absoluteMaxX = 50*scale_Innenraum2;
   } else if (Station4_Auswertung_Rot.name == "eCO") {
     indexX = 4;
-    absoluteMaxX = 500*scale_Innenraum1;
+    absoluteMaxX = 500*scale_Innenraum2;
   }
 
   if (Station4_Auswertung_Blau.name == "Temperatur") {
     indexY = 0;
-    absoluteMaxY = 10 + 5*scale_Innenraum2;
+    absoluteMaxY = 10 + 5*scale_Innenraum1;
   } else if (Station4_Auswertung_Blau.name == "Luftfeuchte") {
     indexY = 1;
-    absoluteMaxY = 20*scale_Innenraum2;
+    absoluteMaxY = 20*scale_Innenraum1;
   } else if (Station4_Auswertung_Blau.name == "CO") {
     indexY = 2;
-   absoluteMaxY = 500*scale_Innenraum2;
+    absoluteMaxY = 500*scale_Innenraum1;
   } else if (Station4_Auswertung_Blau.name == "TVOC") {
     indexY = 3;
-    absoluteMaxY = 50*scale_Innenraum2;
+    absoluteMaxY = 50*scale_Innenraum1;
   } else if (Station4_Auswertung_Blau.name == "eCO") {
     indexY = 4;
-    absoluteMaxY = 500*scale_Innenraum2;;
+    absoluteMaxY = 500*scale_Innenraum1;
   }
 
 
@@ -1284,28 +1289,28 @@ void AuswertungInnenraum() {
 
 
   if (up1.isClicked()) {
-    scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 5) {
-      scale_Innenraum2 = 0;
-    }
-  }
-  if (down1.isClicked()) {
-    scale_Innenraum2 -= 1;
-    if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 5;
-    }
-  }
-  
-    if (up2_Station4.isClicked()) {
     scale_Innenraum1 += 1;
     if (scale_Innenraum1 > 5) {
       scale_Innenraum1 = 0;
     }
   }
-  if (down2_Station4.isClicked()) {
+  if (down1.isClicked()) {
     scale_Innenraum1 -= 1;
     if (scale_Innenraum1 < 0) {
       scale_Innenraum1 = 5;
+    }
+  }
+
+  if (up2_Station4.isClicked()) {
+    scale_Innenraum2 += 1;
+    if (scale_Innenraum2 > 5) {
+      scale_Innenraum2 = 0;
+    }
+  }
+  if (down2_Station4.isClicked()) {
+    scale_Innenraum2 -= 1;
+    if (scale_Innenraum2 < 0) {
+      scale_Innenraum2 = 5;
     }
   }
 
@@ -1323,13 +1328,11 @@ void AuswertungInnenraum() {
   for (int i = 0; i < 4; i++) {
     line(120, 240 +100*i, 950, 240 + 100*i);
   }
+
+
   fill(0);
   textAlign(CENTER);
-  //if (Rot != -1) {
-  //  for (int i = 5; i> -1; i--) {
-  //    text(nf((5-i)*maxRot/(5), 0, 0), 85, 150 + 100*i);
-  //  }
-  //}
+
 
   textAlign(CORNER);
   fill(0);
@@ -1340,7 +1343,7 @@ void AuswertungInnenraum() {
   noStroke();
   textSize(20);
 
-  if (scale_Innenraum1 == 0) {
+  if (scale_Innenraum2 == 0) {
     for (int i = 0; i < indexInnenraumlufta + 5; i++) {
       if (Innenraumlufta[indexX][i] > absoluteMaxX) {
         absoluteMaxX =  Innenraumlufta[indexX][i];
@@ -1362,8 +1365,12 @@ void AuswertungInnenraum() {
       if (Innenraumluftc[indexX][i] < absoluteMinX && Innenraumluftc[indexX][i] != 0) {
         absoluteMinX =  Innenraumluftc[indexX][i];
       }
+    }
+  }
 
-
+  if (scale_Innenraum1 == 0) {
+    absoluteMinY = 9999999;
+    for (int i = 0; i < indexInnenraumlufta + 5; i++) {
       if (Innenraumlufta[indexY][i] > absoluteMaxY) {
         absoluteMaxY =  Innenraumlufta[indexY][i];
       }
@@ -1385,6 +1392,7 @@ void AuswertungInnenraum() {
       }
     }
   }
+
   textSize(18);
 
   if (absoluteMaxY != 0 && Station4_Auswertung_Rot.name == "Zeit") {
@@ -1395,17 +1403,15 @@ void AuswertungInnenraum() {
   textSize(20);
 
 
-
-
   //Luftfeuchtigkeit - TVOC
   if (zeroPercent) {
-    plotStation4_Auswertung(Innenraumlufta, color(255, 0, 0), indexX, indexY, maxBlau, indexInnenraumlufta-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
+    plot4(Innenraumlufta[indexX], Innenraumlufta[indexY], color(255, 0, 0), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
   }
   if (fiftyPercent) {
-    plotStation4_Auswertung(Innenraumluftb, color(0, 255, 0), indexX, indexY, maxBlau, indexInnenraumluftb-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
+    plot4(Innenraumluftb[indexX], Innenraumluftb[indexY], color(0, 255, 0), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
   }
   if (hundredPercent) {
-    plotStation4_Auswertung(Innenraumluftc, color(0, 0, 255), indexX, indexY, maxBlau, indexInnenraumluftc-1, absoluteMinX, absoluteMaxX, absoluteMinY, absoluteMaxY);
+    plot4(Innenraumluftc[indexX], Innenraumluftc[indexY], color(0, 0, 255), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
   }
 
 
@@ -1537,83 +1543,81 @@ void AuswertungInnenraum() {
 
 
 
-void plotStation4_Auswertung(float[][] array, color c, int indexX, int indexY, float max, int maxIndex, float absMinX, float absMaxX, float absMinY, float absMaxY) {
+void plot4(float[] arrX, float[] arrY, color c, float maxX, float minX, float maxY, float minY) {
+  int maxIndex = 0;
+  for (int i = arrX.length-1; i > 0; i--) {
+    if (arrX[i] != 0) {
+      maxIndex = i-1;
+      break;
+    }
+  }
+
+
+  boolean schonmalgezeichnet = false;
+  stroke(c);
+  if (verbinde_innenraum.checked) {
+    for (int i = 1; i < maxIndex; i++) {
+      float x1 = 120 + 830*(arrX[i-1]-minX)/(maxX-minX);
+      float y1 = 640 - 500*(arrY[i-1]-minY)/(maxY-minY);
+
+      float x2 = 120 + 830*(arrX[i]-minX)/(maxX-minX);
+      float y2 = 640 - 500*(arrY[i]-minY)/(maxY-minY);
+
+      if (x1 >= 120 && x1 <= 950 && x2 >= 120 && x2 <= 950 && y1 > 140 && y2 <= 640 && y2 > 140 && y1 <= 640) {
+        line(x1, y1, x2, y2);
+      }
+    }
+  } else {
+    for (int i = 0; i < maxIndex; i++) {
+
+      float x = 120 + 830*(arrX[i]-minX)/(maxX-minX);
+      float y = 640 - 500*(arrY[i]-minY)/(maxY-minY);
+      if (x >= 120 && x <= 950 && y > 140 && y <= 640) {
+        line(x-3, y, x+3, y);
+        line(x, y-3, x, y+3);
+      }
+    }
+  }
+
+  if (!schonmalgezeichnet) {
+    strokeWeight(1);
+    text(nf(maxX, 0, 1), 938, 660);
+    text(nf(minX, 0, 1), 105, 660);
+    text(nf(maxY, 0, 1), 65, 140);
+    text(nf(minY, 0, 1), 65, 650);
+    schonmalgezeichnet = true;
+  }
+}
+
+
+
+
+
+
+
+void plotStation4_Auswertung(float[][] array, color c, int indexX, int indexY, int maxIndex, float absMinX, float absMaxX, float absMinY, float absMaxY) {
   // 1 Sekunde entspricht "830/time_Station4" Pixel
   stroke(c);
   fill(c);
   strokeWeight(2);
   //rect(120, 140, 830, 500);
   boolean schonmalgezeichnet = false;
-
-  if (indexX == 6) {
-    for (int i = 1; i < maxIndex+1; i++) {
-      float x1 = 120 + 830*(array[indexX][i-1] - array[indexX][0])/(array[indexX][maxIndex] - array[indexX][0]);
-      float x2 = 120 + 830*(array[indexX][i] - array[indexX][0])/(array[indexX][maxIndex] - array[indexX][0]);
-      float y1, y2;
-      if (indexY == 6) {
-        max = array[indexY][maxIndex];
-        y1 = 640 - 500*(array[indexY][i-1]-array[indexY][0])/(max-array[indexY][0]);
-        y2 = 640 - 500*(array[indexY][i]-array[indexY][0])/(max-array[indexY][0]);
-      } else {
-        y1 = 640 - 500*array[indexY][i-1]/max;
-        y2 = 640 - 500*array[indexY][i]/max;
-      }
-
-      float m = (y2 - y1)/(x2-x1);
-      float b = y1 - m*x1;
-      if (y1 > 640 && y2 < 640 && y2 > 140) {
-        y1 = 640;
-        x1 = -(b - y1)/m;
-      } else if (y2 > 640 && y1 < 640 && y1 > 140) {
-        y2 = 640;
-        x1 = -(b-y2)/m;
-      } else if (y1 < 140 && y2 > 140 && y2 < 640) {
-
-        y1 = 140;
-        x1 = (y1-b)/m;
-      } else if (y2 < 140 && y1 > 140 && y1 < 640) {
-        y2 = 140;
-        x2 = -(b-y2)/m;
-      } else if (y1 < 140 && y2 > 640) {
-        y1 = 140;
-        x1 = (y1-b)/m;
-        y2 = 640;
-        x2 = -(b-y2)/m;
-      } else if (y2 < 140 && y1> 640) {
-        y2 = 140;
-        x2 = (y1-b)/m;
-        y1 = 640;
-        x1 = -(b-y2)/m;
-      }
-      if (y1 >= 140 && y2>= 140 && y1 <= 640 && y2<= 640) {
-        if (verbinde_innenraum.checked) {
-          line(x1, y1, x2, y2);
-        } else {
-          line(x2-5, y2, x2+5, y2);
-          line(x2, y2-5, x2, y2+5);
-        }
-      }
-    }
+  for (int i = 0; i < maxIndex; i++) {
+    fill(c);
+    float x = 120 + 830*(array[indexX][i]-absMinX)/(absMaxX-absMinX);
+    float y = 640 - 500*(array[indexY][i]-absMinY)/(absMaxY-absMinY);
+    ellipse(x, y, 5, 5);
     fill(0);
-    //text(nf((array[indexX][maxIndex] - array[indexX][0]), 0, 1), 938, 660);
-  } else {
-    for (int i = 0; i < maxIndex; i++) {
-      fill(c);
-      float x = 120 + 830*(array[indexX][i]-absMinX)/(absMaxX-absMinX);
-      float y = 640 - 500*(array[indexY][i]-absMinY)/(absMaxY-absMinY);
-      ellipse(x, y, 5, 5);
-      fill(0);
-      if (!schonmalgezeichnet) {
-        strokeWeight(1);
-        text(nf(absMaxX, 0, 1), 938, 660);
-        text(nf(absMinX, 0, 1), 105, 660);
-        text(nf(absMaxY, 0, 1), 65, 140);
-        text(nf(absMinY, 0, 1), 65, 650);
-        schonmalgezeichnet = true;
-      }
+    if (!schonmalgezeichnet) {
+      strokeWeight(1);
+      text(nf(absMaxX, 0, 1), 938, 660);
+      text(nf(absMinX, 0, 1), 105, 660);
+      text(nf(absMaxY, 0, 1), 65, 140);
+      text(nf(absMinY, 0, 1), 65, 650);
+      schonmalgezeichnet = true;
     }
   }
-} 
+}
 
 
 
@@ -1625,6 +1629,32 @@ void plotStation4_Auswertung(float[][] array, color c, int indexX, int indexY, f
 
 
 
+//float m = (y2 - y1)/(x2-x1);
+//float b = y1 - m*x1;
+//if (y1 > 640 && y2 < 640 && y2 > 140) {
+//  y1 = 640;
+//  x1 = -(b - y1)/m;
+//} else if (y2 > 640 && y1 < 640 && y1 > 140) {
+//  y2 = 640;
+//  x1 = -(b-y2)/m;
+//} else if (y1 < 140 && y2 > 140 && y2 < 640) {
+
+//  y1 = 140;
+//  x1 = (y1-b)/m;
+//} else if (y2 < 140 && y1 > 140 && y1 < 640) {
+//  y2 = 140;
+//  x2 = -(b-y2)/m;
+//} else if (y1 < 140 && y2 > 640) {
+//  y1 = 140;
+//  x1 = (y1-b)/m;
+//  y2 = 640;
+//  x2 = -(b-y2)/m;
+//} else if (y2 < 140 && y1> 640) {
+//  y2 = 140;
+//  x2 = (y1-b)/m;
+//  y1 = 640;
+//  x1 = -(b-y2)/m;
+//}
 
 
 
