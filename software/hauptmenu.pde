@@ -155,6 +155,8 @@ void hauptmenu() {
     text("Sollte man die Schultafel lieber nass abw-\nischen? Untersuche die Feinstaubemissi-\non von trockenen und nassen Schwäm-\nmen!", 875, 120);
   }
 
-
+  if(settings.isClicked()){
+    page = 10;
+  }
   strokeWeight(1);
 }

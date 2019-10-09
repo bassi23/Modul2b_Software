@@ -301,10 +301,10 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
       text("24", pos_x, 307);
       text("32", pos_x, 207);
     } else if (name == "CO2 in ppm"|| name == "eCO2 in ppm") {
-      text("300", pos_x, 507);
-      text("600", pos_x, 407);
-      text("900", pos_x, 307);
-      text("1200", pos_x, 207);
+      text("400", pos_x, 507);
+      text("800", pos_x, 407);
+      text("1200", pos_x, 307);
+      text("1600", pos_x, 207);
     } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
       text("10", pos_x, 507);
       text("20", pos_x, 407);

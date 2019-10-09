@@ -1,7 +1,7 @@
 void setting() {
   Aufloesung.show();
-  connect.show();
-  error_bars.show();
+ // connect.show();
+ // error_bars.show();
   freie_stationen.show();
   textSize(30);
   fill(0);
@@ -10,11 +10,9 @@ void setting() {
 
   textSize(20);
   text("Daten speichern", 50, 50);
-  text("Messwerte", 50, 200);
-  text("Fehlerbalken", 1050, 200);
   text("COM-Port", 50, 350);
   text("Auflösung", 50, 500);
-text("Stationen freigeben", 1050, 500);
+  text("Stationen freigeben", 1050, 500);
 
 
 

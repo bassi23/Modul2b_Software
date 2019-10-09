@@ -150,7 +150,7 @@ void setup() {
   catch(Exception e) {
     gotSerial = false;
   }
-  Aufloesung = new dropdown("Auflösung", 350, 480, 250, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
+  Aufloesung = new dropdown("Standard (1280x720)", 350, 480, 250, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
 
 
   SPS_Blau_Station1 = new dropdown("Rechts", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));

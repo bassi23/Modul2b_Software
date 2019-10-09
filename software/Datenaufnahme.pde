@@ -234,6 +234,7 @@ void Datenaufnahme() {
         zeit[index] = (millis() - zeroTime2)/1000;
       }
     } else {
+      myPort.clear();
       Daten = null;
     }
   }
