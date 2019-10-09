@@ -1,6 +1,18 @@
 # Modul2b_Software
 
 ## Update
+
+## 09.10.2019
+
+- eCO2 ist rausgeflogen
+- falsche Zwischenschritte in der Achsenskalierung von CO2 sind korrigiert
+- "Verbinden" und "Fehler anzeigen" in den Einstellungen ist entfernt
+- Wenn man im Stationsmenü auf "Einstellungen" klickt, kommt man auch zu den Einstellungen
+
+### To Do
+- Variablere Zwischenschritte in der Achsenskalierung einfügen
+- Messwertgrafik schmaler machen
+
 ## 16.09.2019
 - Allgemein: kleinere Verbesserungen (Fehlerbalken in Station 4, Kurzbeschreibung der Stationen, fette Schrift, ...)<br>
 - Daten werden automatisch gespeichert, sobald man das Programm beendet (auf das "X" oben rechts klickt)<br>
