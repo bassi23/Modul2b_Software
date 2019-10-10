@@ -59,7 +59,7 @@ boolean Station1Start = false;
 
 float del = 1;
 
-
+String[] BaselineString = {"not set","not set", "00", "00", "0000", "00", "00"};
 
 
 float aktuellerTag = 0;
@@ -93,7 +93,6 @@ void Datenaufnahme() {
       zeroTime = millis();
     }
     String[] data = split(Daten, ';');
-
     if (data.length > 8) {
 
       zwischenSpeicher_SCD_T[indexZwischenSpeicher] = float(data[0]);
@@ -244,6 +243,16 @@ void Datenaufnahme() {
         time = millis();
         zeit[index] = (millis() - zeroTime2)/1000;
       }
+    } else if (data.length == 3) {
+      BaselineString[0] = data[0];
+      BaselineString[1] = data[1];
+      BaselineString[2] = nf(day(),2,0).toString();
+      BaselineString[3] = nf(month(),2,0).toString();
+      BaselineString[4] = nf(year(),4,0).toString();
+      BaselineString[5] = nf(hour(),2,0).toString();
+      BaselineString[6] = nf(minute(),2,0).toString();
+      myPort.clear();
+      Daten = null;
     } else {
       myPort.clear();
       Daten = null;

@@ -70,7 +70,7 @@ button tutorial_ueberspringen, tutorial_weiter, tutorial_zum, tutorial_back, tut
 button tutorial_skalierung_rot_up, tutorial_skalierung_rot_down, tutorial_skalierung_blau_up, tutorial_skalierung_blau_down;
 button tutorial_reset, sicher_ja_reset, sicher_nein_reset, left_tutorial, right_tutorial, aktualisierung_right_tutorial, aktualisierung_left_tutorial;
 
-
+button setBaseline;
 
 Probe A, B, C, D, E;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
@@ -300,7 +300,7 @@ void setup() {
   aktualisierung_right_tutorial = new button(1183, 515, 50, 30, "right_arrow", 5, true, 20);
   aktualisierung_left_tutorial = new button(1098, 515, 50, 30, "left_arrow", 5, true, 20);
 
-
+  setBaseline = new button(100, 200, 150, 75, "set Baseline", 5, true, 20);
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
@@ -1082,6 +1082,11 @@ void draw() {
         tutorial_Start_first_time = true;
       }
     }
+  }
+  
+  
+  if(setBaseline.isClicked()){
+    myPort.write("\n"); //set Baseline
   }
 }
 

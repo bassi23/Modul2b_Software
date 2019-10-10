@@ -3,6 +3,7 @@ void setting() {
  // connect.show();
  // error_bars.show();
   freie_stationen.show();
+  setBaseline.show();
   textSize(30);
   fill(0);
   reconnect();
@@ -14,6 +15,8 @@ void setting() {
   text("Auflösung", 50, 500);
   text("Stationen freigeben", 1050, 500);
 
+
+  text("eCO2-Baseline: " + BaselineString[0]  + ";     TVOC-Baseline: " + BaselineString[1] + "     (gesetzt am " + BaselineString[2] + "." +  BaselineString[3] + "." +  BaselineString[4] + " um " +  BaselineString[5] + ":" +  BaselineString[6] + " Uhr)", 350, 250);
 
 
   stroke(0);
