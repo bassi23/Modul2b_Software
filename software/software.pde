@@ -175,19 +175,19 @@ void setup() {
   Station4_Blau = new dropdown("Rechts", 750, 20, 200, 30, 5, Station4_Strings, false, color(0, 0, 255));
 
 
-//  Station4_Auswertung_Rot = new dropdown("Zeit", 120, 15, 200, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
-//  Station4_Auswertung_Blau = new dropdown("Temperatur", 750, 15, 200, 30, 5, Station4_Auswertung_Strings2, false, color(0, 0, 255));
+  //  Station4_Auswertung_Rot = new dropdown("Zeit", 120, 15, 200, 30, 6, Station4_Auswertung_Strings, false, color(255, 0, 0));
+  //  Station4_Auswertung_Blau = new dropdown("Temperatur", 750, 15, 200, 30, 5, Station4_Auswertung_Strings2, false, color(0, 0, 255));
 
   Station4_Auswertung_Rot = new dropdown("Zeit", 120, 15, 200, 30, 5, Station4_Auswertung_Strings, false, color(255, 0, 0));
   Station4_Auswertung_Blau = new dropdown("Temperatur", 750, 15, 200, 30, 4, Station4_Auswertung_Strings2, false, color(0, 0, 255));
 
 
- // Alle_Sensoren_Rot = new dropdown("", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
- // Alle_Sensoren_Blau = new dropdown("", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
+  // Alle_Sensoren_Rot = new dropdown("", 120, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(255, 0, 0));
+  // Alle_Sensoren_Blau = new dropdown("", 750, 10, 200, 30, 10, Alle_Sensoren_Strings, false, color(0, 0, 255));
   Alle_Sensoren_Rot = new dropdown("", 120, 10, 200, 30, 9, Alle_Sensoren_Strings, false, color(255, 0, 0));
   Alle_Sensoren_Blau = new dropdown("", 750, 10, 200, 30, 9, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
-  dateiformat = new dropdown("Dateiformat", 350, 40, 200, 30, 2, dateiformat_Strings, false, color(255, 12, 23));
+  dateiformat = new dropdown("Format: .csv", 350, 40, 200, 30, 2, dateiformat_Strings, false, color(255, 12, 23));
   autosave = new dropdown("nicht speichern", 700, 40, 300, 30, 3, autosave_Strings, false, color(255, 34, 23));
 
   connect = new dropdown("verbinden", 350, 180, 200, 30, 2, connect_Strings, false, color(12, 4, 45));
@@ -202,8 +202,8 @@ void setup() {
   fehler_innenraum = new checkbox(1225, 195, 30, false);
   verbinde_innenraum = new checkbox(1225, 240, 30, true);
 
- // tutorial_Rot = new dropdown("Links", 125, 115, 200, 30, 10, tutorial_Rot_Strings, false, color(255, 0, 0));
- // tutorial_Blau = new dropdown("Rechts", 725, 115, 200, 30, 10, tutorial_Blau_Strings, false, color(0, 0, 255));
+  // tutorial_Rot = new dropdown("Links", 125, 115, 200, 30, 10, tutorial_Rot_Strings, false, color(255, 0, 0));
+  // tutorial_Blau = new dropdown("Rechts", 725, 115, 200, 30, 10, tutorial_Blau_Strings, false, color(0, 0, 255));
 
   tutorial_Rot = new dropdown("Links", 125, 115, 200, 30, 9, tutorial_Rot_Strings, false, color(255, 0, 0));
   tutorial_Blau = new dropdown("Rechts", 725, 115, 200, 30, 9, tutorial_Blau_Strings, false, color(0, 0, 255));
@@ -535,12 +535,13 @@ void draw() {
   if (page != 0 && page != -1 && page != -7 && page != -7.1 && page != -7.11 && page != -7.111&& page != -7.1111 && page != -7.11111 && page != -7.111111 && page != -7.2 && page != -7.22 && page != -7.222) {
     back.show();
   }
-  Datenaufnahme();
+
   String auto = autosave.name;
 
   if (auto == "autosave") {
     saveData();
   }
+  Datenaufnahme();
   if (Stationen.isClicked()) {
     page = 0;
   }
@@ -1184,40 +1185,47 @@ void saveDataInnenraum() {
   }
 }
 
+
+int tagesIndex = 0;
+
+
+
+
 void saveData() {
-  String[] SCD_T = new String[index];
-  String[] SCD_H = new String[index];
-  String[] SCD_CO2 = new String[index];
 
-  String[] SGP_TVOC = new String[index];
-  String[] SGP_eCO2 = new String[index];
 
-  String[] SPS_PM1 = new String[index];
-  String[] SPS_PM25 = new String[index];
-  String[] SPS_PM4 = new String[index];
-  String[] SPS_PM10 = new String[index];
+  String[] SCD_T = new String[floor(86400/del)];
+  String[] SCD_H = new String[floor(86400/del)];
+  String[] SCD_CO2 = new String[floor(86400/del)];
 
-  String[] Zeit = new String[index];
+  String[] SGP_TVOC = new String[floor(86400/del)];
+  String[] SGP_eCO2 = new String[floor(86400/del)];
+
+  String[] SPS_PM1 = new String[floor(86400/del)];
+  String[] SPS_PM25 = new String[floor(86400/del)];
+  String[] SPS_PM4 = new String[floor(86400/del)];
+  String[] SPS_PM10 = new String[floor(86400/del)];
+
+  String[] Zeit = new String[floor(86400/del)];
 
 
   String txt_ = dateiformat.name;
 
-
   if (txt_ == "Format: .txt" || txt_ == "Format: .csv") {
-    for (int i = 0; i < index; i++) {
-      SCD_T[i] = str(scd_temperature_data[i]).replace('.', ',');
-      SCD_H[i] = str(scd_humidity_data[i]).replace('.', ',');
-      SCD_CO2[i] = str(scd_co2_data[i]).replace('.', ',');
+    for (int i = 0; i < tagesIndex; i++) {
+      SCD_T[i] = str(scd_temperature_data[index - tagesIndex + i]).replace('.', ',');
+      SCD_H[i] = str(scd_humidity_data[index - tagesIndex + i]).replace('.', ',');
+      SCD_CO2[i] = str(scd_co2_data[index - tagesIndex + i]).replace('.', ',');
 
-      SGP_TVOC[i] = str(sgp_tvoc_data[i]).replace('.', ',');
-      SGP_eCO2[i] = str(sgp_eco2_data[i]).replace('.', ',');
+      SGP_TVOC[i] = str(sgp_tvoc_data[index - tagesIndex + i]).replace('.', ',');
+      SGP_eCO2[i] = str(sgp_eco2_data[index - tagesIndex + i]).replace('.', ',');
 
-      SPS_PM1[i] = str(sps_pm1_data[i]).replace('.', ',');
-      SPS_PM25[i] = str(sps_pm25_data[i]).replace('.', ',');
-      SPS_PM4[i] = str(sps_pm4_data[i]).replace('.', ',');
-      SPS_PM10[i] = str(sps_pm10_data[i]).replace('.', ',');
+      SPS_PM1[i] = str(sps_pm1_data[index - tagesIndex + i]).replace('.', ',');
+      SPS_PM25[i] = str(sps_pm25_data[index - tagesIndex + i]).replace('.', ',');
+      SPS_PM4[i] = str(sps_pm4_data[index - tagesIndex + i]).replace('.', ',');
+      SPS_PM10[i] = str(sps_pm10_data[index - tagesIndex + i]).replace('.', ',');
 
-      Zeit[i] = str(zeit[i]).replace('.', ',');
+      Zeit[i] = str((zeit[index - tagesIndex + i]) - zeit[index - tagesIndex]).replace('.', ',');
     }
   }
 
@@ -1237,23 +1245,26 @@ void saveData() {
   if (txt_ == "Format: .csv") {
     table.clearRows();
 
-    for (int i = 1; i < index+1; i++) {
+    for (int i = 0; i < tagesIndex; i++) {
       if (zeit[index-1] != 0) {
         TableRow newRow = table.addRow();
-
         newRow.setInt("Zeit", i);
-        newRow.setFloat("Zeit", zeit[i]);
-        newRow.setFloat("Temperatur", scd_temperature_data[i-1]);
-        newRow.setFloat("Luftfeuchte", scd_humidity_data[i-1]);
-        newRow.setFloat("CO2", scd_co2_data[i-1]);
-        newRow.setFloat("eCO2", sgp_eco2_data[i-1]);
-        newRow.setFloat("TVOC", sgp_tvoc_data[i-1]);
-        newRow.setFloat("PM1", sps_pm1_data[i-1]);
-        newRow.setFloat("PM2.5", sps_pm25_data[i-1]);
-        newRow.setFloat("PM4", sps_pm4_data[i-1]);
-        newRow.setFloat("PM10", sps_pm10_data[i-1]);
-
-        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+"/alleDaten.csv");
+        newRow.setFloat("Zeit", (zeit[index - tagesIndex + i] - zeit[index - tagesIndex]));
+        newRow.setFloat("Temperatur", scd_temperature_data[index - tagesIndex + i]);
+        newRow.setFloat("Luftfeuchte", scd_humidity_data[index - tagesIndex + i]);
+        newRow.setFloat("CO2", scd_co2_data[index - tagesIndex + i]);
+        newRow.setFloat("eCO2", sgp_eco2_data[index - tagesIndex + i]);
+        newRow.setFloat("TVOC", sgp_tvoc_data[index - tagesIndex + i]);
+        newRow.setFloat("PM1", sps_pm1_data[index - tagesIndex + i]);
+        newRow.setFloat("PM2.5", sps_pm25_data[index - tagesIndex + i]);
+        newRow.setFloat("PM4", sps_pm4_data[index - tagesIndex + i]);
+        newRow.setFloat("PM10", sps_pm10_data[index - tagesIndex + i]);
+        try {
+          saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + "_" + minute() + "/alleDaten.csv");
+        }
+        catch(Exception e) {
+          delay(1000);
+        }
       }
     }
   }
@@ -1262,23 +1273,30 @@ void saveData() {
 
 
 void exit() {
-  for (int i = 1; i < index+1; i++) {
+  table.clearRows();
+
+  for (int i = 0; i < tagesIndex; i++) {
     if (zeit[index-1] != 0) {
       TableRow newRow = table.addRow();
+
       newRow.setInt("Zeit", i);
-      newRow.setFloat("Zeit", zeit[i]);
-      newRow.setFloat("Temperatur", scd_temperature_data[i-1]);
-      newRow.setFloat("Luftfeuchte", scd_humidity_data[i-1]);
-      newRow.setFloat("CO2", scd_co2_data[i-1]);
-      newRow.setFloat("eCO2", sgp_eco2_data[i-1]);
-      newRow.setFloat("TVOC", sgp_tvoc_data[i-1]);
-      newRow.setFloat("PM1", sps_pm1_data[i-1]);
-      newRow.setFloat("PM2.5", sps_pm25_data[i-1]);
-      newRow.setFloat("PM4", sps_pm4_data[i-1]);
-      newRow.setFloat("PM10", sps_pm10_data[i-1]);
-      saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+  "  um " + hour() + "_" + minute() + " Uhr" + "/alleDaten.csv");
+      newRow.setFloat("Zeit", (zeit[index - tagesIndex + i] - zeit[index - tagesIndex]));
+      newRow.setFloat("Temperatur", scd_temperature_data[index - tagesIndex + i]);
+      newRow.setFloat("Luftfeuchte", scd_humidity_data[index - tagesIndex + i]);
+      newRow.setFloat("CO2", scd_co2_data[index - tagesIndex + i]);
+      newRow.setFloat("eCO2", sgp_eco2_data[index - tagesIndex + i]);
+      newRow.setFloat("TVOC", sgp_tvoc_data[index - tagesIndex + i]);
+      newRow.setFloat("PM1", sps_pm1_data[index - tagesIndex + i]);
+      newRow.setFloat("PM2.5", sps_pm25_data[index - tagesIndex + i]);
+      newRow.setFloat("PM4", sps_pm4_data[index - tagesIndex + i]);
+      newRow.setFloat("PM10", sps_pm10_data[index - tagesIndex + i]);
+      try {
+        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + " um " + hour() + "_" +  minute() + " Uhr/alleDaten.csv");
+      }
+      catch(Exception e) {
+        delay(1000);
+      }
     }
   }
-
   super.exit();
 }

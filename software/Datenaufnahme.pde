@@ -59,18 +59,24 @@ boolean Station1Start = false;
 
 float del = 1;
 
+
+
+
+float aktuellerTag = 0;
+float letzterTag = 0;
+
 void Datenaufnahme() {
   // tutorial
-  
-  if(tutorial_Start){
-   //if(round(millis()) % 2 == 0){
-   //  tutorial_data[9][index_tutorial] = millis() - start_time_tutorial;
-   //  index_tutorial += 1;
-   //}
+
+  if (tutorial_Start) {
+    //if(round(millis()) % 2 == 0){
+    //  tutorial_data[9][index_tutorial] = millis() - start_time_tutorial;
+    //  index_tutorial += 1;
+    //}
   }
-  
-  
-  
+
+
+
   boolean received = false;
   try {
     if (myPort.available() > 0) {
@@ -149,6 +155,11 @@ void Datenaufnahme() {
         indexZwischenSpeicher = 0;
         if (measure) {
           index += 1;
+          if (hour() == 0 && minute() == 0 && second() == 0) {
+            // if (second() == 0) {
+            tagesIndex = 0;
+          }
+          tagesIndex += 1;
         }
 
         if (MenschSensorMessen && page == 2.1) {
