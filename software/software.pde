@@ -1297,7 +1297,7 @@ void exit() {
       newRow.setFloat("PM4", sps_pm4_data[index - tagesIndex + i]);
       newRow.setFloat("PM10", sps_pm10_data[index - tagesIndex + i]);
       try {
-        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + " um " + hour() + " Uhr/alleDaten.csv");
+        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + " um " + hour() + ":" + minute()+ " Uhr/alleDaten.csv");
       }
       catch(Exception e) {
         delay(1000);
