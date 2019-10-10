@@ -59,7 +59,7 @@ boolean Station1Start = false;
 
 float del = 1;
 
-String[] BaselineString = {"not set","not set", "00", "00", "0000", "00", "00"};
+String[] BaselineString = {"nicht gesetzt","nicht gesetzt", "00", "00", "0000", "00", "00"};
 
 
 float aktuellerTag = 0;
