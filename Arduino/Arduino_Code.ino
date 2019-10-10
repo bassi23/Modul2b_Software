@@ -104,13 +104,17 @@ void loop() {
     eco2 = int(sgp.eCO2);
   }
 
-  Serial.print(t_scd);
+ Serial.print(t_scd);
   Serial.print(";");
   Serial.print(h_scd);
   Serial.print(";");
   Serial.print(co2);
   Serial.print(";");
+  Serial.print(pm1);
+  Serial.print(";");
   Serial.print(pm25);
+  Serial.print(";");
+  Serial.print(pm4);
   Serial.print(";");
   Serial.print(pm10);
   Serial.print(";");
@@ -119,6 +123,7 @@ void loop() {
   Serial.print(tvoc);
   Serial.println(";");
   delay(200);
+
 
 
   if (Serial.available() > 0) {
