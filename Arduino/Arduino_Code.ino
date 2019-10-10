@@ -1,3 +1,4 @@
+
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include "Wire.h"
@@ -19,10 +20,10 @@ void setup() {
   Wire.begin();
   Serial.begin(57600);
   airSensor.setDebug(scd_debug);
-    if (! sgp.begin()) {
-      //Serial.println("Sensor not found :(");
-      //while (1);
-    }
+  if (! sgp.begin()) {
+    //Serial.println("Sensor not found :(");
+    //while (1);
+  }
   airSensor.begin(Wire);
 }
 
@@ -35,8 +36,8 @@ float pm10 = 0;
 float pm4 = 0;
 float pm1 = 0;
 
-float tvoc = 0;
-float eco2 = 0;
+int tvoc = 0;
+int eco2 = 0;
 
 void loop() {
   Wire.beginTransmission(Address);
@@ -91,26 +92,25 @@ void loop() {
       }
     }
   }
-  //  if (airSensor.dataAvailable())  {
-  co2 = airSensor.getCO2();
-  t_scd = airSensor.getTemperature();
-  h_scd = airSensor.getHumidity();
-    if (sgp.IAQmeasure()) {
-      sgp.setHumidity(getAbsoluteHumidity(t_scd, h_scd));
-      tvoc = int(sgp.TVOC);
-      eco2 = int(sgp.eCO2);
-    }
+
+  if (airSensor.dataAvailable())  {
+    co2 = float(airSensor.getCO2());
+    t_scd = float(airSensor.getTemperature());
+    h_scd = float(airSensor.getHumidity());
+  }
+  if (sgp.IAQmeasure()) {
+    sgp.setHumidity(getAbsoluteHumidity(t_scd, h_scd));
+    tvoc = int(sgp.TVOC);
+    eco2 = int(sgp.eCO2);
+  }
+
   Serial.print(t_scd);
   Serial.print(";");
   Serial.print(h_scd);
   Serial.print(";");
   Serial.print(co2);
   Serial.print(";");
-  Serial.print(pm1);
-  Serial.print(";");
   Serial.print(pm25);
-  Serial.print(";");
-  Serial.print(pm4);
   Serial.print(";");
   Serial.print(pm10);
   Serial.print(";");
@@ -119,7 +119,28 @@ void loop() {
   Serial.print(tvoc);
   Serial.println(";");
   delay(200);
+
+
+  if (Serial.available() > 0) {
+    int incomingByte = 0;
+    incomingByte = Serial.read();
+    if (incomingByte != 0) {
+      // sgp.set_iaq_baseline();
+      uint16_t TVOC_base, eCO2_base;
+      sgp.getIAQBaseline(&eCO2_base, &TVOC_base);
+      Serial.print("0x"); 
+      Serial.print(eCO2_base, HEX);
+      Serial.print(";");
+      Serial.print("0x");
+      Serial.print(TVOC_base, HEX);
+      Serial.println(";");
+      sgp.setIAQBaseline(eCO2_base, TVOC_base);
+      delay(1000);
+    }
+  }
 }
+
+
 
 void SetPointer(byte P1, byte P2) {
   Wire.beginTransmission(Address);
