@@ -109,6 +109,7 @@ void Datenaufnahme() {
 
 
       indexZwischenSpeicher += 1;
+      //myPort.clear();
       zeit[index] = (millis() - zeroTime)/1000;
 
       if ( millis() - time > 1000*del) {

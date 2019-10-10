@@ -473,6 +473,7 @@ void draw() {
   zero.hide();
   fifty.hide();
   hundred.hide();
+  setBaseline.hide();
   tutorial_zum.hide();
   tutorial_weiter.hide();
   tutorial_back.hide();
