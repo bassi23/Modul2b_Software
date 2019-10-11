@@ -2,6 +2,11 @@
 
 ## Update
 
+## 11.10.2019
+
+- Baselinesetzung (beachte neuen Arduino Code)
+- Autosave Optionen angepasst
+
 ## 10.10. 2019
 
 - Damit der PC keine Probleme hat riesige Datenmengen zu speichern, werden die Daten ab sofort in Datenpakete aufgeteilt und in eigene Ordner gespeichert. Jeden Tag wird nun ein neuer Ordner angelegt, in dem nur die Daten des jeweiligen Tages gespeichert werden.
