@@ -6,6 +6,10 @@
 
 - Baselinesetzung (beachte neuen Arduino Code)
 - Autosave Optionen angepasst
+- Auswertung TVOC-Duelle angepasst
+
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/TVOC-Duelle_Design2.png) <br>
+
 
 ## 10.10. 2019
 
