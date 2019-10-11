@@ -17,7 +17,7 @@ checkbox verbinde, fehler, verbinde_tutorial, fehler_tutorial, fehler_innenraum,
 
 dropdown tutorial_Rot, tutorial_Blau;
 
-String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)"};
+String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)", "Fullscreen", "frei"};
 //String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 String[] Alle_Sensoren_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 
@@ -144,6 +144,9 @@ int ausgewaehlterPort = 0;
 
 void setup() {
   size(1280, 720);
+  PImage icon = loadImage("img/SUSmobil.png");
+  surface.setIcon(icon);
+  surface.setTitle("SUSmobil - Umweltmesstechnik");
   surface.setResizable(true);
   anzahlCOMPorts = Serial.list().length;
   bold = createFont("Arial Bold", 22);
@@ -158,7 +161,7 @@ void setup() {
   catch(Exception e) {
     gotSerial = false;
   }
-  Aufloesung = new dropdown("Standard (1280x720)", 350, 480, 250, 30, 4, Aufloesung_Strings, false, color(123, 120, 20));
+  Aufloesung = new dropdown("Standard (1280x720)", 350, 480, 250, 30, 6, Aufloesung_Strings, false, color(123, 120, 20));
 
 
   SPS_Blau_Station1 = new dropdown("Rechts", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));
@@ -415,7 +418,6 @@ void draw() {
     frameRate(30);
   }
 
-
   textFont(normal);
   scale(scale_factor);
   pushMatrix();
@@ -452,8 +454,6 @@ void draw() {
   //textSize(16);
   //text(nf(frameRate, 0, 0), 20, 20);
   //text("Aufgenommene Messwerte: " + index, 420, 20);
-
-
 
   // Buttons werden zunächst alle "versteckt", und nur die benötigten an den entsprechenden Stellen "sichtbar" gemacht.
   sicher_ja.hide();
@@ -1112,6 +1112,7 @@ void draw() {
   if (setBaseline.isClicked()) {
     myPort.write("\n"); //set Baseline
   }
+  // cursorStuff();
 }
 
 boolean reset_bool = false;
@@ -1141,7 +1142,7 @@ void sicher_tutorial() {
 }
 
 void saveDataInnenraum() {
-
+  cursor(WAIT);
   String[] T_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
   String[] H_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
   String[] TVOC_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
@@ -1221,7 +1222,7 @@ int tagesIndex = 0;
 
 
 void saveData() {
-
+  cursor(WAIT);
 
   String[] SCD_T = new String[floor(86400/del)];
   String[] SCD_H = new String[floor(86400/del)];
@@ -1337,3 +1338,37 @@ void exit() {
   }
   super.exit();
 }
+
+
+
+
+void keyPressed() {
+  if (Aufloesung.name == "frei") {
+    float w = width;
+    float h = height;
+
+    float frac = float(nf(w/h,0, 4));
+
+    if (frac > 1.7777) {
+      w = 1.777*h;
+    } else if (frac < 1.7777) {
+      h = w/1.777;
+    }
+
+    scale_factor = w/1280;
+    surface.setSize(floor(w), floor(h));
+  }
+}
+
+//void cursorStuff(){
+//  try{
+//  if(back.isOver() || up1.isOver() || down1.isOver() || up2.isOver() || down2.isOver() || left1.isOver() || right1.isOver() || start_stopp.isOver() || x_up.isOver() || x_down.isOver() || y_up.isOver() || y_down.isOver() || reset.isOver() || sicher_ja.isOver() || sicher_nein.isOver() || aktualisierung_right.isOver() || aktualisierung_left.isOver() || Stationen.isOver() || Sensoren.isOver() || zumObermenu.isOver() || SPS30.isOver() || SGP30.isOver() || SCD30.isOver() || alle_Sensoren.isOver() || alle_Sensoren2.isOver() || einstellungen.isOver() || Port1.isOver() || Port2.isOver() || Port3.isOver() || Port4.isOver() || Port5.isOver() || Port6.isOver() || station1_referenz.isOver() || station1_trocken.isOver() || station1_nass.isOver() || station1_MessungStarten.isOver() || station1_MessungWiederholen.isOver() || station1_weiter_ab.isOver() || station1_weiter_bc.isOver() || station1_zur_Auswertung.isOver() || TVOC_Duelle_Start.isOver() || naechstes_Duell.isOver() || vorheriges_Duell.isOver() || weiter_zum_Sensor.isOver() || naechster_Stoff.isOver() || vorheriger_Stoff.isOver() || zur_Auswertung.isOver() || zur_Auswertung2.isOver() || zur_Auswertung3.isOver() || Sensormessung.isOver() || messen.isOver() || letzteWiederholen.isOver() || ja_zufrieden.isOver() || reset_Station2.isOver() || reset_innenraum.isOver() || Station4a.isOver() || Station4b.isOver() || Station4c.isOver() || Station4Auswertung.isOver() || Station4Start.isOver() || station4_MessungWiederholen.isOver() || zero.isOver() || fifty.isOver() || hundred.isOver() || genaueAnalyse.isOver() || up2_Station4.isOver() || down2_Station4.isOver() || tutorial_ueberspringen.isOver() || tutorial_weiter.isOver() || tutorial_zum.isOver() || tutorial_back.isOver() || tutorial_Start_Stopp.isOver() || tutorial_skalierung_rot_up.isOver() || tutorial_skalierung_rot_down.isOver() || tutorial_skalierung_blau_up.isOver() || tutorial_skalierung_blau_down.isOver() || tutorial_reset.isOver() || sicher_ja_reset.isOver() || sicher_nein_reset.isOver() || left_tutorial.isOver() || right_tutorial.isOver() || aktualisierung_right_tutorial.isOver() || aktualisierung_left_tutorial.isOver() || setBaseline.isOver()){
+//    cursor(HAND);
+//  }else{
+//    cursor(ARROW);
+//  }
+//  }catch(Exception e){
+
+//  }
+
+//}

@@ -1,7 +1,7 @@
 void setting() {
   Aufloesung.show();
- // connect.show();
- // error_bars.show();
+  // connect.show();
+  // error_bars.show();
   freie_stationen.show();
   setBaseline.show();
   textSize(30);
@@ -27,12 +27,30 @@ void setting() {
 
   if (Aufloesung.name == "Niedrig (800x450)") {
     scale_factor = 0.625;
+    surface.setSize(800, 450);
   } else if (Aufloesung.name == "Mittel (1024x600)") {
     scale_factor = 0.8;
+    surface.setSize(1024, 600);
   } else if (Aufloesung.name == "Standard (1280x720)") {
     scale_factor = 1;
+    surface.setSize(1280, 720);
   } else if (Aufloesung.name == "Hoch (1440x810)") {
     scale_factor = 1.125;
+    surface.setSize(1440, 810);
+  } else if (Aufloesung.name == "Fullscreen") {
+    float w = displayWidth;
+    float h = displayHeight - 75;
+
+    float frac = w/h;
+
+    if (frac > 1.7777) {
+      w = 1.777*h;
+    } else if (frac <= 1.7777) {
+      h = w/1.777;
+    }
+
+    scale_factor = w/1280;
+    surface.setSize(floor(w), floor(h));
   }
   strokeWeight(1);
   stroke(0);

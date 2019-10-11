@@ -17,16 +17,16 @@ class button {
     visible = true;
     pushMatrix();
     if (mouseX > x*scale_factor && mouseX < (x+dx)*scale_factor && (mouseY - scroll) > y*scale_factor && (mouseY - scroll) < (y + dy)*scale_factor) {
-      for (int i = 0; i<dy; i++) {
+      for (float i = 0; i<dy; i += 1/scale_factor) {
         stroke(210 + i*50/dy);
         line(x, y+i, x + dx, y+i);
       }
       fill(255);
     } else {
       fill(200);
-      for (int i = 0; i<dy; i++) {
-        stroke(190 + i*50/dy);
-        line(x, y+i, x + dx, y+i);
+      for (float i = 0; i<dy; i+=1/scale_factor) {
+        stroke(190 + (i)*50/dy);
+        line(x, y+(i), x + dx, y+(i));
       }
     }
     rectMode(CORNER);
@@ -92,6 +92,10 @@ class button {
   void hide() {
     visible = false;
   }
+  boolean isOver(){
+    return (mouseX > x*scale_factor && mouseX < (x+dx)*scale_factor && (mouseY-scroll) > y*scale_factor && (mouseY-scroll) < (y + dy)*scale_factor && visible);
+  }
+  
   boolean isClicked() {
     if (mousePressed && mouseX > x*scale_factor && mouseX < (x+dx)*scale_factor && (mouseY-scroll) > y*scale_factor && (mouseY-scroll) < (y + dy)*scale_factor && visible) {
       delay(120);
@@ -149,6 +153,8 @@ class dropdown {
           }
         }
       }
+    } else {
+      cursor(ARROW);
     }
 
     if (c == color(255, 0, 0) ) {
