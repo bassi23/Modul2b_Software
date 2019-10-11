@@ -430,6 +430,7 @@ void Auswertung_Station3() {
   text("Filzstifte", 800, 60);
   text("Kleber", 250, 400);
   text("Böden", 800, 400);
+
   textSize(20);
   pushMatrix();
   translate(width/2, height/2);
@@ -440,6 +441,18 @@ void Auswertung_Station3() {
   text("Riechskala", height/2 -525, -width/2 +80);
   popMatrix();
 
+
+  textSize(20);
+  text("Legende", 1190, 30);
+  textSize(16);
+  textAlign(LEFT);
+  text("0: nicht wahrnehmbar", 1100, 60);
+  text("1: sehr schwach", 1100, 80);
+  text("2: schwach", 1100, 100);
+  text("3: deutlich", 1100, 120);
+  text("4: stark", 1100, 140);
+  text("5: sehr stark", 1100, 160);
+  text("6: extrem stark", 1100, 180);
 
   fill(255, 100, 100);
   stroke(0);
