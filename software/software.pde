@@ -42,7 +42,7 @@ String[] freie_stationen_Strings = {"nicht freigeben", "freigeben"};
 String[] tutorial_Rot_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 String[] tutorial_Blau_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 //Logos und Hintergrundbilder
-PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil, hintergrund;
+PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil;
 // Bilder der zu messenden Stoffe für Station 3 - TVOC-Duelle
 PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild;
 
@@ -84,7 +84,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = 3.111;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -311,7 +311,6 @@ void setup() {
   iPhysicsLab = loadImage("img/iPhysicsLab.png");
   LMT = loadImage("img/LMT.png");
   SFZSLS = loadImage("img/SFZSLS.png");
-  hintergrund = loadImage("img/hintergrund.png");
 
   //
   Stoff1_bild = loadImage("/img/Stoff1.png");
