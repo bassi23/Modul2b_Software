@@ -1347,8 +1347,8 @@ void keyPressed() {
     float w = width;
     float h = height;
 
-    float frac = w/h;
-
+    float frac =(w/h);
+    println(frac);
     if (frac > 1.7777) {
       w = 1.777*h;
     } else if (frac < 1.7777) {

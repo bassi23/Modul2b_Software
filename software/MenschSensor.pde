@@ -490,26 +490,26 @@ void Station2_Sensor() {
 
   fill(255);
   stroke(0);
-  rect(10, 240, 440, 310);
+  rect(10, 240, 400, 310);
   rect(500, 190, 700, 400);
 
   fill(255, 200, 200);
-  rect(10, 310, 440, 50);
+  rect(10, 310, 400, 50);
   fill(200, 200, 255);
-  rect(10, 360, 440, 50);
+  rect(10, 360, 400, 50);
   fill(255, 255, 100);
-  rect(10, 410, 440, 50);
+  rect(10, 410, 400, 50);
   fill(200, 255, 200);
-  rect(10, 460, 440, 50);
+  rect(10, 460, 400, 50);
   fill(200);
-  rect(10, 510, 440, 50);
+  rect(10, 510, 400, 50);
 
 
 
   fill(0);
   textAlign(CENTER);
   for (int i = 0; i < 5; i++) {
-    text(nf(MesswertSensor[i], 0, 1), 280, 345 + 50*i);
+    text(nf(MesswertSensor[i], 0, 1), 260, 345 + 50*i);
   }
   textAlign(CORNER);
   text("A", 60, 345);
@@ -519,6 +519,8 @@ void Station2_Sensor() {
   text("E", 60, 545);
 
   text("Probe", 40, 290); 
+  textSize(20);
+  println(page);
   text("   Durchschnittliche\nKonzentration in ppb", 150, 265);
   text("Zeit in Sekunden", 750, 660);
   if (prob == 1) {
@@ -577,7 +579,7 @@ void Station2_Sensor() {
     }
   }
   stroke(0);
-  line(10, 310, 450, 310);
+  line(10, 310, 410, 310);
   line(130, 240, 130, 560);
 
 
@@ -677,7 +679,7 @@ void Station2_Sensor() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  text("TVOC in ppb",height/2 -440, -width/2 + 475);
+  text("TVOC in ppb",height/2 -440, -width/2 + 450);
 
   popMatrix();
 }
