@@ -4,6 +4,9 @@
 
 ## 11.10.2019
 
+- Icon hinzugefügt
+- "freie Auflösung" hinzugefügt <br>
+Wenn als Auflösung "frei" eingestellt ist, kann die Auflösung selbst eingestellt werden. Verändere die Größe des Fensters und drücke dann irgendeine Taste auf dem Keyboard. Dadurch wird die Größe des Fensters und aller Elemente darin auf die neue Größe angepasst.
 - Baselinesetzung (beachte neuen Arduino Code)
 - Autosave Optionen angepasst
 - Auswertung TVOC-Duelle angepasst
