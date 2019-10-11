@@ -44,7 +44,7 @@ String[] tutorial_Blau_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2"
 //Logos und Hintergrundbilder
 PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil, hintergrund;
 // Bilder der zu messenden Stoffe für Station 3 - TVOC-Duelle
-PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild, Stoff9_bild, Stoff10_bild;
+PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild;
 
 // Tabelle, in der Messdaten gespeichert werden
 Table table;
@@ -322,8 +322,6 @@ void setup() {
   Stoff6_bild = loadImage("/img/Stoff6.png");
   Stoff7_bild = loadImage("/img/Stoff7.png");
   Stoff8_bild = loadImage("/img/Stoff8.png");
-  Stoff9_bild = loadImage("/img/Stoff9.png");
-  Stoff10_bild = loadImage("/img/Stoff10.png");
 
   //
 
@@ -361,8 +359,6 @@ void setup() {
   Stoff6 = new TVOC_Kandidat(640, 600, Stoff6_bild, "Herkömmlicher Klebstoff");
   Stoff7 = new TVOC_Kandidat(640, 360, Stoff7_bild, "Parkettboden");
   Stoff8 = new TVOC_Kandidat(640, 600, Stoff8_bild, "PVC-Boden");
-  Stoff9 = new TVOC_Kandidat(640, 360, Stoff9_bild, "Stoff 9");
-  Stoff10 = new TVOC_Kandidat(640, 600, Stoff10_bild, "Stoff 10");
 
   naechstes_Duell = new button(1125, 200, 150, 75, "Nächstes\nDuell", -12, true, 20);
   naechster_Stoff = new button(1125, 150, 150, 75, "Nächster\nStoff", -12, true, 20);

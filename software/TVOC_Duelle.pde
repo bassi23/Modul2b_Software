@@ -61,7 +61,7 @@ void TVOC_Duelle_Riechen() {
   }
 
 
-  if (Duell_Runde < 5) {
+  if (Duell_Runde < 4) {
     naechstes_Duell.show();
   }
   if (Duell_Runde > 1) {
@@ -79,11 +79,9 @@ void TVOC_Duelle_Riechen() {
   } else if (Duell_Runde == 4) {
     Stoff7.show();
     Stoff8.show();
-  } else if (Duell_Runde == 5) {
-    Stoff9.show();
-    Stoff10.show();
     weiter_zum_Sensor.show();
   }
+
   if (weiter_zum_Sensor.isClicked()) {
     delay(200);
     weiter_zum_Sensor.hide();
@@ -99,8 +97,6 @@ void TVOC_Duelle_Riechen() {
   tvoc_duelle_werte_mensch[5] = 6*(Stoff6.x- 240)/800;
   tvoc_duelle_werte_mensch[6] = 6*(Stoff7.x- 240)/800;
   tvoc_duelle_werte_mensch[7] = 6*(Stoff8.x- 240)/800;
-  tvoc_duelle_werte_mensch[8] = 6*(Stoff9.x- 240)/800;
-  tvoc_duelle_werte_mensch[9] = 6*(Stoff10.x- 240)/800;
 }
 
 
@@ -181,7 +177,7 @@ float[] tvoc_duelle_werte_sensor = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 void TVOC_Duelle_Messen() {
   textSize(20);
 
-  if (tvoc_stoff < 10) {
+  if (tvoc_stoff < 8) {
     naechster_Stoff.show();
     zur_Auswertung.hide();
   } else {
@@ -295,25 +291,7 @@ void TVOC_Duelle_Messen() {
     line(Stoff8.x, 310, Stoff8.x, 350);
     line(Stoff8.x - 20, 330, Stoff8.x, 350);
     line(Stoff8.x, 350, Stoff8.x + 20, 330);
-  } else if (tvoc_stoff == 9) {
-    image(Stoff9_bild, Stoff9.x - 50, 210);
-    float r = 255*(Stoff9.x - 310)/800;
-    float g = 255 - r;
-    strokeWeight(4);
-    stroke(r, g, 0);
-    line(Stoff9.x, 310, Stoff9.x, 350);
-    line(Stoff9.x - 20, 330, Stoff9.x, 350);
-    line(Stoff9.x, 350, Stoff9.x + 20, 330);
-  } else if (tvoc_stoff == 10) {
-    image(Stoff10_bild, Stoff10.x - 50, 210);
-    float r = 255*(Stoff9.x - 310)/800;
-    float g = 255 - r;
-    strokeWeight(4);
-    stroke(r, g, 0);
-    line(Stoff10.x, 310, Stoff10.x, 350);
-    line(Stoff10.x - 20, 330, Stoff10.x, 350);
-    line(Stoff10.x, 350, Stoff10.x + 20, 330);
-  }
+  } 
   //Messung des Sensors
   if (index > 1) {
     float x = sgp_tvoc_data[index - 1];
@@ -346,12 +324,6 @@ void TVOC_Duelle_Messen() {
     } else if (tvoc_stoff == 8) {
       image(Stoff8_bild, x, 510);
       tvoc_duelle_werte_sensor[7] = (x - 240)/80;
-    } else if (tvoc_stoff == 9) {
-      image(Stoff9_bild, x, 510);
-      tvoc_duelle_werte_sensor[8] = (x - 240)/80;
-    } else if (tvoc_stoff == 10) {
-      image(Stoff10_bild, x, 510);
-      tvoc_duelle_werte_sensor[9] = (x - 240)/80;
     }
     imageMode(CORNER);
     float r_sensor = 255*(x - 240)/800;
@@ -367,58 +339,133 @@ void TVOC_Duelle_Messen() {
 
 
 void Auswertung_Station3() {
-
-  fill(0);
-  textFont(bold);
-  text("TVOC - Emission", 570, 50);
   textFont(normal);
-  image(Stoff1_bild, 340, 80);
-  image(Stoff2_bild, 840, 80);
-
-  image(Stoff3_bild, 340, 200);
-  image(Stoff4_bild, 840, 200);
-
-  image(Stoff5_bild, 340, 320);
-  image(Stoff6_bild, 840, 320);
-
-  image(Stoff7_bild, 340, 440);
-  image(Stoff8_bild, 840, 440);
-
-  image(Stoff9_bild, 340, 560);
-  image(Stoff10_bild, 840, 560);
-
 
   fill(255);
+  // noStroke();
+  //size(1280, 720);
   stroke(0);
-  rect(440, 80, 400, 100);
-  rect(440, 200, 400, 100);
-  rect(440, 320, 400, 100);
-  rect(440, 440, 400, 100);
-  rect(440, 560, 400, 100);
-
-  stroke(0);
-  line(440, 130, 840, 130);
-  line(440, 250, 840, 250);
-  line(440, 370, 840, 370);
-  line(440, 490, 840, 490);
-  line(440, 610, 840, 610);
+  rect(50, 20, 500, 330); 
+  rect(590, 20, 500, 330); 
+  rect(50, 370, 500, 330); 
+  rect(590, 370, 500, 330); 
 
 
-  line(640, 80, 640, 180);
-  line(640, 200, 640, 300);
-  line(640, 320, 640, 420);
-  line(640, 440, 640, 540);
-  line(640, 560, 640, 660);
+  noStroke();
+  fill(100);
+  text("Geruch", 150, 330);
+  text("Sensor", 280, 330);
+
+  text("Geruch", 150, 680);
+  text("Sensor", 280, 680);
+
+  text("Geruch", 690, 330);
+  text("Sensor", 820, 330);
+
+  text("Geruch", 690, 680);
+  text("Sensor", 820, 680);
+
+
+  image(Stoff1_bild, 435, 80);
+  image(Stoff2_bild, 435, 240);
+
+  image(Stoff3_bild, 975, 80);
+  image(Stoff4_bild, 975, 240);
+
+  image(Stoff5_bild, 435, 430);
+  image(Stoff6_bild, 435, 595);
+
+  image(Stoff7_bild, 975, 430);
+  image(Stoff8_bild, 975, 595);
+
+  fill(255, 100, 100);
+  rect(430, 25, 110, 50);
+  rect(430, 375, 110, 50);
+  rect(970, 25, 110, 50);
+  rect(970, 375, 110, 50);
+  fill(100, 255, 100);
+  rect(430, 190, 110, 50);
+  rect(430, 540, 110, 50);
+  rect(970, 190, 110, 50);
+  rect(970, 540, 110, 50);
 
   fill(0);
+  textSize(14);
   textAlign(CENTER);
-  for (int i = 0; i < 10; i+=2) {
-    text(nf(tvoc_duelle_werte_mensch[i], 0, 1), 540, 110 + 60*i); 
-    text(nf(tvoc_duelle_werte_mensch[i+1], 0, 1), 740, 110 + 60*i);
-    text(nf(6*tvoc_duelle_werte_sensor[i]/10, 0, 1), 540, 160 + 60*i); 
-    text(nf(6*tvoc_duelle_werte_sensor[i+1]/10, 0, 1), 740, 160 + 60*i);
+  text("mit Lösungs-\nmitteln", 485, 45);
+  text("ohne Lösungs-\nmitteln", 485, 210);
+
+  text("herkömmlich", 1025, 52);
+  text("VOC-frei", 1025, 218);
+
+  text("mit Lösungs-\nmitteln", 485, 395);
+  text("VOC-frei", 485, 570);
+
+  text("PVC", 1025, 405);
+  text("Parkett", 1025, 570);
+
+
+  stroke(200);
+  fill(255);
+  rect(125, 75, 250, 225);
+  rect(665, 75, 250, 225);
+  rect(125, 425, 250, 225);
+  rect(665, 425, 250, 225);
+  for (int i = 1; i < 6; i++) {
+    line(125, 75 + 37.5*i, 375, 75 + 37.5*i);
+    line(665, 75 + 37.5*i, 915, 75 + 37.5*i);
+    line(125, 425 + 37.5*i, 375, 425 + 37.5*i);
+    line(665, 425 + 37.5*i, 915, 425 + 37.5*i);
   }
-  textAlign(CORNER);
-  text("Deine Vorhersage", 150, 110);
-  text("Sensor", 190, 160);
+  fill(0);
+  for (int i = 0; i < 7; i++) {
+    text(6-i, 100, 80 + 37.5*i);
+    text(6-i, 640, 80 + 37.5*i);
+    text(6-i, 100, 430 + 37.5*i);
+    text(6-i, 640, 430 + 37.5*i);
+  }
+
+  textSize(26);
+  text("Lacke", 250, 60);
+  text("Filzstifte", 800, 60);
+  text("Kleber", 250, 400);
+  text("Böden", 800, 400);
+  textSize(20);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Riechskala", height/2 -180, -width/2 +80);
+  text("Riechskala", height/2 -180, -width/2 +620);
+  text("Riechskala", height/2 -525, -width/2 +620);
+  text("Riechskala", height/2 -525, -width/2 +80);
+  popMatrix();
+
+
+  fill(255, 100, 100);
+  stroke(0);
+  rect(150, 300, 30, - 37.5*tvoc_duelle_werte_mensch[0]);
+  rect(280, 300, 30, -37.5*6*tvoc_duelle_werte_sensor[0]/10);
+
+  rect(690, 300, 30, - 37.5*tvoc_duelle_werte_mensch[2]);
+  rect(820, 300, 30, -37.5*6*tvoc_duelle_werte_sensor[2]/10);
+
+  rect(150, 650, 30, - 37.5*tvoc_duelle_werte_mensch[4]);
+  rect(280, 650, 30, -37.5*6*tvoc_duelle_werte_sensor[4]/10);
+
+  rect(690, 650, 30, - 37.5*tvoc_duelle_werte_mensch[6]);
+  rect(820, 650, 30, -37.5*6*tvoc_duelle_werte_sensor[6]/10);
+
+  fill(100, 255, 100);
+
+  rect(190, 300, 30, - 37.5*tvoc_duelle_werte_mensch[1]);
+  rect(320, 300, 30, -37.5*6*tvoc_duelle_werte_sensor[1]/10);
+
+  rect(730, 300, 30, - 37.5*tvoc_duelle_werte_mensch[3]);
+  rect(860, 300, 30, -37.5*6*tvoc_duelle_werte_sensor[3]/10);
+
+  rect(190, 650, 30, - 37.5*tvoc_duelle_werte_mensch[5]);
+  rect(320, 650, 30, -37.5*6*tvoc_duelle_werte_sensor[5]/10);
+
+  rect(730, 650, 30, - 37.5*tvoc_duelle_werte_mensch[7]);
+  rect(860, 650, 30, -37.5*6*tvoc_duelle_werte_sensor[7]/10);
 }
