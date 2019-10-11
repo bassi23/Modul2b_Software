@@ -32,7 +32,7 @@ String[] Station4_Strings = {"", "Temperatur", "Luftfeuchte", "CO2", "TVOC"};
 String[] Station4_Auswertung_Strings = {"Zeit", "Temperatur", "Luftfeuchte", "CO2", "TVOC"};
 String[] Station4_Auswertung_Strings2 = {"Temperatur", "Luftfeuchte", "CO2", "TVOC"};
 String[] dateiformat_Strings = {"Format: .csv", "Format: .txt"};
-String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "autosave"};
+String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "autosave (jede Minute)", "autosave (jede Stunde)", "autosave (jeden Tag)"};
 String[] connect_Strings = {"verbinden", "nicht verbinden"};
 String[] error_bars_Strings = {"anzeigen", "nicht anzeigen"};
 String[] freie_stationen_Strings = {"nicht freigeben", "freigeben"};
@@ -188,7 +188,7 @@ void setup() {
   Alle_Sensoren_Blau = new dropdown("", 750, 10, 200, 30, 9, Alle_Sensoren_Strings, false, color(0, 0, 255));
 
   dateiformat = new dropdown("Format: .csv", 350, 40, 200, 30, 2, dateiformat_Strings, false, color(255, 12, 23));
-  autosave = new dropdown("nicht speichern", 700, 40, 300, 30, 3, autosave_Strings, false, color(255, 34, 23));
+  autosave = new dropdown("autosave (jeden Tag)", 700, 40, 300, 30, 5, autosave_Strings, false, color(255, 34, 23));
 
   connect = new dropdown("verbinden", 350, 180, 200, 30, 2, connect_Strings, false, color(12, 4, 45));
   error_bars = new dropdown("anzeigen", 700, 180, 200, 30, 2, error_bars_Strings, false, color(23, 4, 5));
@@ -539,8 +539,35 @@ void draw() {
 
   String auto = autosave.name;
 
-  if (auto == "autosave") {
-    saveData();
+  if (auto == "autosave (jede Minute)") {
+    if (second() == 0 && savedDay == false) {
+      saveData();
+      savedDay = true;
+      tagesIndex = 0;
+    }
+    if (second() > 0) {
+      savedDay = false;
+    }
+  }
+  if (auto == "autosave (jede Stunde)") {
+    if (second() == 0 && minute() == 0 && savedDay == false) {
+      saveData();
+      savedDay = true;
+      tagesIndex = 0;
+    }
+    if (second() > 0) {
+      savedDay = false;
+    }
+  }
+  if (auto == "autosave (jeden Tag)") {
+    if (second() == 0 && minute() == 0 && hour() == 0 && savedDay == false) {
+      saveData();
+      savedDay = true;
+      tagesIndex = 0;
+    }
+    if (second() > 0) {
+      savedDay = false;
+    }
   }
   Datenaufnahme();
   if (Stationen.isClicked()) {
@@ -833,6 +860,7 @@ void draw() {
   if (sicher_ja.isClicked()) {
     reset_bool = false; 
     index = 0;
+    tagesIndex = 0;
     zeroTime2 = millis();
     table.clearRows();
   }
@@ -1084,9 +1112,9 @@ void draw() {
       }
     }
   }
-  
-  
-  if(setBaseline.isClicked()){
+
+
+  if (setBaseline.isClicked()) {
     myPort.write("\n"); //set Baseline
   }
 }
@@ -1250,7 +1278,7 @@ void saveData() {
 
   if (txt_ == "Format: .csv") {
     table.clearRows();
-
+    println("SAVED");
     for (int i = 0; i < tagesIndex; i++) {
       if (zeit[index-1] != 0) {
         TableRow newRow = table.addRow();
@@ -1266,7 +1294,7 @@ void saveData() {
         newRow.setFloat("PM4", sps_pm4_data[index - tagesIndex + i]);
         newRow.setFloat("PM10", sps_pm10_data[index - tagesIndex + i]);
         try {
-          saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + "/alleDaten.csv");
+          saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + "um" + hour() + "_" + minute()+ "Uhr/alleDaten.csv");
         }
         catch(Exception e) {
           delay(1000);
@@ -1280,8 +1308,16 @@ void saveData() {
 
 void exit() {
   table.clearRows();
+  int temp = 0;
+  if (autosave.name == "nicht speichern") {
+    temp = index;
+    tagesIndex = index;
+  } else {
+    temp = tagesIndex;
+  }
 
-  for (int i = 0; i < tagesIndex; i++) {
+
+  for (int i = 0; i < temp; i++) {
     if (zeit[index-1] != 0) {
       TableRow newRow = table.addRow();
 
@@ -1297,7 +1333,7 @@ void exit() {
       newRow.setFloat("PM4", sps_pm4_data[index - tagesIndex + i]);
       newRow.setFloat("PM10", sps_pm10_data[index - tagesIndex + i]);
       try {
-        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + "um" + hour() + "_" + minute()+ " Uhr/alleDaten.csv");
+        saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year() + "um" + hour() + "_" + minute()+ "Uhr/alleDaten.csv");
       }
       catch(Exception e) {
         delay(1000);

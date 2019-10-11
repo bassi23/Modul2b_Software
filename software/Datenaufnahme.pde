@@ -59,11 +59,13 @@ boolean Station1Start = false;
 
 float del = 1;
 
-String[] BaselineString = {"nicht gesetzt","nicht gesetzt", "00", "00", "0000", "00", "00"};
+String[] BaselineString = {"nicht gesetzt", "nicht gesetzt", "00", "00", "0000", "00", "00"};
 
 
 float aktuellerTag = 0;
 float letzterTag = 0;
+
+boolean savedDay = false;
 
 void Datenaufnahme() {
   // tutorial
@@ -111,7 +113,6 @@ void Datenaufnahme() {
       indexZwischenSpeicher += 1;
       //myPort.clear();
       zeit[index] = (millis() - zeroTime)/1000;
-
       if ( millis() - time > 1000*del) {
         ////
         scd_temperature_data[index] =0;
@@ -155,10 +156,6 @@ void Datenaufnahme() {
         indexZwischenSpeicher = 0;
         if (measure) {
           index += 1;
-          if (hour() == 0 && minute() == 0 && second() == 0) {
-            // if (second() == 0) {
-            tagesIndex = 0;
-          }
           tagesIndex += 1;
         }
 
@@ -247,11 +244,11 @@ void Datenaufnahme() {
     } else if (data.length == 3) {
       BaselineString[0] = data[0];
       BaselineString[1] = data[1];
-      BaselineString[2] = nf(day(),2,0).toString();
-      BaselineString[3] = nf(month(),2,0).toString();
-      BaselineString[4] = nf(year(),4,0).toString();
-      BaselineString[5] = nf(hour(),2,0).toString();
-      BaselineString[6] = nf(minute(),2,0).toString();
+      BaselineString[2] = nf(day(), 2, 0).toString();
+      BaselineString[3] = nf(month(), 2, 0).toString();
+      BaselineString[4] = nf(year(), 4, 0).toString();
+      BaselineString[5] = nf(hour(), 2, 0).toString();
+      BaselineString[6] = nf(minute(), 2, 0).toString();
       myPort.clear();
       Daten = null;
     } else {
