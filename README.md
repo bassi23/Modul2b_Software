@@ -8,6 +8,7 @@
 - "freie Auflösung" hinzugefügt <br>
 Wenn als Auflösung in den Einstellung als "frei" eingestellt ist, kann sie beliebig angepasst werden. Verändere die Größe des Fensters und drücke dann irgendeine Taste auf dem Keyboard (z.B. Enter oder Leertaste). Dadurch wird die Größe des Fensters und aller Elemente darin auf die neue Größe angepasst.
 - Baselinesetzung (beachte neuen Arduino Code)
+- kleinere Anpassungen Station 2 - Mensch vs. Sensor
 - Autosave Optionen angepasst
 - Auswertung TVOC-Duelle angepasst
 
