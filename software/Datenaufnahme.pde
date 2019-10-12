@@ -2,7 +2,7 @@ float[][] tutorial_data = new float[10][1000];
 int index_tutorial = 0;
 float start_time_tutorial = 0;
 
-
+String[] time_String = new String[999999];
 float[] scd_temperature_data = new float[999999];
 float[] scd_humidity_data =new float[999999];
 float[] scd_co2_data = new float[999999];
@@ -240,6 +240,7 @@ void Datenaufnahme() {
 
         time = millis();
         zeit[index] = (millis() - zeroTime2)/1000;
+        time_String[index] = str(day()) + "." + str(month())+ "." + str(year()) + " " + str(hour()) + ":" + str(minute()) + ":" + str(second());
       }
     } else if (data.length == 3) {
       BaselineString[0] = data[0];

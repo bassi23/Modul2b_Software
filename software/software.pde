@@ -1269,17 +1269,17 @@ void saveData() {
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+ "/SPS/PM25.txt", SPS_PM25);
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year()+ "/SPS/PM4.txt", SPS_PM4);
     saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() +"/SPS/PM10.txt", SPS_PM10);
-    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/Zeit.txt", Zeit);
+    saveStrings("Messdaten/" + day() + "_" + month() + "_" + year() + "/Zeit.txt", time_String);
   }
 
   if (txt_ == "Format: .csv") {
     table.clearRows();
-    println("SAVED");
-    for (int i = 0; i < tagesIndex; i++) {
+     for (int i = 0; i < tagesIndex; i++) {
       if (zeit[index-1] != 0) {
         TableRow newRow = table.addRow();
         newRow.setInt("Zeit", i);
-        newRow.setFloat("Zeit", (zeit[index - tagesIndex + i] - zeit[index - tagesIndex]));
+        newRow.setString("Zeit", time_String[index - tagesIndex + i + 1]);
+     //   newRow.setFloat("Zeit", (zeit[index - tagesIndex + i] - zeit[index - tagesIndex]));
         newRow.setFloat("Temperatur", scd_temperature_data[index - tagesIndex + i]);
         newRow.setFloat("Luftfeuchte", scd_humidity_data[index - tagesIndex + i]);
         newRow.setFloat("CO2", scd_co2_data[index - tagesIndex + i]);
@@ -1318,7 +1318,7 @@ void exit() {
       TableRow newRow = table.addRow();
 
       newRow.setInt("Zeit", i);
-      newRow.setFloat("Zeit", (zeit[index - tagesIndex + i] - zeit[index - tagesIndex]));
+      newRow.setString("Zeit", time_String[index - tagesIndex + i + 1]);
       newRow.setFloat("Temperatur", scd_temperature_data[index - tagesIndex + i]);
       newRow.setFloat("Luftfeuchte", scd_humidity_data[index - tagesIndex + i]);
       newRow.setFloat("CO2", scd_co2_data[index - tagesIndex + i]);
@@ -1348,7 +1348,6 @@ void keyPressed() {
     float h = height;
 
     float frac =(w/h);
-    println(frac);
     if (frac > 1.7777) {
       w = 1.777*h;
     } else if (frac < 1.7777) {
