@@ -303,7 +303,7 @@ void setup() {
   aktualisierung_right_tutorial = new button(1183, 515, 50, 30, "right_arrow", 5, true, 20);
   aktualisierung_left_tutorial = new button(1098, 515, 50, 30, "left_arrow", 5, true, 20);
 
-  setBaseline = new button(50, 200, 150, 75, "Baseline setzen", 5, true, 20);
+  setBaseline = new button(50, 200, 170, 75, "Baseline setzen", 5, true, 20);
 
   sps = loadImage("img/sps30.jpg");
   sgp = loadImage("img/sgp30.jpg");
