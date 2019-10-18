@@ -239,6 +239,7 @@ void Datenaufnahme() {
         }
 
         time = millis();
+        myPort.clear();
         zeit[index] = (millis() - zeroTime2)/1000;
         time_String[index] = str(day()) + "." + str(month())+ "." + str(year()) + " " + str(hour()) + ":" + str(minute()) + ":" + str(second());
       }
