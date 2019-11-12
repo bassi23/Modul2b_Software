@@ -258,7 +258,7 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
 
 
 
-float gesamtzeit_station1 = 180;
+float gesamtzeit_station1 = 80;
 
 
 boolean ersterStart_Station1 = false;
@@ -285,9 +285,11 @@ void Station1() {
 
   fill(0);
   textSize(20);
+  textFont(bold);
   text("Station 1 - Feinstaubmessung", 20, 50);
-  text("Miss den Feinstaub, der von einem trockenen und einem nassen Tafelschwamm emittiert wird. Führe auch eine Referenzmessung\nohne Schwamm durch. Jede Messung dauert 3 Minuten und setzt sich aus den folgenden Schritten zusammen:", 20, 100);
-  text("-30 Sekunden Einlaufzeit\n-1 Minute Messung mit geschlossenem Deckel\n-1 Minute Messung mit geöffnetem Deckel\n-30 Sekunden Auslaufzeit", 450, 180);
+  textFont(normal);
+  text("In dieser Station wirst du messen wieviel Feinstaub das Beschriften und Abwischen einer Tafel mit Kreide erzeugt. Beachte die\nAnleitungsschritte auf dem beiliegenden Blatt. Jede Messung setzt sich aus den folgenden Schritten zusammen:", 20, 100);
+  text("1) Eine 10-sekündige Einlaufphase\n2) Beschrifte die Tafel für insgesamt 30 Sekunden\n3) Wische die Tafel 30 Sekunden lang\n4) Eine 10-sekündige Auslaufphase", 450, 180);
   textSize(30);
 
 
@@ -411,60 +413,62 @@ void referenzmessung() {
   fill(230);
   rect(1080, -1, 200, 720);
   stroke(100, 100);
-  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+  if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
     fill(150, 255, 150);
   } else {
     fill(200, 255, 200, 200);
   }
 
-  rect(120, 140, 138.333333, 500);
+  rect(120, 140, 103.75, 500);
 
-  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
-    fill(255, 200, 200);
-  } else {
-    fill(255, 200, 200, 200);
-  }
-  rect(258.333333, 140, 276.66666666, 500);
-
-  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+  if (round((millis() - time_station1)/1000) < 40 && round((millis() - time_station1)/1000) > 9) {
     fill(255, 255, 150);
   } else {
     fill(255, 255, 200, 200);
   }
+  rect(223.75, 140, 311.25, 500);
 
-  rect(535, 140, 276.66666666, 500);
-  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+  if (round((millis() - time_station1)/1000) < 70 && round((millis() - time_station1)/1000) > 39) {
+    fill(255, 200, 200);
+  } else {
+    fill(255, 200, 200, 200);
+  }
+
+
+  rect(535, 140, 311.25, 500);
+  if (round((millis() - time_station1)/1000) < 80 && round((millis() - time_station1)/1000) > 69) {
     fill(150, 255, 150);
   } else {
     fill(200, 255, 200, 200);
   }
 
-  rect(811.6666666, 140, 138.333333, 500);
+  rect(846.25, 140, 103.75, 500);
   textSize(26);
-  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+   if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Einlaufen", 135, 130);
-  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+  textSize(20);
+  text("Einlaufen", 125, 130);
+  if (round((millis() - time_station1)/1000) < 40 && round((millis() - time_station1)/1000) > 9) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Deckel schließen", 305, 130);
-  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+  text("Tafel beschriften", 295, 130);
+  if (round((millis() - time_station1)/1000) < 70 && round((millis() - time_station1)/1000) > 39) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Deckel öffnen", 600, 130);
-  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+  text("Tafel wischen", 630, 130);
+  if (round((millis() - time_station1)/1000) < 80 && round((millis() - time_station1)/1000) > 69) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Auslaufen", 821, 130);
+  text("Auslaufen", 850, 130);
   textSize(80);
   fill(170, 50);
   text("Referenzmessung", 200, 420);
@@ -529,10 +533,10 @@ void referenzmessung() {
   fill(0);
   textSize(20);
   text("0", 115, 660);
-  text("30", 245.333333, 660);
-  text("90", 525, 660);
-  text("150", 796.6666666, 660);
-  text("180", 938, 660);
+  text("10", 210, 660);
+  text("40", 525, 660);
+  text("70", 834, 660);
+  text("80", 938, 660);
 
 
 
@@ -683,67 +687,69 @@ void trockenerSchwamm() {
   fill(0);
   noStroke();
 
-  // Zeichne den Hintergrund
+   // Zeichne den Hintergrund
   fill(255);
   stroke(0);
   rect(120, 140, 830, 500);
   fill(230);
   rect(1080, -1, 200, 720);
   stroke(100, 100);
-  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+  if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
     fill(150, 255, 150);
   } else {
     fill(200, 255, 200, 200);
   }
 
-  rect(120, 140, 138.333333, 500);
+  rect(120, 140, 103.75, 500);
 
-  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
-    fill(255, 200, 200);
-  } else {
-    fill(255, 200, 200, 200);
-  }
-  rect(258.333333, 140, 276.66666666, 500);
-
-  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+  if (round((millis() - time_station1)/1000) < 40 && round((millis() - time_station1)/1000) > 9) {
     fill(255, 255, 150);
   } else {
     fill(255, 255, 200, 200);
   }
+  rect(223.75, 140, 311.25, 500);
 
-  rect(535, 140, 276.66666666, 500);
-  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+  if (round((millis() - time_station1)/1000) < 70 && round((millis() - time_station1)/1000) > 39) {
+    fill(255, 200, 200);
+  } else {
+    fill(255, 200, 200, 200);
+  }
+
+
+  rect(535, 140, 311.25, 500);
+  if (round((millis() - time_station1)/1000) < 80 && round((millis() - time_station1)/1000) > 69) {
     fill(150, 255, 150);
   } else {
     fill(200, 255, 200, 200);
   }
 
-  rect(811.6666666, 140, 138.333333, 500);
+  rect(846.25, 140, 103.75, 500);
   textSize(26);
-  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+   if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Einlaufen", 135, 130);
-  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+  textSize(20);
+  text("Einlaufen", 125, 130);
+  if (round((millis() - time_station1)/1000) < 40 && round((millis() - time_station1)/1000) > 9) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Deckel schließen", 305, 130);
-  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+  text("Tafel beschriften", 295, 130);
+  if (round((millis() - time_station1)/1000) < 70 && round((millis() - time_station1)/1000) > 39) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Deckel öffnen", 600, 130);
-  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+  text("Tafel wischen", 630, 130);
+  if (round((millis() - time_station1)/1000) < 80 && round((millis() - time_station1)/1000) > 69) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Auslaufen", 821, 130);
+  text("Auslaufen", 850, 130);
   textSize(80);
   fill(170, 50);
   text("trockener Schwamm", 200, 420);
@@ -808,10 +814,10 @@ void trockenerSchwamm() {
   fill(0);
   textSize(20);
   text("0", 115, 660);
-  text("30", 245.333333, 660);
-  text("90", 525, 660);
-  text("150", 796.6666666, 660);
-  text("180", 938, 660);
+  text("10", 210, 660);
+  text("40", 525, 660);
+  text("70", 834, 660);
+  text("80", 938, 660);
 
 
 
@@ -957,67 +963,69 @@ void nasserSchwamm() {
   fill(0);
   noStroke();
 
-  // Zeichne den Hintergrund
+    // Zeichne den Hintergrund
   fill(255);
   stroke(0);
   rect(120, 140, 830, 500);
   fill(230);
   rect(1080, -1, 200, 720);
   stroke(100, 100);
-  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+  if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
     fill(150, 255, 150);
   } else {
     fill(200, 255, 200, 200);
   }
 
-  rect(120, 140, 138.333333, 500);
+  rect(120, 140, 103.75, 500);
 
-  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
-    fill(255, 200, 200);
-  } else {
-    fill(255, 200, 200, 200);
-  }
-  rect(258.333333, 140, 276.66666666, 500);
-
-  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+  if (round((millis() - time_station1)/1000) < 40 && round((millis() - time_station1)/1000) > 9) {
     fill(255, 255, 150);
   } else {
     fill(255, 255, 200, 200);
   }
+  rect(223.75, 140, 311.25, 500);
 
-  rect(535, 140, 276.66666666, 500);
-  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+  if (round((millis() - time_station1)/1000) < 70 && round((millis() - time_station1)/1000) > 39) {
+    fill(255, 200, 200);
+  } else {
+    fill(255, 200, 200, 200);
+  }
+
+
+  rect(535, 140, 311.25, 500);
+  if (round((millis() - time_station1)/1000) < 80 && round((millis() - time_station1)/1000) > 69) {
     fill(150, 255, 150);
   } else {
     fill(200, 255, 200, 200);
   }
 
-  rect(811.6666666, 140, 138.333333, 500);
+  rect(846.25, 140, 103.75, 500);
   textSize(26);
-  if (round((millis() - time_station1)/1000) < 30 && round((millis() - time_station1)/1000) > 0) {
+   if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Einlaufen", 135, 130);
-  if (round((millis() - time_station1)/1000) < 90 && round((millis() - time_station1)/1000) > 29) {
+  textSize(20);
+  text("Einlaufen", 125, 130);
+  if (round((millis() - time_station1)/1000) < 40 && round((millis() - time_station1)/1000) > 9) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Deckel schließen", 305, 130);
-  if (round((millis() - time_station1)/1000) < 150 && round((millis() - time_station1)/1000) > 89) {
+  text("Tafel beschriften", 295, 130);
+  if (round((millis() - time_station1)/1000) < 70 && round((millis() - time_station1)/1000) > 39) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Deckel öffnen", 600, 130);
-  if (round((millis() - time_station1)/1000) < 180 && round((millis() - time_station1)/1000) > 149) {
+  text("Tafel wischen", 630, 130);
+  if (round((millis() - time_station1)/1000) < 80 && round((millis() - time_station1)/1000) > 69) {
     fill(0);
   } else {
     fill(170, 220);
   }
-  text("Auslaufen", 821, 130);
+  text("Auslaufen", 850, 130);
   textSize(80);
   fill(170, 50);
   text("nasser Schwamm", 200, 420);
@@ -1082,10 +1090,10 @@ void nasserSchwamm() {
   fill(0);
   textSize(20);
   text("0", 115, 660);
-  text("30", 245.333333, 660);
-  text("90", 525, 660);
-  text("150", 796.6666666, 660);
-  text("180", 938, 660);
+  text("10", 210, 660);
+  text("40", 525, 660);
+  text("70", 834, 660);
+  text("80", 938, 660);
 
 
 

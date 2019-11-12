@@ -4,6 +4,7 @@ void setting() {
   // error_bars.show();
   freie_stationen.show();
   setBaseline.show();
+  strichdicke.show();
   textSize(30);
   fill(0);
   reconnect();
@@ -11,6 +12,7 @@ void setting() {
 
   textSize(20);
   text("Daten speichern", 50, 50);
+  text("Strichdicke", 50, 50);
   text(nf(day(),2,0) + "." + nf(month(),2,0) + "." + nf(year(),4,0) + " " + nf(hour(),2,0) + ":" + nf(minute(),2,0) + ":" + nf(second(),2,0), 1040, 50);
   text("COM-Port", 50, 350);
   text("Auflösung", 50, 500);

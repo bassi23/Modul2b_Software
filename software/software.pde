@@ -12,7 +12,7 @@ import controlP5.*;
 //
 
 dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
-dropdown dateiformat, autosave, connect, error_bars, freie_stationen;
+dropdown dateiformat, autosave, connect, error_bars, freie_stationen, strichdicke;
 checkbox verbinde, fehler, verbinde_tutorial, fehler_tutorial, fehler_innenraum, verbinde_innenraum;
 
 dropdown tutorial_Rot, tutorial_Blau;
@@ -20,6 +20,7 @@ dropdown tutorial_Rot, tutorial_Blau;
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)", "Fullscreen", "frei"};
 //String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 String[] Alle_Sensoren_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
+String[] strichdicke_Strings = {"1 (dünn)", "2 (Standard)", "3 (dick)"};
 
 String[] SPS_Strings_Station1 = {"", "PM2.5", "PM10"};
 String[] SPS_Strings_Station1_Auswertung = {"", "PM2.5 (Referenz)", "PM10 (Referenz)", "PM2.5 (trocken)", "PM10 (trocken)", "PM2.5 (nass)", "PM10 (nass)"};
@@ -212,6 +213,7 @@ void setup() {
   tutorial_Blau = new dropdown("Rechts", 725, 115, 200, 30, 9, tutorial_Blau_Strings, false, color(0, 0, 255));
 
 
+  strichdicke = new dropdown("2 (Standard)", 700, 115, 200, 30, 3, strichdicke_Strings, false, color(1, 0, 255));
 
 
   table = new Table();

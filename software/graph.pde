@@ -90,7 +90,10 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
   fill(0);
   if (zeitskala1 == 0) {
     text("0", 160, 630);
+    textSize(10);
+    text(time_String[1], 160, 650);
   }
+  textSize(20);
 
   stroke(100);
   if (zeitskala1 == 0) {
@@ -629,7 +632,13 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
 
 
         if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
-          strokeWeight(1);
+          if (strichdicke.name == "1 (dünn)") {
+            strokeWeight(1);
+          } else if (strichdicke.name == "2 (Standard)") {
+            strokeWeight(2.5);
+          } else {
+            strokeWeight(5);
+          }
 
           if (connect.name == "verbinden") {
             line(x1, y1, x2, y2);
@@ -808,8 +817,13 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
 
 
         if (y1 >= 100 && y2 >= 100 && x2 >= 170 && x1 <= 1035 && x2 <= 1035) {
-          strokeWeight(1);
-
+          if (strichdicke.name == "1 (dünn)") {
+            strokeWeight(1);
+          } else if (strichdicke.name == "2 (Standard)") {
+            strokeWeight(2.5);
+          } else {
+            strokeWeight(5);
+          }
           if (connect.name == "verbinden") {
             line(x1, y1, x2, y2);
           } else {
