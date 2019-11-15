@@ -2,6 +2,17 @@
 
 ## Update
 
+
+## 15.11.2019
+
+- Aufgabenboxen an die Broschüre angepasst
+- Station 2 teilweise angepasst
+- Station 3 angepasst
+
+![alt text](https://raw.githubusercontent.com/bassi23/Modul2b_Software/master/Readme/Aufgabenbox.png) <br>
+
+Prinzipiell sind alle Stationen schon durchführbar.
+
 ## 11.10.2019
 
 - Icon hinzugefügt
