@@ -14,14 +14,16 @@ void MenschSensor() {
   textFont(bold);
   text("Station 2 - Mensch vs. Sensor", 20, 50);
   textFont(normal);
-  text("Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir dir Reihen-\nfolge.\n\nKlicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'.", 20, 100);
+  Station2_Aufgabentext_a.show();
+  //text("Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir dir Reihen-\nfolge.\n\nKlicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'.", 20, 100);
   stroke(0);
   line(0, 200, 1280, 200);
 
 
   noStroke();
-  textSize(30);
-  text("Konzentration in Probe", 490, 300);
+  textSize(25);
+  text("Konzentration", 20, 405);
+  text("Sicherheit in %", 20, 565);
   reihenfolge();
   fill(0);
   textSize(40);
@@ -38,6 +40,12 @@ void MenschSensor() {
   C.show();
   D.show();
   E.show();
+
+  a.show(myText[0]);
+  b.show(myText[1]);
+  c.show(myText[2]);
+  d.show(myText[3]);
+  e.show(myText[4]);
 
   for (int i = 0; i < 5; i++) {
     if (!A.active) {
@@ -190,7 +198,21 @@ void MenschSensor() {
     A.overlaps(E);
   }
 
-  if (A.inPlace && B.inPlace && C.inPlace && D.inPlace && E.inPlace) {
+  //println(Float.isNaN(float(trim(myText[0]))));
+  println(Float.isNaN(float(myText[0])));
+
+
+  float aa = float(myText[0]);
+  float bb = float(myText[1]);
+  float cc = float(myText[2]);
+  float dd = float(myText[3]);
+  float ee = float(myText[4]);
+  boolean ok = false;
+  if (aa > -1 && aa < 101 && bb > -1 && bb < 101 && cc > -1 && cc < 101 && dd > -1 && dd < 101 && ee > -1 && ee < 101) {
+    ok = true;
+  }
+
+  if (A.inPlace && B.inPlace && C.inPlace && D.inPlace && E.inPlace && ok) {
     Sensormessung.show();
   } else {
     Sensormessung.hide();
@@ -214,8 +236,8 @@ class Probe {
   }
 
   void show() {
-    if (x > (width - 50)*scale_factor) {
-      x =(width - 50)*scale_factor;
+    if (x > (width - 50*scale_factor)) {
+      x = (width - 50*scale_factor);
     }
     if (x < 50*scale_factor) {
       x = 50*scale_factor;
@@ -223,8 +245,8 @@ class Probe {
     if (y < 50*scale_factor) {
       y = 50*scale_factor;
     }
-    if (y > (height - 50)*scale_factor) {
-      y = (height - 50)*scale_factor;
+    if (y > (height - 50*scale_factor)) {
+      y = (height - 50*scale_factor);
     }
     if (text == "A") {
       fill(255, 200, 200);
@@ -238,17 +260,17 @@ class Probe {
       fill(200);
     }
     stroke(0);
-    rect(x-50, y - 50, 100, 100);
+    rect((x)/scale_factor-50, (y)/scale_factor-50, 100, 100);
     fill(0);
-    text(text, x-15, y+15);
+    text(text, x/scale_factor-15, y/scale_factor+15);
     if (this.y > 350*scale_factor && this.y < 450*scale_factor && this.x > 300*scale_factor && this.x < 1000*scale_factor) {
       this.inPlace = true;
     } else {
       this.inPlace = false;
     }
     if (this.isOver() && mousePressed && this.active) {
-      this.x = mouseX;
-      this.y = (mouseY - scroll);
+      x = mouseX;
+      y = (mouseY - scroll);
     }
   }
   void hide() {
@@ -256,7 +278,7 @@ class Probe {
     this.inPlace = true;
   }
   boolean isOver() {
-    if (mouseX/scale_factor > (x - 50) && mouseX/scale_factor  < (x + 50) && (mouseY - scroll)/scale_factor > (y - 50) && (mouseY - scroll)/scale_factor < (y + 50)) {
+    if (mouseX > (x - 50*scale_factor) && mouseX  < (x + 50*scale_factor) && (mouseY - scroll) > (y - 50*scale_factor) && (mouseY - scroll)< (y + 50*scale_factor)) {
       this.active = true;
       onlyOneProbe();
       return true;
@@ -279,7 +301,7 @@ class Probe {
     Probe e = (Probe)o;
     //von links
 
-    if (x + 50 > e.x -50 && x - 50 < e.x && y > e.y - 50 && y < e.y+50) {
+    if (x/scale_factor + 50 > e.x/scale_factor -50 && x/scale_factor - 50 < e.x/scale_factor && y > e.y/scale_factor - 50 && y/scale_factor < e.y/scale_factor+50) {
       e.x = x + 100*scale_factor;
     }
     //von rechts
@@ -414,7 +436,18 @@ void Station2_Sensor() {
   if ((millis() - currentTime)/1000 > 60) {
     MenschSensorMessen = false;
     if (prob != 5) {
-      text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'. Eine Messung\ndauert 60 Sekunden.", 20, 120);
+      if (temp == "A") {
+        Station2_Aufgabentext_b1.show();
+      } else if (temp == "B") {
+        Station2_Aufgabentext_b2.show();
+      } else if (temp == "C") {
+        Station2_Aufgabentext_b3.show();
+      } else if (temp == "D") {
+        Station2_Aufgabentext_b4.show();
+      } else if (temp == "E") {
+        Station2_Aufgabentext_b5.show();
+      }
+      //text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'. Eine Messung\ndauert 60 Sekunden.", 20, 120);
       messen.show();
     }
     letzteWiederholen.show();
@@ -517,12 +550,12 @@ void Station2_Sensor() {
     }
   }
   textAlign(CORNER);
-  text("A", 60, 345);
-  text("B", 60, 395);
-  text("C", 60, 445);
-  text("D", 60, 495);
-  text("E", 60, 545);
   textSize(20);
+  text("A", 60, 342);
+  text("B", 60, 392);
+  text("C", 60, 442);
+  text("D", 60, 492);
+  text("E", 60, 542);
   text("Probe", 40, 280); 
   text("   Durchschnittliche\nKonzentration in ppb", 140, 265);
   text("Zeit in Sekunden", 750, 660);
@@ -690,10 +723,10 @@ void Station2_Sensor() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  if(max <= 1000){
-  text("TVOC in ppb", height/2 -320, -width/2 + 410);
-  }else{
-     text("TVOC in ppb", height/2 -320, -width/2 + 390);
+  if (max <= 1000) {
+    text("TVOC in ppb", height/2 -320, -width/2 + 410);
+  } else {
+    text("TVOC in ppb", height/2 -320, -width/2 + 390);
   }
   popMatrix();
 }
@@ -714,7 +747,7 @@ void dottedLine(float x1, float y1, float x2, float yMax) {
 
 
 
-void  Station2_Vergleich() {
+void Station2_Vergleich() {
   ja_zufrieden.hide();
   messen.hide();
   letzteWiederholen.hide();
@@ -744,8 +777,9 @@ void  Station2_Vergleich() {
   }
 
   textSize(20);
-  text("Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du\ngegen den Sensor gewinnen?", 20, 100);
 
+  // text("Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du\ngegen den Sensor gewinnen?", 20, 100);
+  Station2_Aufgabentext_c.show();
 
   stroke(0);
   line(100, 300, 1180, 300);
@@ -762,7 +796,8 @@ void  Station2_Vergleich() {
   text("Sensor", 140, 460);
   textSize(50);
   text(Reihenfolge[0] + "         " + Reihenfolge[1] + "          " + Reihenfolge[2] + "         " +Reihenfolge[3] + "         " +Reihenfolge[4], 350, 365);
-  text(Reihenfolge_Sensor[0] + "         " + Reihenfolge_Sensor[1] + "          " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[3] + "         " +Reihenfolge_Sensor[4], 350, 465);
-  zumObermenu.x = 1000;
+  text(Reihenfolge_Sensor[0] + "          " + Reihenfolge_Sensor[1] + "          " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[3] + "          " +Reihenfolge_Sensor[4], 350, 465);
+  zumObermenu.x = 940;
+  zumObermenu.y = 660;
   zumObermenu.show();
 }

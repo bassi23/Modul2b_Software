@@ -288,8 +288,9 @@ void Station1() {
   textFont(bold);
   text("Station 1 - Feinstaubmessung", 20, 50);
   textFont(normal);
-  text("In dieser Station wirst du messen wieviel Feinstaub das Beschriften und Abwischen einer Tafel mit Kreide erzeugt. Beachte die\nAnleitungsschritte auf dem beiliegenden Blatt. Jede Messung setzt sich aus den folgenden Schritten zusammen:", 20, 100);
-  text("1) Eine 10-sekündige Einlaufphase\n2) Beschrifte die Tafel für insgesamt 30 Sekunden\n3) Wische die Tafel 30 Sekunden lang\n4) Eine 10-sekündige Auslaufphase", 450, 180);
+  Station1_Aufgabentext.show();
+ // text("In dieser Station wirst du messen wieviel Feinstaub das Beschriften und Abwischen einer Tafel mit Kreide erzeugt. Beachte die\nAnleitungsschritte auf dem beiliegenden Blatt. Jede Messung setzt sich aus den folgenden Schritten zusammen:", 20, 100);
+ // text("1) Eine 10-sekündige Einlaufphase\n2) Beschrifte die Tafel für insgesamt 30 Sekunden\n3) Wische die Tafel 30 Sekunden lang\n4) Eine 10-sekündige Auslaufphase", 450, 180);
   textSize(30);
 
 

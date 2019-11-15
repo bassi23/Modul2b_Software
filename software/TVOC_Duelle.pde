@@ -7,19 +7,22 @@ void TVOC_Duelle() {
   textFont(bold);
   text("Station 3 - TVOC-Duelle", 20, 50);
   textFont(normal);
-  text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
+  Station3_Aufgabentext_a1.show();
+  //  text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
   stroke(0);
   line(0, 180, 1280, 180);
   noStroke();
   textFont(bold);
   text("a) Riechen", 20, 220);
   textFont(normal);
-  text("\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
+  Station3_Aufgabentext_a2.show();
+  //  text("\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
   TVOC_Duelle_Start.show();
   if (TVOC_Duelle_Start.isClicked()) {
     delay(200);
     page = 3.1;
   }
+  Station3_Aufgabentext_a2.y = 230;
   Duell_Runde = 1;
 }
 
@@ -29,17 +32,17 @@ void TVOC_Duelle_Riechen() {
   weiter_zum_Sensor.hide();
   textSize(20);
   fill(0);
-  textFont(bold);
-  text("Station 3 - TVOC-Duelle", 20, 50);
-  textFont(normal);
-  text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
+  //  Station3_Aufgabentext_a1.show();
+  // text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
   stroke(0);
   line(0, 180, 1280, 180);
   noStroke();
   textFont(bold);
-  text("a) Riechen", 20, 220);
+  text("a) Riechen", 20, 50);
   textFont(normal);
-  text("\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
+  Station3_Aufgabentext_a2.y = 60;
+  Station3_Aufgabentext_a2.show();
+  // text("\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
   text("nicht wahrnehmbar (0)", 50, 480);
   text("extrem stark (6)", 1050, 480);
   TVOC_Duelle_Start.hide();
@@ -179,6 +182,7 @@ void TVOC_Duelle_Messen() {
 
   if (tvoc_stoff < 8) {
     naechster_Stoff.show();
+    naechster_Stoff.y = 200;
     zur_Auswertung.hide();
   } else {
     zur_Auswertung.show();
@@ -202,25 +206,49 @@ void TVOC_Duelle_Messen() {
   textFont(bold);
   text("b) Messen", 20, 50);
   textFont(normal);
-  text("\nMiss nun die verschiedenen Stoffe, indem du sie in die Gläser legst und unter den Sensor schraubst. Vergleiche die Messwerte\nmit deiner Vorhersage.", 20, 50);
-
-  text("Miss die Emission von Stoff " + tvoc_stoff +". Warte dabei bis sich ein Gleichgewicht eingestellt hat.", 20, 150);
+  // text("\nMiss nun die verschiedenen Stoffe, indem du sie in die Gläser legst und unter den Sensor schraubst. Vergleiche die Messwerte\nmit deiner Vorhersage.", 20, 50);
+  Station3_Aufgabentext_b1.show();
+  //text("Miss die Emission von Stoff " + tvoc_stoff +". Warte dabei bis sich ein Gleichgewicht eingestellt hat.", 20, 150);
   textFont(bold);
   text("Deine Einschätzung", 20, 200);
   text("Messung des\nSensors", 20, 450);
   textFont(normal);
+  text("nicht wahrnehmbar (0)", 10, 380);
+  text("extrem stark (6)", 1060, 380);
+  text("nicht wahrnehmbar (0)", 10, 630);
+  text("extrem stark (6)", 1060, 630);
   stroke(0);
-  line(0, 125, 1280, 125);
+  // line(0, 125, 1280, 125);
   noStroke();
   for (int i = 0; i < 50; i++) {
     fill(255*(float(i)/50), 255-255*(float(i)/50), 0);
     rect(240 + 16*i, 350, 16, 50);
     rect(240 + 16*i, 600, 16, 50);
   }
-
+  fill(0);
   if (tvoc_stoff == 1) {
     //Meine Vorhersage
     image(Stoff1_bild, Stoff1.x - 50, 210);
+    text(nf(tvoc_duelle_werte_mensch[0], 0, 1), Stoff1.x - 90, 260);
+    float points = 6*(Stoff1.x-240)/800;
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points < 1.5) {
+      skala = "sehr schwach";
+    } else if (points < 2.5) {
+      skala = "schwach";
+    } else if (points < 3.5) {
+      skala = "deutlich";
+    } else if (points < 4.5) {
+      skala = "stark";
+    } else if (points < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
+    text(skala, Stoff1.x + 70, 260);
+
     float r = 255*(Stoff1.x - 310)/800;
     float g = 255 - r;
     strokeWeight(4);
@@ -230,6 +258,25 @@ void TVOC_Duelle_Messen() {
     line(Stoff1.x, 350, Stoff1.x + 20, 330);
   } else if (tvoc_stoff == 2) {
     image(Stoff2_bild, Stoff2.x - 50, 210);
+    text(nf(tvoc_duelle_werte_mensch[1], 0, 1), Stoff2.x - 90, 250);
+    float points = 6*(Stoff1.x-240)/800;
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points < 1.5) {
+      skala = "sehr schwach";
+    } else if (points < 2.5) {
+      skala = "schwach";
+    } else if (points < 3.5) {
+      skala = "deutlich";
+    } else if (points < 4.5) {
+      skala = "stark";
+    } else if (points < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
+    text(skala, Stoff1.x + 70, 260);
     float r = 255*(Stoff2.x - 310)/800;
     float g = 255 - r;
     strokeWeight(4);
@@ -238,7 +285,26 @@ void TVOC_Duelle_Messen() {
     line(Stoff2.x - 20, 330, Stoff2.x, 350);
     line(Stoff2.x, 350, Stoff2.x + 20, 330);
   } else if (tvoc_stoff == 3) {
+    text(nf(tvoc_duelle_werte_mensch[2], 0, 1), Stoff3.x - 90, 250);
     image(Stoff3_bild, Stoff3.x - 50, 210);
+    float points = 6*(Stoff1.x-240)/800;
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points < 1.5) {
+      skala = "sehr schwach";
+    } else if (points < 2.5) {
+      skala = "schwach";
+    } else if (points < 3.5) {
+      skala = "deutlich";
+    } else if (points < 4.5) {
+      skala = "stark";
+    } else if (points < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
+    text(skala, Stoff1.x + 70, 260);
     float r = 255*(Stoff3.x - 310)/800;
     float g = 255 - r;
     strokeWeight(4);
@@ -247,7 +313,26 @@ void TVOC_Duelle_Messen() {
     line(Stoff3.x - 20, 330, Stoff3.x, 350);
     line(Stoff3.x, 350, Stoff3.x + 20, 330);
   } else if (tvoc_stoff == 4) {
+    text(nf(tvoc_duelle_werte_mensch[3], 0, 1), Stoff4.x - 90, 250);
     image(Stoff4_bild, Stoff4.x - 50, 210);
+    float points = 6*(Stoff1.x-240)/800;
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points < 1.5) {
+      skala = "sehr schwach";
+    } else if (points < 2.5) {
+      skala = "schwach";
+    } else if (points < 3.5) {
+      skala = "deutlich";
+    } else if (points < 4.5) {
+      skala = "stark";
+    } else if (points < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
+    text(skala, Stoff1.x + 70, 260);
     float r = 255*(Stoff4.x - 310)/800;
     float g = 255 - r;
     strokeWeight(4);
@@ -256,7 +341,26 @@ void TVOC_Duelle_Messen() {
     line(Stoff4.x - 20, 330, Stoff4.x, 350);
     line(Stoff4.x, 350, Stoff4.x + 20, 330);
   } else if (tvoc_stoff == 5) {
+    text(nf(tvoc_duelle_werte_mensch[4], 0, 1), Stoff5.x - 90, 250);
     image(Stoff5_bild, Stoff5.x - 50, 210);
+    float points = 6*(Stoff1.x-240)/800;
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points < 1.5) {
+      skala = "sehr schwach";
+    } else if (points < 2.5) {
+      skala = "schwach";
+    } else if (points < 3.5) {
+      skala = "deutlich";
+    } else if (points < 4.5) {
+      skala = "stark";
+    } else if (points < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
+    text(skala, Stoff1.x + 70, 260);
     float r = 255*(Stoff5.x - 310)/800;
     float g = 255 - r;
     strokeWeight(4);
@@ -265,7 +369,26 @@ void TVOC_Duelle_Messen() {
     line(Stoff5.x - 20, 330, Stoff5.x, 350);
     line(Stoff5.x, 350, Stoff5.x + 20, 330);
   } else if (tvoc_stoff == 6) {
+    text(nf(tvoc_duelle_werte_mensch[5], 0, 1), Stoff6.x - 90, 250);
     image(Stoff6_bild, Stoff6.x - 50, 210);
+    float points = 6*(Stoff1.x-240)/800;
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points < 1.5) {
+      skala = "sehr schwach";
+    } else if (points < 2.5) {
+      skala = "schwach";
+    } else if (points < 3.5) {
+      skala = "deutlich";
+    } else if (points < 4.5) {
+      skala = "stark";
+    } else if (points < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
+    text(skala, Stoff1.x + 70, 260);
     float r = 255*(Stoff6.x - 310)/800;
     float g = 255 - r;
     strokeWeight(4);
@@ -274,7 +397,26 @@ void TVOC_Duelle_Messen() {
     line(Stoff6.x - 20, 330, Stoff6.x, 350);
     line(Stoff6.x, 350, Stoff6.x + 20, 330);
   } else if (tvoc_stoff == 7) {
+    text(nf(tvoc_duelle_werte_mensch[6], 0, 1), Stoff7.x - 90, 250);
     image(Stoff7_bild, Stoff7.x - 50, 210);
+    float points = 6*(Stoff1.x-240)/800;
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points < 1.5) {
+      skala = "sehr schwach";
+    } else if (points < 2.5) {
+      skala = "schwach";
+    } else if (points < 3.5) {
+      skala = "deutlich";
+    } else if (points < 4.5) {
+      skala = "stark";
+    } else if (points < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
+    text(skala, Stoff1.x + 70, 260);
     float r = 255*(Stoff7.x - 310)/800;
     float g = 255 - r;
     strokeWeight(4);
@@ -283,7 +425,26 @@ void TVOC_Duelle_Messen() {
     line(Stoff7.x - 20, 330, Stoff7.x, 350);
     line(Stoff7.x, 350, Stoff7.x + 20, 330);
   } else if (tvoc_stoff == 8) {
+    text(nf(tvoc_duelle_werte_mensch[7], 0, 1), Stoff8.x - 90, 250);
     image(Stoff8_bild, Stoff8.x - 50, 210);
+    float points = 6*(Stoff1.x-240)/800;
+    String skala = "";
+    if (points < 0.5) {
+      skala = "nicht wahrnehmbar";
+    } else if (points < 1.5) {
+      skala = "sehr schwach";
+    } else if (points < 2.5) {
+      skala = "schwach";
+    } else if (points < 3.5) {
+      skala = "deutlich";
+    } else if (points < 4.5) {
+      skala = "stark";
+    } else if (points < 5.5) {
+      skala = "sehr stark";
+    } else {
+      skala = "extrem stark";
+    }
+    text(skala, Stoff1.x + 70, 260);
     float r = 255*(Stoff8.x - 310)/800;
     float g = 255 - r;
     strokeWeight(4);
@@ -303,27 +464,180 @@ void TVOC_Duelle_Messen() {
     if (tvoc_stoff == 1) {
       image(Stoff1_bild, x, 510);
       tvoc_duelle_werte_sensor[0] = (x - 240)/80;
+      text(nf(tvoc_duelle_werte_sensor[0], 0, 1), x - 90, 520);
+
+      float points = 6*(x-240)/800;
+      String skala = "";
+      if (points < 0.5) {
+        skala = "nicht wahrnehmbar";
+      } else if (points < 1.5) {
+        skala = "sehr schwach";
+      } else if (points < 2.5) {
+        skala = "schwach";
+      } else if (points < 3.5) {
+        skala = "deutlich";
+      } else if (points < 4.5) {
+        skala = "stark";
+      } else if (points < 5.5) {
+        skala = "sehr stark";
+      } else {
+        skala = "extrem stark";
+      }
+      text(skala, x + 70, 520);
     } else if (tvoc_stoff == 2) {
       image(Stoff2_bild, x, 510);
       tvoc_duelle_werte_sensor[1] = (x - 240)/80;
+      text(nf(tvoc_duelle_werte_sensor[1], 0, 1), x - 90, 520);
+      float points = 6*(x-240)/800;
+      String skala = "";
+      if (points < 0.5) {
+        skala = "nicht wahrnehmbar";
+      } else if (points < 1.5) {
+        skala = "sehr schwach";
+      } else if (points < 2.5) {
+        skala = "schwach";
+      } else if (points < 3.5) {
+        skala = "deutlich";
+      } else if (points < 4.5) {
+        skala = "stark";
+      } else if (points < 5.5) {
+        skala = "sehr stark";
+      } else {
+        skala = "extrem stark";
+      }
+      text(skala, x + 70, 520);
     } else if (tvoc_stoff == 3) {
       image(Stoff3_bild, x, 510);
       tvoc_duelle_werte_sensor[2] = (x - 240)/80;
+      text(nf(tvoc_duelle_werte_sensor[2], 0, 1), x - 90, 520);
+      float points = 6*(x-240)/800;
+      String skala = "";
+      if (points < 0.5) {
+        skala = "nicht wahrnehmbar";
+      } else if (points < 1.5) {
+        skala = "sehr schwach";
+      } else if (points < 2.5) {
+        skala = "schwach";
+      } else if (points < 3.5) {
+        skala = "deutlich";
+      } else if (points < 4.5) {
+        skala = "stark";
+      } else if (points < 5.5) {
+        skala = "sehr stark";
+      } else {
+        skala = "extrem stark";
+      }
+      text(skala, x + 70, 520);
     } else if (tvoc_stoff == 4) {
       image(Stoff4_bild, x, 510);
       tvoc_duelle_werte_sensor[3] = (x - 240)/80;
+      text(nf(tvoc_duelle_werte_sensor[3], 0, 1), x - 90, 520);
+      float points = 6*(x-240)/800;
+      String skala = "";
+      if (points < 0.5) {
+        skala = "nicht wahrnehmbar";
+      } else if (points < 1.5) {
+        skala = "sehr schwach";
+      } else if (points < 2.5) {
+        skala = "schwach";
+      } else if (points < 3.5) {
+        skala = "deutlich";
+      } else if (points < 4.5) {
+        skala = "stark";
+      } else if (points < 5.5) {
+        skala = "sehr stark";
+      } else {
+        skala = "extrem stark";
+      }
+      text(skala, x + 70, 520);
     } else if (tvoc_stoff == 5) {
       image(Stoff5_bild, x, 510);
       tvoc_duelle_werte_sensor[4] = (x - 240)/80;
+      text(nf(tvoc_duelle_werte_sensor[4], 0, 1), x - 90, 520);
+      float points = 6*(x-240)/800;
+      String skala = "";
+      if (points < 0.5) {
+        skala = "nicht wahrnehmbar";
+      } else if (points < 1.5) {
+        skala = "sehr schwach";
+      } else if (points < 2.5) {
+        skala = "schwach";
+      } else if (points < 3.5) {
+        skala = "deutlich";
+      } else if (points < 4.5) {
+        skala = "stark";
+      } else if (points < 5.5) {
+        skala = "sehr stark";
+      } else {
+        skala = "extrem stark";
+      }
+      text(skala, x + 70, 520);
     } else if (tvoc_stoff == 6) {
       image(Stoff6_bild, x, 510);
       tvoc_duelle_werte_sensor[5] = (x - 240)/80;
+      text(nf(tvoc_duelle_werte_sensor[5], 0, 1), x - 90, 520);
+      float points = 6*(x-240)/800;
+      String skala = "";
+      if (points < 0.5) {
+        skala = "nicht wahrnehmbar";
+      } else if (points < 1.5) {
+        skala = "sehr schwach";
+      } else if (points < 2.5) {
+        skala = "schwach";
+      } else if (points < 3.5) {
+        skala = "deutlich";
+      } else if (points < 4.5) {
+        skala = "stark";
+      } else if (points < 5.5) {
+        skala = "sehr stark";
+      } else {
+        skala = "extrem stark";
+      }
+      text(skala, x + 70, 520);
     } else if (tvoc_stoff == 7) {
       image(Stoff7_bild, x, 510);
       tvoc_duelle_werte_sensor[6] = (x - 240)/80;
+      text(nf(tvoc_duelle_werte_sensor[6], 0, 1), x - 90, 520);
+      float points = 6*(x-240)/800;
+      String skala = "";
+      if (points < 0.5) {
+        skala = "nicht wahrnehmbar";
+      } else if (points < 1.5) {
+        skala = "sehr schwach";
+      } else if (points < 2.5) {
+        skala = "schwach";
+      } else if (points < 3.5) {
+        skala = "deutlich";
+      } else if (points < 4.5) {
+        skala = "stark";
+      } else if (points < 5.5) {
+        skala = "sehr stark";
+      } else {
+        skala = "extrem stark";
+      }
+      text(skala, x + 70, 520);
     } else if (tvoc_stoff == 8) {
       image(Stoff8_bild, x, 510);
       tvoc_duelle_werte_sensor[7] = (x - 240)/80;
+      text(nf(tvoc_duelle_werte_sensor[7], 0, 1), x - 90, 520);
+      float points = 6*(x-240)/800;
+      String skala = "";
+      if (points < 0.5) {
+        skala = "nicht wahrnehmbar";
+      } else if (points < 1.5) {
+        skala = "sehr schwach";
+      } else if (points < 2.5) {
+        skala = "schwach";
+      } else if (points < 3.5) {
+        skala = "deutlich";
+      } else if (points < 4.5) {
+        skala = "stark";
+      } else if (points < 5.5) {
+        skala = "sehr stark";
+      } else {
+        skala = "extrem stark";
+      }
+      text(skala, x + 70, 520);
     }
     imageMode(CORNER);
     float r_sensor = 255*(x - 240)/800;

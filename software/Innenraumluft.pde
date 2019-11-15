@@ -9,11 +9,13 @@ void Innenraumluft() {
   textFont(bold);
   text("Station 4 - Dicke Luft", 20, 50);
   textFont(normal);
-  text("In diesem Experiment werden wir die Innenraumluftqualität bestimmen. Setze dich jeweils für 5 Minuten in eine Messkammer\nund nimm den Verlauf der Parameter Temperatur, Luftfeuchte, TVOC, CO  und eCO  auf.\nVariiere die Belüftung, indem du den integrierten Ventilator \n\n\n\n\nlaufen lässt. Warte nach jeder Runde, bis sich die Werte wieder normalisiert haben.", 20, 100);
-  text("a) ausgeschaltet\nb) auf halber Kraft\nc) auf voller Kraft", 500, 200);
+  Station4_Aufgabentext_a.show();
+  Station4_Aufgabentext_a2.show();
+//  text("In diesem Experiment werden wir die Innenraumluftqualität bestimmen. Setze dich jeweils für 5 Minuten in eine Messkammer\nund nimm den Verlauf der Parameter Temperatur, Luftfeuchte, TVOC, CO  und eCO  auf.\nVariiere die Belüftung, indem du den integrierten Ventilator \n\n\n\n\nlaufen lässt. Warte nach jeder Runde, bis sich die Werte wieder normalisiert haben.", 20, 100);
+//  text("a) ausgeschaltet\nb) auf halber Kraft\nc) auf voller Kraft", 500, 200);
 
   textSize(14);
-  text("2                    2", 730, 140);
+//  text("2                    2", 730, 140);
   stroke(0);
   Station4a.show();
   Station4agestartet = false;
@@ -238,11 +240,13 @@ void Innenraumluft_a() {
   rect(1105, 190, 155, 85);
   fill(0);
   textAlign(LEFT);
+  
   text("Fehlerbalken", 1110, 217);
   text("verbinden", 1110, 260);
   textAlign(CENTER);
   textSize(20);
-  text("Zeit in Sekunden", 455, 700);
+  text("0% Ventilator", 550, 40);
+  text("Zeit in Sekunden", 550, 700);
   fill(0);
   back.show();
   zumObermenu.show();
@@ -768,7 +772,9 @@ void Innenraumluft_b() {
   text("Fehlerbalken", 1110, 217);
   text("verbinden", 1110, 260);
   textSize(20);
-  text("Zeit in Sekunden", 455, 700);
+  textAlign(CENTER);
+  text("50% Ventilator", 550, 40);
+  text("Zeit in Sekunden", 550, 700);
   fill(0);
   back.show();
   zumObermenu.show();
@@ -1077,7 +1083,9 @@ void Innenraumluft_c() {
   text("Fehlerbalken", 1110, 217);
   text("verbinden", 1110, 260);
   textSize(20);
-  text("Zeit in Sekunden", 455, 700);
+  textAlign(CENTER);
+  text("100% Ventilator", 550, 40);
+  text("Zeit in Sekunden", 550, 700);
   fill(0);
   back.show();
   zumObermenu.show();
