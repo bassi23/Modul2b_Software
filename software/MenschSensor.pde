@@ -1,6 +1,8 @@
 String[] Reihenfolge = {"A", "B", "C", "D", "E"};
+String[] Reihenfolge2 = {"A", "B", "C", "D", "E"};
 String[] Reihenfolge_Sensor = {"A", "B", "C", "D", "E"};
 float[] Position = {0, 0, 0, 0, 0};
+float[] Position2 = {0, 0, 0, 0, 0};
 
 void MenschSensor() {
   one.active = false;
@@ -198,8 +200,6 @@ void MenschSensor() {
     A.overlaps(E);
   }
 
-  //println(Float.isNaN(float(trim(myText[0]))));
-  println(Float.isNaN(float(myText[0])));
 
 
   float aa = float(myText[0]);
@@ -213,11 +213,225 @@ void MenschSensor() {
   }
 
   if (A.inPlace && B.inPlace && C.inPlace && D.inPlace && E.inPlace && ok) {
+    Station2_Riechen2.show();
+  } else {
+    Station2_Riechen2.hide();
+  }
+}
+
+void Station2_Riechen2() {
+  onlyOneProbe();
+  fill(0);
+  textSize(20);
+  textFont(bold);
+  text("Station 2 - Mensch vs. Sensor", 20, 50);
+  textFont(normal);
+  Station2_Aufgabentext_a2.show();
+  //text("Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir dir Reihen-\nfolge.\n\nKlicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'.", 20, 100);
+  stroke(0);
+  line(0, 200, 1280, 200);
+
+
+  noStroke();
+  textSize(25);
+  text("Konzentration", 20, 405);
+  text("Sicherheit in %", 20, 565);
+  reihenfolge();
+  fill(0);
+  textSize(40);
+  for (int i = 0; i < 4; i++) {
+    text(">", 415 + 150*i, 410);
+  }
+  fill(255);
+  stroke(0);
+  for (int i = 0; i < 5; i++) {
+    rect(300 + 150*i, 345, 110, 110);
+  }
+  A2.show();
+  B2.show();
+  C2.show();
+  D2.show();
+  E2.show();
+
+  a2.show(myText2[0]);
+  b2.show(myText2[1]);
+  c2.show(myText2[2]);
+  d2.show(myText2[3]);
+  e2.show(myText2[4]);
+
+  for (int i = 0; i < 5; i++) {
+    if (!A2.active) {
+
+      if (A2.x + 50 > 305 + 150*i && A2.x - 50 < 405+ 150*i && A2.y + 50 > 350 && A2.y  - 50 < 450 ) {
+        A2.x = 355+ 150*i; 
+        A2.y = 400;
+      }
+      if (!B2.active) {
+        if (B2.x + 50 > 305 + 150*i && B2.x - 50 < 405+ 150*i && B2.y + 50 > 350 && B2.y  - 50 < 450 ) {
+          B2.x = 355+ 150*i; 
+          B2.y = 400;
+        }
+      }
+      if (!C2.active) {
+        if (C2.x + 50 > 305 + 150*i && C2.x - 50 < 405+ 150*i && C2.y + 50 > 350 && C2.y  - 50 < 450 ) {
+          C2.x = 355+ 150*i; 
+          C2.y = 400;
+        }
+      }
+      if (!D2.active) {
+        if (D2.x + 50 > 305 + 150*i && D2.x - 50 < 405+ 150*i && D2.y + 50 > 350 && D2.y  - 50 < 450 ) {
+          D2.x = 355+ 150*i; 
+          D2.y = 400;
+        }
+      }
+      if (!E2.active) {
+        if (E2.x + 50 > 305 + 150*i && E2.x - 50 < 405+ 150*i && E2.y + 50 > 350 && E2.y  - 50 < 450 ) {
+          E2.x = 355+ 150*i; 
+          E2.y = 400;
+        }
+      }
+    }
+  }
+
+
+  if (A2.active) {
+    A2.overlaps(B2);
+    A2.overlaps(C2);
+    A2.overlaps(D2);
+    A2.overlaps(E2);
+    B2.overlaps(A2);
+    B2.overlaps(C2);
+    B2.overlaps(D2);
+    B2.overlaps(E2);
+    C2.overlaps(A2);
+    C2.overlaps(B2);
+    C2.overlaps(D2);
+    C2.overlaps(E2);
+    D2.overlaps(A2);
+    D2.overlaps(B2);
+    D2.overlaps(C2);
+    D2.overlaps(E2);
+    E2.overlaps(A2);
+    E2.overlaps(B2);
+    E2.overlaps(C2);
+    E2.overlaps(D2);
+    //
+  }
+
+  if (B2.active) {
+    B2.overlaps(A2);
+    B2.overlaps(C2);
+    B2.overlaps(D2);
+    B2.overlaps(E2);
+    A2.overlaps(B2);
+    A2.overlaps(C2);
+    A2.overlaps(D2);
+    A2.overlaps(E2);
+    C2.overlaps(A2);
+    C2.overlaps(B2);
+    C2.overlaps(D2);
+    C2.overlaps(E2);
+    E2.overlaps(A2);
+    E2.overlaps(B2);
+    E2.overlaps(C2);
+    E2.overlaps(D2);
+    D2.overlaps(A2);
+    D2.overlaps(B2);
+    D2.overlaps(C2);
+    D2.overlaps(E2);
+  }
+
+  if (C2.active) {
+    C2.overlaps(A2);
+    C2.overlaps(B2);
+    C2.overlaps(D2);
+    C2.overlaps(E2);
+    B2.overlaps(A2);
+    B2.overlaps(C2);
+    B2.overlaps(D2);
+    B2.overlaps(E2);
+    A2.overlaps(B2);
+    A2.overlaps(C2);
+    A2.overlaps(D2);
+    A2.overlaps(E2);
+    E2.overlaps(A2);
+    E2.overlaps(B2);
+    E2.overlaps(C2);
+    E2.overlaps(D2);
+    D2.overlaps(A2);
+    D2.overlaps(B2);
+    D2.overlaps(C2);
+    D2.overlaps(E2);
+  }
+
+  if (D2.active) {
+    D2.overlaps(A2);
+    D2.overlaps(B2);
+    D2.overlaps(C2);
+    D2.overlaps(E2);
+    C2.overlaps(A2);
+    C2.overlaps(B2);
+    C2.overlaps(D2);
+    C2.overlaps(E2);
+    B2.overlaps(A2);
+    B2.overlaps(C2);
+    B2.overlaps(D2);
+    B2.overlaps(E2);
+    A2.overlaps(B2);
+    A2.overlaps(C2);
+    A2.overlaps(D2);
+    A2.overlaps(E2);
+    E2.overlaps(A2);
+    E2.overlaps(B2);
+    E2.overlaps(C2);
+    E2.overlaps(D2);
+  }
+
+  if (E2.active) {
+    E2.overlaps(A2);
+    E2.overlaps(B2);
+    E2.overlaps(C2);
+    E2.overlaps(D2);
+    D2.overlaps(A2);
+    D2.overlaps(B2);
+    D2.overlaps(C2);
+    D2.overlaps(E2);
+    C2.overlaps(A2);
+    C2.overlaps(B2);
+    C2.overlaps(D2);
+    C2.overlaps(E2);
+    B2.overlaps(A2);
+    B2.overlaps(C2);
+    B2.overlaps(D2);
+    B2.overlaps(E2);
+    A2.overlaps(B2);
+    A2.overlaps(C2);
+    A2.overlaps(D2);
+    A2.overlaps(E2);
+  }
+
+
+
+
+  float aa = float(myText2[0]);
+  float bb = float(myText2[1]);
+  float cc = float(myText2[2]);
+  float dd = float(myText2[3]);
+  float ee = float(myText2[4]);
+  boolean ok = false;
+  if (aa > -1 && aa < 101 && bb > -1 && bb < 101 && cc > -1 && cc < 101 && dd > -1 && dd < 101 && ee > -1 && ee < 101) {
+    ok = true;
+  }
+
+  if (A2.inPlace && B2.inPlace && C2.inPlace && D2.inPlace && E2.inPlace && ok) {
     Sensormessung.show();
   } else {
     Sensormessung.hide();
   }
 }
+
+
+
 
 
 
@@ -351,6 +565,38 @@ void onlyOneProbe() {
     C.active = false; 
     D.active = false;
   }
+
+  if (A2.active) {
+    B2.active = false; 
+    C2.active = false; 
+    D2.active = false; 
+    E2.active = false;
+  }
+  if (B2.active) {
+    A2.active = false;
+    C2.active = false; 
+    D2.active = false; 
+    E2.active = false;
+  }
+  if (C2.active) {
+    A2.active = false;
+    B2.active = false;
+    D2.active = false; 
+    E2.active = false;
+  } 
+
+  if (D2.active) {
+    A2.active = false;
+    B2.active = false;
+    C2.active = false; 
+    E2.active = false;
+  }
+  if (E2.active) {
+    A2.active = false;
+    B2.active = false;
+    C2.active = false; 
+    D2.active = false;
+  }
 }
 
 
@@ -379,6 +625,30 @@ void reihenfolge() {
       Reihenfolge[i] = "E";
     }
   }
+
+  Position2[0] = A2.x;
+  Position2[1] = B2.x;
+  Position2[2] = C2.x;
+  Position2[3] = D2.x;
+  Position2[4] = E2.x;
+  Position = sort(Position);
+  for (int i = 0; i < 5; i++) {
+    if (Position2[i] == A2.x) {
+      Reihenfolge2[i] = "A";
+    }
+    if (Position2[i] == B2.x) {
+      Reihenfolge2[i] = "B";
+    }
+    if (Position2[i] == C2.x) {
+      Reihenfolge2[i] = "C";
+    }
+    if (Position2[i] == D2.x) {
+      Reihenfolge2[i] = "D";
+    }
+    if (Position2[i] == E2.x) {
+      Reihenfolge2[i] = "E";
+    }
+  }
 }
 
 
@@ -401,6 +671,13 @@ void Station2_Sensor() {
   C.hide();
   D.hide();
   E.hide();
+  A2.hide();
+  B2.hide();
+  C2.hide();
+  D2.hide();
+  E2.hide();
+
+
   reset_Station2.show();
   up2.show();
   down2.show();
@@ -418,9 +695,7 @@ void Station2_Sensor() {
       scale_MenschSensor = 7;
     }
   }
-  textSize(20);
-  textFont(bold);
-  text("Deine Reihenfolge: " + Reihenfolge[0] + " > " + Reihenfolge[1] + " > " + Reihenfolge[2] + " > " +Reihenfolge[3] + " > " +Reihenfolge[4], 20, 50);
+
   textFont(normal);
   String temp = "A";
   if (prob == 1) {
@@ -434,6 +709,7 @@ void Station2_Sensor() {
   }
   textSize(20);
   if ((millis() - currentTime)/1000 > 60) {
+
     MenschSensorMessen = false;
     if (prob != 5) {
       if (temp == "A") {
@@ -452,8 +728,13 @@ void Station2_Sensor() {
     }
     letzteWiederholen.show();
   } else {
+    textSize(20);
+    textFont(bold);
+    text("Deine Reihenfolge 1. Versuch: " + Reihenfolge[0] + " > " + Reihenfolge[1] + " > " + Reihenfolge[2] + " > " +Reihenfolge[3] + " > " +Reihenfolge[4], 20, 75);
+    text("\nDeine Reihenfolge 2. Versuch: " + Reihenfolge2[0] + " > " + Reihenfolge2[1] + " > " + Reihenfolge2[2] + " > " +Reihenfolge2[3] + " > " +Reihenfolge2[4], 20, 75);
     messen.hide();
     letzteWiederholen.hide();
+    textFont(normal);
   }
 
   if (messen.isClicked()) {
@@ -702,7 +983,8 @@ void Station2_Sensor() {
         x1 = (190 + m*x2 - y2)/m;
       }
 
-      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && MenschSensorMesswerte[j][i] != 0) {
+      //  if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && MenschSensorMesswerte[j][i] != 0) {
+      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200) {
         strokeWeight(3);
         line(x1, y1, x2, y2);
       }
@@ -716,7 +998,7 @@ void Station2_Sensor() {
   }
 
   if (ja_zufrieden.isClicked()) {
-    page = 2.11;
+    page = 2.111;
   }
   strokeWeight(1);
 
@@ -781,22 +1063,34 @@ void Station2_Vergleich() {
   // text("Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du\ngegen den Sensor gewinnen?", 20, 100);
   Station2_Aufgabentext_c.show();
 
-  stroke(0);
-  line(100, 300, 1180, 300);
-  line(100, 400, 1180, 400);
-  line(100, 500, 1180, 500);
+  //stroke(0);
+  //line(100, 300, 1180, 300);
+  //line(100, 400, 1180, 400);
+  //line(100, 500, 1180, 500);
 
-  for (int i = -1; i < 6; i++) {
-    line(280 + 180*i, 300, 280 + 180*i, 500);
+  //for (int i = -1; i < 6; i++) {
+  //  line(280 + 180*i, 300, 280 + 180*i, 500);
+  //}
+  stroke(0);
+  for (int i = 0; i < 5; i++) {
+    fill(255);
+    rect(350 + 175*i, 250, 100, 100); 
+    rect(350 + 175*i, 385, 100, 100); 
+    rect(350 + 175*i, 520, 100, 100);
   }
+  fill(0);
   textSize(25);
-  text("hohe Konzentration                                           niedrige Konzentration", 300, 250);
+  text("hohe Konzentration                                           niedrige Konzentration", 300, 200);
   textSize(30);
-  text("    Deine\nReihenfolge", 106, 333);
-  text("Sensor", 140, 460);
+  textAlign(CENTER);
+  text("Riechen\nVersuch 1", 120, 283);
+  text("Riechen\nVersuch 2", 120, 420);
+  text("Sensor", 120, 580);
   textSize(50);
-  text(Reihenfolge[0] + "         " + Reihenfolge[1] + "          " + Reihenfolge[2] + "         " +Reihenfolge[3] + "         " +Reihenfolge[4], 350, 365);
-  text(Reihenfolge_Sensor[0] + "          " + Reihenfolge_Sensor[1] + "          " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[3] + "          " +Reihenfolge_Sensor[4], 350, 465);
+  textAlign(LEFT);
+  text(Reihenfolge[0] + "         " + Reihenfolge[1] + "         " + Reihenfolge[2] + "         " +Reihenfolge[3] + "         " +Reihenfolge[4], 385, 315);
+  text(Reihenfolge2[0] + "         " + Reihenfolge2[1] + "         " + Reihenfolge2[2] + "         " +Reihenfolge2[3] + "         " +Reihenfolge2[4], 385, 450);
+  text(Reihenfolge_Sensor[0] + "         " + Reihenfolge_Sensor[1] + "          " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[3] + "         " +Reihenfolge_Sensor[4], 385, 580);
   zumObermenu.x = 940;
   zumObermenu.y = 660;
   zumObermenu.show();

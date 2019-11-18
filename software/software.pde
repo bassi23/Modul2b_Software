@@ -16,7 +16,7 @@ dropdown dateiformat, autosave, connect, error_bars, freie_stationen, strichdick
 checkbox verbinde, fehler, verbinde_tutorial, fehler_tutorial, fehler_innenraum, verbinde_innenraum;
 
 Aufgabentext Station1_Aufgabentext;
-Aufgabentext Station2_Aufgabentext_a, Station2_Aufgabentext_b1, Station2_Aufgabentext_b2, Station2_Aufgabentext_b3, Station2_Aufgabentext_b4, Station2_Aufgabentext_b5, Station2_Aufgabentext_c;
+Aufgabentext Station2_Aufgabentext_a, Station2_Aufgabentext_a2, Station2_Aufgabentext_b1, Station2_Aufgabentext_b2, Station2_Aufgabentext_b3, Station2_Aufgabentext_b4, Station2_Aufgabentext_b5, Station2_Aufgabentext_c;
 Aufgabentext Station3_Aufgabentext_a1, Station3_Aufgabentext_a2, Station3_Aufgabentext_b1;
 Aufgabentext Station4_Aufgabentext_a, Station4_Aufgabentext_a2, Station4_Aufgabentext_b, Station4_Aufgabentext_c;
 
@@ -25,7 +25,10 @@ dropdown tutorial_Rot, tutorial_Blau;
 
 
 String[] myText = {"", "", "", "", ""};
+String[] myText2 = {"", "", "", "", ""};
 Textfield a, b, c, d, e;
+Textfield a2, b2, c2, d2, e2;
+
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)", "Fullscreen", "frei"};
 //String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
@@ -83,7 +86,10 @@ button tutorial_reset, sicher_ja_reset, sicher_nein_reset, left_tutorial, right_
 
 button setBaseline;
 
+button Station2_Riechen2;
+
 Probe A, B, C, D, E;
+Probe A2, B2, C2, D2, E2;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
 
@@ -95,14 +101,14 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = 2;
+float page = 4;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
 float zeroTime4 = 0;
 float zeroTime5 = 0;
 
-float time_Station4 = 300;
+float time_Station4 = 480;
 
 int anzahlCOMPorts = 0;
 int ausgewaehlterPort = 0;
@@ -180,13 +186,24 @@ void setup() {
   d = new Textfield(750, 500, 110, 100, myText[3], true);
   e = new Textfield(900, 500, 110, 100, myText[4], true);
 
+
+  a2 = new Textfield(300, 500, 110, 100, myText2[0], true);
+  b2 = new Textfield(450, 500, 110, 100, myText2[1], true);
+  c2 = new Textfield(600, 500, 110, 100, myText2[2], true);
+  d2 = new Textfield(750, 500, 110, 100, myText2[3], true);
+  e2 = new Textfield(900, 500, 110, 100, myText2[4], true);
+
+
+
   Station1_Aufgabentext = new Aufgabentext(" In dieser Station wirst du messen wieviel Feinstaub das Beschriften und Abwischen einer Tafel mit Kreide erzeugt. Dafür stehen dir zwei unterschiedliche Kreidearten zur Verfügung. Beschrifte die Tafel für 30 Sekunden...", 25, 75, 1200, 125);
-  Station2_Aufgabentext_a = new Aufgabentext(" Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir die Reihenfolge. Trage auch ein wie sicher du dir bei deiner Anordnung bist. Klicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'!", 15, 75, 1245, 110);
-  Station2_Aufgabentext_b1 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Schraube Probe A an die Platine und klicke auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 75, 850, 100);
-  Station2_Aufgabentext_b2 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Schraube Probe B an die Platine und klicke auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 75, 850, 100);
-  Station2_Aufgabentext_b3 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Schraube Probe C an die Platine und klicke auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 75, 850, 100);
-  Station2_Aufgabentext_b4 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Schraube Probe D an die Platine und klicke auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 75, 850, 100);
-  Station2_Aufgabentext_b5 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Schraube Probe E an die Platine und klicke auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 75, 850, 100);
+  Station2_Aufgabentext_a = new Aufgabentext(" Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir die Reihenfolge. Trage auch ein wie sicher du dir bei deiner Anordnung bist.", 15, 75, 1245, 90);
+  Station2_Aufgabentext_a2 = new Aufgabentext(" Mische die Proben und ordne sie erneut. Gib auch deine Sicherheit an. Klicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'!", 15, 75, 1245, 90);
+
+  Station2_Aufgabentext_b1 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe A in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
+  Station2_Aufgabentext_b2 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe B in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850,110);
+  Station2_Aufgabentext_b3 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe C in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
+  Station2_Aufgabentext_b4 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe D in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
+  Station2_Aufgabentext_b5 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe E in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
 
   Station2_Aufgabentext_c = new Aufgabentext(" Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du gegen den Sensor gewinnen?", 20, 50, 1250, 100);
 
@@ -196,8 +213,8 @@ void setup() {
   Station3_Aufgabentext_b1 = new Aufgabentext(" Miss nun die verschiedenen Stoffe mit dem Sensor. Lege die Proben in die Plexiglasbox und stelle das Sensorboard darüber. Warte bis der Sensor ein Gleichgewicht erreicht hat und notiere die auch diese Einschätzung in der Broschüre.", 20, 60, 1250, 90);
 
 
-  Station4_Aufgabentext_a = new Aufgabentext(" In diesem Experiment wirst du Messungen der Innenraumluftqualität durchführen. Setze dich jeweils 3 Minuten in die begehbare Messkammer und nimm den Verlauf der Parameter Temperatur, Luftfeuchte, TVOC und CO_2 auf. Variiere die Belüftung durch die integrierten Ventilatoren.", 25, 70, 1200, 120);
-  Station4_Aufgabentext_a2 = new Aufgabentext(" Klicke auf diesen Button, um eine Messung mit ausgeschaltetem Ventilator durchzu- führen", 380, 300, 500, 170);
+  Station4_Aufgabentext_a = new Aufgabentext(" In diesem Experiment wirst du Messungen der Innenraumluftqualität durchführen. Eine Messung besteht aus 2 Phasen:", 25, 70, 1200, 235);
+  Station4_Aufgabentext_a2 = new Aufgabentext(" Klicke auf diesen Button, um eine Messung mit ausgeschaltetem Ventilator durchzu- führen", 380, 450, 500, 170);
   SPS_Blau_Station1 = new dropdown("Rechts", 750, 20, 200, 30, 3, SPS_Strings_Station1, false, color(0, 0, 255));
   SPS_Rot_Station1 = new dropdown("Links", 120, 20, 200, 30, 3, SPS_Strings_Station1, false, color(255, 0, 0));
   SPS_Blau_Station1_Auswertung = new dropdown("Rechts", 750, 20, 200, 30, 7, SPS_Strings_Station1_Auswertung, false, color(0, 0, 255));
@@ -376,7 +393,14 @@ void setup() {
   D = new Probe(805, 260, "D", true, false);
   E = new Probe(955, 260, "E", true, false);
 
+  A2 = new Probe(355, 260, "A", true, false);
+  B2 = new Probe(505, 260, "B", true, false);
+  C2 = new Probe(655, 260, "C", true, false);
+  D2 = new Probe(805, 260, "D", true, false);
+  E2 = new Probe(955, 260, "E", true, false);
+
   Sensormessung = new button(557, 615, 200, 100, "Sensormessung", 5, true, 20);
+  Station2_Riechen2 = new button(557, 615, 200, 100, "2. Versuch", 5, false, 20);
   messen = new button(875, 70, 150, 100, "Messen", 5, true, 20);
   letzteWiederholen = new button(1050, 70, 150, 100, "letzte Messung\nwiederholen", -9, true, 20);
   ja_zufrieden = new button(400, 70, 150, 100, "Ja", 5, true, 20);
@@ -406,7 +430,7 @@ void setup() {
   zur_Auswertung = new button(1115, 500, 160, 75, "Zur Aus-\nwertung", -10, true, 20);
 
   // Station 4
-  Station4a = new button(570, 390, 140, 50, "zu Aufgabe a)", 5, true, 20); 
+  Station4a = new button(570, 550, 140, 50, "zu Aufgabe a)", 5, true, 20); 
   Station4b = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20); 
   Station4c = new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20); 
   Station4Auswertung = new button(1115, 365, 140, 70, "zur\nAuswertung", -12, true, 20); 
@@ -417,9 +441,9 @@ void setup() {
   down2_Station4 = new button(840, 670, 50, 30, "left_arrow", 5, true, 20);
 
 
-  zero = new button(120, 90, 150, 50, "0% Lüfter", 5, true, 20);
-  fifty = new button(420, 90, 150, 50, "50% Lüfter", 5, true, 20);
-  hundred = new button(750, 90, 150, 50, "100% Lüfter", 5, true, 20);
+  zero = new button(120, 90, 200, 50, "ohne Ventilator", 5, true, 20);
+  fifty = new button(700, 90, 200, 50, "mit Ventilator", 5, true, 20);
+ // hundred = new button(750, 90, 150, 50, "100% Lüfter", 5, true, 20);
 
   genaueAnalyse =  new button(1115, 550, 140, 50, "Analyse", 5, true, 20);
   s = new slider(200, 400, false, false);
@@ -502,7 +526,7 @@ void draw() {
   reset_Station2.hide();
   zero.hide();
   fifty.hide();
-  hundred.hide();
+  //hundred.hide();
   setBaseline.hide();
   tutorial_zum.hide();
   tutorial_weiter.hide();
@@ -541,7 +565,8 @@ void draw() {
   ////////////////////////////////////////////////////////
   zumObermenu.x = 1115;
 
-  if (page == 2.1) {
+  if (page == 2.11) {
+    Station2_Sensor();
     up2.y = 190;
     down2.y = 245;
     up2.x = 1210;
@@ -683,8 +708,10 @@ void draw() {
     MenschSensor();
     zumObermenu.hide();
   } else if (page == 2.1) {
-    Station2_Sensor();
+    Station2_Riechen2();
   } else if (page == 2.11) {
+    Station2_Sensor();
+  } else if (page == 2.111) {
     Station2_Vergleich();
   } else if (page == 2.5) {
     Station2Oder3();
@@ -835,6 +862,8 @@ void draw() {
         page = 2;
       } else if (page == 2.11) {
         page = 2.1;
+      }else if (page == 2.111) {
+        page = 2.11;
       } else if (page == 3.1) {
         page = 3;
       } else if (page == 3.11) {
@@ -978,10 +1007,17 @@ void draw() {
       station1_nass_abgeschlossen = false;
     }
   }
-
+  if (Station2_Riechen2.isClicked()) {
+    page = 2.1;
+    MesswertSensor[0] = 0;
+    MesswertSensor[1] = 0;
+    MesswertSensor[2] = 0;
+    MesswertSensor[3] = 0;
+    MesswertSensor[4] = 0;
+  }
 
   if (Sensormessung.isClicked()) {
-    page = 2.1;
+    page = 2.2;
     MesswertSensor[0] = 0;
     MesswertSensor[1] = 0;
     MesswertSensor[2] = 0;
@@ -1142,7 +1178,6 @@ void draw() {
       }
     }
   }
-
 
   if (setBaseline.isClicked()) {
     myPort.write("\n"); //set Baseline
@@ -1451,6 +1486,68 @@ void keyPressed() {
       }
     }
   }
+  
+    if (page == 2.1) {
+    if (a2.isActive()) {
+      if (keyCode == BACKSPACE) {
+        if (myText2[0].length() > 0 ) {
+          myText2[0] = myText2[0].substring( 0, myText2[0].length()- 1 );
+        }
+      } else if (keyCode == DELETE) {
+        myText2[0] = "" ;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+        myText2[0] = myText2[0] + key;
+      }
+    }
+
+    if (b2.isActive()) {
+      if (keyCode == BACKSPACE) {
+        if (myText2[1].length() > 0 ) {
+          myText2[1] = myText2[1].substring( 0, myText2[1].length()- 1 );
+        }
+      } else if (keyCode == DELETE) {
+        myText2[1] = "" ;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+        myText2[1] = myText2[1] + key;
+      }
+    }
+    if (c.isActive()) {
+      if (keyCode == BACKSPACE) {
+        if (myText[2].length() > 0 ) {
+          myText[2] = myText[2].substring( 0, myText[2].length()- 1 );
+        }
+      } else if (keyCode == DELETE) {
+        myText2[2] = "" ;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+        myText2[2] = myText2[2] + key;
+      }
+    }
+    if (d2.isActive()) {
+      if (keyCode == BACKSPACE) {
+        if (myText2[3].length() > 0 ) {
+          myText2[3] = myText[3].substring( 0, myText2[3].length()- 1 );
+        }
+      } else if (keyCode == DELETE) {
+        myText2[3] = "" ;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+        myText2[3] = myText2[3] + key;
+      }
+    }
+    if (e2.isActive()) {
+      if (keyCode == BACKSPACE) {
+        if (myText2[4].length() > 0 ) {
+          myText2[4] = myText[4].substring( 0, myText2[4].length()- 1 );
+        }
+      } else if (keyCode == DELETE) {
+        myText2[4] = "" ;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+        myText2[4] = myText2[4] + key;
+      }
+    }
+  }
+  
+  
+  
 }
 
 //void cursorStuff(){
