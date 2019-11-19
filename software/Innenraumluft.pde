@@ -41,7 +41,7 @@ int scale_Innenraum2 = 0;
 void Innenraumluft_a() {
   fill(0);
   textSize(20);
-  image(ventilator, 0,0);
+  image(fan_aus, 500, 35);
   int Rot = -1;
   int Blau = -1;
 
@@ -198,13 +198,13 @@ void Innenraumluft_a() {
   textAlign(CENTER);
   if (Rot != -1 && maxRot != 0) {
     for (int i = 0; i< 6; i++) {
-       text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
+      text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
     }
   }
 
   if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
-        text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
     }
   }
   textAlign(CORNER);
@@ -250,7 +250,7 @@ void Innenraumluft_a() {
   text("verbinden", 1110, 260);
   textAlign(CENTER);
   textSize(20);
-  text("Ventilator ausgeschaltet lassen!", 550, 40);
+  text("Ventilator ausgeschaltet lassen!", 550, 25);
   text("Zeit in Sekunden", 550, 700);
   fill(0);
   back.show();
@@ -594,7 +594,7 @@ float currentTime4b = -10000000;
 void Innenraumluft_b() {
   fill(0);
   textSize(20);
-
+  image(fan[round(0.25*frameCount)%8], 500, 30);
   int Rot = -1;
   int Blau = -1;
 
@@ -738,13 +738,13 @@ void Innenraumluft_b() {
   textAlign(CENTER);
   if (Rot != -1 && maxRot != 0) {
     for (int i = 0; i< 6; i++) {
-       text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
+      text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
     }
   }
 
   if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
-        text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
     }
   }
   textAlign(CORNER);
@@ -788,7 +788,7 @@ void Innenraumluft_b() {
   text("verbinden", 1110, 260);
   textSize(20);
   textAlign(CENTER);
-  text("Ventilator anschalten!", 550, 40);
+  text("Ventilator anschalten!", 550, 25);
   text("Zeit in Sekunden", 550, 700);
   fill(0);
   back.show();
@@ -1213,373 +1213,574 @@ int indexY = 6;
 
 
 void AuswertungInnenraum() {
-  zero.show();
-  fifty.show();
-  //hundred.show();
-
-  if (zero.isClicked()) {
-    if (zeroPercent) {
-      zeroPercent = false;
-    } else {
-      zeroPercent = true;
-    }
-  }
-  if (fifty.isClicked()) {
-    if (fiftyPercent) {
-      fiftyPercent = false;
-    } else {
-      fiftyPercent = true;
-    }
-  }
 
 
-  fill(0);
-  textSize(20);
-  indexX = 6;
-  indexY = 6;
-
-  float absoluteMaxX = 0;
-  float absoluteMinX = 99999;
-  float absoluteMaxY = 0;
-  float absoluteMinY = 99999;
-
-  if (scale_Innenraum2 != 0) {
-    absoluteMinX = 0;
-    absoluteMinY = 0;
-  }
-  if (scale_Innenraum1 != 0) {
-    absoluteMinX = 0;
-    absoluteMinY = 0;
-  }
-
-  if (Station4_Auswertung_Rot.name == "Zeit") {
-    indexX = 6;
-    absoluteMaxX = 300;
-    absoluteMinX = 0;
-  } else if (Station4_Auswertung_Rot.name == "Temperatur") {
-    indexX = 0;
-    if (scale_Innenraum2 == 1) {
-      absoluteMaxX = 10;
-    } else if (scale_Innenraum2 == 2) {
-      absoluteMaxX = 15;
-    } else if (scale_Innenraum2 == 3) {
-      absoluteMaxX = 20;
-    } else if (scale_Innenraum2 == 4) {
-      absoluteMaxX = 25;
-    } else if (scale_Innenraum2 == 5) {
-      absoluteMaxX = 30;
-    }
-  } else if (Station4_Auswertung_Rot.name == "Luftfeuchte") {
-    indexX = 1;
-    absoluteMaxX = 20*scale_Innenraum2;
-  } else if (Station4_Auswertung_Rot.name == "CO") {
-    indexX = 2;
-    absoluteMaxX = 500*scale_Innenraum2;
-  } else if (Station4_Auswertung_Rot.name == "TVOC") {
-    indexX = 3;
-    absoluteMaxX = 50*scale_Innenraum2;
-  } else if (Station4_Auswertung_Rot.name == "eCO") {
-    indexX = 4;
-    absoluteMaxX = 500*scale_Innenraum2;
-  }
-
-  if (Station4_Auswertung_Blau.name == "Temperatur") {
-    indexY = 0;
-    absoluteMaxY = 10 + 5*scale_Innenraum1;
-  } else if (Station4_Auswertung_Blau.name == "Luftfeuchte") {
-    indexY = 1;
-    absoluteMaxY = 20*scale_Innenraum1;
-  } else if (Station4_Auswertung_Blau.name == "CO") {
-    indexY = 2;
-    absoluteMaxY = 500*scale_Innenraum1;
-  } else if (Station4_Auswertung_Blau.name == "TVOC") {
-    indexY = 3;
-    absoluteMaxY = 50*scale_Innenraum1;
-  } else if (Station4_Auswertung_Blau.name == "eCO") {
-    indexY = 4;
-    absoluteMaxY = 500*scale_Innenraum1;
-  }
-
-
-
-  up1.show();
-  down1.show();
-
-
-  if (up1.isClicked()) {
-    scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 5) {
-      scale_Innenraum1 = 0;
-    }
-  }
-  if (down1.isClicked()) {
-    scale_Innenraum1 -= 1;
-    if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 5;
-    }
-  }
-
-  if (up2_Station4.isClicked()) {
-    scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 5) {
-      scale_Innenraum2 = 0;
-    }
-  }
-  if (down2_Station4.isClicked()) {
-    scale_Innenraum2 -= 1;
-    if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 5;
-    }
-  }
-
-
-  // Zeichne den Hintergrund
-  fill(255);
   stroke(0);
-  rect(120, 140, 830, 500);
-  fill(230);
-  rect(1080, -1, 200, 720);
-  stroke(100, 100);
-  line(431.75, 140, 431.75, 640);
-  line(742.5, 140, 742.5, 640);
-  textSize(60);
-  textAlign(CENTER, CENTER);
-  text("Ruhig\nsitzen", 275.75, 380);
-  text("Sport\nmachen!", 587.5, 380);
-  text("Tür\nauf!", 840.25, 380);
-  textSize(20);
+  fill(255);
+
+  rect(100, 60, 440, 260);
+  rect(100, 350, 440, 260); 
+
+  rect(740, 60, 440, 260);
+  rect(740, 350, 440, 260);
+
+  line(640, 0, 640, 720);
+
   noStroke();
+
+  fill(230, 200);
+  rect(101, 61, 164, 259);
+  rect(101, 351, 164, 259);
+
+  rect(741, 61, 164, 259);
+  rect(741, 351, 164, 259);
+
+  fill(200, 200);
+  rect(266, 61, 164, 259);
+  rect(266, 351, 164, 259);
+
+  rect(906, 61, 164, 259);
+  rect(906, 351, 164, 259);
+
   fill(0);
-
-
-  stroke(200);
-  for (int i = 0; i < 4; i++) {
-    line(120, 240 +100*i, 950, 240 + 100*i);
-  }
-
-
-  fill(0);
-  textAlign(CENTER);
-
-
-  textAlign(CORNER);
-  fill(0);
-  noStroke();
   textSize(30);
-  text("Optionen", 1120, 50);
-  fill(0);
-  noStroke();
-  textSize(20);
-
-  if (scale_Innenraum2 == 0) {
-    for (int i = 0; i < indexInnenraumlufta + 5; i++) {
-      if (Innenraumlufta[indexX][i] > absoluteMaxX) {
-        absoluteMaxX =  Innenraumlufta[indexX][i];
-      }
-      if (Innenraumluftb[indexX][i] > absoluteMaxX) {
-        absoluteMaxX =  Innenraumluftb[indexX][i];
-      }
-      if (Innenraumluftc[indexX][i] > absoluteMaxX) {
-        absoluteMaxX =  Innenraumluftc[indexX][i];
-      }
-
-
-      if (Innenraumlufta[indexX][i] < absoluteMinX && Innenraumlufta[indexX][i] != 0) {
-        absoluteMinX =  Innenraumlufta[indexX][i];
-      }
-      if (Innenraumluftb[indexX][i] < absoluteMinX && Innenraumluftb[indexX][i] != 0) {
-        absoluteMinX =  Innenraumluftb[indexX][i];
-      }
-      if (Innenraumluftc[indexX][i] < absoluteMinX && Innenraumluftc[indexX][i] != 0) {
-        absoluteMinX =  Innenraumluftc[indexX][i];
-      }
-    }
-  }
-
-  if (scale_Innenraum1 == 0) {
-    absoluteMinY = 9999999;
-    for (int i = 0; i < indexInnenraumlufta + 5; i++) {
-      if (Innenraumlufta[indexY][i] > absoluteMaxY) {
-        absoluteMaxY =  Innenraumlufta[indexY][i];
-      }
-      if (Innenraumluftb[indexY][i] > absoluteMaxY) {
-        absoluteMaxY =  Innenraumluftb[indexY][i];
-      }
-      if (Innenraumluftc[indexY][i] > absoluteMaxY) {
-        absoluteMaxY =  Innenraumluftc[indexY][i];
-      }   
-
-      if (Innenraumlufta[indexY][i] < absoluteMinY && Innenraumlufta[indexY][i] != 0) {
-        absoluteMinY =  Innenraumlufta[indexY][i];
-      }
-      if (Innenraumluftb[indexY][i] < absoluteMinY && Innenraumluftb[indexY][i] != 0) {
-        absoluteMinY =  Innenraumluftb[indexY][i];
-      }
-      if (Innenraumluftc[indexY][i] < absoluteMinY && Innenraumluftc[indexY][i] != 0) {
-        absoluteMinY =  Innenraumluftc[indexY][i];
-      }
-    }
-  }
-
-  textSize(18);
-
-  if (absoluteMaxY != 0 && absoluteMinY !=9999999 && Station4_Auswertung_Rot.name == "Zeit") {
-    for (int i = 0; i< 6; i++) {
-      text(round(absoluteMinY + i*(absoluteMaxY-absoluteMinY)/(5)), 70, 650 - 100*i);
-    }
-  }
-
-
-  noStroke();
-  strokeWeight(1);
-  textSize(20);
   textAlign(CENTER);
-  if (Station4_Auswertung_Rot.name == "Zeit") {
-    text("0", 120, 660);
-    text("180", 431.75, 660);
-    text("360", 742.5, 660);
-    text("480", 950, 660);
-  }
-  textAlign(LEFT);
+  text("ohne Ventilator", 332.5, 30);
+  text("mit Ventilator", 947.5, 30);
 
-  //Luftfeuchtigkeit - TVOC
-  if (zeroPercent) {
-    plot4(Innenraumlufta[indexX], Innenraumlufta[indexY], color(255, 0, 0), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
-  }
-  if (fiftyPercent) {
-    plot4(Innenraumluftb[indexX], Innenraumluftb[indexY], color(0, 255, 0), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
-  }
-
-  if (Station4_Auswertung_Rot.name != "Zeit") {
-    text(nf(absoluteMinX, 0, 1), 105, 660);
-    text(nf(absoluteMaxX, 0, 1), 938, 660);
-  }
-  //if (hundredPercent) {
-  //  plot4(Innenraumluftc[indexX], Innenraumluftc[indexY], color(0, 0, 255), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
-  //}
-
-  //textAlign(CENTER);
-  fill(0);
   textSize(20);
-  if (indexX == 6) {
-    text(nf(time_Station4, 0, 0), 938, 660);
-    text("Zeit in Sekunden", 455, 700);
-  } else if (indexX == 0) {
-    text("Temperatur in °C", 455, 700);
-  } else if (indexX == 1) {
-    text("Luftfeuchte in %", 455, 700);
-  } else if (indexX == 2) {
-    text("CO  in ppm", 455, 700);
-    textSize(16);
-    text("2", 485, 710);
-  } else if (indexX == 3) {
-    text("TVOC in ppb", 455, 700);
-  } else if (indexX == 4) {
-    text("eCO  in ppm", 455, 700);
-    textSize(16);
-    text("2", 493, 710);
-  }
   pushMatrix();
-  textSize(20);
   translate(width/2, height/2);
   rotate(3*PI/2);
-  fill(0);
-  if (indexY == 0) {
-    text("Temperatur in °C", height/2 -470, -width/2 + 40);
-  } else if (indexY == 1) {
-    text("Luftfeuchte in %", height/2 -470, -width/2 + 40);
-  } else if (indexY == 2) {
-    text("CO  in ppm", height/2 -470, -width/2 + 40);
-    textSize(16);
-    text("2", height/2 -442, -width/2 + 50);
-    textSize(20);
-  } else if (indexY == 3) {
-    text("TVOC in ppb", height/2 -470, -width/2 + 40);
-  } else if (indexY == 4) {
-    text("eCO  in ppm", height/2 - 470, -width/2 + 40);
-    textSize(16);
-    text("2", height/2 -435, -width/2 + 50);
-    textSize(20);
-  }
+  fill(255, 0, 0);
+  text("CO   in ppm", height/2 -180, -width/2 + 40);
+  text("Temperatur in °C", height/2 -490, -width/2 + 40);
+  text("CO   in ppm", height/2 -180, -width/2 + 670);
+  text("Temperatur in °C", height/2 -490, -width/2 + 670);
+
+  textSize(16);
+  fill(255, 0, 0);
+  text("2", height/2 -200, -width/2 + 50);
+  text("2", height/2 -200, -width/2 + 680);
   popMatrix();
+  textSize(20);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(PI/2);
+  fill(0, 0, 255);
+  text("rel. Luftfeuchte in %", height/2 -240, -width/2 + 40);
+  text("TVOC in ppb", height/2 -540, -width/2 + 40);
+  text("rel. Luftfeuchte in %", height/2 -240, -width/2 + 670);
+  text("TVOC in ppb", height/2 -540, -width/2 + 670);
+
+  popMatrix();
+  fill(100, 100);
+  textSize(30);
+  text("Ruhig\nsitzen", 183, 180);
+  text("Sport\nmachen!", 345, 180);
+  text("Tür\nauf!", 485, 180);
+
+  text("Ruhig\nsitzen", 183, 470);
+  text("Sport\nmachen!", 345, 470);
+  text("Tür\nauf!", 485, 470);
+
+  text("Ruhig\nsitzen", 823, 180);
+  text("Sport\nmachen!", 985, 180);
+  text("Tür\nauf!", 1125, 180);
+
+  text("Ruhig\nsitzen", 823, 470);
+  text("Sport\nmachen!", 985, 470);
+  text("Tür\nauf!", 1125, 470);
+
+
+  float maxTemperatur = 36;
+  float minTemperatur = 16;
+  float maxLuftfeuchte = 100;
+  float maxCO2 = 2500;
+  float maxTVOC = 500;
+  textSize(12);
+  fill(255, 0, 0);
+
+  if (strichdicke.name == "1 (dünn)") {
+    strokeWeight(1);
+  } else if (strichdicke.name == "2 (Standard)") {
+    strokeWeight(2.5);
+  } else {
+    strokeWeight(5);
+  }
+  for (int i = 0; i < 6; i++) {
+    text(round(maxCO2 - i*maxCO2/5), 70, 65 + 52*i);
+    text(round(maxTemperatur - i*(maxTemperatur - minTemperatur)/5), 70, 361 + 52*i);
+    text(round(maxCO2 - i*maxCO2/5), 710, 65 + 52*i);
+    text(round(maxTemperatur - i*(maxTemperatur- minTemperatur)/5), 710, 361 + 52*i);
+  }
+
+  fill(0, 0, 255);
+  for (int i = 0; i < 6; i++) {
+    text(round(maxTVOC - i*maxTVOC/5), 570, 65 + 52*i);
+    text(round(maxLuftfeuchte - i*(maxLuftfeuchte)/5), 570, 361 + 52*i);
+    text(round(maxTVOC - i*maxTVOC/5), 1200, 65 + 52*i);
+    text(round(maxLuftfeuchte - i*(maxLuftfeuchte)/5), 1200, 361 + 52*i);
+  }
 
 
 
+  for (int i = 1; i < indexInnenraumlufta; i++) {
+    float x1 = 100 + 440*Innenraumlufta[6][i-1]/480;
+    float y1 = 320 - 260*Innenraumlufta[2][i-1]/maxCO2;
+    float x2 = 100 + 440*Innenraumlufta[6][i]/480;
+    float y2 = 320 - 260*Innenraumlufta[2][i]/maxCO2;
+    stroke(255, 0, 0);
+    line(x1, y1, x2, y2);
+    y1 =  610 - 260*(Innenraumlufta[0][i-1]-minTemperatur)/(maxTemperatur - minTemperatur);
+    y2 =  610 - 260*(Innenraumlufta[0][i]-minTemperatur)/(maxTemperatur - minTemperatur);
+    ;
+    line(x1, y1, x2, y2);
+    y1 =  320 - 260*Innenraumlufta[3][i-1]/maxTVOC;
+    y2 =  320 - 260*Innenraumlufta[3][i]/maxTVOC;
+    stroke(0, 0, 255);
+    line(x1, y1, x2, y2);
+    y1 =  610 - 260*Innenraumlufta[1][i-1]/maxLuftfeuchte;
+    y2 =  610 - 260*Innenraumlufta[1][i]/maxLuftfeuchte;
+    line(x1, y1, x2, y2);
+  }
+
+  for (int i = 1; i < indexInnenraumluftb; i++) {
+    float x1 = 740 + 440*Innenraumluftb[6][i-1]/480;
+    float y1 = 320 - 260*Innenraumluftb[2][i-1]/maxCO2;
+    float x2 = 740 + 440*Innenraumluftb[6][i]/480;
+    float y2 = 320 - 260*Innenraumluftb[2][i]/maxCO2;
+    stroke(255, 0, 0);
+    line(x1, y1, x2, y2);
+    y1 =  610 - 260*(Innenraumluftb[0][i-1]-minTemperatur)/(maxTemperatur - minTemperatur);
+
+    y2 =  610 - 260*(Innenraumluftb[0][i]-minTemperatur)/(maxTemperatur - minTemperatur);
+
+    line(x1, y1, x2, y2);
+    y1 =  320 - 260*Innenraumluftb[3][i-1]/maxTVOC;
+    y2 =  320 - 260*Innenraumluftb[3][i]/maxTVOC;
+    stroke(0, 0, 255);
+    line(x1, y1, x2, y2);
+    y1 =  610 - 260*Innenraumluftb[1][i-1]/maxLuftfeuchte;
+    y2 =  610 - 260*Innenraumluftb[1][i]/maxLuftfeuchte;
+    line(x1, y1, x2, y2);
+  }
+  strokeWeight(1);
+
+  stroke(100, 100);
+  for (int i = 0; i<5; i++) {
+    line(100, 60 + 52*i, 540, 60 + 52*i);
+    line(100, 350 + 52*i, 540, 350 + 52*i);
+    line(740, 60 + 52*i, 1180, 60 + 52*i);
+    line(740, 350 + 52*i, 1180, 350 + 52*i);
+  }
+
+  for (int i = 0; i < 8; i++) {
+    line(100 + 55*i, 60, 100 + 55*i, 320); 
+    line(100 + 55*i, 350, 100 + 55*i, 610);
+
+    line(740 + 55*i, 60, 740 + 55*i, 320); 
+    line(740 + 55*i, 350, 740 + 55*i, 610);
+  }
 
 
-  back.show();
-  zumObermenu.show();
-
+  stroke(0);
+  line(0, 335, 1280, 335);
+  noStroke();
   fill(0);
-  text("Ordinate", 640, 35);
-  text("Abszisse", 340, 35);
-  if (zeroPercent) {
-    stroke(255, 0, 0);
-    fill(255, 0, 0);
-  } else {
-    fill(255);
-    stroke(255, 0, 0);
-  }
-  ellipse(345, 110, 20, 20);
+  textSize(20);
+  textAlign(CENTER);
+  text("Zeit in min", 320, 680); 
+  text("Zeit in min", 960, 680); 
+  textSize(16);
+  text("0", 100, 640);
+  text("3", 265, 640);
+  text("6", 430, 640);
+  text("8", 545, 640);
 
-  if (fiftyPercent) {
-    fill(0, 255, 0);
-    stroke(0, 255, 0);
-  } else {
-    fill(255);
-    stroke(0, 255, 0);
-  }
-  ellipse(925, 110, 20, 20);
 
-  //if (hundredPercent) {
-  //  fill(0, 0, 255);
-  //  stroke(0, 0, 255);
+  text("0", 740, 640);
+  text("3", 905, 640);
+  text("6", 1070, 640);
+  text("8", 1185, 640);
+
+
+  //Innenraumlufta[0][indexInnenraumlufta] =  scd_temperature_data[index-1];
+  //Innenraumlufta[1][indexInnenraumlufta] =  scd_humidity_data[index-1];
+  //Innenraumlufta[2][indexInnenraumlufta] =  scd_co2_data[index-1];
+  //Innenraumlufta[3][indexInnenraumlufta] =  sgp_tvoc_data[index-1];
+  //Innenraumlufta[4][indexInnenraumlufta] =  sgp_eco2_data[index-1];
+  //Innenraumlufta[6][indexInnenraumlufta] = zeit[index - 1]- currentTime4a/1000;
+
+
+
+  //zero.show();
+  //fifty.show();
+  ////hundred.show();
+
+  //if (zero.isClicked()) {
+  //  if (zeroPercent) {
+  //    zeroPercent = false;
+  //  } else {
+  //    zeroPercent = true;
+  //  }
+  //}
+  //if (fifty.isClicked()) {
+  //  if (fiftyPercent) {
+  //    fiftyPercent = false;
+  //  } else {
+  //    fiftyPercent = true;
+  //  }
+  //}
+
+
+  //fill(0);
+  //textSize(20);
+  //indexX = 6;
+  //indexY = 6;
+
+  //float absoluteMaxX = 0;
+  //float absoluteMinX = 99999;
+  //float absoluteMaxY = 0;
+  //float absoluteMinY = 99999;
+
+  //if (scale_Innenraum2 != 0) {
+  //  absoluteMinX = 0;
+  //  absoluteMinY = 0;
+  //}
+  //if (scale_Innenraum1 != 0) {
+  //  absoluteMinX = 0;
+  //  absoluteMinY = 0;
+  //}
+
+  //if (Station4_Auswertung_Rot.name == "Zeit") {
+  //  indexX = 6;
+  //  absoluteMaxX = 300;
+  //  absoluteMinX = 0;
+  //} else if (Station4_Auswertung_Rot.name == "Temperatur") {
+  //  indexX = 0;
+  //  if (scale_Innenraum2 == 1) {
+  //    absoluteMaxX = 10;
+  //  } else if (scale_Innenraum2 == 2) {
+  //    absoluteMaxX = 15;
+  //  } else if (scale_Innenraum2 == 3) {
+  //    absoluteMaxX = 20;
+  //  } else if (scale_Innenraum2 == 4) {
+  //    absoluteMaxX = 25;
+  //  } else if (scale_Innenraum2 == 5) {
+  //    absoluteMaxX = 30;
+  //  }
+  //} else if (Station4_Auswertung_Rot.name == "Luftfeuchte") {
+  //  indexX = 1;
+  //  absoluteMaxX = 20*scale_Innenraum2;
+  //} else if (Station4_Auswertung_Rot.name == "CO") {
+  //  indexX = 2;
+  //  absoluteMaxX = 500*scale_Innenraum2;
+  //} else if (Station4_Auswertung_Rot.name == "TVOC") {
+  //  indexX = 3;
+  //  absoluteMaxX = 50*scale_Innenraum2;
+  //} else if (Station4_Auswertung_Rot.name == "eCO") {
+  //  indexX = 4;
+  //  absoluteMaxX = 500*scale_Innenraum2;
+  //}
+
+  //if (Station4_Auswertung_Blau.name == "Temperatur") {
+  //  indexY = 0;
+  //  absoluteMaxY = 10 + 5*scale_Innenraum1;
+  //} else if (Station4_Auswertung_Blau.name == "Luftfeuchte") {
+  //  indexY = 1;
+  //  absoluteMaxY = 20*scale_Innenraum1;
+  //} else if (Station4_Auswertung_Blau.name == "CO") {
+  //  indexY = 2;
+  //  absoluteMaxY = 500*scale_Innenraum1;
+  //} else if (Station4_Auswertung_Blau.name == "TVOC") {
+  //  indexY = 3;
+  //  absoluteMaxY = 50*scale_Innenraum1;
+  //} else if (Station4_Auswertung_Blau.name == "eCO") {
+  //  indexY = 4;
+  //  absoluteMaxY = 500*scale_Innenraum1;
+  //}
+
+
+
+  //up1.show();
+  //down1.show();
+
+
+  //if (up1.isClicked()) {
+  //  scale_Innenraum1 += 1;
+  //  if (scale_Innenraum1 > 5) {
+  //    scale_Innenraum1 = 0;
+  //  }
+  //}
+  //if (down1.isClicked()) {
+  //  scale_Innenraum1 -= 1;
+  //  if (scale_Innenraum1 < 0) {
+  //    scale_Innenraum1 = 5;
+  //  }
+  //}
+
+  //if (up2_Station4.isClicked()) {
+  //  scale_Innenraum2 += 1;
+  //  if (scale_Innenraum2 > 5) {
+  //    scale_Innenraum2 = 0;
+  //  }
+  //}
+  //if (down2_Station4.isClicked()) {
+  //  scale_Innenraum2 -= 1;
+  //  if (scale_Innenraum2 < 0) {
+  //    scale_Innenraum2 = 5;
+  //  }
+  //}
+
+
+  //// Zeichne den Hintergrund
+  //fill(255);
+  //stroke(0);
+  //rect(120, 140, 830, 500);
+  //fill(230);
+  //rect(1080, -1, 200, 720);
+  //stroke(100, 100);
+  //line(431.75, 140, 431.75, 640);
+  //line(742.5, 140, 742.5, 640);
+  //textSize(60);
+  //textAlign(CENTER, CENTER);
+  //text("Ruhig\nsitzen", 275.75, 380);
+  //text("Sport\nmachen!", 587.5, 380);
+  //text("Tür\nauf!", 840.25, 380);
+  //textSize(20);
+  //noStroke();
+  //fill(0);
+
+
+  ////stroke(200);
+  ////for (int i = 0; i < 4; i++) {
+  ////  line(120, 240 +100*i, 950, 240 + 100*i);
+  ////}
+
+
+  //fill(0);
+  //textAlign(CENTER);
+
+
+  //textAlign(CORNER);
+  //fill(0);
+  //noStroke();
+  //textSize(30);
+  //text("Optionen", 1120, 50);
+  //fill(0);
+  //noStroke();
+  //textSize(20);
+
+  ////if (scale_Innenraum2 == 0) {
+  ////  for (int i = 0; i < indexInnenraumlufta + 5; i++) {
+  ////    if (Innenraumlufta[indexX][i] > absoluteMaxX) {
+  ////      absoluteMaxX =  Innenraumlufta[indexX][i];
+  ////    }
+  ////    if (Innenraumluftb[indexX][i] > absoluteMaxX) {
+  ////      absoluteMaxX =  Innenraumluftb[indexX][i];
+  ////    }
+  ////    if (Innenraumluftc[indexX][i] > absoluteMaxX) {
+  ////      absoluteMaxX =  Innenraumluftc[indexX][i];
+  ////    }
+
+
+  ////    if (Innenraumlufta[indexX][i] < absoluteMinX && Innenraumlufta[indexX][i] != 0) {
+  ////      absoluteMinX =  Innenraumlufta[indexX][i];
+  ////    }
+  ////    if (Innenraumluftb[indexX][i] < absoluteMinX && Innenraumluftb[indexX][i] != 0) {
+  ////      absoluteMinX =  Innenraumluftb[indexX][i];
+  ////    }
+  ////    if (Innenraumluftc[indexX][i] < absoluteMinX && Innenraumluftc[indexX][i] != 0) {
+  ////      absoluteMinX =  Innenraumluftc[indexX][i];
+  ////    }
+  ////  }
+  ////}
+
+  ////if (scale_Innenraum1 == 0) {
+  ////  absoluteMinY = 9999999;
+  ////  for (int i = 0; i < indexInnenraumlufta + 5; i++) {
+  ////    if (Innenraumlufta[indexY][i] > absoluteMaxY) {
+  ////      absoluteMaxY =  Innenraumlufta[indexY][i];
+  ////    }
+  ////    if (Innenraumluftb[indexY][i] > absoluteMaxY) {
+  ////      absoluteMaxY =  Innenraumluftb[indexY][i];
+  ////    }
+  ////    if (Innenraumluftc[indexY][i] > absoluteMaxY) {
+  ////      absoluteMaxY =  Innenraumluftc[indexY][i];
+  ////    }   
+
+  ////    if (Innenraumlufta[indexY][i] < absoluteMinY && Innenraumlufta[indexY][i] != 0) {
+  ////      absoluteMinY =  Innenraumlufta[indexY][i];
+  ////    }
+  ////    if (Innenraumluftb[indexY][i] < absoluteMinY && Innenraumluftb[indexY][i] != 0) {
+  ////      absoluteMinY =  Innenraumluftb[indexY][i];
+  ////    }
+  ////    if (Innenraumluftc[indexY][i] < absoluteMinY && Innenraumluftc[indexY][i] != 0) {
+  ////      absoluteMinY =  Innenraumluftc[indexY][i];
+  ////    }
+  ////  }
+  ////}
+
+  ////textSize(18);
+
+  ////if (absoluteMaxY != 0 && absoluteMinY !=9999999 && Station4_Auswertung_Rot.name == "Zeit") {
+  ////  for (int i = 0; i< 6; i++) {
+  ////    text(round(absoluteMinY + i*(absoluteMaxY-absoluteMinY)/(5)), 70, 650 - 100*i);
+  ////  }
+  ////}
+
+
+  ////noStroke();
+  ////strokeWeight(1);
+  ////textSize(20);
+  ////textAlign(CENTER);
+  ////if (Station4_Auswertung_Rot.name == "Zeit") {
+  ////  text("0", 120, 660);
+  ////  text("180", 431.75, 660);
+  ////  text("360", 742.5, 660);
+  ////  text("480", 950, 660);
+  ////}
+  ////textAlign(LEFT);
+
+  //////Luftfeuchtigkeit - TVOC
+  ////if (zeroPercent) {
+  ////  plot4(Innenraumlufta[indexX], Innenraumlufta[indexY], color(255, 0, 0), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
+  ////}
+  ////if (fiftyPercent) {
+  ////  plot4(Innenraumluftb[indexX], Innenraumluftb[indexY], color(0, 255, 0), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
+  ////}
+
+  ////if (Station4_Auswertung_Rot.name != "Zeit") {
+  ////  text(nf(absoluteMinX, 0, 1), 105, 660);
+  ////  text(nf(absoluteMaxX, 0, 1), 938, 660);
+  ////}
+  ////if (hundredPercent) {
+  ////  plot4(Innenraumluftc[indexX], Innenraumluftc[indexY], color(0, 0, 255), absoluteMaxX, absoluteMinX, absoluteMaxY, absoluteMinY);
+  ////}
+
+  ////textAlign(CENTER);
+  //fill(0);
+  //textSize(20);
+  //if (indexX == 6) {
+  //  text(nf(time_Station4, 0, 0), 938, 660);
+  //  text("Zeit in Sekunden", 455, 700);
+  //} else if (indexX == 0) {
+  //  text("Temperatur in °C", 455, 700);
+  //} else if (indexX == 1) {
+  //  text("Luftfeuchte in %", 455, 700);
+  //} else if (indexX == 2) {
+  //  text("CO  in ppm", 455, 700);
+  //  textSize(16);
+  //  text("2", 485, 710);
+  //} else if (indexX == 3) {
+  //  text("TVOC in ppb", 455, 700);
+  //} else if (indexX == 4) {
+  //  text("eCO  in ppm", 455, 700);
+  //  textSize(16);
+  //  text("2", 493, 710);
+  //}
+  //pushMatrix();
+  //textSize(20);
+  //translate(width/2, height/2);
+  //rotate(3*PI/2);
+  //fill(0);
+  //if (indexY == 0) {
+  //  text("Temperatur in °C", height/2 -470, -width/2 + 40);
+  //} else if (indexY == 1) {
+  //  text("Luftfeuchte in %", height/2 -470, -width/2 + 40);
+  //} else if (indexY == 2) {
+  //  text("CO  in ppm", height/2 -470, -width/2 + 40);
+  //  textSize(16);
+  //  text("2", height/2 -442, -width/2 + 50);
+  //  textSize(20);
+  //} else if (indexY == 3) {
+  //  text("TVOC in ppb", height/2 -470, -width/2 + 40);
+  //} else if (indexY == 4) {
+  //  text("eCO  in ppm", height/2 - 470, -width/2 + 40);
+  //  textSize(16);
+  //  text("2", height/2 -435, -width/2 + 50);
+  //  textSize(20);
+  //}
+  //popMatrix();
+
+
+
+
+
+  //back.show();
+  //zumObermenu.show();
+
+  //fill(0);
+  //text("Ordinate", 640, 35);
+  //text("Abszisse", 340, 35);
+  //if (zeroPercent) {
+  //  stroke(255, 0, 0);
+  //  fill(255, 0, 0);
   //} else {
   //  fill(255);
-  //  stroke(0, 0, 255);
+  //  stroke(255, 0, 0);
   //}
-  // ellipse(925, 110, 20, 20);
-  if (analyse_bool) {
-    s.show();
-    s.move();
-    analyse();
-  } else {
-    fill(240);
-    stroke(0);
-    rect(1105, 190, 155, 85);
-    fill(0);
-    textSize(15);
-    textAlign(LEFT);
-    text("Fehlerbalken", 1110, 217);
-    text("verbinden", 1110, 260);
-    textSize(20);
-    fehler_innenraum.show();
-    verbinde_innenraum.show();
-  }
-  Station4_Auswertung_Rot.show();
-  Station4_Auswertung_Blau.show();
+  //ellipse(345, 110, 20, 20);
+
+  //if (fiftyPercent) {
+  //  fill(0, 255, 0);
+  //  stroke(0, 255, 0);
+  //} else {
+  //  fill(255);
+  //  stroke(0, 255, 0);
+  //}
+  //ellipse(925, 110, 20, 20);
+
+  ////if (hundredPercent) {
+  ////  fill(0, 0, 255);
+  ////  stroke(0, 0, 255);
+  ////} else {
+  ////  fill(255);
+  ////  stroke(0, 0, 255);
+  ////}
+  //// ellipse(925, 110, 20, 20);
+  //if (analyse_bool) {
+  //  s.show();
+  //  s.move();
+  //  analyse();
+  //} else {
+  //  fill(240);
+  //  stroke(0);
+  //  rect(1105, 190, 155, 85);
+  //  fill(0);
+  //  textSize(15);
+  //  textAlign(LEFT);
+  //  text("Fehlerbalken", 1110, 217);
+  //  text("verbinden", 1110, 260);
+  //  textSize(20);
+  //  fehler_innenraum.show();
+  //  verbinde_innenraum.show();
+  //}
+  //Station4_Auswertung_Rot.show();
+  //Station4_Auswertung_Blau.show();
 
 
-  if (indexX != 6) {
-    up2_Station4.show();
-    down2_Station4.show();
-  }
-  if (indexX == 6) {
-    genaueAnalyse.show();
-  }
+  //if (indexX != 6) {
+  //  up2_Station4.show();
+  //  down2_Station4.show();
+  //}
+  //if (indexX == 6) {
+  //  genaueAnalyse.show();
+  //}
 
-  if (genaueAnalyse.isClicked()) {
-    if (analyse_bool) {
-      analyse_bool = false;
-    } else {
-      analyse_bool = true;
-    }
-  }
+  //if (genaueAnalyse.isClicked()) {
+  //  if (analyse_bool) {
+  //    analyse_bool = false;
+  //  } else {
+  //    analyse_bool = true;
+  //  }
+  //}
 
 
-  if (indexX != 6) {
-    analyse_bool = false;
-  }
+  //if (indexX != 6) {
+  //  analyse_bool = false;
+  //}
 }
 
 

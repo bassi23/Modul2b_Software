@@ -8,8 +8,10 @@ import processing.serial.*;
 Serial myPort;
 
 import controlP5.*;
-import processing.video.*;
-Movie ventilator;
+
+
+PImage[] fan = new PImage[8];
+PImage fan_aus;
 //
 
 dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
@@ -102,7 +104,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = 4;
+float page = 4.1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -182,7 +184,19 @@ void setup() {
   Aufloesung = new dropdown("Standard (1280x720)", 350, 480, 250, 30, 6, Aufloesung_Strings, false, color(123, 120, 20));
 
 
-  ventilator = new Movie(this, "Ventilator.mp4");
+  fan[0] = loadImage("fan1.gif");
+  fan[1] = loadImage("fan2.gif");
+  fan[2] = loadImage("fan3.gif");
+  fan[3] = loadImage("fan4.gif");
+  fan[4] = loadImage("fan5.gif");
+  fan[5] = loadImage("fan6.gif");
+  fan[6] = loadImage("fan7.gif");
+  fan[7] = loadImage("fan8.gif");
+  fan_aus = loadImage("img/Ventilator_aus.jpg");
+  for(int i = 0; i< 8; i++){
+   fan[i].resize(110, 100); 
+  }
+  fan_aus.resize(110, 100);
 
 
   a = new Textfield(300, 500, 110, 100, myText[0], true);
@@ -473,6 +487,7 @@ float mouse_time = 0;
 
 
 void draw() {
+ // println(page);
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
@@ -882,7 +897,7 @@ void draw() {
       } else if (page == 4.111) {
         page = 4.11;
       } else if (page == 4.1111) {
-        page = 4.111;
+        page = 4.11;
       } else {
         page = 0;
       }
