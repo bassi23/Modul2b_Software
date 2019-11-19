@@ -41,7 +41,7 @@ int scale_Innenraum2 = 0;
 void Innenraumluft_a() {
   fill(0);
   textSize(20);
-
+  image(ventilator, 0,0);
   int Rot = -1;
   int Blau = -1;
 

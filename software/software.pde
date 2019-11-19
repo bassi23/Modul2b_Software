@@ -8,7 +8,8 @@ import processing.serial.*;
 Serial myPort;
 
 import controlP5.*;
-
+import processing.video.*;
+Movie ventilator;
 //
 
 dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot_Station1, SPS_Blau_Station1, SPS_Rot_Station1_Auswertung, SPS_Blau_Station1_Auswertung, SPS_Gruen_Station1_Auswertung, Station4_Rot, Station4_Blau, Station4_Auswertung_Rot, Station4_Auswertung_Blau;
@@ -180,6 +181,10 @@ void setup() {
   }
   Aufloesung = new dropdown("Standard (1280x720)", 350, 480, 250, 30, 6, Aufloesung_Strings, false, color(123, 120, 20));
 
+
+  ventilator = new Movie(this, "Ventilator.mp4");
+
+
   a = new Textfield(300, 500, 110, 100, myText[0], true);
   b = new Textfield(450, 500, 110, 100, myText[1], true);
   c = new Textfield(600, 500, 110, 100, myText[2], true);
@@ -200,7 +205,7 @@ void setup() {
   Station2_Aufgabentext_a2 = new Aufgabentext(" Mische die Proben und ordne sie erneut. Gib auch deine Sicherheit an. Klicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'!", 15, 75, 1245, 90);
 
   Station2_Aufgabentext_b1 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe A in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
-  Station2_Aufgabentext_b2 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe B in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850,110);
+  Station2_Aufgabentext_b2 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe B in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
   Station2_Aufgabentext_b3 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe C in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
   Station2_Aufgabentext_b4 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe D in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
   Station2_Aufgabentext_b5 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe E in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
@@ -443,7 +448,7 @@ void setup() {
 
   zero = new button(120, 90, 200, 50, "ohne Ventilator", 5, true, 20);
   fifty = new button(700, 90, 200, 50, "mit Ventilator", 5, true, 20);
- // hundred = new button(750, 90, 150, 50, "100% Lüfter", 5, true, 20);
+  // hundred = new button(750, 90, 150, 50, "100% Lüfter", 5, true, 20);
 
   genaueAnalyse =  new button(1115, 550, 140, 50, "Analyse", 5, true, 20);
   s = new slider(200, 400, false, false);
@@ -862,7 +867,7 @@ void draw() {
         page = 2;
       } else if (page == 2.11) {
         page = 2.1;
-      }else if (page == 2.111) {
+      } else if (page == 2.111) {
         page = 2.11;
       } else if (page == 3.1) {
         page = 3;
@@ -1486,8 +1491,8 @@ void keyPressed() {
       }
     }
   }
-  
-    if (page == 2.1) {
+
+  if (page == 2.1) {
     if (a2.isActive()) {
       if (keyCode == BACKSPACE) {
         if (myText2[0].length() > 0 ) {
@@ -1545,9 +1550,6 @@ void keyPressed() {
       }
     }
   }
-  
-  
-  
 }
 
 //void cursorStuff(){
