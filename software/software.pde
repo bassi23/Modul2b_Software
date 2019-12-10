@@ -104,7 +104,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = 4.1;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -580,12 +580,12 @@ void draw() {
     alle_Sensoren2.hide();
   }
 
-
+  println(page);
   // Aufloesung.hide();
   ////////////////////////////////////////////////////////
   zumObermenu.x = 1115;
 
-  if (page == 2.11) {
+  if (page == 2.2) {
     Station2_Sensor();
     up2.y = 190;
     down2.y = 245;
@@ -729,9 +729,9 @@ void draw() {
     zumObermenu.hide();
   } else if (page == 2.1) {
     Station2_Riechen2();
-  } else if (page == 2.11) {
+  } else if (page == 2.2) {
     Station2_Sensor();
-  } else if (page == 2.111) {
+  } else if (page == 2.3) {
     Station2_Vergleich();
   } else if (page == 2.5) {
     Station2Oder3();
@@ -880,10 +880,10 @@ void draw() {
       } else if (page == 2.1) {
         prob = 0;
         page = 2;
-      } else if (page == 2.11) {
+      } else if (page == 2.2) {
         page = 2.1;
-      } else if (page == 2.111) {
-        page = 2.11;
+      } else if (page == 2.3) {
+        page = 2.2;
       } else if (page == 3.1) {
         page = 3;
       } else if (page == 3.11) {

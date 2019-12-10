@@ -631,7 +631,7 @@ void reihenfolge() {
   Position2[2] = C2.x;
   Position2[3] = D2.x;
   Position2[4] = E2.x;
-  Position = sort(Position);
+  Position2 = sort(Position2);
   for (int i = 0; i < 5; i++) {
     if (Position2[i] == A2.x) {
       Reihenfolge2[i] = "A";
@@ -964,7 +964,7 @@ void Station2_Sensor() {
       } else if (j == 1) {
         stroke(0, 0, 255);
       } else if (j == 2) {
-        stroke(255, 255, 100);
+        stroke(200, 200, 100);
       } else if (j == 3) {
         stroke(0, 155, 0);
       } else if (j == 4) {
@@ -984,7 +984,7 @@ void Station2_Sensor() {
       }
 
       //  if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && MenschSensorMesswerte[j][i] != 0) {
-      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200) {
+      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && y2 != 590) {
         strokeWeight(3);
         line(x1, y1, x2, y2);
       }
@@ -998,7 +998,7 @@ void Station2_Sensor() {
   }
 
   if (ja_zufrieden.isClicked()) {
-    page = 2.111;
+    page = 2.3;
   }
   strokeWeight(1);
 
