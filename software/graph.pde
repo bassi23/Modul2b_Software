@@ -222,7 +222,21 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     } else if (name == "TVOC in ppb") {
       max = 10000;
     }
+  } else if (y == 5) {
+    if (name == "Temperatur in °C") {
+      max = 50;
+    } else if (name == "CO2 in ppm" || name == "eCO2 in ppm") {
+      max = 5000;
+    } else if (name == "relative Luftfeuchte in %") {
+      max = 100;
+    } else if (name == "Feinstaub PM1 in μg/m³" || name == "Feinstaub PM2.5 in μg/m³" || name == "Feinstaub PM4 in μg/m³" || name == "Feinstaub PM10 in μg/m³") {
+      max = 5000;
+    } else if (name == "TVOC in ppb") {
+      max = 10000;
+    }
   }
+
+
   //////////////////// Minimum und Maximum definieren ENDE ////////////////////////////
 
   // Fehler der Sensoren
@@ -1162,40 +1176,40 @@ void graph(float[] array, int zeitskala1, String name, int x_scale, int[] y_scal
     noStroke();
     fill(255, 0, 0);
     textAlign(LEFT);    
-    if (page == 1.1 || page == 1.11 || page == 1.111) {
+    if (page == 1.11 || page == 1.1111) {
       if (error != 0.5 && indexStation11 >= 1) {
-        text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 55);
+        text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 25);
       } else {
         if (indexStation11 > 1) {
-          text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 55);
+          text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 25);
         }
       }
     } else {
       if (error != 0.5 && index > 1) {
-        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 55);
+        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 170, 25);
       } else {
         if (index > 1) {
-          text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 55);
+          text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 170, 25);
         }
       }
     }
   } else {
     fill(0, 0, 255);
     textAlign(RIGHT);
-    if (page == 1.1 || page == 1.11 || page == 1.111) {
+    if (page == 1.11 || page == 1.1111) {
       if (error != 0.5 && indexStation11 >= 1) {
-        text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
+        text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 25);
       } else {
         if (indexStation11 > 1) {
-          text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55);
+          text("Aktueller Wert: (" + str(round(array[indexStation11-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 25);
         }
       }
     } else
       if (error != 0.5 && index > 1) {
-        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 55);
+        text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- " + round(error) + ") " + Einheit, 995, 25);
       } else {
         if (index > 1) {
-          text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 55);
+          text("Aktueller Wert: (" + str(round(array[index-1])).replace(".", ",") + " +/- 0,5) " + Einheit, 995, 25);
         }
       }
   }
@@ -1337,7 +1351,7 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
     zeitskala[i] = Station1_zeit[i];
   }
   pushMatrix();
-  translate(-50, 40);
+  // translate(-50, 40);
 
 
   // --> Minimum und Maximum des Arrays bestimmen
@@ -1359,12 +1373,7 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
     if (indexStation1_trocken > 0) {
       xValues =  indexStation1_trocken;
     }
-  } else if (zeitskala1 == 3) {
-    if (indexStation1_nass > 0) {
-      xValues =  indexStation1_nass;
-    }
   }
-
 
   if (xValues == 0) {
     xValues = 1;
@@ -1376,7 +1385,7 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
     text("0", 150, 640);
   }
   //////////////////ENDE Zeitskala Beschriftung und Hilfslinien //////////////////////////
-  float error = 0;
+
   strokeWeight(1);
   //////////////////// Minimum und Maximum definieren ////////////////////////////
   if (y == 1) {
@@ -1387,58 +1396,115 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
     max = 50;
   } else if (y == 4) {
     max = 200;
+  } else if (y == 5) {
+    max = 500;
+  } else if (y == 6) {
+    max = 1000;
+  } else if (y == 7) {
+    max = 5000;
   }
 
-
+  //rect(340, 30, 600, 300);
+  //rect(340, 380, 600, 300);
   ////////////////// Zwischenlinien definieren ////////////////////////////
   fill(255, 0, 0);
-  float pos_x = 135;
-
+  float pos_x = 300;
+  float pos_y = 30;
+  if (zeitskala1 == 1) {
+    pos_y = 30;
+  } else if (zeitskala1 == 2) {
+    pos_y = 380;
+  }
+  fill(0);
   if (y == 1) {
-    text("2", pos_x, 507);
-    text("4", pos_x, 407);
-    text("6", pos_x, 307);
-    text("8", pos_x, 207);
+    text("2", pos_x, pos_y + 240);
+    text("4", pos_x, pos_y + 180);
+    text("6", pos_x, pos_y + 120);
+    text("8", pos_x, pos_y + 60);
   } else if (y == 2) {
-    text("4", pos_x, 507);
-    text("8", pos_x, 407);
-    text("12", pos_x, 307);
-    text("16", pos_x, 207);
+    text("4", pos_x, pos_y + 240);
+    text("8", pos_x, pos_y + 180);
+    text("12", pos_x, pos_y + 120);
+    text("16", pos_x, pos_y + 60);
   } else if (y == 3) {
-    text("10", pos_x, 507);
-    text("20", pos_x, 407);
-    text("30", pos_x, 307);
-    text("40", pos_x, 207);
+    text("10", pos_x, pos_y + 240);
+    text("20", pos_x, pos_y + 180);
+    text("30", pos_x, pos_y + 120);
+    text("40", pos_x, pos_y + 60);
   } else if (y == 4) {
-    text("40", pos_x, 507);
-    text("80", pos_x, 407);
-    text("120", pos_x, 307);
-    text("160", pos_x, 207);
+    text("40", pos_x, pos_y + 240);
+    text("80", pos_x, pos_y + 180);
+    text("120", pos_x, pos_y + 120);
+    text("160", pos_x, pos_y + 60);
+  } else if (y == 5) {
+    text("100", pos_x, pos_y + 240);
+    text("200", pos_x, pos_y + 180);
+    text("300", pos_x, pos_y + 120);
+    text("400", pos_x, pos_y + 60);
+  } else if (y == 6) {
+    text("200", pos_x, pos_y + 240);
+    text("400", pos_x, pos_y + 180);
+    text("600", pos_x, pos_y + 120);
+    text("800", pos_x, pos_y + 60);
+  } else if (y == 7) {
+    text("1000", pos_x, pos_y + 240);
+    text("2000", pos_x, pos_y + 180);
+    text("3000", pos_x, pos_y + 120);
+    text("4000", pos_x, pos_y + 60);
   }
   ////////////////// Zwischenlinien definieren ENDE ////////////////////////////
 
   textAlign(CENTER);
   textSize(20);
-  stroke(255, 0, 0);
-  fill(255, 0, 0);
-  text(nf(min, 0, 0), 135, 600);
-  text(nf(max, 0, 0), 135, 100);
+
+  if (zeitskala1 == 1) {
+    text(nf(min, 0, 0), 300, 330);
+    text(nf(max, 0, 0), 300, 30);
+  } else {
+    text(nf(min, 0, 0), 300, 680);
+    text(nf(max, 0, 0), 300, 380);
+  }
+  textAlign(CORNER);
+  if (mouseX > 340*scale_factor && mouseX < 940*scale_factor) {
+    if (zeitskala1 == 1) {
+      if (mouseY > 30*scale_factor && mouseY < 330*scale_factor) {
+        noFill();
+        ellipse(mouseX, mouseY, 10, 10);
+        fill(0);
+
+        text(nf(max-max*(mouseY-30)/300, 0, 1) + " µg/m³", mouseX + 10, mouseY);
+      }
+    } else {
+      if (mouseY > 380*scale_factor && mouseY < 680*scale_factor) {
+        noFill();
+        ellipse(mouseX, mouseY, 10, 10);
+        fill(0);
+        text(nf(max-max*(mouseY-380)/300, 0, 1)+ " µg/m³", mouseX + 10, mouseY);
+      }
+    }
+  }
+  textAlign(CENTER);
+
+
+
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
+
   // text(name, height/2 -400, -width/2 + 80);
-  text(name, height/2 -350, -width/2 + 100);
+  if (zeitskala1 == 1) {
+    text(name, height/2 -510, -width/2 + 250);
+  } else {
+    text(name, height/2 -180, -width/2 + 250);
+  }
   popMatrix();
-  fill(0);
-  textSize(20);
-  text("Zeit in Sekunden", 580, 655);
+
   ///////////////// MESSWERTE ZEICHNEN //////////////////////////////////////////
   textAlign(CORNER);
   fill(255);
   stroke(0);
 
 
-  boolean first_error = true;
   if (zeitskala1 == 1) {
     for (int i = (indexStation1 - xValues); i < indexStation1 - 1; i++) {
       if (indexStation1 < xValues) {
@@ -1446,62 +1512,40 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
       }
       //rect(225, 60, 930, 500);
       float x_anfang = 0;
-      float x_ende = 180;
+      float x_ende = 150;
       //x_ende = gesamtzeit_station1;
       float x_intervall = x_ende - x_anfang;
-      float x1 = 140 + (zeitskala[i] - x_anfang)*830/x_intervall;
-      float x2 = 140 + (zeitskala[i+1] - x_anfang)*830/x_intervall;
-      float y1 = 640 - 500*(array[i]-min)/(max - min);
-      float y2 = 640 - 500*(array[i+1] - min)/(max - min);
-      float e1 = 640 - 500*(array[i] - error - min)/(max-min);
-      float e2 = 640 - 500*(array[i] + error - min)/(max-min);
-
+      float x1 = 340 + (zeitskala[i] - x_anfang)*600/x_intervall;
+      float x2 = 340 + (zeitskala[i+1] - x_anfang)*600/x_intervall;
+      float y1 = 330 - 300*(array[i]-min)/(max - min);
+      float y2 = 330 - 300*(array[i+1] - min)/(max - min);
       float m = ((y2 - y1)/(x2 - x1));
-      if (x1 <= 140) {
-        y1 = m*140 + y1 - m*x1;
-        x1 = 140;
+      if (x1 < 340) {
+        y1 = m*340 + y1 - m*x1;
+        x1 = 340;
       }
-      if (y2 < 140) {
-        x2 = (140 + m*x2-y2)/m;
-        y2 = 140;
+      if (y2 < 30) {
+        x2 = (30 + m*x2-y2)/m;
+        y2 = 30;
       }
-      if (y1 < 140) {
-        x1 = (140 + m*x1-y1)/m;
-        y1 = 140;
+      if (y1 < 30) {
+        x1 = (30 + m*x1-y1)/m;
+        y1 = 30;
       }
-      if (x2 > 970) {
-        x2 = 970;
-        y2 = m*970 + y1 - m*x1;
+      if (x2 > 940) {
+        x2 = 940;
+        y2 = m*940 + y1 - m*x1;
       }
-      if (y1 >= 140 && y2 >= 140 && x2 >= 140 && x1 <= 950 && x2 <= 970) {
-        if (fehler.checked) {
-          strokeWeight(2);
-          if (e1 < 140) {
-            e1 = 140;
-          }
-          if (e2 < 140) {
-            e2 = 140;
-          }
-          if (e2 > 640) {
-            e2 = 640;
-          }
-          if (e1 > 640) {
-            e1 = 640;
-          }
-          line(x1, e1, x1, e2);
-          line(x1-2, e1, x1+2, e1);
-          line(x1-2, e2, x1+2, e2);
-          if (first_error) {
-            first_error = false;
-            line(x1, e1, x1, e2);
-            line(x1-2, e1, x1+2, e1);
-            line(x1-2, e2, x1+2, e2);
-          }
-        }
+      if (strichdicke.name == "1 (dünn)") {
+        strokeWeight(1);
+      } else if (strichdicke.name == "2 (Standard)") {
+        strokeWeight(2.5);
+      } else {
+        strokeWeight(5);
       }
       stroke(c);
       fill(c);
-      if (y1 >= 140 && y2 >= 140 && x2 >= 140 && x1 <= 950 && x2 <= 970) {
+      if (y1 >= 30 && y2 >= 30 && x2 >= 340 && x1 <= 950 && x2 <= 970) {
         if (verbinde.checked) {
           line(x1, y1, x2, y2);
         } else {
@@ -1513,33 +1557,40 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
   } else if (zeitskala1 == 2) {
     for (int i = (indexStation1_trocken - xValues); i < indexStation1_trocken - 1; i++) {
       float x_anfang = 0;
-      float x_ende = 180;
+      float x_ende = 150;
       //x_ende = gesamtzeit_station1;
       float x_intervall = x_ende - x_anfang;
-      float x1 = 140 + (zeitskala[i] - x_anfang)*830/x_intervall;
-      float x2 = 140 + (zeitskala[i+1] - x_anfang)*830/x_intervall;
-      float y1 = 640 - 500*(array[i]-min)/(max - min);
-      float y2 = 640 - 500*(array[i+1] - min)/(max - min);
+      float x1 = 340 + (zeitskala[i] - x_anfang)*600/x_intervall;
+      float x2 = 340 + (zeitskala[i+1] - x_anfang)*600/x_intervall;
+      float y1 = 680 - 300*(array[i]-min)/(max - min);
+      float y2 = 680 - 300*(array[i+1] - min)/(max - min);
       float m = ((y2 - y1)/(x2 - x1));
-      if (x1 <= 140) {
-        y1 = m*140 + y1 - m*x1;
-        x1 = 140;
+      if (x1 < 340) {
+        y1 = m*340 + y1 - m*x1;
+        x1 = 340;
       }
-      if (y2 < 140) {
-        x2 = (140 + m*x2-y2)/m;
-        y2 = 140;
+      if (y2 < 380) {
+        x2 = (380 + m*x2-y2)/m;
+        y2 = 380;
       }
-      if (y1 < 140) {
-        x1 = (140 + m*x1-y1)/m;
-        y1 = 140;
+      if (y1 < 380) {
+        x1 = (380 + m*x1-y1)/m;
+        y1 = 380;
       }
-      if (x2 > 970) {
-        x2 = 970;
-        y2 = m*970 + y1 - m*x1;
+      if (x2 > 940) {
+        x2 = 940;
+        y2 = m*940 + y1 - m*x1;
+      }
+      if (strichdicke.name == "1 (dünn)") {
+        strokeWeight(1);
+      } else if (strichdicke.name == "2 (Standard)") {
+        strokeWeight(2.5);
+      } else {
+        strokeWeight(5);
       }
       stroke(c);
       fill(c);
-      if (y1 >= 140 && y2 >= 140 && x2 >= 140 && x1 <= 970 && x2 <= 950) {
+      if (y1 >= 380 && y2 >= 380 && x2 >=  340 && x1 <= 940 && x2 <= 950) {
         if (verbinde.checked) {
           line(x1, y1, x2, y2);
         } else {
@@ -1548,46 +1599,9 @@ void graph2(float[] array, int zeitskala1, String name, int cc, int[] y_scale, b
         }
       }
     }
-  } else if (zeitskala1 == 3) {
-    for (int i = (indexStation1_nass - xValues); i < indexStation1_nass - 1; i++) {
-      float x_anfang = 0;
-      float x_ende = 180;
-      x_ende = gesamtzeit_station1;
-      float x_intervall = x_ende - x_anfang;
-      float x1 = 140 + (zeitskala[i] - x_anfang)*830/x_intervall;
-      float x2 = 140 + (zeitskala[i+1] - x_anfang)*830/x_intervall;
-      float y1 = 640 - 500*(array[i]-min)/(max - min);
-      float y2 = 640 - 500*(array[i+1] - min)/(max - min);
-      float m = ((y2 - y1)/(x2 - x1));
-      if (x1 <= 140) {
-        y1 = m*140 + y1 - m*x1;
-        x1 = 140;
-      }
-      if (y2 < 140) {
-        x2 = (140 + m*x2-y2)/m;
-        y2 = 140;
-      }
-      if (y1 < 140) {
-        x1 = (140 + m*x1-y1)/m;
-        y1 = 140;
-      }
-      if (x2 > 970) {
-        x2 = 970;
-        y2 = m*970 + y1 - m*x1;
-      }
-      stroke(c);
-      fill(c);
-      if (y1 >= 140 && y2 >= 140 && x2 >= 140 && x1 <= 950 && x2 <= 970) {
-        if (verbinde.checked) {
-          line(x1, y1, x2, y2);
-        } else {
-          line(x2-5, y2, x2+5, y2);
-          line(x2, y2-5, x2, y2+5);
-        }
-      }
-    }
-  }
+  } 
   fill(0);
   popMatrix();
+  strokeWeight(1);
   textAlign(CORNER);
 }

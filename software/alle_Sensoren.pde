@@ -1,9 +1,4 @@
 void alleSensoren() {
-  two_three.active = false;
-  four.active = false;
-  one.active = false;
-  settings.active = false;
-
   boolean PM1_left = false;
   boolean PM1_right = false;
   boolean PM2_5_left = false;
@@ -126,7 +121,7 @@ void alleSensoren() {
   }
   if (up1.isClicked()) {
     y_scale[0] += 1;
-    if (y_scale[0] > 4) {
+    if (y_scale[0] > 5) {
       y_scale[0] = 0;
     }
   }
@@ -134,13 +129,13 @@ void alleSensoren() {
   if (down1.isClicked()) {
     y_scale[0] -= 1;
     if (y_scale[0] < 0) {
-      y_scale[0] = 4;
+      y_scale[0] = 5;
     }
   }
 
   if (up2.isClicked()) {
     y_scale[1] += 1;
-    if (y_scale[1] > 4) {
+    if (y_scale[1] > 5) {
       y_scale[1] = 0;
     }
   }
@@ -148,7 +143,7 @@ void alleSensoren() {
   if (down2.isClicked()) {
     y_scale[1] -= 1;
     if (y_scale[1] < 0) {
-      y_scale[1] = 4;
+      y_scale[1] = 5;
     }
   }
 
@@ -299,11 +294,6 @@ void alleSensoren() {
 
 /// MESSWERT GEGEN MESSWERT
 void alleSensoren2() {
-  two_three.active = false;
-  four.active = false;
-  one.active = false;
-  settings.active = false;
-
   boolean PM1_left = false;
   boolean PM1_right = false;
   boolean PM2_5_left = false;

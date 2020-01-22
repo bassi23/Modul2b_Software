@@ -1,4 +1,6 @@
 int[] y_scale = {0, 0};
+int[] y_scale1 = {0, 0};
+int[] y_scale2 = {0, 0};
 int x_scale = 0;
 
 //void Feinstaub() {
@@ -258,16 +260,12 @@ void onlyTwo(CheckBox check, String state1, String state2, String state3, String
 
 
 
-float gesamtzeit_station1 = 80;
+float gesamtzeit_station1 = 150;
 
 
 boolean ersterStart_Station1 = false;
 
 void Station1() {
-  two_three.active = false;
-  four.active = false;
-  one.active = false;
-  settings.active = false;
   up1.hide();
   down1.hide();
   up2.hide();
@@ -277,48 +275,429 @@ void Station1() {
   reset.hide();
   station1_MessungStarten.hide();
 
-  station1_referenz.show();
-  station1_trocken.show();
-  station1_nass.show();
+
   aktualisierung_right.hide();
   aktualisierung_left.hide();
+  // 1. Box mit abgerundeten Ecken
+  fill(150, 150, 255, 100);
+  noStroke();
+  bezierRect(25, 200, 500, 450, 5, 5);
+  fill(0);
 
   fill(0);
   textSize(20);
   textFont(bold);
-  text("Station 1 - Feinstaubmessung", 20, 50);
+  text("Station 4 - Feinstaubmessung", 20, 50);
+  text("Aufgabe 1 - Versuchsaufbau", 120, 240);
   textFont(normal);
+  text("Für diesen Versuch benötigst du:\n\n- Sensorboard\n- Tafel\n- Kreidesorten A und B\n- Zwei Schwämme (feucht und trocken)\n\nBefestige das Board, an der Tafel.\nAchte dabei darauf, dass die Öffnung des Fein-\nstaubsensors in Richtung der Tafel zeigt.\n\n          Klicke anschließend auf ‚weiter‘.", 50, 290);
   Station1_Aufgabentext.show();
- // text("In dieser Station wirst du messen wieviel Feinstaub das Beschriften und Abwischen einer Tafel mit Kreide erzeugt. Beachte die\nAnleitungsschritte auf dem beiliegenden Blatt. Jede Messung setzt sich aus den folgenden Schritten zusammen:", 20, 100);
- // text("1) Eine 10-sekündige Einlaufphase\n2) Beschrifte die Tafel für insgesamt 30 Sekunden\n3) Wische die Tafel 30 Sekunden lang\n4) Eine 10-sekündige Auslaufphase", 450, 180);
-  textSize(30);
+  // Station1_Aufgabentext2.show();
+  //image(Versuchsaufbau_Feinstaub, 600, 200);
+  Feinstaub_weiter.show();
 
 
-  if (station1_referenz_abgeschlossen && station1_trocken_abgeschlossen && station1_nass_abgeschlossen) {
-    zur_Auswertung2.show();
-  }
-  if (station1_referenz_abgeschlossen) {
-    haken(250);
-  } else {
-    kreuz(300);
-  }
-  if (station1_trocken_abgeschlossen) {
-    haken(575);
-  } else {
-    kreuz(650);
-  }
-  if (station1_nass_abgeschlossen) {
-    haken(950);
-  } else {
-    kreuz(1000);
+  image(Board, 570, 200);
+  image(KreideA, 900, 620);
+  image(KreideB, 900, 550);
+  image(Tafel, 900, 200);
+  image(Schwaemme, 570, 525);
+
+  text("Sensorboard", 650, 185);
+  text("Tafel", 980, 185);
+  text("Schwämme", 650, 520);
+  text("Kreide A", 970, 705);
+  text("Kreide B", 1000, 535);
+}
+
+
+
+
+void Feinstaub_Aufgabe2() {
+  fill(150, 150, 255, 100);
+  noStroke();
+  bezierRect(25, 25, 650, 650, 5, 5);
+  fill(0);
+  Feinstaub_weiter.show();
+  fill(0);
+  textSize(20);
+  textFont(bold);
+  textAlign(CENTER);
+  text("Aufgabe 2 - Messung der Feinstaubemission", 337.5, 65);
+  text("a) Kreidesorte A", 135, 205);
+  textFont(normal);
+  text("- Klicke auf 'Messung starten'\n- Warte 30 Sekunden (Einlaufzeit)\n- Beschrifte die Tafel für 30 Sekunden mit Kreidesorte A\n- Wische die Tafel für 30 Sekunden mit einem\ntrockenen Schwamm\n- Beschrifte die Tafel für 30 Sekunden\n- Wische die Tafel für 30 Sekunden mit einem nassen\nSchwamm", 337.5, 325);
+
+  image(KreideA, 290, 155);
+  textAlign(CORNER);
+  text("Miss nun die Feinstaubemission, die bei Beschriftung und\nWischen der Tafel entsteht.\n\n\nIm ersten Versuch arbeiten wir mit Kreidesorte A. Führe die\nfolgenden Schritte auf der nächsten Seite aus:", 50, 115);
+  text("Wenn du den Messablauf verinnerlicht hast, klicke auf ‚weiter‘.", 50, 605);
+  image(Versuchsaufbau_Feinstaub2, 700, 70);
+}
+
+
+void Feinstaub_KreideA() {
+  //Welche Graphen sollen angezeigt werden?
+  up1.show();
+  down1.show();
+
+  up2.show();
+  down2.show();
+
+
+  fill(0);
+  textSize(20);
+  reset.hide();
+  fill(0);
+  noStroke();
+
+  // Zeichne den Hintergrund
+  fill(255);
+  stroke(0);
+  rect(120, 140, 830, 500);
+  fill(230);
+  rect(1080, -1, 200, 720);
+  stroke(0, 50);
+  textSize(20);
+  fill(0);
+  textAlign(CENTER);
+  text("Einlaufen", 203, 110);
+  text("Tafel beschriften", 369, 110);
+  text("Tafel wischen\n(trocken)", 535, 100);
+  text("Tafel beschriften", 701, 110);
+  text("Tafel wischen\n(nass)", 867, 100);
+  textAlign(CORNER);
+  stroke(100, 100);
+  if (y_scale[0] != 0 || y_scale[1] != 0) {
+    for (int i = 0; i < 4; i++) {
+      line(120, 240 + 100*i, 950, 240 + 100*i);
+    }
   }
 
-  if (freie_stationen.name == "freigeben") {
-    station1_nass_abgeschlossen = true;
-    station1_trocken_abgeschlossen = true;
+  if (up1.isClicked()) {
+    y_scale[0] += 1;
+    if (y_scale[0] > 5) {
+      y_scale[0] = 0;
+    }
+  }
+
+  if (down1.isClicked()) {
+    y_scale[0] -= 1;
+    if (y_scale[0] < 0) {
+      y_scale[0] = 5;
+    }
+  }
+
+  if (up2.isClicked()) {
+    y_scale[1] += 1;
+    if (y_scale[1] > 5) {
+      y_scale[1] = 0;
+    }
+  }
+
+  if (down2.isClicked()) {
+    y_scale[1] -= 1;
+    if (y_scale[1] < 0) {
+      y_scale[1] = 5;
+    }
+  }
+
+  fill(255);
+  stroke(0);
+  rect(470, 20, 130, 50);
+  rect(1105, 155, 155, 80);
+
+  graph(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
+  graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+
+  fill(0);
+  textSize(20);
+  text("0", 115, 660);
+  text("30", 281, 660);
+  text("60", 447, 660);
+  text("90", 613, 660);
+  text("120", 779, 660);
+  text("150", 945, 660);
+  stroke(0);
+
+  for (int i = 0; i < 4; i++) {
+    line(286 + 166*i, 140, 286 + 166*i, 640);
+  }
+
+
+
+  textSize(20);
+  text("Zeit in Sekunden", 455, 700);
+  fill(0);
+  textAlign(CENTER);
+
+  if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
+    text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  } else {
+    text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  }
+  textAlign(CORNER);
+
+  if (!Station1Start && !ersterDurchlauf_Station1_referenz) {
+    station1_MessungStarten.show();
+  } else {
+    station1_MessungStarten.hide();
+    station1_MessungWiederholen.show();
+    ersterDurchlauf_Station1_referenz = true;
+  }
+
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del + 0.1) && Station1Start) {
     station1_referenz_abgeschlossen = true;
   }
+
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1 - 2)) {
+    station1_weiter_ab.show();
+  }
+
+  if (station1_referenz_abgeschlossen) {
+    station1_weiter_ab.show();
+  }
+
+
+  fill(0);
+  noStroke();
+  textSize(24);
+  text("Optionen", 1120, 30);
+  fill(240);
+  stroke(0);
+  rect(1105, 450, 155, 140);
+  fill(0);
+  noStroke();
+  textSize(20);
+  textAlign(CENTER);
+  if (del == 0) {
+    text("Messintervall", 1185, 480);
+    text("Maximum", 1190, 565);
+  } else {
+    text("Messintervall", 1185, 480);
+    text(nf(del, 0, 0) + " s", 1185, 565);
+  }
+  textSize(15);
+  text("Fehlerbalken", 1165, 180);
+  text("verbinden", 1165, 220);
+  textAlign(CORNER);
+  back.show();
+  zumObermenu.show();
+  aktualisierung_right.show();
+  aktualisierung_left.show();
+  verbinde.show();
+  fehler.show();
+
+  if (fehler.checked) {
+    error_bars.name = "anzeigen";
+  } else {
+    error_bars.name = "nicht anzeigen";
+  }
+  if (verbinde.checked) {
+    connect.name = "verbinden";
+  } else {
+    connect.name = "nicht verbinden";
+  }
 }
+
+
+void Feinstaub_Aufgabe2b() {
+  fill(150, 150, 255, 100);
+  noStroke();
+  bezierRect(25, 25, 650, 650, 5, 5);
+  fill(0);
+  textSize(20);
+  textFont(bold);
+  textAlign(CENTER);
+  text("Aufgabe 2 - Messung der Feinstaubemission", 337.5, 65);
+  text("b) Kreidesorte B", 135, 205);
+  textFont(normal);
+  text("- Klicke auf 'Messung starten'\n- Warte 30 Sekunden (Einlaufzeit)\n- Beschrifte die Tafel für 30 Sekunden mit Kreidesorte B\n- Wische die Tafel für 30 Sekunden mit einem\ntrockenen Schwamm\n- Beschrifte die Tafel für 30 Sekunden\n- Wische die Tafel für 30 Sekunden mit einem nassen\nSchwamm", 337.5, 325);
+
+  image(KreideB, 290, 155);
+  textAlign(CORNER);
+  text("Miss nun die Feinstaubemission, die bei Beschriftung und\nWischen der Tafel entsteht.\n\n\nIm ersten Versuch arbeiten wir mit Kreidesorte B. Führe die\nfolgenden Schritte auf der nächsten Seite aus:", 50, 115);
+  text("Wenn du den Messablauf verinnerlicht hast, klicke auf ‚weiter‘.", 50, 605);
+  image(Versuchsaufbau_Feinstaub2, 700, 70);
+  Feinstaub_weiter.show();
+  zumObermenu.hide();
+}
+
+void Feinstaub_KreideB() {
+  //Welche Graphen sollen angezeigt werden?
+  up1.show();
+  down1.show();
+
+  up2.show();
+  down2.show();
+
+  fill(0);
+  textSize(20);
+  reset.hide();
+  fill(0);
+  noStroke();
+
+  // Zeichne den Hintergrund
+  fill(255);
+  stroke(0);
+  rect(120, 140, 830, 500);
+  fill(230);
+  rect(1080, -1, 200, 720);
+  stroke(0, 50);
+  textSize(20);
+  fill(0);
+  textAlign(CENTER);
+  text("Einlaufen", 203, 110);
+  text("Tafel beschriften", 369, 110);
+  text("Tafel wischen\n(trocken)", 535, 100);
+  text("Tafel beschriften", 701, 110);
+  text("Tafel wischen\n(nass)", 867, 100);
+  textAlign(CORNER);
+  stroke(100, 100);
+  if (y_scale[0] != 0 || y_scale[1] != 0) {
+    for (int i = 0; i < 4; i++) {
+      line(120, 240 + 100*i, 950, 240 + 100*i);
+    }
+  }
+
+  if (up1.isClicked()) {
+    y_scale[0] += 1;
+    if (y_scale[0] > 5) {
+      y_scale[0] = 0;
+    }
+  }
+
+  if (down1.isClicked()) {
+    y_scale[0] -= 1;
+    if (y_scale[0] < 0) {
+      y_scale[0] = 5;
+    }
+  }
+
+  if (up2.isClicked()) {
+    y_scale[1] += 1;
+    if (y_scale[1] > 5) {
+      y_scale[1] = 0;
+    }
+  }
+
+  if (down2.isClicked()) {
+    y_scale[1] -= 1;
+    if (y_scale[1] < 0) {
+      y_scale[1] = 5;
+    }
+  }
+
+  fill(255);
+  stroke(0);
+  rect(470, 20, 130, 50);
+  rect(1105, 155, 155, 80);
+
+  graph(Station1_PM25_trocken, 2, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
+  graph(Station1_PM10_trocken, 2, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
+
+  fill(0);
+  textSize(20);
+  text("0", 115, 660);
+  text("30", 281, 660);
+  text("60", 447, 660);
+  text("90", 613, 660);
+  text("120", 779, 660);
+  text("150", 945, 660);
+  stroke(0);
+
+  for (int i = 0; i < 4; i++) {
+    line(286 + 166*i, 140, 286 + 166*i, 640);
+  }
+
+
+
+  textSize(20);
+  text("Zeit in Sekunden", 455, 700);
+  fill(0);
+  textAlign(CENTER);
+
+  if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
+    text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  } else {
+    text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
+  }
+  textAlign(CORNER);
+
+
+
+  if (!Station1Start && !ersterDurchlauf_Station1_trocken) {
+    station1_MessungStarten.show();
+  } else {
+    station1_MessungStarten.hide();
+    station1_MessungWiederholen.show();
+    ersterDurchlauf_Station1_trocken = true;
+  }
+
+  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del + 0.1) && Station1Start) {
+    station1_trocken_abgeschlossen = true;
+  }
+  if (round((millis() - time_station1)/1000) == round(gesamtzeit_station1)) {
+    station1_zur_Auswertung.show();
+  }
+
+  if (station1_trocken_abgeschlossen) {
+    station1_zur_Auswertung.show();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  fill(0);
+  noStroke();
+  textSize(24);
+  text("Optionen", 1120, 30);
+  fill(240);
+  stroke(0);
+  rect(1105, 450, 155, 140);
+  fill(0);
+  noStroke();
+  textSize(20);
+  textAlign(CENTER);
+  if (del == 0) {
+    text("Messintervall", 1185, 480);
+    text("Maximum", 1190, 565);
+  } else {
+    text("Messintervall", 1185, 480);
+    text(nf(del, 0, 0) + " s", 1185, 565);
+  }
+  textSize(15);
+  text("Fehlerbalken", 1165, 180);
+  text("verbinden", 1165, 220);
+  textAlign(CORNER);
+  back.show();
+  zumObermenu.show();
+  aktualisierung_right.show();
+  aktualisierung_left.show();
+  verbinde.show();
+  fehler.show();
+
+  if (fehler.checked) {
+    error_bars.name = "anzeigen";
+  } else {
+    error_bars.name = "nicht anzeigen";
+  }
+  if (verbinde.checked) {
+    connect.name = "verbinden";
+  } else {
+    connect.name = "nicht verbinden";
+  }
+}
+
 
 
 void haken(float x) {
@@ -344,10 +723,19 @@ boolean ersterDurchlauf_Station1_referenz = false;
 boolean station1_referenz_abgeschlossen = false;
 
 float time_station1 = -999999;
-void referenzmessung() {
+
+
+boolean ersterDurchlauf_Station1_trocken = false;
+boolean ersterDurchlauf_Station1_nass = false;
+boolean station1_trocken_abgeschlossen = false;
+boolean station1_nass_abgeschlossen = false;
+
+
+void trockenerSchwamm() {
   station1_referenz.hide();
   station1_trocken.hide();
   station1_nass.hide();
+
   //Welche Graphen sollen angezeigt werden?
   boolean PM1_left = false;
   boolean PM1_right = false;
@@ -445,288 +833,7 @@ void referenzmessung() {
 
   rect(846.25, 140, 103.75, 500);
   textSize(26);
-   if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
-    fill(0);
-  } else {
-    fill(170, 220);
-  }
-  textSize(20);
-  text("Einlaufen", 125, 130);
-  if (round((millis() - time_station1)/1000) < 40 && round((millis() - time_station1)/1000) > 9) {
-    fill(0);
-  } else {
-    fill(170, 220);
-  }
-  text("Tafel beschriften", 295, 130);
-  if (round((millis() - time_station1)/1000) < 70 && round((millis() - time_station1)/1000) > 39) {
-    fill(0);
-  } else {
-    fill(170, 220);
-  }
-  text("Tafel wischen", 630, 130);
-  if (round((millis() - time_station1)/1000) < 80 && round((millis() - time_station1)/1000) > 69) {
-    fill(0);
-  } else {
-    fill(170, 220);
-  }
-  text("Auslaufen", 850, 130);
-  textSize(80);
-  fill(170, 50);
-  text("Referenzmessung", 200, 420);
-  stroke(100, 100);
-  if (y_scale[0] != 0 || y_scale[1] != 0) {
-    for (int i = 0; i < 4; i++) {
-      line(120, 240 + 100*i, 950, 240 + 100*i);
-    }
-  }
-
-  if (up1.isClicked()) {
-    y_scale[0] += 1;
-    if (y_scale[0] > 4) {
-      y_scale[0] = 0;
-    }
-  }
-
-  if (down1.isClicked()) {
-    y_scale[0] -= 1;
-    if (y_scale[0] < 0) {
-      y_scale[0] = 4;
-    }
-  }
-
-  if (up2.isClicked()) {
-    y_scale[1] += 1;
-    if (y_scale[1] > 4) {
-      y_scale[1] = 0;
-    }
-  }
-
-  if (down2.isClicked()) {
-    y_scale[1] -= 1;
-    if (y_scale[1] < 0) {
-      y_scale[1] = 4;
-    }
-  }
-  fill(255);
-  stroke(0);
-  rect(470, 20, 130, 50);
-  rect(1105, 155, 155, 80);
-
-  if (PM1_left) {
-    graph(Station1_PM1, 1, "Feinstaub PM1 in μg/m³", x_scale, y_scale, true);
-  } else if (PM2_5_left) {
-    graph(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
-  } else if (PM4_left) {
-    graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, true);
-  } else if (PM10_left) {
-    graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, true);
-  }
-
-  if (PM1_right) {
-    graph(Station1_PM1, 1, "Feinstaub PM1 in μg/m³", x_scale, y_scale, false);
-  } else if (PM2_5_right) {
-    graph(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, false);
-  } else if (PM4_right) {
-    graph(Station1_PM4, 1, "Feinstaub PM4 in μg/m³", x_scale, y_scale, false);
-  } else if (PM10_right) {
-    graph(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
-  }
-  fill(0);
-  textSize(20);
-  text("0", 115, 660);
-  text("10", 210, 660);
-  text("40", 525, 660);
-  text("70", 834, 660);
-  text("80", 938, 660);
-
-
-
-  textSize(20);
-  text("Zeit in Sekunden", 455, 700);
-  fill(0);
-  textAlign(CENTER);
-
-  if ((millis() - time_station1)/1000 < gesamtzeit_station1) {
-    text(round((millis() - time_station1)/1000) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
-  } else {
-    text(round(gesamtzeit_station1) + " s/" + round(gesamtzeit_station1) + " s", 535, 55);
-  }
-  textAlign(CORNER);
-
-
-  SPS_Rot_Station1.show();
-  SPS_Blau_Station1.show();
-
-
-  if (!Station1Start && !ersterDurchlauf_Station1_referenz) {
-    station1_MessungStarten.show();
-  } else {
-    station1_MessungStarten.hide();
-    station1_MessungWiederholen.show();
-    ersterDurchlauf_Station1_referenz = true;
-  }
-
-  if (ceil((millis() - time_station1)/1000) > (gesamtzeit_station1-del + 0.1) && Station1Start) {
-    station1_referenz_abgeschlossen = true;
-  }
-
-  if (station1_referenz_abgeschlossen) {
-    station1_weiter_ab.show();
-  }
-
-
-  fill(0);
-  noStroke();
-  textSize(24);
-  text("Optionen", 1120, 30);
-  fill(240);
-  stroke(0);
-  rect(1105, 450, 155, 140);
-  fill(0);
-  noStroke();
-  textSize(20);
-  textAlign(CENTER);
-  if (del == 0) {
-    text("Messintervall", 1185, 480);
-    text("Maximum", 1190, 565);
-  } else {
-    text("Messintervall", 1185, 480);
-    text(nf(del, 0, 0) + " s", 1185, 565);
-  }
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
-  text("verbinden", 1165, 220);
-  textAlign(CORNER);
-  back.show();
-  zumObermenu.show();
-  aktualisierung_right.show();
-  aktualisierung_left.show();
-  verbinde.show();
-  fehler.show();
-
-  if (fehler.checked) {
-    error_bars.name = "anzeigen";
-  } else {
-    error_bars.name = "nicht anzeigen";
-  }
-  if (verbinde.checked) {
-    connect.name = "verbinden";
-  } else {
-    connect.name = "nicht verbinden";
-  }
-}
-
-
-
-boolean ersterDurchlauf_Station1_trocken = false;
-boolean ersterDurchlauf_Station1_nass = false;
-boolean station1_trocken_abgeschlossen = false;
-boolean station1_nass_abgeschlossen = false;
-
-
-void trockenerSchwamm() {
-  station1_referenz.hide();
-  station1_trocken.hide();
-  station1_nass.hide();
-
-  //Welche Graphen sollen angezeigt werden?
-  boolean PM1_left = false;
-  boolean PM1_right = false;
-  boolean PM2_5_left = false;
-  boolean PM2_5_right = false;
-  boolean PM4_left = false;
-  boolean PM4_right = false;
-  boolean PM10_left = false;
-  boolean PM10_right = false;
-
-  if (SPS_Rot_Station1.name == "PM1") {
-    PM1_left = true;
-    up1.show();
-    down1.show();
-  } else if (SPS_Rot_Station1.name == "PM2.5") {
-    PM2_5_left = true;
-    up1.show();
-    down1.show();
-  } else if (SPS_Rot_Station1.name == "PM4") {
-    PM4_left = true;
-    up1.show();
-    down1.show();
-  } else if (SPS_Rot_Station1.name == "PM10") {
-    PM10_left = true;
-    up1.show();
-    down1.show();
-  } else {
-    up1.hide();
-    down1.hide();
-  }
-
-  if (SPS_Blau_Station1.name == "PM1") {
-    PM1_right = true;
-    up2.show();
-    down2.show();
-  } else if (SPS_Blau_Station1.name == "PM2.5") {
-    PM2_5_right = true;
-    up2.show();
-    down2.show();
-  } else if (SPS_Blau_Station1.name == "PM4") {
-    PM4_right = true;
-    up2.show();
-    down2.show();
-  } else if (SPS_Blau_Station1.name == "PM10") {
-    PM10_right = true;
-    up2.show();
-    down2.show();
-  } else {
-    up2.hide();
-    down2.hide();
-  }
-
-
-  fill(0);
-  textSize(20);
-  reset.hide();
-  fill(0);
-  noStroke();
-
-   // Zeichne den Hintergrund
-  fill(255);
-  stroke(0);
-  rect(120, 140, 830, 500);
-  fill(230);
-  rect(1080, -1, 200, 720);
-  stroke(100, 100);
   if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
-    fill(150, 255, 150);
-  } else {
-    fill(200, 255, 200, 200);
-  }
-
-  rect(120, 140, 103.75, 500);
-
-  if (round((millis() - time_station1)/1000) < 40 && round((millis() - time_station1)/1000) > 9) {
-    fill(255, 255, 150);
-  } else {
-    fill(255, 255, 200, 200);
-  }
-  rect(223.75, 140, 311.25, 500);
-
-  if (round((millis() - time_station1)/1000) < 70 && round((millis() - time_station1)/1000) > 39) {
-    fill(255, 200, 200);
-  } else {
-    fill(255, 200, 200, 200);
-  }
-
-
-  rect(535, 140, 311.25, 500);
-  if (round((millis() - time_station1)/1000) < 80 && round((millis() - time_station1)/1000) > 69) {
-    fill(150, 255, 150);
-  } else {
-    fill(200, 255, 200, 200);
-  }
-
-  rect(846.25, 140, 103.75, 500);
-  textSize(26);
-   if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
     fill(0);
   } else {
     fill(170, 220);
@@ -964,7 +1071,7 @@ void nasserSchwamm() {
   fill(0);
   noStroke();
 
-    // Zeichne den Hintergrund
+  // Zeichne den Hintergrund
   fill(255);
   stroke(0);
   rect(120, 140, 830, 500);
@@ -1002,7 +1109,7 @@ void nasserSchwamm() {
 
   rect(846.25, 140, 103.75, 500);
   textSize(26);
-   if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
+  if (round((millis() - time_station1)/1000) < 10 && round((millis() - time_station1)/1000) > 0) {
     fill(0);
   } else {
     fill(170, 220);
@@ -1189,208 +1296,157 @@ void Vergleich_Feinstaub() {
 
 void Vergleich_Feinstaub_Graphen() {
   reset.hide();
-  boolean PM25_referenz_rot = false;
-  boolean PM10_referenz_rot = false;
-
-  boolean PM25_trocken_rot = false;
-  boolean PM10_trocken_rot = false;
-
-  boolean PM25_nass_rot = false;
-  boolean PM10_nass_rot = false;
-
-  ///
-
-  boolean PM25_referenz_gruen = false;
-  boolean PM10_referenz_gruen = false;
-
-  boolean PM25_trocken_gruen = false;
-  boolean PM10_trocken_gruen = false;
-
-  boolean PM25_nass_gruen = false;
-  boolean PM10_nass_gruen = false;
-
-  //
-
-  boolean PM25_referenz_blau = false;
-  boolean PM10_referenz_blau = false;
-
-  boolean PM25_trocken_blau = false;
-  boolean PM10_trocken_blau = false;
-
-  boolean PM25_nass_blau = false;
-  boolean PM10_nass_blau = false;
-
-
-  String rot = SPS_Rot_Station1_Auswertung.name;
-  String gruen = SPS_Gruen_Station1_Auswertung.name;
-  String blau = SPS_Blau_Station1_Auswertung.name;
-
-  if (rot == "PM2.5 (Referenz)") {
-    PM25_referenz_rot = true;
-  } else if (rot == "PM10 (Referenz)") {
-    PM10_referenz_rot = true;
-  } else if (rot == "PM2.5 (trocken)") {
-    PM25_trocken_rot = true;
-  } else if (rot == "PM10 (trocken)") {
-    PM10_trocken_rot = true;
-  } else if (rot == "PM2.5 (nass)") {
-    PM25_nass_rot = true;
-  } else if (rot == "PM10 (nass)") {
-    PM10_nass_rot = true;
-  }
-
-  if (blau == "PM2.5 (Referenz)") {
-    PM25_referenz_blau = true;
-  } else if (blau == "PM10 (Referenz)") {
-    PM10_referenz_blau = true;
-  } else if (blau == "PM2.5 (trocken)") {
-    PM25_trocken_blau = true;
-  } else if (blau == "PM10 (trocken)") {
-    PM10_trocken_blau = true;
-  } else if (blau == "PM2.5 (nass)") {
-    PM25_nass_blau = true;
-  } else if (blau == "PM10 (nass)") {
-    PM10_nass_blau = true;
-  }
-
-  if (gruen == "PM2.5 (Referenz)") {
-    PM25_referenz_gruen = true;
-  } else if (gruen == "PM10 (Referenz)") {
-    PM10_referenz_gruen = true;
-  } else if (gruen == "PM2.5 (trocken)") {
-    PM25_trocken_gruen = true;
-  } else if (gruen == "PM10 (trocken)") {
-    PM10_trocken_gruen = true;
-  } else if (gruen == "PM2.5 (nass)") {
-    PM25_nass_gruen = true;
-  } else if (gruen == "PM10 (nass)") {
-    PM10_nass_gruen = true;
-  }
-
-  up1.show();
-  down1.show();
+  zumObermenu.hide();
+  up_Feinstaub1.show(); 
+  down_Feinstaub1.show();
+  up_Feinstaub2.show();  
+  down_Feinstaub2.show(); 
+  // up1.show();
+  // down1.show();
   // Zeichne den Hintergrund
+
   fill(255);
   stroke(0);
-  rect(120, 140, 830, 500);
+  rect(1100, 30, 100, 50);
+  rect(1100, 380, 100, 50);
+  noStroke();
+  fill(255, 0, 0);
+  rect(1110, 35, 15, 15);
+  rect(1110, 385, 15, 15);
+  textSize(20);
+  text("PM 2.5", 1130, 50);
+  text("PM 2.5", 1130, 400);
+  fill(0, 0, 255);
+  text("PM 10", 1130, 75);
+  text("PM 10", 1130, 425);
+  rect(1110, 60, 15, 15);
+  rect(1110, 410, 15, 15);
+  fill(255);
+  stroke(0);
+  rect(340, 30, 600, 300);
+  rect(340, 380, 600, 300);
+
+
 
   stroke(100, 100);
-  if (y_scale[0] == 0) {
-    y_scale[0] = 1;
+  if (y_scale1[0] == 0) {
+    y_scale1[0] = 1;
   }
-  if (y_scale[1] == 0) {
-    y_scale[1] = 1;
+  if (y_scale1[1] == 0) {
+    y_scale1[1] = 1;
   }
-  if (y_scale[0] != 0 || y_scale[1] != 0) {
+  if (y_scale1[0] != 0 || y_scale1[1] != 0) {
     for (int i = 0; i < 4; i++) {
-      line(120, 265 + 125*i, 950, 265 + 125*i);
+      //   line(120, 265 + 125*i, 950, 265 + 125*i);
     }
   }
 
-  if (up1.isClicked()) {
-    y_scale[0] += 1;
-    y_scale[1] += 1;
-    if (y_scale[0] > 4) {
-      y_scale[0] = 1;
-    }
-    if (y_scale[1] > 4) {
-      y_scale[1] = 1;
-    }
+  if (y_scale2[0] == 0) {
+    y_scale2[0] = 1;
   }
-
-  if (down1.isClicked()) {
-    y_scale[0] -= 1;
-    y_scale[1] -= 1;
-    if (y_scale[0] < 1) {
-      y_scale[0] = 4;
-    }
-    if (y_scale[1] < 1) {
-      y_scale[1] = 4;
+  if (y_scale2[1] == 0) {
+    y_scale2[1] = 1;
+  }
+  if (y_scale2[0] != 0 || y_scale2[1] != 0) {
+    for (int i = 0; i < 4; i++) {
+      //   line(120, 265 + 125*i, 950, 265 + 125*i);
     }
   }
 
-  if (PM25_referenz_rot) {
-    graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-    analyseFeinstaub(Station1_PM25, "PM2.5 (Referenz)", indexStation1, 0);
-  } else if (PM10_referenz_rot) {
-    graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-    analyseFeinstaub(Station1_PM10, "PM10 (Referenz)", indexStation1, 0);
-  } else if (PM25_trocken_rot) {
-    graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-    analyseFeinstaub(Station1_PM25, "PM2.5 (trocken)", indexStation1, 0);
-  } else if (PM10_trocken_rot) {
-    graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-    analyseFeinstaub(Station1_PM10, "PM10 (trocken)", indexStation1, 0);
-  } else if (PM25_nass_rot) {
-    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-    analyseFeinstaub(Station1_PM25_nass, "PM2.5 (nass)", indexStation1, 0);
-  } else if (PM10_nass_rot) {
-    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(255, 0, 0));
-    analyseFeinstaub(Station1_PM10_nass, "PM10 (nass)", indexStation1, 0);
+  if (up_Feinstaub1.isClicked()) {
+    y_scale1[0] += 1;
+    y_scale1[1] += 1;
+    if (y_scale1[0] > 7) {
+      y_scale1[0] = 1;
+    }
+    if (y_scale1[1] > 7) {
+      y_scale1[1] = 1;
+    }
   }
 
-  if (PM25_referenz_gruen) {
-    graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-    analyseFeinstaub(Station1_PM25, "PM25 (Referenz)", indexStation1, 1);
-  } else if (PM10_referenz_gruen) {
-    graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-    analyseFeinstaub(Station1_PM10, "PM10 (Referenz)", indexStation1, 1);
-  } else if (PM25_trocken_gruen) {
-    graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-    analyseFeinstaub(Station1_PM25_trocken, "PM25 (trocken)", indexStation1, 1);
-  } else if (PM10_trocken_gruen) {
-    graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-    analyseFeinstaub(Station1_PM10_trocken, "PM10 (trocken)", indexStation1, 1);
-  } else if (PM25_nass_gruen) {
-    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-    analyseFeinstaub(Station1_PM25_nass, "PM25 (nass)", indexStation1, 1);
-  } else if (PM10_nass_gruen) {
-    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 255, 0));
-    analyseFeinstaub(Station1_PM10_nass, "PM10 (nass)", indexStation1, 1);
+  if (down_Feinstaub1.isClicked()) {
+    y_scale1[0] -= 1;
+    y_scale1[1] -= 1;
+    if (y_scale1[0] < 1) {
+      y_scale1[0] = 7;
+    }
+    if (y_scale1[1] < 1) {
+      y_scale1[1] = 7;
+    }
+  }
+  if (up_Feinstaub2.isClicked()) {
+    y_scale2[0] += 1;
+    y_scale2[1] += 1;
+    if (y_scale2[0] > 7) {
+      y_scale2[0] = 1;
+    }
+    if (y_scale2[1] > 7) {
+      y_scale2[1] = 1;
+    }
+  }
+
+  if (down_Feinstaub2.isClicked()) {
+    y_scale2[0] -= 1;
+    y_scale2[1] -= 1;
+    if (y_scale2[0] < 1) {
+      y_scale2[0] = 7;
+    }
+    if (y_scale2[1] < 1) {
+      y_scale2[1] = 7;
+    }
   }
 
 
-  if (PM25_referenz_blau) {
-    graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-    analyseFeinstaub(Station1_PM25, "PM25 (Referenz)", indexStation1, 2);
-  } else if (PM10_referenz_blau) {
-    graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-    analyseFeinstaub(Station1_PM10, "PM10 (Referenz)", indexStation1, 2);
-  } else if (PM25_trocken_blau) {
-    graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-    analyseFeinstaub(Station1_PM25_trocken, "PM25 (trocken)", indexStation1, 2);
-  } else if (PM10_trocken_blau) {
-    graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-    analyseFeinstaub(Station1_PM10_trocken, "PM25 (trocken)", indexStation1, 2);
-  } else if (PM25_nass_blau) {
-    graph2(Station1_PM25_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-    analyseFeinstaub(Station1_PM25_nass, "PM25 (nass)", indexStation1, 2);
-  } else if (PM10_nass_blau) {
-    graph2(Station1_PM10_nass, 3, "Feinstaub in µg/m³", 0, y_scale, true, color(0, 0, 255));
-    analyseFeinstaub(Station1_PM10_nass, "PM10 (nass)", indexStation1, 2);
-  }
-  stroke(0);
-  fill(240);
-  rect(1060, 565, 200, 80);
+
+
+  graph2(Station1_PM25, 1, "Feinstaub in µg/m³", 0, y_scale1, true, color(255, 0, 0));
+  graph2(Station1_PM10, 1, "Feinstaub in µg/m³", 0, y_scale1, true, color(0, 0, 255));
+
+  graph2(Station1_PM25_trocken, 2, "Feinstaub in µg/m³", 0, y_scale2, true, color(255, 0, 0));
+  graph2(Station1_PM10_trocken, 2, "Feinstaub in µg/m³", 0, y_scale2, true, color(0, 0, 255));
+
+
+
+  //stroke(0);
+  //fill(240);
+  //rect(1060, 565, 200, 80);
 
   fill(0);
   textSize(20);
-  text("0", 110, 670);
-  text("30", 317.5, 670);
-  text("90", 525, 670);
-  text("150", 732.5, 670);
-  text("180", 940, 670);
-  textSize(16);
-  text("Fehlerbalken", 1070, 590);
-  text("verbinde", 1070, 630);
+  text("0", 335, 360);
+  text("30", 455, 360);
+  text("60", 575, 360);
+  text("90", 695, 360);
+  text("120", 815, 360);
+  text("150", 935, 360);
 
-  SPS_Gruen_Station1_Auswertung.show();
-  SPS_Rot_Station1_Auswertung.show();
-  SPS_Blau_Station1_Auswertung.show();
-  sFeinstaub.show();
-  sFeinstaub.move();
-  verbinde.show();
-  fehler.show();
+
+  text("0", 335, 705);
+  text("30", 455, 705);
+  text("60", 575, 705);
+  text("90", 695, 705);
+  text("120", 815, 705);
+  text("150", 935, 705);
+
+  stroke(100);
+  for (int i = 0; i < 4; i++) {
+    line(460 + 120*i, 30, 460 + 120*i, 330);
+    line(460 + 120*i, 380, 460 + 120*i, 680);
+  }
+  //textSize(16);
+  //text("Fehlerbalken", 1070, 590);
+  //text("verbinde", 1070, 630);
+
+
+  //sFeinstaub.show();
+  //sFeinstaub.move();
+  //verbinde.show();
+  //fehler.show();
+
+  textSize(80);
+  fill(100, 50);
+  text("Kreide A", 480, 200);
+  text("Kreide B", 480, 550);
 }
 
 

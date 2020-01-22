@@ -1,6 +1,4 @@
 void TVOC_Duelle() {
-  two.active = false;
-  three.active = false;
   Sensormessung.visible = false;
   textSize(20);
   fill(0);
@@ -92,6 +90,7 @@ void TVOC_Duelle_Riechen() {
     page = 3.11;
   }
 
+
   tvoc_duelle_werte_mensch[0] = 6*(Stoff1.x - 240)/800;
   tvoc_duelle_werte_mensch[1] = 6*(Stoff2.x- 240)/800;
   tvoc_duelle_werte_mensch[2] = 6*(Stoff3.x- 240)/800;
@@ -149,8 +148,8 @@ class TVOC_Kandidat {
     textAlign(CORNER);
     text(skala, x+55, y);
 
-    if (mouseX > (x - image.width/2) && mouseX < (x + image.width/2) && (mouseY - scroll) > (y - image.height/2) && (mouseY - scroll) < (y + image.height/2) && mousePressed && mouseX > scale_factor*240 && mouseX < scale_factor*1040) {
-      x = mouseX;
+    if (mouseX > (x - image.width/2)*scale_factor && mouseX < (x + image.width/2)*scale_factor && (mouseY - scroll) > (y - image.height/2)*scale_factor && (mouseY - scroll) < (y + image.height/2)*scale_factor && mousePressed && mouseX > scale_factor*240 && mouseX < scale_factor*1040) {
+      x = mouseX/scale_factor;
     }
 
     float r = 255*(x - 240)/800;
@@ -456,9 +455,9 @@ void TVOC_Duelle_Messen() {
   //Messung des Sensors
   if (index > 1) {
     float x = sgp_tvoc_data[index - 1];
-    x = 800*x/1000 + 240;
-    if (x > 1040) {
-      x = 1040;
+    x = (800*x/1000 + 240)*scale_factor;
+    if (x > 1040*scale_factor) {
+      x = 1040*scale_factor;
     }
     imageMode(CENTER);
     if (tvoc_stoff == 1) {
@@ -483,7 +482,7 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala, x + 70, 520);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 70, 520);
     } else if (tvoc_stoff == 2) {
       image(Stoff2_bild, x, 510);
       tvoc_duelle_werte_sensor[1] = (x - 240)/80;
@@ -689,8 +688,8 @@ void Auswertung_Station3() {
   image(Stoff5_bild, 435, 430);
   image(Stoff6_bild, 435, 595);
 
-  image(Stoff7_bild, 975, 430);
-  image(Stoff8_bild, 975, 595);
+  image(Stoff7_bild, 975, 595);
+  image(Stoff8_bild, 975, 430);
 
   fill(255, 100, 100);
   rect(430, 25, 110, 50);
@@ -795,4 +794,98 @@ void Auswertung_Station3() {
 
   rect(730, 650, 30, - 37.5*tvoc_duelle_werte_mensch[7]);
   rect(860, 650, 30, -37.5*6*tvoc_duelle_werte_sensor[7]/10);
+
+  TVOC_analyse.show();
+}
+
+
+
+void Analyse() {
+  textFont(normal);
+  text("Fahre mit der Maus über die gestesteten Stoffe, um ein Spektrum der Komponenten der Stoffe zu sehen", 20, 50);
+  textFont(bold);
+  text("Gaschromatographie-Spektrum", 280, 110);
+  text("Hauptbestandteile", 800, 110);
+  text("Einschätzung", 280, 450);
+  image(Stoff1_bild, 20, 100);
+  image(Stoff2_bild, 130, 100);
+  image(Stoff3_bild, 20, 250);
+  image(Stoff4_bild, 130, 250);
+  image(Stoff5_bild, 20, 400);
+  image(Stoff6_bild, 130, 400);
+  image(Stoff7_bild, 20, 550);
+  image(Stoff8_bild, 130, 550);
+
+  if (mouseX > 20*scale_factor && mouseX < 120*scale_factor && mouseY >100*scale_factor && mouseY < 200*scale_factor) {
+    image(Stinkelack, 280, 130);
+    textFont(normal);
+    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
+    text("Stinkelack stinkt und ist nicht so dufte für die Gesundheit", 280, 490);
+  }
+  if (mouseX > 130*scale_factor && mouseX < 230*scale_factor && mouseY >100*scale_factor && mouseY < 200*scale_factor) {
+    image(Eco_Lack, 280, 130);
+    textFont(normal);
+    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
+    text("Es ist Obst im Haus", 280, 490);
+  }
+
+  if (mouseX > 20*scale_factor && mouseX < 120*scale_factor && mouseY >250*scale_factor && mouseY < 350*scale_factor) {
+    image(Edding, 280, 130);
+    textFont(normal);
+    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
+    text("Edding stinkt und ist nicht so dufte für die Gesundheit", 280, 490);
+  }
+  if (mouseX > 130*scale_factor && mouseX < 230*scale_factor && mouseY >250*scale_factor && mouseY < 350*scale_factor) {
+    image(Eco_Edding, 280, 130);
+    textFont(normal);
+    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
+    text("Es ist Obst im Haus", 280, 490);
+  }
+
+
+  if (mouseX > 20*scale_factor && mouseX < 120*scale_factor && mouseY >400*scale_factor && mouseY < 500*scale_factor) {
+    image(Sekundenkleber, 280, 130);
+    textFont(normal);
+    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
+    text("Sekundenkleber stinkt und ist nicht so dufte für die Gesundheit", 280, 490);
+  }
+  if (mouseX > 130*scale_factor && mouseX < 230*scale_factor && mouseY >400*scale_factor && mouseY < 500*scale_factor) {
+    image(Eco_Kleber, 280, 130);
+    textFont(normal);
+    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
+    text("Es ist Obst im Haus", 280, 490);
+  }
+
+
+  if (mouseX > 20*scale_factor && mouseX < 120*scale_factor && mouseY >550*scale_factor && mouseY < 650*scale_factor) {
+    image(Kork, 280, 130);
+    textFont(normal);
+    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
+    text("Kork stinkt und ist nicht so dufte für die Gesundheit", 280, 490);
+  }
+  if (mouseX > 130*scale_factor && mouseX < 230*scale_factor && mouseY >550*scale_factor && mouseY < 650*scale_factor) {
+    image(Eco_Boden, 280, 130);
+    textFont(normal);
+    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
+    text("Es ist Obst im Haus", 280, 490);
+  }
+
+
+
+  //Eco_Boden 
+  //Eco_Edding
+  //Eco_Kleber 
+  //Kork
+  //Sekundenkleber 
+  //Edding 
+  //Stinkelack 
+  //Eco_Lack 
+
+
+  strokeWeight(2);
+  stroke(0);
+  line(250, 80, 250, 720);
+  line(0, 80, 1280, 80);
+  line(250, 420, 1280, 420);
+  line(780, 80, 780, 420);
 }

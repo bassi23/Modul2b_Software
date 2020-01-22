@@ -60,17 +60,24 @@ String[] tutorial_Rot_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2",
 String[] tutorial_Blau_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 //Logos und Hintergrundbilder
 PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil;
+PImage Vorschau_Station1, Vorschau_Station2, Vorschau_Station2a, Vorschau_Station2b, Vorschau_Station3, Vorschau_Station4;
+PImage Versuchsaufbau_Feinstaub, Versuchsaufbau_Feinstaub2;
 // Bilder der zu messenden Stoffe für Station 3 - TVOC-Duelle
 PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild;
 
 // Tabelle, in der Messdaten gespeichert werden
 Table table;
 
+
+button one, two, two_a, two_b, three, four;
+
+button TVOC_analyse;
+
 // Buttons der Stationen
-station one, two_three, two, three, four, settings;
+//station one, two_three, two, three, four, settings;
 
 // Buttons zur Steuerung der Skalierung des Graphen (up, down) und 
-button back, up1, down1, up2, down2, left1, right1, start_stopp, x_up, x_down, y_up, y_down;
+button back, up1, down1, up2, down2, left1, right1, start_stopp, x_up, x_down, y_up, y_down, up_Feinstaub1, down_Feinstaub1, up_Feinstaub2, down_Feinstaub2;
 button reset, sicher_ja, sicher_nein;
 button aktualisierung_right, aktualisierung_left;
 button Stationen, Sensoren, zumObermenu;
@@ -82,6 +89,8 @@ button TVOC_Duelle_Start, naechstes_Duell, vorheriges_Duell, weiter_zum_Sensor, 
 button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 button reset_innenraum;
 button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred, genaueAnalyse, up2_Station4, down2_Station4;
+
+button Feinstaub_weiter;
 
 button tutorial_ueberspringen, tutorial_weiter, tutorial_zum, tutorial_back, tutorial_Start_Stopp;
 button tutorial_skalierung_rot_up, tutorial_skalierung_rot_down, tutorial_skalierung_blau_up, tutorial_skalierung_blau_down;
@@ -104,7 +113,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = -1;
+float page = 3.111;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -115,6 +124,11 @@ float time_Station4 = 480;
 
 int anzahlCOMPorts = 0;
 int ausgewaehlterPort = 0;
+
+
+
+PImage Board, KreideA, KreideB, Tafel, Schwaemme;
+PImage Eco_Boden, Eco_Edding, Eco_Kleber, Kork, Sekundenkleber, Edding, Stinkelack, Eco_Lack;
 
 // Das Programm ist in Seiten unterteilt
 
@@ -165,6 +179,34 @@ int ausgewaehlterPort = 0;
 void setup() {
   size(1280, 720);
   PImage icon = loadImage("img/SUSmobil.png");
+  Vorschau_Station1 = loadImage("img/Vorschau_Station1.png");
+  Vorschau_Station2 = loadImage("img/Vorschau_Station2.png");
+  Vorschau_Station2a = loadImage("img/Vorschau_Station2a.png");
+  Vorschau_Station2b = loadImage("img/Vorschau_Station2b.png");
+  Vorschau_Station3 = loadImage("img/Vorschau_Station3.png");
+  Vorschau_Station4 = loadImage("img/Vorschau_Station4.png");
+  Versuchsaufbau_Feinstaub = loadImage("img/Versuchsaufbau_Feinstaub.png");
+  Versuchsaufbau_Feinstaub2 = loadImage("img/Versuchsaufbau_Feinstaub2.png");
+
+
+  Eco_Boden = loadImage("img/Eco_Boden.png");
+  Eco_Edding = loadImage("img/Eco_Edding.png");
+  Eco_Kleber = loadImage("img/Eco_Kleber.png");
+  Kork = loadImage("img/Kork.png"); 
+  Sekundenkleber = loadImage("img/Sekundenkleber.png");
+  Edding = loadImage("img/Edding.png"); 
+  Stinkelack = loadImage("img/Stinkelack.png");
+  Eco_Lack = loadImage("img/Eco_Lack.png");
+
+  Board= loadImage("img/Board.png");
+  KreideA= loadImage("img/KreideA.png");
+  KreideB= loadImage("img/KreideB.png");
+  Tafel= loadImage("img/Tafel.png");
+  Schwaemme = loadImage("img/Schwaemme.png");
+
+
+
+
   surface.setIcon(icon);
   surface.setTitle("SUSmobil - Umweltmesstechnik");
   surface.setResizable(true);
@@ -181,7 +223,7 @@ void setup() {
   catch(Exception e) {
     gotSerial = false;
   }
-  Aufloesung = new dropdown("Standard (1280x720)", 350, 480, 250, 30, 6, Aufloesung_Strings, false, color(123, 120, 20));
+  Aufloesung = new dropdown("frei", 350, 480, 250, 30, 6, Aufloesung_Strings, false, color(123, 120, 20));
 
 
   fan[0] = loadImage("fan1.gif");
@@ -193,8 +235,8 @@ void setup() {
   fan[6] = loadImage("fan7.gif");
   fan[7] = loadImage("fan8.gif");
   fan_aus = loadImage("img/Ventilator_aus.jpg");
-  for(int i = 0; i< 8; i++){
-   fan[i].resize(110, 100); 
+  for (int i = 0; i< 8; i++) {
+    fan[i].resize(110, 100);
   }
   fan_aus.resize(110, 100);
 
@@ -214,7 +256,8 @@ void setup() {
 
 
 
-  Station1_Aufgabentext = new Aufgabentext(" In dieser Station wirst du messen wieviel Feinstaub das Beschriften und Abwischen einer Tafel mit Kreide erzeugt. Dafür stehen dir zwei unterschiedliche Kreidearten zur Verfügung. Beschrifte die Tafel für 30 Sekunden...", 25, 75, 1200, 125);
+  Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
+
   Station2_Aufgabentext_a = new Aufgabentext(" Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir die Reihenfolge. Trage auch ein wie sicher du dir bei deiner Anordnung bist.", 15, 75, 1245, 90);
   Station2_Aufgabentext_a2 = new Aufgabentext(" Mische die Proben und ordne sie erneut. Gib auch deine Sicherheit an. Klicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'!", 15, 75, 1245, 90);
 
@@ -309,16 +352,28 @@ void setup() {
   aktualisierung_right = new button(1200, 500, 50, 30, "right_arrow", 5, true, 20);
   aktualisierung_left = new button(1115, 500, 50, 30, "left_arrow", 5, true, 20);
 
+  TVOC_analyse = new button(1115, 600, 140, 50, "Analyse", 5, true, 20);
+
+  Feinstaub_weiter = new button(1115, 600, 140, 50, "weiter", 5, true, 20);
+
 
   x_up = new button(900, 680, 50, 30, "right_arrow", 5, true, 20);
   x_down = new button(840, 680, 50, 30, "left_arrow", 5, true, 20);
   y_up = new button(25, 140, 30, 50, "up_arrow", 5, true, 20);
   y_down = new button(25, 195, 30, 50, "down_arrow", 5, true, 20);
 
+
+  up_Feinstaub1 = new button(1000, 30, 30, 50, "up_arrow", 5, true, 20);
+  down_Feinstaub1 = new button(1000, 85, 30, 50, "down_arrow", 5, true, 20);
+  up_Feinstaub2 = new button(1000, 380, 30, 50, "up_arrow", 5, true, 20);
+  down_Feinstaub2 = new button(1000, 435, 30, 50, "down_arrow", 5, true, 20);
+
+
+
   //
   reset = new button(1115, 90, 140, 50, "Reset", 5, true, 20);
-  sicher_ja = new button(450, 340, 150, 75, "Ja", 5, true, 20);
-  sicher_nein = new button(700, 340, 150, 75, "Nein", 5, true, 20);
+  sicher_ja = new button(330, 340, 150, 75, "Ja", 5, true, 20);
+  sicher_nein = new button(600, 340, 150, 75, "Nein", 5, true, 20);
 
   //
 
@@ -399,12 +454,20 @@ void setup() {
   //
 
 
-  one = new station(50, 50, false);
-  two_three = new station(450, 50, false);
-  two = new station(200, 200, false);
-  three = new station(650, 200, false);
-  four = new station(50, 350, false);
-  settings = new station(450, 350, false);
+  //one = new station(50, 50, false);
+  //two_three = new station(450, 50, false);
+  //two = new station(200, 200, false);
+  //three = new station(650, 200, false);
+  //four = new station(50, 350, false);
+  //settings = new station(450, 350, false);
+
+
+  one = new button(100, 24, 450, 150, "Station 1\nTest der Sensoren", -5, true, 40);
+  two = new button(100, 198, 450, 150, "Station 2\nTVOC", -5, true, 40);
+  two_a = new button(95, 25, 450, 200, "Station 2a)\nMensch vs. Sensor", -5, true, 40);
+  two_b = new button(735, 25, 450, 200, "Station 2b)\nTVOC-Duelle", -5, true, 40);
+  three = new button(100, 372, 450, 150, "Station 3\nDicke Luft", -5, true, 40);
+  four = new button(100, 546, 450, 150, "Station 4\nFeinstaub", -5, true, 40);
 
   A = new Probe(355, 260, "A", true, false);
   B = new Probe(505, 260, "B", true, false);
@@ -487,7 +550,7 @@ float mouse_time = 0;
 
 
 void draw() {
- // println(page);
+  // println(page);
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
@@ -496,6 +559,8 @@ void draw() {
   } else {
     frameRate(30);
   }
+  println(page);
+
 
   textFont(normal);
   scale(scale_factor);
@@ -561,6 +626,27 @@ void draw() {
   station1_zur_Auswertung.hide();
   zur_Auswertung2.hide();
   zur_Auswertung3.hide();
+  TVOC_analyse.hide();
+  //one.hide();
+  //two.hide();
+  //three.hide();
+  //four.hide();
+  //two_a.hide();
+  //two_b.hide();
+
+  if (page != 0) {
+    one.hide();
+    two.hide();
+    three.hide();
+    four.hide();
+  }
+
+  if (page != 2.5) {
+    two_a.hide();
+    two_b.hide();
+  }
+
+
 
   aktualisierung_right.hide();
   aktualisierung_left.hide();
@@ -580,7 +666,7 @@ void draw() {
     alle_Sensoren2.hide();
   }
 
-  println(page);
+
   // Aufloesung.hide();
   ////////////////////////////////////////////////////////
   zumObermenu.x = 1115;
@@ -646,6 +732,7 @@ void draw() {
   }
   Datenaufnahme();
   if (Stationen.isClicked()) {
+    delay(200);
     page = 0;
   }
   if (Sensoren.isClicked()) {
@@ -666,23 +753,27 @@ void draw() {
     }
     if (one.isClicked()) {
       delay(200);
-      page = 1;
-    }
-    if (two_three.isClicked()) {
-      delay(200);
-      page = 2.5;
+      page = -6;
     }
     if (two.isClicked()) {
       delay(200);
+      page = 2.5;
+    }
+    if (two_a.isClicked()) {
+      delay(200);
       page = 2;
     }
-    if (three.isClicked()) {
+    if (two_b.isClicked()) {
       delay(200);
       page = 3;
     }
-    if (four.isClicked()) {
+    if (three.isClicked()) {
       delay(200);
       page = 4;
+    }
+    if (four.isClicked()) {
+      delay(200);
+      page = 1;
     }
   }
 
@@ -698,16 +789,17 @@ void draw() {
     Obermenu();
     einstellungen.show();
     reset.hide();
+
+    one.hide();
+    two.hide();
+    two_a.hide();
+    two_b.hide();
+    three.hide();
+    four.hide();
   } else if (page == 0) {
     hauptmenu();
     zumObermenu.show();
     Sensoren.hide();
-    two_three.active = true;
-    four.active = true;
-    one.active = true;
-    settings.active = true;
-    two.active = false;
-    three.active = false;
     reset.hide();
   } else if (page == 1) {
     //Feinstaub();
@@ -715,13 +807,15 @@ void draw() {
     Sensoren.hide();
     zumObermenu.hide();
   } else if (page == 1.1) {
-    referenzmessung();
+    Feinstaub_Aufgabe2();
   } else if (page == 1.11) {
-    trockenerSchwamm();
+    Feinstaub_KreideA();
   } else if (page == 1.111) {
-    nasserSchwamm();
+    // nasserSchwamm();
+    Feinstaub_Aufgabe2b();
   } else if (page == 1.1111) {
-    Vergleich_Feinstaub();
+    // Vergleich_Feinstaub();
+    Feinstaub_KreideB();
   } else if (page == 1.11111) {
     Vergleich_Feinstaub_Graphen();
   } else if (page == 2) {
@@ -736,8 +830,6 @@ void draw() {
   } else if (page == 2.5) {
     Station2Oder3();
     zumObermenu.hide();
-    two.active = true;
-    three.active = true;
   } else if (page == 3) {
     TVOC_Duelle();
     zumObermenu.hide();
@@ -747,6 +839,8 @@ void draw() {
     TVOC_Duelle_Messen();
   } else if (page == 3.111) {
     Auswertung_Station3();
+  } else if (page == 3.1111) {
+    Analyse();
   } else if (page == 4) {
     Innenraumluft();
     zumObermenu.hide();
@@ -890,6 +984,8 @@ void draw() {
         page = 3.1;
       } else if (page == 3.111) {
         page = 3.11;
+      } else if (page == 3.1111) {
+        page = 3.111;
       } else if (page == 4.1) {
         page = 4;
       } else if (page == 4.11) {
@@ -976,12 +1072,24 @@ void draw() {
   if (einstellungen.isClicked()) {
     page = 10;
   }
+
+  if (Feinstaub_weiter.isClicked()) {
+    if (page == 1) {
+      page = 1.1;
+    } else if (page == 1.1) {
+      page = 1.11;
+    } else if (page == 1.111) {
+      page = 1.1111;
+    }
+  }
+
+
   if (station1_MessungStarten.isClicked()) {
     Station1Start = true;
     time_station1 = millis();
-    if (page == 1.1) {
+    if (page == 1.11) {
       zeroTime3 = millis();
-    } else if (page == 1.11) {
+    } else if (page == 1.1111) {
       zeroTime4 = millis();
     } else if (page == 1.111) {
       zeroTime5 = millis();
@@ -989,16 +1097,13 @@ void draw() {
   }
 
   if (station1_weiter_ab.isClicked()) {
-    page = 1.11;
+    page = 1.111;
     station1_weiter_ab.hide();
     Station1Start = false;
   }
-  if (station1_weiter_bc.isClicked()) {
-    page = 1.111;
-    station1_weiter_bc.hide();
-  }
+
   if (station1_zur_Auswertung.isClicked()) {
-    page = 1.1111;
+    page = 1.11111;
   }
 
   if (tutorial_ueberspringen.isClicked()) {
@@ -1011,20 +1116,23 @@ void draw() {
   if (station1_MessungWiederholen.isClicked()) {
     Station1Start = true;
     time_station1 = millis();
-    if (page == 1.1) {
+    if (page == 1.11) {
       zeroTime3 = millis();
       indexStation1 = 0;
       station1_referenz_abgeschlossen = false;
+      for (int i = 0; i < 999999; i++) {
+        Station1_PM25[i] = 0;
+        Station1_PM10[i] = 0;
+      }
     }
-    if (page == 1.11) {
+    if (page == 1.1111) {
       zeroTime4 = millis();
       indexStation1_trocken = 0;
       station1_trocken_abgeschlossen = false;
-    }
-    if (page == 1.111) {
-      zeroTime5 = millis();
-      indexStation1_nass = 0;
-      station1_nass_abgeschlossen = false;
+      for (int i = 0; i < 999999; i++) {
+        Station1_PM25_trocken[i] = 0;
+        Station1_PM10_trocken[i] = 0;
+      }
     }
   }
   if (Station2_Riechen2.isClicked()) {
@@ -1187,6 +1295,10 @@ void draw() {
     }
   }
 
+  if (TVOC_analyse.isClicked()) {
+    page = 3.1111;
+  }
+
   if (tutorial_Start_Stopp.isClicked()) {
     if (tutorial_Start) {
       tutorial_Start = false;
@@ -1210,12 +1322,34 @@ boolean reset_bool_tutorial = false;
 boolean reset_bool_station2 = false;
 
 void sicher() {
-  fill(255, 100, 100);
-  rect(225, 250, 830, 200);
+  fill(240);
+  stroke(150);
+  strokeWeight(4);
+  rect(90, 250, 890, 200);
+  strokeWeight(1);
+  stroke(255, 0, 0);
+  beginShape();
+  fill(255, 50, 50);
+  vertex(135, 425);
+  vertex(205, 325);
+  vertex(265, 425);
+  vertex(135, 425);
+  endShape();
+  beginShape();
+  fill(255, 0, 0);
+  vertex(795, 425);
+  vertex(865, 325);
+  vertex(925, 425);
+  vertex(795, 425);
+  endShape();
+  textSize(100);
+  fill(0);
+  text("!", 189, 417);
+  text("!", 849, 417);
   fill(0);
   textSize(30);
   textAlign(CORNER);
-  text("Bist du sicher, dass du die Daten löschen möchtest?", 250, 300);
+  text("Bist du sicher, dass du die Daten löschen möchtest?", 150, 300);
   sicher_ja.show();
   sicher_nein.show();
 }
@@ -1232,7 +1366,7 @@ void sicher_tutorial() {
 }
 
 void saveDataInnenraum() {
-  cursor(WAIT);
+
   String[] T_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
   String[] H_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
   String[] TVOC_a = new String[indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc];
@@ -1256,13 +1390,13 @@ void saveDataInnenraum() {
       CO2_a[i] = str(Innenraumluftb[2][i- indexInnenraumlufta]).replace('.', ',');
       eCO2_a[i] = str(Innenraumluftb[4][i- indexInnenraumlufta]).replace('.', ',');
     }
-    for (int i = indexInnenraumlufta + indexInnenraumluftb; i < indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc; i++) {
-      T_a[i] = str(Innenraumluftc[0][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
-      H_a[i] = str(Innenraumluftc[1][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
-      TVOC_a[i] = str(Innenraumluftc[3][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
-      CO2_a[i] = str(Innenraumluftc[2][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
-      eCO2_a[i] = str(Innenraumluftc[4][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ',');
-    };
+//    for (int i = indexInnenraumlufta + indexInnenraumluftb; i < indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc; i++) {
+//      T_a[i] = str(Innenraumluftc[0][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+//      H_a[i] = str(Innenraumluftc[1][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+//      TVOC_a[i] = str(Innenraumluftc[3][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+//      CO2_a[i] = str(Innenraumluftc[2][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+//      eCO2_a[i] = str(Innenraumluftc[4][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ',');
+//    };
   }
 
   if (txt_ == "Format: .txt") {
@@ -1292,14 +1426,15 @@ void saveDataInnenraum() {
         newRow.setFloat("CO2", Innenraumluftb[4][i - indexInnenraumlufta]);
         newRow.setFloat("eCO2", Innenraumluftb[5][i - indexInnenraumlufta]);
         newRow.setFloat("TVOC", Innenraumluftb[3][i - indexInnenraumlufta]);
-      } else if (i < (indexInnenraumluftc + indexInnenraumlufta + indexInnenraumluftb)) {
-        newRow.setFloat("Zeit", Innenraumluftc[6][i - (indexInnenraumlufta + indexInnenraumluftb)]);
-        newRow.setFloat("Temperatur", Innenraumluftc[0][i - (indexInnenraumlufta + indexInnenraumluftb)]);
-        newRow.setFloat("Luftfeuchte", Innenraumluftc[1][i - (indexInnenraumlufta + indexInnenraumluftb)]);
-        newRow.setFloat("CO2", Innenraumluftc[4][i- (indexInnenraumlufta + indexInnenraumluftb)]);
-        newRow.setFloat("eCO2", Innenraumluftc[5][i - (indexInnenraumlufta + indexInnenraumluftb)]);
-        newRow.setFloat("TVOC", Innenraumluftc[3][i - (indexInnenraumlufta + indexInnenraumluftb)]);
-      }
+      } 
+      //else if (i < (indexInnenraumluftc + indexInnenraumlufta + indexInnenraumluftb)) {
+      //  newRow.setFloat("Zeit", Innenraumluftc[6][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+      //  newRow.setFloat("Temperatur", Innenraumluftc[0][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+      //  newRow.setFloat("Luftfeuchte", Innenraumluftc[1][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+      //  newRow.setFloat("CO2", Innenraumluftc[4][i- (indexInnenraumlufta + indexInnenraumluftb)]);
+      //  newRow.setFloat("eCO2", Innenraumluftc[5][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+      //  newRow.setFloat("TVOC", Innenraumluftc[3][i - (indexInnenraumlufta + indexInnenraumluftb)]);
+      //}
       saveTable(table, "Messdaten/" + day() + "_" + month() + "_" + year()+"/Innenraum/alleDaten.csv");
     }
   }

@@ -204,7 +204,7 @@ void Datenaufnahme() {
 
 
         if (Station1Start) {
-          if (page == 1.1) {// referenzmessung
+          if (page == 1.11) {// Kreide A
             Station1_PM1[indexStation1] = sps_pm1_data[index-2];
             Station1_PM25[indexStation1] = sps_pm25_data[index-2];
             Station1_PM4[indexStation1] = sps_pm4_data[index-2];
@@ -214,7 +214,7 @@ void Datenaufnahme() {
               Station1Start = false;
             }
             indexStation1 += 1;
-          } else if (page == 1.11) { // trockener Schwamm
+          } else if (page == 1.1111) { // trockener Schwamm
 
             Station1_PM1_trocken[indexStation1_trocken] = sps_pm1_data[index-2];
             Station1_PM25_trocken[indexStation1_trocken] = sps_pm25_data[index-2];
@@ -225,16 +225,6 @@ void Datenaufnahme() {
               Station1Start = false;
             }
             indexStation1_trocken += 1;
-          } else if (page == 1.111) {// nasser Schwamm
-            Station1_PM1_nass[indexStation1_nass] = sps_pm1_data[index-2];
-            Station1_PM25_nass[indexStation1_nass] = sps_pm25_data[index-2];
-            Station1_PM4_nass[indexStation1_nass] = sps_pm4_data[index-2];
-            Station1_PM10_nass[indexStation1_nass] = sps_pm10_data[index-2];
-            Station1_zeit_nass[indexStation1_nass] = (millis() - zeroTime5)/1000;
-            if (Station1_zeit_nass[indexStation1_nass] > gesamtzeit_station1) {
-              Station1Start = false;
-            }
-            indexStation1_nass += 1;
           }
         }
 

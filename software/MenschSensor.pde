@@ -5,11 +5,6 @@ float[] Position = {0, 0, 0, 0, 0};
 float[] Position2 = {0, 0, 0, 0, 0};
 
 void MenschSensor() {
-  one.active = false;
-  two.active = false;
-  three.active = false;
-  four.active = false;
-  two_three.active = false;
   onlyOneProbe();
   fill(0);
   textSize(20);
@@ -51,33 +46,32 @@ void MenschSensor() {
 
   for (int i = 0; i < 5; i++) {
     if (!A.active) {
-
-      if (A.x + 50 > 305 + 150*i && A.x - 50 < 405+ 150*i && A.y + 50 > 350 && A.y  - 50 < 450 ) {
-        A.x = 355+ 150*i; 
-        A.y = 400;
+      if (A.x > (255 + 150*i)*scale_factor && A.x < (455+ 150*i)*scale_factor && A.y > 300*scale_factor && A.y  < 500*scale_factor ) {
+        A.x = (355 + 150*i)*scale_factor; 
+        A.y = 400*scale_factor;
       }
       if (!B.active) {
-        if (B.x + 50 > 305 + 150*i && B.x - 50 < 405+ 150*i && B.y + 50 > 350 && B.y  - 50 < 450 ) {
-          B.x = 355+ 150*i; 
-          B.y = 400;
+        if (B.x > (255 + 150*i)*scale_factor && B.x < (455+ 150*i)*scale_factor && B.y > 300*scale_factor && B.y  < 500*scale_factor ) {
+          B.x = (355 + 150*i)*scale_factor; 
+          B.y = 400*scale_factor;
         }
       }
       if (!C.active) {
-        if (C.x + 50 > 305 + 150*i && C.x - 50 < 405+ 150*i && C.y + 50 > 350 && C.y  - 50 < 450 ) {
-          C.x = 355+ 150*i; 
-          C.y = 400;
+        if (C.x > (255 + 150*i)*scale_factor && C.x < (455+ 150*i)*scale_factor && C.y > 300*scale_factor && C.y  < 500*scale_factor ) {
+          C.x = (355 + 150*i)*scale_factor; 
+          C.y = 400*scale_factor;
         }
       }
       if (!D.active) {
-        if (D.x + 50 > 305 + 150*i && D.x - 50 < 405+ 150*i && D.y + 50 > 350 && D.y  - 50 < 450 ) {
-          D.x = 355+ 150*i; 
-          D.y = 400;
+        if (D.x > (255 + 150*i)*scale_factor && D.x < (455+ 150*i)*scale_factor && D.y > 300*scale_factor && D.y  < 500*scale_factor ) {
+          D.x = (355 + 150*i)*scale_factor; 
+          D.y = 400*scale_factor;
         }
       }
       if (!E.active) {
-        if (E.x + 50 > 305 + 150*i && E.x - 50 < 405+ 150*i && E.y + 50 > 350 && E.y  - 50 < 450 ) {
-          E.x = 355+ 150*i; 
-          E.y = 400;
+        if (E.x > (255 + 150*i)*scale_factor && E.x < (455+ 150*i)*scale_factor && E.y > 300*scale_factor && E.y  < 500*scale_factor ) {
+          E.x = (355 + 150*i)*scale_factor; 
+          E.y = 400*scale_factor;
         }
       }
     }
@@ -211,6 +205,7 @@ void MenschSensor() {
   if (aa > -1 && aa < 101 && bb > -1 && bb < 101 && cc > -1 && cc < 101 && dd > -1 && dd < 101 && ee > -1 && ee < 101) {
     ok = true;
   }
+  
 
   if (A.inPlace && B.inPlace && C.inPlace && D.inPlace && E.inPlace && ok) {
     Station2_Riechen2.show();
@@ -261,33 +256,32 @@ void Station2_Riechen2() {
 
   for (int i = 0; i < 5; i++) {
     if (!A2.active) {
-
-      if (A2.x + 50 > 305 + 150*i && A2.x - 50 < 405+ 150*i && A2.y + 50 > 350 && A2.y  - 50 < 450 ) {
-        A2.x = 355+ 150*i; 
-        A2.y = 400;
+      if (A2.x > (255 + 150*i)*scale_factor && A2.x < (455+ 150*i)*scale_factor && A2.y > 300*scale_factor && A2.y  < 500*scale_factor ) {
+        A2.x = (355 + 150*i)*scale_factor; 
+        A2.y = 400*scale_factor;
       }
       if (!B2.active) {
-        if (B2.x + 50 > 305 + 150*i && B2.x - 50 < 405+ 150*i && B2.y + 50 > 350 && B2.y  - 50 < 450 ) {
-          B2.x = 355+ 150*i; 
-          B2.y = 400;
+        if (B2.x > (255 + 150*i)*scale_factor && B2.x < (455+ 150*i)*scale_factor && B2.y > 300*scale_factor && B2.y  < 500*scale_factor ) {
+          B2.x = (355 + 150*i)*scale_factor; 
+          B2.y = 400*scale_factor;
         }
       }
       if (!C2.active) {
-        if (C2.x + 50 > 305 + 150*i && C2.x - 50 < 405+ 150*i && C2.y + 50 > 350 && C2.y  - 50 < 450 ) {
-          C2.x = 355+ 150*i; 
-          C2.y = 400;
+        if (C2.x > (255 + 150*i)*scale_factor && C2.x < (455+ 150*i)*scale_factor && C2.y > 300*scale_factor && C2.y  < 500*scale_factor ) {
+          C2.x = (355 + 150*i)*scale_factor; 
+          C2.y = 400*scale_factor;
         }
       }
       if (!D2.active) {
-        if (D2.x + 50 > 305 + 150*i && D2.x - 50 < 405+ 150*i && D2.y + 50 > 350 && D2.y  - 50 < 450 ) {
-          D2.x = 355+ 150*i; 
-          D2.y = 400;
+        if (D2.x > (255 + 150*i)*scale_factor && D2.x < (455+ 150*i)*scale_factor && D2.y > 300*scale_factor && D2.y  < 500*scale_factor ) {
+          D2.x = (355 + 150*i)*scale_factor; 
+          D2.y = 400*scale_factor;
         }
       }
       if (!E2.active) {
-        if (E2.x + 50 > 305 + 150*i && E2.x - 50 < 405+ 150*i && E2.y + 50 > 350 && E2.y  - 50 < 450 ) {
-          E2.x = 355+ 150*i; 
-          E2.y = 400;
+        if (E.x > (255 + 150*i)*scale_factor && E2.x < (455+ 150*i)*scale_factor && E2.y > 300*scale_factor && E2.y  < 500*scale_factor ) {
+          E2.x = (355 + 150*i)*scale_factor; 
+          E2.y = 400*scale_factor;
         }
       }
     }

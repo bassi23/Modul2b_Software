@@ -1,10 +1,4 @@
 void Obermenu() {
-  two_three.active = false;
-  four.active = false;
-  one.active = false;
-  settings.active = false;
-  two.active = false;
-  three.active = false;
 
 
 
