@@ -462,12 +462,12 @@ void setup() {
   //settings = new station(450, 350, false);
 
 
-  one = new button(100, 24, 450, 150, "Station 1\nTest der Sensoren", -5, true, 40);
-  two = new button(100, 198, 450, 150, "Station 2\nTVOC", -5, true, 40);
-  two_a = new button(95, 25, 450, 200, "Station 2a)\nMensch vs. Sensor", -5, true, 40);
-  two_b = new button(735, 25, 450, 200, "Station 2b)\nTVOC-Duelle", -5, true, 40);
-  three = new button(100, 372, 450, 150, "Station 3\nDicke Luft", -5, true, 40);
-  four = new button(100, 546, 450, 150, "Station 4\nFeinstaub", -5, true, 40);
+  one = new button(100, 24, 450, 150, "Station 1\nDie Sensoren testen", -8, true, 40);
+  two = new button(100, 198, 450, 150, "Station 2\nNase vs. Sensor", -8, true, 40);
+  two_a = new button(95, 25, 450, 200, "Station 2.1\nIch rieche was,\nwas du nicht riechst", -35, true, 40);
+  two_b = new button(735, 25, 450, 200, "Station 2.2\nTVOC-Duelle", -8, true, 40);
+  three = new button(100, 372, 450, 150, "Station 3\nBitte lüften", -8, true, 40);
+  four = new button(100, 546, 450, 150, "Station 4\nFeinstaubalarm", -8, true, 40);
 
   A = new Probe(355, 260, "A", true, false);
   B = new Probe(505, 260, "B", true, false);
@@ -753,7 +753,7 @@ void draw() {
     }
     if (one.isClicked()) {
       delay(200);
-      page = -6;
+      page = 100;
     }
     if (two.isClicked()) {
       delay(200);
@@ -775,6 +775,10 @@ void draw() {
       delay(200);
       page = 1;
     }
+  }
+  
+  if(page == 100){
+   alleSensoren(); 
   }
 
   if (page == 1.11111) {
