@@ -22,7 +22,7 @@ void hauptmenu() {
     strokeWeight(2);
     fill(0);
     textFont(bold);
-    text("Station 1 - Die Sensoren testen", 700, 50);
+    text("Station 1.2 - Die Sensoren testen", 700, 50);
     strokeWeight(1);
     textFont(normal);
     noStroke();
@@ -36,7 +36,7 @@ void hauptmenu() {
     strokeWeight(2);
     fill(0);
     textFont(bold);
-    text("Station 4 - Feinstaubalarm", 700, 50);
+    text("Station 4.2 - Kreidestaub", 700, 50);
     strokeWeight(1);
     textFont(normal);
     noStroke();

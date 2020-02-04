@@ -20,7 +20,7 @@ void MenschSensor() {
   noStroke();
   textSize(25);
   text("Konzentration", 20, 405);
-  text("Sicherheit in %", 20, 565);
+  // text("Sicherheit in %", 20, 565);
   reihenfolge();
   fill(0);
   textSize(40);
@@ -38,11 +38,11 @@ void MenschSensor() {
   D.show();
   E.show();
 
-  a.show(myText[0]);
-  b.show(myText[1]);
-  c.show(myText[2]);
-  d.show(myText[3]);
-  e.show(myText[4]);
+  //a.show(myText[0]);
+  //b.show(myText[1]);
+  //c.show(myText[2]);
+  //d.show(myText[3]);
+  //e.show(myText[4]);
 
   for (int i = 0; i < 5; i++) {
     if (!A.active) {
@@ -196,18 +196,18 @@ void MenschSensor() {
 
 
 
-  float aa = float(myText[0]);
-  float bb = float(myText[1]);
-  float cc = float(myText[2]);
-  float dd = float(myText[3]);
-  float ee = float(myText[4]);
-  boolean ok = false;
-  if (aa > -1 && aa < 101 && bb > -1 && bb < 101 && cc > -1 && cc < 101 && dd > -1 && dd < 101 && ee > -1 && ee < 101) {
-    ok = true;
-  }
-  
+  //float aa = float(myText[0]);
+  //float bb = float(myText[1]);
+  //float cc = float(myText[2]);
+  //float dd = float(myText[3]);
+  //float ee = float(myText[4]);
+  //boolean ok = false;
+  //if (aa > -1 && aa < 101 && bb > -1 && bb < 101 && cc > -1 && cc < 101 && dd > -1 && dd < 101 && ee > -1 && ee < 101) {
+  //  ok = true;
+  //}
 
-  if (A.inPlace && B.inPlace && C.inPlace && D.inPlace && E.inPlace && ok) {
+
+  if (A.inPlace && B.inPlace && C.inPlace && D.inPlace && E.inPlace) {
     Station2_Riechen2.show();
   } else {
     Station2_Riechen2.hide();
@@ -230,7 +230,7 @@ void Station2_Riechen2() {
   noStroke();
   textSize(25);
   text("Konzentration", 20, 405);
-  text("Sicherheit in %", 20, 565);
+  // text("Sicherheit in %", 20, 565);
   reihenfolge();
   fill(0);
   textSize(40);
@@ -248,11 +248,11 @@ void Station2_Riechen2() {
   D2.show();
   E2.show();
 
-  a2.show(myText2[0]);
-  b2.show(myText2[1]);
-  c2.show(myText2[2]);
-  d2.show(myText2[3]);
-  e2.show(myText2[4]);
+  //a2.show(myText2[0]);
+  //b2.show(myText2[1]);
+  //c2.show(myText2[2]);
+  //d2.show(myText2[3]);
+  //e2.show(myText2[4]);
 
   for (int i = 0; i < 5; i++) {
     if (!A2.active) {
@@ -407,17 +407,17 @@ void Station2_Riechen2() {
 
 
 
-  float aa = float(myText2[0]);
-  float bb = float(myText2[1]);
-  float cc = float(myText2[2]);
-  float dd = float(myText2[3]);
-  float ee = float(myText2[4]);
-  boolean ok = false;
-  if (aa > -1 && aa < 101 && bb > -1 && bb < 101 && cc > -1 && cc < 101 && dd > -1 && dd < 101 && ee > -1 && ee < 101) {
-    ok = true;
-  }
+  //float aa = float(myText2[0]);
+  //float bb = float(myText2[1]);
+  //float cc = float(myText2[2]);
+  //float dd = float(myText2[3]);
+  //float ee = float(myText2[4]);
+  //boolean ok = false;
+  //if (aa > -1 && aa < 101 && bb > -1 && bb < 101 && cc > -1 && cc < 101 && dd > -1 && dd < 101 && ee > -1 && ee < 101) {
+  //  ok = true;
+  //}
 
-  if (A2.inPlace && B2.inPlace && C2.inPlace && D2.inPlace && E2.inPlace && ok) {
+  if (A2.inPlace && B2.inPlace && C2.inPlace && D2.inPlace && E2.inPlace) {
     Sensormessung.show();
   } else {
     Sensormessung.hide();
@@ -968,17 +968,18 @@ void Station2_Sensor() {
       if (x1 < 500) {
         y2 = m*175 + y1 - m*x1;
       }
-      if (y2 < 190) {
+      if (y2 <= 190) {
         y2 = 190;
         x2 = (190 + m*x1 - y1)/m;
       }
-      if (y1 < 190) {
+      if (y1 <= 190) {
         y1 = 190;
         x1 = (190 + m*x2 - y2)/m;
       }
 
+
       //  if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && MenschSensorMesswerte[j][i] != 0) {
-      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && y2 != 590) {
+      if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200) {
         strokeWeight(3);
         line(x1, y1, x2, y2);
       }

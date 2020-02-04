@@ -258,8 +258,8 @@ void setup() {
 
   Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
 
-  Station2_Aufgabentext_a = new Aufgabentext(" Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir die Reihenfolge. Trage auch ein wie sicher du dir bei deiner Anordnung bist.", 15, 75, 1245, 90);
-  Station2_Aufgabentext_a2 = new Aufgabentext(" Mische die Proben und ordne sie erneut. Gib auch deine Sicherheit an. Klicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'!", 15, 75, 1245, 90);
+  Station2_Aufgabentext_a = new Aufgabentext(" Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir die Reihenfolge.", 15, 75, 1245, 90);
+  Station2_Aufgabentext_a2 = new Aufgabentext(" Mische die Proben und ordne sie erneut. Klicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'!", 15, 75, 1245, 90);
 
   Station2_Aufgabentext_b1 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe A in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
   Station2_Aufgabentext_b2 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe B in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
@@ -462,11 +462,11 @@ void setup() {
   //settings = new station(450, 350, false);
 
 
-  one = new button(100, 24, 450, 150, "Station 1\nDie Sensoren testen", -8, true, 40);
+  one = new button(100, 24, 450, 150, "Station 1\nDie Messsoftware", -8, true, 40);
   two = new button(100, 198, 450, 150, "Station 2\nNase vs. Sensor", -8, true, 40);
   two_a = new button(95, 25, 450, 200, "Station 2.1\nIch rieche was,\nwas du nicht riechst", -35, true, 40);
   two_b = new button(735, 25, 450, 200, "Station 2.2\nTVOC-Duelle", -8, true, 40);
-  three = new button(100, 372, 450, 150, "Station 3\nBitte lüften", -8, true, 40);
+  three = new button(100, 372, 450, 150, "Station 3\nDicke Luft", -8, true, 40);
   four = new button(100, 546, 450, 150, "Station 4\nFeinstaubalarm", -8, true, 40);
 
   A = new Probe(355, 260, "A", true, false);
@@ -998,7 +998,9 @@ void draw() {
         page = 4.11;
       } else if (page == 4.1111) {
         page = 4.11;
-      } else {
+      } else if(page == 2 || page == 3){
+        page = 2.5;
+      }else{
         page = 0;
       }
     } else if (page < -2) {
