@@ -27,8 +27,8 @@ Aufgabentext Station4_Aufgabentext_a, Station4_Aufgabentext_a2, Station4_Aufgabe
 dropdown tutorial_Rot, tutorial_Blau;
 
 
-String[] myText = {"", "", "", "", ""};
-String[] myText2 = {"", "", "", "", ""};
+String[] myText = {"A", "B", "C", "D", "E"};
+String[] myText2 = {"D", "A", "C", "B", "E"};
 String[] myText_Sorted = {"", "", "", "", ""};
 String[] myText2_Sorted = {"", "", "", "", ""};
 Textfield a, b, c, d, e;

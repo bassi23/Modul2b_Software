@@ -4,6 +4,8 @@ String[] Reihenfolge_Sensor = {"A", "B", "C", "D", "E"};
 float[] Position = {0, 0, 0, 0, 0};
 float[] Position2 = {0, 0, 0, 0, 0};
 
+int prob2 = 0;
+
 void MenschSensor() {
   onlyOneProbe();
   fill(0);
@@ -140,51 +142,6 @@ void MenschSensor() {
     Sensormessung.hide();
   }
 }
-
-void Station2_Riechen2() {
-  onlyOneProbe();
-  fill(0);
-  textSize(20);
-  textFont(bold);
-  text("Station 2 - Mensch vs. Sensor", 20, 50);
-  textFont(normal);
-  Station2_Aufgabentext_a2.show();
-  //text("Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir dir Reihen-\nfolge.\n\nKlicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'.", 20, 100);
-  stroke(0);
-  line(0, 200, 1280, 200);
-
-
-  noStroke();
-  textSize(25);
-  text("Konzentration", 20, 405);
-  // text("Sicherheit in %", 20, 565);
-
-  fill(0);
-  textSize(40);
-  for (int i = 0; i < 4; i++) {
-    text(">", 415 + 150*i, 410);
-  }
-  fill(255);
-  stroke(0);
-  for (int i = 0; i < 5; i++) {
-    rect(300 + 150*i, 345, 110, 110);
-  }
-  A2.show();
-  B2.show();
-  C2.show();
-  D2.show();
-  E2.show();
-
-
-  if (A2.inPlace && B2.inPlace && C2.inPlace && D2.inPlace && E2.inPlace) {
-    Sensormessung.show();
-  } else {
-    Sensormessung.hide();
-  }
-}
-
-
-
 
 
 
@@ -395,6 +352,9 @@ boolean MenschSensorMessen = false;
 
 int scale_MenschSensor = 0;
 
+
+float maxIndexRiechen = 0;
+
 void Station2_Sensor() {
   reset_Station2.show();
   up2.show();
@@ -435,16 +395,9 @@ void Station2_Sensor() {
     //println(MenschSensorMessen, (MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]));
   }
 
-  if (indexMenschSensor > 1) {
-    if ((MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 60) {
-      MenschSensorMessen = false;
-    }
-  }
-
-  if ((millis() - currentTime)/1000 > 60) {
-
+   if ((millis() - currentTime)/1000 > 60) {
     // MenschSensorMessen = false;
-    if (prob != 5) {
+    if (prob2 != 5) {
       if (temp == "A") {
         Station2_Aufgabentext_b1.show();
         messen.text = "Messung A";
@@ -479,6 +432,7 @@ void Station2_Sensor() {
     currentTime = millis();
     indexMenschSensor = 0;
     MenschSensorMessen = true;
+    messen.hide();
     if (prob < 5) {
       prob += 1;
     }
@@ -565,48 +519,82 @@ void Station2_Sensor() {
 
 
   if (A_wiederholen.isClicked()) {
-    prob = 0;
+    prob = 1;
+    indexMenschSensor = 0;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
     D_wiederholen.hide();
     E_wiederholen.hide();
+    for (int i = 1; i < 500; i++) {
+      MenschSensorMesswerte[0+5][i] = 0;
+      MenschSensorMesswerte[0][i] = 0;
+    }
+    messen.show();
   }
 
   if (B_wiederholen.isClicked()) {
-    prob = 1;
+    prob = 2;
+    indexMenschSensor = 0;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
     D_wiederholen.hide();
     E_wiederholen.hide();
+    messen.show();
+
+    for (int i = 1; i < 500; i++) {
+      MenschSensorMesswerte[1+5][i] = 0;
+      MenschSensorMesswerte[1][i] = 0;
+    }
   }
 
   if (C_wiederholen.isClicked()) {
-    prob = 2;
+    prob = 3;
+    indexMenschSensor = 0;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
     D_wiederholen.hide();
     E_wiederholen.hide();
+    messen.show();
+
+    for (int i = 1; i < 500; i++) {
+      MenschSensorMesswerte[2+5][i] = 0;
+      MenschSensorMesswerte[2][i] = 0;
+    }
   }
 
   if (D_wiederholen.isClicked()) {
-    prob = 3;
+    prob = 4;
+    indexMenschSensor = 0;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
     D_wiederholen.hide();
     E_wiederholen.hide();
+    messen.show();
+
+    for (int i = 1; i < 500; i++) {
+      MenschSensorMesswerte[3+5][i] = 0;
+      MenschSensorMesswerte[3][i] = 0;
+    }
   }
 
   if (E_wiederholen.isClicked()) {
-    prob = 4;
+    prob = 5;
+    indexMenschSensor = 0;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
     D_wiederholen.hide();
     E_wiederholen.hide();
+    messen.show();
+
+    for (int i = 1; i < 500; i++) {
+      MenschSensorMesswerte[4+5][i] = 0;
+      MenschSensorMesswerte[4][i] = 0;
+    }
   }
 
 
@@ -614,8 +602,13 @@ void Station2_Sensor() {
     MenschSensorAbgeschlossen = true;
   }
 
+
+
+
   if (MenschSensorAbgeschlossen) {
-    messen.hide();
+    if (prob == 5) {
+      messen.hide();
+    }
     if (indexMenschSensor > 1) {
       if ((MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 60) {
         text("Bist du mit der Messung zufrieden?", 20, 60);
@@ -656,7 +649,7 @@ void Station2_Sensor() {
   textAlign(CENTER);
 
   for (int i = 0; i < 5; i++) {
-    println(MesswertSensor[i]);
+
     if (MesswertSensor[i] != 0.0) {
       text(nf(MesswertSensor[i], 0, 1), 240, 345 + 50*i);
     } else if (MesswertSensor[i] != 0.0 || Float.isNaN(MesswertSensor[i]) || MesswertSensor[i] == 0) {
@@ -772,17 +765,19 @@ void Station2_Sensor() {
   }
   strokeWeight(4);
 
-  int prob2 = 0;
-
   if (MenschSensorAbgeschlossen) {
-    prob = 5;
+    prob2 = 5;
   } else {
     prob2 = prob;
   }
 
+  if(indexMenschSensor > maxIndexRiechen){
+   maxIndexRiechen = indexMenschSensor; 
+  }
+
 
   for (int j = 0; j < prob2; j++) {
-    for (int i = 1; i < 500; i++) {
+    for (int i = 1; i < maxIndexRiechen; i++) {
       float x1, x2, y1, y2;
 
       x1 = 500 + (MenschSensorMesswerte[j+5][i]-MenschSensorMesswerte[j+5][0])*700/60; 
