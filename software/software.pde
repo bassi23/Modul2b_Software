@@ -260,7 +260,7 @@ void setup() {
 
   Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
 
-  Station2_Aufgabentext_a = new Aufgabentext(" Übertrage deine beiden Messungen mit der Nase in die unteren Felder! Wenn du alles eingetragen hast, gelangst du zur Sensormessung.", 15, 75, 1245, 90);
+  Station2_Aufgabentext_a = new Aufgabentext(" Übertrage deine beiden Messungen mit der Nase in die unteren Felder! Nutze nur die Großbuchstaben A, B, C, D und E! Wenn du alles eingetragen hast, gelangst du zur Sensormessung.", 15, 75, 1245, 90);
   Station2_Aufgabentext_a2 = new Aufgabentext(" Mische die Proben und ordne sie erneut. Klicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'!", 15, 75, 1245, 90);
 
   Station2_Aufgabentext_b1 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe A in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
@@ -269,7 +269,7 @@ void setup() {
   Station2_Aufgabentext_b4 = new Aufgabentext(" Legt nun Probe D in die Plexiglasbox und stellt die Platine darüber..", 20, 20, 750, 55);
   Station2_Aufgabentext_b5 = new Aufgabentext(" Legt nun Probe E in die Plexiglasbox und stellt die Platine darüber..", 20, 20, 750, 55);
 
-  Station2_Aufgabentext_c = new Aufgabentext(" Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du gegen den Sensor gewinnen?", 20, 50, 1250, 100);
+  Station2_Aufgabentext_c = new Aufgabentext(" Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du gegen den Sensor gewinnen?", 20, 20, 1250, 80);
 
   Station3_Aufgabentext_a1 = new Aufgabentext(" Vergleiche verschiedene Materialien auf dei Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe emittieren am meisten?", 20, 60, 1250, 100);
   Station3_Aufgabentext_a2 = new Aufgabentext(" Ordne die Emission der folgenden Stoffe auf der unteren Skala an, indem du zunächst daran riechst. Vergib Punkte von 0 (nicht wahrnehmbar) bis 6 (extrem stark). Notiere deine Einschätzung auch in der Broschüre.", 20, 230, 1250, 90);
@@ -1597,8 +1597,10 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText[0] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText[0] = myText[0] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText[0].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText[0] = myText[0] + key;
+        }
       }
     }
 
@@ -1609,8 +1611,10 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText[1] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText[1] = myText[1] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText[1].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText[1] = myText[1] + key;
+        }
       }
     }
     if (c.active) {
@@ -1620,10 +1624,13 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText[2] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText[2] = myText[2] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText[2].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText[2] = myText[2] + key;
+        }
       }
     }
+
     if (d.active) {
       if (keyCode == BACKSPACE) {
         if (myText[3].length() > 0 ) {
@@ -1631,10 +1638,13 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText[3] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText[3] = myText[3] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText[3].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText[3] = myText[3] + key;
+        }
       }
     }
+
     if (e.active) {
       if (keyCode == BACKSPACE) {
         if (myText[4].length() > 0 ) {
@@ -1642,8 +1652,10 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText[4] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText[4] = myText[4] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText[4].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText[4] = myText[4] + key;
+        }
       }
     }
   }
@@ -1656,8 +1668,10 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText2[0] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText2[0] = myText2[0] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText2[0].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText2[0] = myText2[0] + key;
+        }
       }
     }
 
@@ -1668,8 +1682,10 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText2[1] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText2[1] = myText2[1] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText2[1].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText2[1] = myText2[1] + key;
+        }
       }
     }
     if (c2.active) {
@@ -1679,8 +1695,10 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText2[2] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText2[2] = myText2[2] + key;
+      }else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText2[2].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText2[2] = myText2[2] + key;
+        }
       }
     }
     if (d2.active) {
@@ -1690,8 +1708,10 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText2[3] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText2[3] = myText2[3] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText2[3].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText2[3] = myText2[3] + key;
+        }
       }
     }
     if (e2.active) {
@@ -1701,8 +1721,10 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText2[4] = "" ;
-      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-        myText2[4] = myText2[4] + key;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText2[4].length() < 1) {
+        if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
+          myText2[4] = myText2[4] + key;
+        }
       }
     }
   }
@@ -1760,7 +1782,6 @@ class Textfield {
 
     fill(0);
     textAlign(CENTER);
-    println(txt);
     text(txt, x + dx/2, y + dy/2 + 10);
   }
 

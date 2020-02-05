@@ -478,7 +478,7 @@ void Station2_Sensor() {
 
   float t1 = 60*(slider_Mensch_Sensor.x1-500)/700;
   float t2 = 60*(slider_Mensch_Sensor.x2-500)/700;
-//  println(t1, t2, MesswertSensor[0]);
+  //  println(t1, t2, MesswertSensor[0]);
   float indexMWProbe0 = 0;
   float indexMWProbe1 = 0;
   float indexMWProbe2 = 0;
@@ -515,18 +515,38 @@ void Station2_Sensor() {
       MesswertSensor[4] += MenschSensorMesswerte[4][i];
     }
   }
-  MesswertSensor[0] = MesswertSensor[0]/indexMWProbe0;
-  MesswertSensor[1] = MesswertSensor[1]/indexMWProbe1;
-  MesswertSensor[2] = MesswertSensor[2]/indexMWProbe2;
-  MesswertSensor[3] = MesswertSensor[3]/indexMWProbe3;
-  MesswertSensor[4] = MesswertSensor[4]/indexMWProbe4;
+
+  if (indexMWProbe0 == 0) {
+    MesswertSensor[0] = 0;
+  } else {
+    MesswertSensor[0] = MesswertSensor[0]/indexMWProbe0;
+  }
+
+  if (indexMWProbe1 == 0) {
+    MesswertSensor[1] = 0;
+  } else {
+    MesswertSensor[1] = MesswertSensor[1]/indexMWProbe1;
+  }
+  if (indexMWProbe2 == 0) {
+    MesswertSensor[2] = 0;
+  } else {
+    MesswertSensor[2] = MesswertSensor[2]/indexMWProbe2;
+  } 
+  if (indexMWProbe3 == 0) {
+    MesswertSensor[3] = 0;
+  } else {
+    MesswertSensor[3] = MesswertSensor[3]/indexMWProbe3;
+  }
+  if (indexMWProbe4 == 0) {
+    MesswertSensor[4] = 0;
+  } else {
+    MesswertSensor[4] = MesswertSensor[4]/indexMWProbe4;
+  }
 
 
   if (letzteWiederholen.isClicked()) {
-
     if (prob > 0) {
       MenschSensorMessen = true;
-
       indexMenschSensorMax = 0;
       indexMenschSensor = 0;
       currentTime = millis();
@@ -534,10 +554,12 @@ void Station2_Sensor() {
   }
   if (prob == 5) {
     messen.hide();
-    if ((MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 60) {
-      text("Bist du mit der Messung zufrieden?", 20, 120);
-      ja_zufrieden.show();
-      messen.hide();
+    if (indexMenschSensor > 1) {
+      if ((MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 60) {
+        text("Bist du mit der Messung zufrieden?", 20, 120);
+        ja_zufrieden.show();
+        messen.hide();
+      }
     }
   } else {
     ja_zufrieden.hide();
@@ -564,14 +586,17 @@ void Station2_Sensor() {
 
   fill(0);
   textAlign(CENTER);
+
   for (int i = 0; i < 5; i++) {
+    println(MesswertSensor[i]);
     if (MesswertSensor[i] != 0.0) {
       text(nf(MesswertSensor[i], 0, 1), 240, 345 + 50*i);
-    } else {
+    } else if (MesswertSensor[i] != 0.0 || Float.isNaN(MesswertSensor[i]) || MesswertSensor[i] == 0) {
       textSize(16);
       text("noch nicht gemessen", 240, 340 + 50*i);
     }
   }
+  textSize(25);
   textAlign(CORNER);
   textSize(20);
   text("A", 60, 342);
@@ -768,13 +793,6 @@ void Station2_Vergleich() {
   ja_zufrieden.hide();
   messen.hide();
   letzteWiederholen.hide();
-
-  //MesswertSensor2[0] = MesswertSensor[4];
-  //MesswertSensor2[1] = MesswertSensor[3];
-  //MesswertSensor2[2] = MesswertSensor[2];
-  //MesswertSensor2[3] = MesswertSensor[1];
-  //MesswertSensor2[4] = MesswertSensor[0];
-  MesswertSensor2 = sort(MesswertSensor2);
   for (int i = 0; i < 5; i++) {
     if (MesswertSensor2[i] == MesswertSensor[0]) {
       Reihenfolge_Sensor[i] = "A";
@@ -792,40 +810,47 @@ void Station2_Vergleich() {
       Reihenfolge_Sensor[i] = "E";
     }
   }
-
   textSize(20);
-
-  // text("Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du\ngegen den Sensor gewinnen?", 20, 100);
   Station2_Aufgabentext_c.show();
-
-  //stroke(0);
-  //line(100, 300, 1180, 300);
-  //line(100, 400, 1180, 400);
-  //line(100, 500, 1180, 500);
-
-  //for (int i = -1; i < 6; i++) {
-  //  line(280 + 180*i, 300, 280 + 180*i, 500);
-  //}
-  stroke(0);
-  for (int i = 0; i < 5; i++) {
-    fill(255);
-    rect(350 + 175*i, 250, 100, 100); 
-    rect(350 + 175*i, 385, 100, 100); 
-    rect(350 + 175*i, 520, 100, 100);
-  }
+  Station2_Aufgabentext_c.y = 10;
+  fill(230);
+  noStroke();
+  rect(0, 395, 1280, 100);
   fill(0);
   textSize(25);
-  text("hohe Konzentration                                           niedrige Konzentration", 300, 200);
-  textSize(30);
-  textAlign(CENTER);
-  text("Riechen\nVersuch 1", 120, 283);
-  text("Riechen\nVersuch 2", 120, 420);
-  text("Sensor", 120, 580);
+  stroke(0);
+
+
+
+  for (int i = 0; i < 5; i++) {
+    fill(255);
+    rect(350 + 175*i, 200, 100, 90); 
+    rect(350 + 175*i, 300, 100, 90); 
+    rect(350 + 175*i, 400, 100, 90);
+    rect(350 + 175*i, 500, 100, 90);
+  }
+  fill(0);
+  text("hohe Konzentration                                     niedrige Konzentration", 345, 150);
+  textSize(25);
+  textAlign(CORNER);
+  text("  Riechen\nVersuch 1", 120, 235);
+  text("  Riechen\nVersuch 2", 120, 335);
+  text("korrekte Reihenfolge", 60, 456);
+  text("Sensormessung", 90, 556);
+
+  for (int i = 0; i  < 100; i++) {
+    line(15*i, 395, 15*i + 10, 395); 
+    line(15*i, 495, 15*i + 10, 495);
+  }
+
+  //  dottedline(0, 400, 1280, 400);
+
   textSize(50);
   textAlign(LEFT);
-  text(Reihenfolge[0] + "         " + Reihenfolge[1] + "         " + Reihenfolge[2] + "         " +Reihenfolge[3] + "         " +Reihenfolge[4], 385, 315);
-  text(Reihenfolge2[0] + "         " + Reihenfolge2[1] + "         " + Reihenfolge2[2] + "         " +Reihenfolge2[3] + "         " +Reihenfolge2[4], 385, 450);
-  text(Reihenfolge_Sensor[0] + "         " + Reihenfolge_Sensor[1] + "          " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[3] + "         " +Reihenfolge_Sensor[4], 385, 580);
+  text(myText[0] + "         " + myText[1] + "         " + myText[2] + "         " +myText[3] + "        " +myText[4], 385, 265);
+  text(myText2[0] + "         " + myText2[1] + "         " + myText2[2] + "         " +myText2[3] + "        " +myText2[4], 385, 365);
+  text("C         A         B         E          D", 385, 461);
+  text(Reihenfolge_Sensor[0] + "         " + Reihenfolge_Sensor[1] + "          " + Reihenfolge_Sensor[2] + "        " +Reihenfolge_Sensor[3] + "         " +Reihenfolge_Sensor[4], 385, 565);
   zumObermenu.x = 940;
   zumObermenu.y = 660;
   zumObermenu.show();
