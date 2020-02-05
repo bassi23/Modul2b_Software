@@ -54,6 +54,12 @@ void MenschSensor() {
   d2.show(myText2[3]);
   e2.show(myText2[4]);
 
+  for (int i = 0; i < 5; i++) {
+    myText_Sorted[i] = myText[i];
+    myText2_Sorted[i] = myText2[i];
+  }
+  myText_Sorted = sort(myText);
+  myText2_Sorted = sort(myText2);
 
 
   for (int i = 0; i < 5; i++) {
@@ -128,7 +134,7 @@ void MenschSensor() {
   }
 
 
-  if (myText2[0].length() > 0 && myText2[1].length() > 0 && myText2[2].length() > 0 && myText2[3].length() > 0 && myText2[4].length() > 0 && myText[0].length() > 0 && myText[1].length() > 0 && myText[2].length() > 0 && myText[3].length() > 0  && myText[4].length() > 0) {
+  if (myText_Sorted[0].equals("A") && myText_Sorted[1].equals("B") && myText_Sorted[2].equals("C") && myText_Sorted[3].equals("D") && myText_Sorted[4].equals("E") && myText2_Sorted[0].equals("A") && myText2_Sorted[1].equals("B") && myText2_Sorted[2].equals("C") && myText2_Sorted[3].equals("D") && myText2_Sorted[4].equals("E")) {
     Sensormessung.show();
   } else {
     Sensormessung.hide();
@@ -394,6 +400,10 @@ void Station2_Sensor() {
   up2.show();
   down2.show();
 
+
+
+
+
   if (up2.isClicked()) {
     scale_MenschSensor += 1;
     if (scale_MenschSensor > 7) {
@@ -552,11 +562,69 @@ void Station2_Sensor() {
       currentTime = millis();
     }
   }
+
+
+  if (A_wiederholen.isClicked()) {
+    prob = 0;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+
+  if (B_wiederholen.isClicked()) {
+    prob = 1;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+
+  if (C_wiederholen.isClicked()) {
+    prob = 2;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+
+  if (D_wiederholen.isClicked()) {
+    prob = 3;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+
+  if (E_wiederholen.isClicked()) {
+    prob = 4;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+
+
   if (prob == 5) {
+    MenschSensorAbgeschlossen = true;
+  }
+
+  if (MenschSensorAbgeschlossen) {
     messen.hide();
     if (indexMenschSensor > 1) {
       if ((MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 60) {
         text("Bist du mit der Messung zufrieden?", 20, 120);
+        A_wiederholen.show();
+        B_wiederholen.show();
+        C_wiederholen.show();
+        D_wiederholen.show();
+        E_wiederholen.show();
+
         ja_zufrieden.show();
         messen.hide();
       }
@@ -704,7 +772,16 @@ void Station2_Sensor() {
   }
   strokeWeight(4);
 
-  for (int j = 0; j < prob; j++) {
+  int prob2 = 0;
+
+  if (MenschSensorAbgeschlossen) {
+    prob = 5;
+  } else {
+    prob2 = prob;
+  }
+
+
+  for (int j = 0; j < prob2; j++) {
     for (int i = 1; i < 500; i++) {
       float x1, x2, y1, y2;
 

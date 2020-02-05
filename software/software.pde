@@ -29,6 +29,8 @@ dropdown tutorial_Rot, tutorial_Blau;
 
 String[] myText = {"", "", "", "", ""};
 String[] myText2 = {"", "", "", "", ""};
+String[] myText_Sorted = {"", "", "", "", ""};
+String[] myText2_Sorted = {"", "", "", "", ""};
 Textfield a, b, c, d, e;
 Textfield a2, b2, c2, d2, e2;
 
@@ -99,7 +101,7 @@ button tutorial_reset, sicher_ja_reset, sicher_nein_reset, left_tutorial, right_
 
 button setBaseline;
 
-button Station2_Riechen2;
+button Station2_Riechen2, A_wiederholen, B_wiederholen, C_wiederholen, D_wiederholen, E_wiederholen;
 
 Probe A, B, C, D, E;
 Probe A2, B2, C2, D2, E2;
@@ -127,6 +129,8 @@ float time_Station4 = 480;
 int anzahlCOMPorts = 0;
 int ausgewaehlterPort = 0;
 
+
+boolean MenschSensorAbgeschlossen = false;
 
 
 PImage Board, KreideA, KreideB, Tafel, Schwaemme;
@@ -256,7 +260,11 @@ void setup() {
   d2 = new Textfield(750, 450, 110, 100, myText2[3], true);
   e2 = new Textfield(900, 450, 110, 100, myText2[4], true);
 
-
+A_wiederholen = new button(600, 20, 210, 35, "Probe A wiederholen", 5, true, 20);
+B_wiederholen = new button(600, 60, 210, 35, "Probe B wiederholen", 5, true, 20);
+C_wiederholen = new button(600, 100, 210, 35, "Probe C wiederholen", 5, true, 20);
+D_wiederholen = new button(830, 20, 210, 35, "Probe D wiederholen", 5, true, 20);
+E_wiederholen = new button(830, 60, 210, 35, "Probe E wiederholen", 5, true, 20);
 
   Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
 
@@ -487,7 +495,7 @@ void setup() {
   Station2_Riechen2 = new button(557, 615, 200, 100, "2. Versuch", 5, false, 20);
   messen = new button(875, 70, 150, 100, "Messen", 5, true, 20);
   letzteWiederholen = new button(1050, 70, 150, 100, "letzte Messung\nwiederholen", -9, true, 20);
-  ja_zufrieden = new button(400, 70, 150, 100, "Ja", 5, true, 20);
+  ja_zufrieden = new button(400, 20, 120, 50, "Ja", 5, true, 20);
   reset_Station2 =  new button(970, 660, 140, 50, "Reset", 5, true, 20);
 
 
