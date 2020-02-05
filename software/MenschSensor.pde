@@ -618,7 +618,7 @@ void Station2_Sensor() {
     messen.hide();
     if (indexMenschSensor > 1) {
       if ((MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 60) {
-        text("Bist du mit der Messung zufrieden?", 20, 120);
+        text("Bist du mit der Messung zufrieden?", 20, 60);
         A_wiederholen.show();
         B_wiederholen.show();
         C_wiederholen.show();
