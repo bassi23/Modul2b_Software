@@ -1676,7 +1676,283 @@ class slider {
 
 
 
+
+
+class slider_MS {
+  float x1;
+  float x2;
+  boolean active1;
+  boolean active2;
+
+  slider_MS(float x1_, float x2_, boolean active1_, boolean active2_) {
+    x1 = x1_;
+    x2 = x2_;
+    active1 = active1_;
+    active2 = active2_;
+  }
+
+
+  void show() {
+    //Boden = Dreieck
+    stroke(100, 100, 255);
+    fill(100, 100, 255);
+    beginShape();
+    vertex(x1-10, 640);
+    vertex(x1, 630);
+    vertex(x1+10, 640);
+    vertex(x1-10, 640);
+    endShape();
+    strokeWeight(3);
+    stroke(200);
+    line(x1, 190, x1, 600);
+
+    stroke(100, 100, 255);
+    fill(100, 100, 255);
+    beginShape();
+    vertex(x2-10, 640);
+    vertex(x2, 630);
+    vertex(x2+10, 640);
+    vertex(x2-10, 640);
+    endShape();
+    strokeWeight(3);
+    stroke(200);
+    line(x2, 190, x2, 620);
+    strokeWeight(1);
+    noStroke();
+    fill(200, 200, 255, 40);
+    rect(x1, 190, (x2-x1), 400);
+  }
+
+
+  void move() {
+    if (mouseX > (x1 - 10)*scale_factor && mouseX < (x1 + 10)*scale_factor && mousePressed) {
+      active1 = true;
+    }
+    if (mouseX > (x2 - 10)*scale_factor && mouseX < (x2 + 10)*scale_factor && mousePressed) {
+      active2 = true;
+    }
+
+    if (!mousePressed) {
+      active1 = false;
+      active2 = false;
+    }
+
+    if (active1) {
+      x1 = mouseX; 
+      if (x1 < 500) {
+        x1 = 500;
+      }
+      if (x1 > 1170) {
+        x1 = 1170;
+      }
+    }
+    if (active2) {
+      x2 = mouseX; 
+      if (x2 < 550) {
+        x2 = 550;
+      }
+      if (x2 > 1200) {
+        x2 = 1200;
+      }
+    }
+
+    if (abs(x1 - x2) < 50) {
+      x1 = x2- 50;
+      x2 = x1 + 50;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void mouseReleased() {
+
+
+  if (mouseX > a.x*scale_factor && mouseX < (a.x + a.dx)*scale_factor && mouseY > a.y*scale_factor && mouseY < (a.y + a.dy)*scale_factor) {
+    a.active = true;
+    b.active = false;
+    c.active = false;
+    d.active = false;
+    e.active = false;
+
+    a2.active = false;
+    b2.active = false;
+    c2.active = false;
+    d2.active = false;
+    e2.active = false;
+  } else {
+    a.active = false;
+  }
+
+  if (mouseX > b.x*scale_factor && mouseX < (b.x + b.dx)*scale_factor && mouseY > b.y*scale_factor && mouseY < (b.y + b.dy)*scale_factor) {
+    b.active = true;
+    a.active = false;
+    c.active = false;
+    d.active = false;
+    e.active = false;
+
+    a2.active = false;
+    b2.active = false;
+    c2.active = false;
+    d2.active = false;
+    e2.active = false;
+  } else {
+    b.active = false;
+  }
+
+  if (mouseX > c.x*scale_factor && mouseX < (c.x + c.dx)*scale_factor && mouseY > c.y*scale_factor && mouseY < (c.y + c.dy)*scale_factor) {
+    c.active = true;
+    a.active = false;
+    b.active = false;
+    d.active = false;
+    e.active = false;
+
+    a2.active = false;
+    b2.active = false;
+    c2.active = false;
+    d2.active = false;
+    e2.active = false;
+  } else {
+    c.active = false;
+  }
+
+  if (mouseX > d.x*scale_factor && mouseX < (d.x + d.dx)*scale_factor && mouseY > d.y*scale_factor && mouseY < (d.y + d.dy)*scale_factor) {
+    d.active = true;
+    a.active = false;
+    c.active = false;
+    b.active = false;
+    e.active = false;
+
+    a2.active = false;
+    b2.active = false;
+    c2.active = false;
+    d2.active = false;
+    e2.active = false;
+  } else {
+    d.active = false;
+  }
+
+  if (mouseX > e.x*scale_factor && mouseX < (e.x + e.dx)*scale_factor && mouseY > e.y*scale_factor && mouseY < (e.y + e.dy)*scale_factor) {
+    e.active = true;
+    a.active = false;
+    c.active = false;
+    d.active = false;
+    b.active = false;
+
+    a2.active = false;
+    b2.active = false;
+    c2.active = false;
+    d2.active = false;
+    e2.active = false;
+  } else {
+    e.active = false;
+  }
+
+
+  ///////////////
+  if (mouseX > a2.x*scale_factor && mouseX < (a2.x + a2.dx)*scale_factor && mouseY > a2.y*scale_factor && mouseY < (a2.y + a2.dy)*scale_factor) {
+    a2.active = true;
+    b.active = false;
+    c.active = false;
+    d.active = false;
+    e.active = false;
+
+    a.active = false;
+    b2.active = false;
+    c2.active = false;
+    d2.active = false;
+    e2.active = false;
+  } else {
+    a2.active = false;
+  }
+
+  if (mouseX > b2.x*scale_factor && mouseX < (b2.x + b2.dx)*scale_factor && mouseY > b2.y*scale_factor && mouseY < (b2.y + b2.dy)*scale_factor) {
+    b2.active = true;
+    a.active = false;
+    c.active = false;
+    d.active = false;
+    e.active = false;
+
+    a2.active = false;
+    b.active = false;
+    c2.active = false;
+    d2.active = false;
+    e2.active = false;
+  } else {
+    b2.active = false;
+  }
+
+  if (mouseX > c2.x*scale_factor && mouseX < (c2.x + c2.dx)*scale_factor && mouseY > c2.y*scale_factor && mouseY < (c2.y + c2.dy)*scale_factor) {
+    c2.active = true;
+    a.active = false;
+    b.active = false;
+    d.active = false;
+    e.active = false;
+
+    a2.active = false;
+    b2.active = false;
+    c.active = false;
+    d2.active = false;
+    e2.active = false;
+  } else {
+    c2.active = false;
+  }
+
+  if (mouseX > d2.x*scale_factor && mouseX < (d2.x + d2.dx)*scale_factor && mouseY > d2.y*scale_factor && mouseY < (d2.y + d2.dy)*scale_factor) {
+    d2.active = true;
+    a.active = false;
+    c.active = false;
+    b.active = false;
+    e.active = false;
+
+    a2.active = false;
+    b2.active = false;
+    c2.active = false;
+    d.active = false;
+    e2.active = false;
+  } else {
+    d2.active = false;
+  }
+
+  if (mouseX > e2.x*scale_factor && mouseX < (e2.x + e2.dx)*scale_factor && mouseY > e2.y*scale_factor && mouseY < (e2.y + e2.dy)*scale_factor) {
+    e2.active = true;
+    a.active = false;
+    c.active = false;
+    d.active = false;
+    b.active = false;
+
+    a2.active = false;
+    b2.active = false;
+    c2.active = false;
+    d2.active = false;
+    e.active = false;
+  } else {
+    e2.active = false;
+  }
+
+
+
+
+  ///////////////
+
+
+
   if (mouseX > (s.x1 - 10)*scale_factor && mouseX < (s.x1 + 10)*scale_factor) {
     s.active1 = false;
   }

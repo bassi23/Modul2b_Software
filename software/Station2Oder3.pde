@@ -23,23 +23,23 @@ void Station2Oder3() {
 
 
   A.x = 355*scale_factor;
-  A.y = 260*scale_factor;
+  A.y = 530*scale_factor;
   B.x = 505*scale_factor;
-  B.y = 260*scale_factor;
+  B.y = 530*scale_factor;
   C.x = 655*scale_factor;
-  C.y = 260*scale_factor;
+  C.y = 530*scale_factor;
   D.x = 805*scale_factor;
-  D.y = 260*scale_factor;
+  D.y = 530*scale_factor;
   E.x = 955*scale_factor;
-  E.y = 260*scale_factor;
+  E.y = 530*scale_factor;
   A2.x = 355*scale_factor;
-  A2.y = 260*scale_factor;
+  A2.y = 640*scale_factor;
   B2.x = 505*scale_factor;
-  B2.y = 260*scale_factor;
+  B2.y = 640*scale_factor;
   C2.x = 655*scale_factor;
-  C2.y = 260*scale_factor;
+  C2.y = 640*scale_factor;
   D2.x = 805*scale_factor;
-  D2.y = 260*scale_factor;
+  D2.y = 640*scale_factor;
   E2.x = 955*scale_factor;
-  E2.y = 260*scale_factor;
+  E2.y = 640*scale_factor;
 }

@@ -162,7 +162,26 @@ void Datenaufnahme() {
         if (MenschSensorMessen && page == 2.2) {
           if (index > 2 && prob > 0) {
             MenschSensorMesswerte[prob-1][indexMenschSensor] = sgp_tvoc_data[index-2];
-            MenschSensorMesswerte[5][indexMenschSensor] = zeit[index - 1];
+            // Zeit 1.
+            if (prob == 1) {
+              MenschSensorMesswerte[5][indexMenschSensor] = zeit[index - 1];
+            }
+            // Zeit 2.
+            if (prob == 2) {
+              MenschSensorMesswerte[6][indexMenschSensor] = zeit[index - 1];
+            }
+            // Zeit 3.
+            if (prob == 3) {
+              MenschSensorMesswerte[7][indexMenschSensor] = zeit[index - 1];
+            }
+            // Zeit 4.
+            if (prob == 4) {
+              MenschSensorMesswerte[8][indexMenschSensor] = zeit[index - 1];
+            }
+            // Zeit 5.
+            if (prob == 5) {
+              MenschSensorMesswerte[9][indexMenschSensor] = zeit[index - 1];
+            }
             indexMenschSensor += 1;
           }
         }

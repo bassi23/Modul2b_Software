@@ -69,6 +69,7 @@ PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_b
 Table table;
 
 
+
 button one, two, two_a, two_b, three, four;
 
 button TVOC_analyse;
@@ -106,6 +107,7 @@ TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, St
 
 
 slider s, sFeinstaub;
+slider_MS slider_Mensch_Sensor;
 PFont bold, normal, bold1, bold2, bold3;
 
 boolean measure = true;
@@ -241,31 +243,31 @@ void setup() {
   fan_aus.resize(110, 100);
 
 
-  a = new Textfield(300, 500, 110, 100, myText[0], true);
-  b = new Textfield(450, 500, 110, 100, myText[1], true);
-  c = new Textfield(600, 500, 110, 100, myText[2], true);
-  d = new Textfield(750, 500, 110, 100, myText[3], true);
-  e = new Textfield(900, 500, 110, 100, myText[4], true);
+  a = new Textfield(300, 320, 110, 100, myText[0], true);
+  b = new Textfield(450, 320, 110, 100, myText[1], true);
+  c = new Textfield(600, 320, 110, 100, myText[2], true);
+  d = new Textfield(750, 320, 110, 100, myText[3], true);
+  e = new Textfield(900, 320, 110, 100, myText[4], true);
 
 
-  a2 = new Textfield(300, 500, 110, 100, myText2[0], true);
-  b2 = new Textfield(450, 500, 110, 100, myText2[1], true);
-  c2 = new Textfield(600, 500, 110, 100, myText2[2], true);
-  d2 = new Textfield(750, 500, 110, 100, myText2[3], true);
-  e2 = new Textfield(900, 500, 110, 100, myText2[4], true);
+  a2 = new Textfield(300, 450, 110, 100, myText2[0], true);
+  b2 = new Textfield(450, 450, 110, 100, myText2[1], true);
+  c2 = new Textfield(600, 450, 110, 100, myText2[2], true);
+  d2 = new Textfield(750, 450, 110, 100, myText2[3], true);
+  e2 = new Textfield(900, 450, 110, 100, myText2[4], true);
 
 
 
   Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
 
-  Station2_Aufgabentext_a = new Aufgabentext(" Nimm dir die 5 Proben des verdünnten Ethanols und rieche daran. Ordne sie der Konzentration nach und notiere dir die Reihenfolge.", 15, 75, 1245, 90);
+  Station2_Aufgabentext_a = new Aufgabentext(" Übertrage deine beiden Messungen mit der Nase in die unteren Felder! Wenn du alles eingetragen hast, gelangst du zur Sensormessung.", 15, 75, 1245, 90);
   Station2_Aufgabentext_a2 = new Aufgabentext(" Mische die Proben und ordne sie erneut. Klicke anschließend auf 'Sensormessung' und lasse den Sensor an den Proben 'riechen'!", 15, 75, 1245, 90);
 
   Station2_Aufgabentext_b1 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe A in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
-  Station2_Aufgabentext_b2 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe B in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
-  Station2_Aufgabentext_b3 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe C in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
-  Station2_Aufgabentext_b4 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe D in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
-  Station2_Aufgabentext_b5 = new Aufgabentext(" Eine Messung dauert 60 Sekunden. Lege Probe E in die Plexiglasbox und stelle die Platine darüber. Klicke nun auf 'Messen'. Die durchschnittliche Konzentration wird in der Tabelle angezeigt.", 20, 20, 850, 110);
+  Station2_Aufgabentext_b2 = new Aufgabentext(" Legt nun Probe B in die Plexiglasbox und stellt die Platine darüber.", 20, 20, 750, 55);
+  Station2_Aufgabentext_b3 = new Aufgabentext(" Legt nun Probe C in die Plexiglasbox und stellt die Platine darüber.", 20, 20, 750, 55);
+  Station2_Aufgabentext_b4 = new Aufgabentext(" Legt nun Probe D in die Plexiglasbox und stellt die Platine darüber..", 20, 20, 750, 55);
+  Station2_Aufgabentext_b5 = new Aufgabentext(" Legt nun Probe E in die Plexiglasbox und stellt die Platine darüber..", 20, 20, 750, 55);
 
   Station2_Aufgabentext_c = new Aufgabentext(" Hier siehst du die Vorhersage deiner Nase und des Sensors. Vergleiche die Ergebnisse nun mit den wahren Werten. Konntest du gegen den Sensor gewinnen?", 20, 50, 1250, 100);
 
@@ -469,17 +471,17 @@ void setup() {
   three = new button(100, 372, 450, 150, "Station 3\nDicke Luft", -8, true, 40);
   four = new button(100, 546, 450, 150, "Station 4\nFeinstaubalarm", -8, true, 40);
 
-  A = new Probe(355, 260, "A", true, false);
-  B = new Probe(505, 260, "B", true, false);
-  C = new Probe(655, 260, "C", true, false);
-  D = new Probe(805, 260, "D", true, false);
-  E = new Probe(955, 260, "E", true, false);
+  A = new Probe(355, 460, "A", true, false);
+  B = new Probe(505, 460, "B", true, false);
+  C = new Probe(655, 460, "C", true, false);
+  D = new Probe(805, 460, "D", true, false);
+  E = new Probe(955, 460, "E", true, false);
 
-  A2 = new Probe(355, 260, "A", true, false);
-  B2 = new Probe(505, 260, "B", true, false);
-  C2 = new Probe(655, 260, "C", true, false);
-  D2 = new Probe(805, 260, "D", true, false);
-  E2 = new Probe(955, 260, "E", true, false);
+  A2 = new Probe(355, 560, "A2", true, false);
+  B2 = new Probe(505, 560, "B2", true, false);
+  C2 = new Probe(655, 560, "C2", true, false);
+  D2 = new Probe(805, 560, "D2", true, false);
+  E2 = new Probe(955, 560, "E2", true, false);
 
   Sensormessung = new button(557, 615, 200, 100, "Sensormessung", 5, true, 20);
   Station2_Riechen2 = new button(557, 615, 200, 100, "2. Versuch", 5, false, 20);
@@ -530,6 +532,7 @@ void setup() {
   genaueAnalyse =  new button(1115, 550, 140, 50, "Analyse", 5, true, 20);
   s = new slider(200, 400, false, false);
   sFeinstaub = new slider(200, 400, false, false);
+  slider_Mensch_Sensor = new slider_MS(500, 1200, false, false);
 
 
   for (int j = 0; j < 1000; j++) {
@@ -551,6 +554,7 @@ float mouse_time = 0;
 
 void draw() {
   // println(page);
+
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
@@ -559,8 +563,6 @@ void draw() {
   } else {
     frameRate(30);
   }
-  println(page);
-
 
   textFont(normal);
   scale(scale_factor);
@@ -573,7 +575,6 @@ void draw() {
   // Die Performance wird durch ein Bild als Hintergrund verbessert
   background(250);
   //image(hintergrund, 0, 0);
-
   // Falls die serielle Verbinding unterbrochen wird, wird nach einer neuen gesucht
   if (!gotSerial) {
     try {
@@ -591,7 +592,7 @@ void draw() {
     gotSerial = false;
   }
 
-
+  //println(page);
   // Debug - Informationen
   //noStroke();
   //fill(0);
@@ -645,7 +646,6 @@ void draw() {
     two_a.hide();
     two_b.hide();
   }
-
 
 
   aktualisierung_right.hide();
@@ -776,9 +776,9 @@ void draw() {
       page = 1;
     }
   }
-  
-  if(page == 100){
-   alleSensoren(); 
+
+  if (page == 100) {
+    alleSensoren();
   }
 
   if (page == 1.11111) {
@@ -826,7 +826,7 @@ void draw() {
     MenschSensor();
     zumObermenu.hide();
   } else if (page == 2.1) {
-    Station2_Riechen2();
+    page = 2.0;
   } else if (page == 2.2) {
     Station2_Sensor();
   } else if (page == 2.3) {
@@ -998,9 +998,9 @@ void draw() {
         page = 4.11;
       } else if (page == 4.1111) {
         page = 4.11;
-      } else if(page == 2 || page == 3){
+      } else if (page == 2 || page == 3) {
         page = 2.5;
-      }else{
+      } else {
         page = 0;
       }
     } else if (page < -2) {
@@ -1396,13 +1396,13 @@ void saveDataInnenraum() {
       CO2_a[i] = str(Innenraumluftb[2][i- indexInnenraumlufta]).replace('.', ',');
       eCO2_a[i] = str(Innenraumluftb[4][i- indexInnenraumlufta]).replace('.', ',');
     }
-//    for (int i = indexInnenraumlufta + indexInnenraumluftb; i < indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc; i++) {
-//      T_a[i] = str(Innenraumluftc[0][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
-//      H_a[i] = str(Innenraumluftc[1][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
-//      TVOC_a[i] = str(Innenraumluftc[3][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
-//      CO2_a[i] = str(Innenraumluftc[2][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
-//      eCO2_a[i] = str(Innenraumluftc[4][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ',');
-//    };
+    //    for (int i = indexInnenraumlufta + indexInnenraumluftb; i < indexInnenraumlufta + indexInnenraumluftb + indexInnenraumluftc; i++) {
+    //      T_a[i] = str(Innenraumluftc[0][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+    //      H_a[i] = str(Innenraumluftc[1][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+    //      TVOC_a[i] = str(Innenraumluftc[3][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+    //      CO2_a[i] = str(Innenraumluftc[2][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ','); 
+    //      eCO2_a[i] = str(Innenraumluftc[4][i- (indexInnenraumlufta + indexInnenraumluftb)]).replace('.', ',');
+    //    };
   }
 
   if (txt_ == "Format: .txt") {
@@ -1574,7 +1574,7 @@ void exit() {
 
 
 void keyPressed() {
-  if (Aufloesung.name == "frei") {
+  if (key == ENTER  && Aufloesung.name == "frei") {
     float w = width;
     float h = height;
 
@@ -1590,7 +1590,7 @@ void keyPressed() {
   }
 
   if (page == 2) {
-    if (a.isActive()) {
+    if (a.active) {
       if (keyCode == BACKSPACE) {
         if (myText[0].length() > 0 ) {
           myText[0] = myText[0].substring( 0, myText[0].length()- 1 );
@@ -1602,7 +1602,7 @@ void keyPressed() {
       }
     }
 
-    if (b.isActive()) {
+    if (b.active) {
       if (keyCode == BACKSPACE) {
         if (myText[1].length() > 0 ) {
           myText[1] = myText[1].substring( 0, myText[1].length()- 1 );
@@ -1613,7 +1613,7 @@ void keyPressed() {
         myText[1] = myText[1] + key;
       }
     }
-    if (c.isActive()) {
+    if (c.active) {
       if (keyCode == BACKSPACE) {
         if (myText[2].length() > 0 ) {
           myText[2] = myText[2].substring( 0, myText[2].length()- 1 );
@@ -1624,7 +1624,7 @@ void keyPressed() {
         myText[2] = myText[2] + key;
       }
     }
-    if (d.isActive()) {
+    if (d.active) {
       if (keyCode == BACKSPACE) {
         if (myText[3].length() > 0 ) {
           myText[3] = myText[3].substring( 0, myText[3].length()- 1 );
@@ -1635,7 +1635,7 @@ void keyPressed() {
         myText[3] = myText[3] + key;
       }
     }
-    if (e.isActive()) {
+    if (e.active) {
       if (keyCode == BACKSPACE) {
         if (myText[4].length() > 0 ) {
           myText[4] = myText[4].substring( 0, myText[4].length()- 1 );
@@ -1648,8 +1648,8 @@ void keyPressed() {
     }
   }
 
-  if (page == 2.1) {
-    if (a2.isActive()) {
+  if (page == 2) {
+    if (a2.active) {
       if (keyCode == BACKSPACE) {
         if (myText2[0].length() > 0 ) {
           myText2[0] = myText2[0].substring( 0, myText2[0].length()- 1 );
@@ -1661,7 +1661,7 @@ void keyPressed() {
       }
     }
 
-    if (b2.isActive()) {
+    if (b2.active) {
       if (keyCode == BACKSPACE) {
         if (myText2[1].length() > 0 ) {
           myText2[1] = myText2[1].substring( 0, myText2[1].length()- 1 );
@@ -1672,7 +1672,7 @@ void keyPressed() {
         myText2[1] = myText2[1] + key;
       }
     }
-    if (c.isActive()) {
+    if (c2.active) {
       if (keyCode == BACKSPACE) {
         if (myText[2].length() > 0 ) {
           myText[2] = myText[2].substring( 0, myText[2].length()- 1 );
@@ -1683,7 +1683,7 @@ void keyPressed() {
         myText2[2] = myText2[2] + key;
       }
     }
-    if (d2.isActive()) {
+    if (d2.active) {
       if (keyCode == BACKSPACE) {
         if (myText2[3].length() > 0 ) {
           myText2[3] = myText[3].substring( 0, myText2[3].length()- 1 );
@@ -1694,7 +1694,7 @@ void keyPressed() {
         myText2[3] = myText2[3] + key;
       }
     }
-    if (e2.isActive()) {
+    if (e2.active) {
       if (keyCode == BACKSPACE) {
         if (myText2[4].length() > 0 ) {
           myText2[4] = myText[4].substring( 0, myText2[4].length()- 1 );
@@ -1740,7 +1740,7 @@ class Textfield {
 
 
   void show(String txt) {
-    if (this.isActive()) {
+    if (this.active) {
       fill(200);
       stroke(0);
       rect(x, y, dx, dy);
@@ -1753,21 +1753,18 @@ class Textfield {
       line(x + dx/2 + textWidth(txt)/2, y + 10, x + dx/2 + textWidth(txt)/2, y + dy - 10);
     } else {
       fill(255);
-      if (float(txt) < -1 || float(txt) > 101) {
-        fill(255, 100, 100, 100);
-      } else if (!Float.isNaN(float(txt))) {
-        fill(150, 255, 150, 150);
-      }
       stroke(0);
       rect(x, y, dx, dy);
     }
 
+
     fill(0);
     textAlign(CENTER);
+    println(txt);
     text(txt, x + dx/2, y + dy/2 + 10);
   }
 
-  boolean isActive() {
-    return(mouseX > x*scale_factor && mouseX < (x + dx)*scale_factor && mouseY > y*scale_factor && mouseY < (y + dy)*scale_factor);
-  }
+  //  boolean isActive() {
+  //    return(mouseX > x*scale_factor && mouseX < (x + dx)*scale_factor && mouseY > y*scale_factor && mouseY < (y + dy)*scale_factor);
+  //  }
 }
