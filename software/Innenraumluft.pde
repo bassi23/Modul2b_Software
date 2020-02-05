@@ -1738,21 +1738,21 @@ class slider_MS {
     }
 
     if (active1) {
-      x1 = mouseX; 
-      if (x1 < 500*scale_factor) {
-        x1 = 500*scale_factor;
+      x1 = mouseX/scale_factor; 
+      if (x1 < 500) {
+        x1 = 500;
       }
-      if (x1 > 1170*scale_factor) {
-        x1 = 1170*scale_factor;
+      if (x1 > 1170) {
+        x1 = 1170;
       }
     }
     if (active2) {
-      x2 = mouseX; 
-      if (x2 < 550*scale_factor) {
-        x2 = 550*scale_factor;
+      x2 = mouseX/scale_factor; 
+      if (x2 < 550) {
+        x2 = 550;
       }
-      if (x2 > 1200*scale_factor) {
-        x2 = 1200*scale_factor;
+      if (x2 > 1200) {
+        x2 = 1200;
       }
     }
 
