@@ -597,9 +597,10 @@ void Station2_Sensor() {
     }
   }
 
-
-  if (prob == 5) {
-    MenschSensorAbgeschlossen = true;
+  if (indexMenschSensor > 1) {
+    if (prob == 5 && (MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 57) {
+      MenschSensorAbgeschlossen = true;
+    }
   }
 
 
@@ -835,6 +836,7 @@ void Station2_Sensor() {
 
   if (ja_zufrieden.isClicked()) {
     page = 2.3;
+    Reihenfolge_Sensor = sortArray(MesswertSensor, Reihenfolge_Sensor_temp);
   }
   strokeWeight(1);
 
@@ -909,9 +911,9 @@ void Station2_Vergleich() {
   textSize(50);
   textAlign(LEFT);
   text(myText[0] + "         " + myText[1] + "         " + myText[2] + "         " +myText[3] + "        " +myText[4], 385, 265);
-  text(myText2[0] + "         " + myText2[1] + "         " + myText2[2] + "         " +myText2[3] + "        " +myText2[4], 385, 365);
-  text("C         A         B         E          D", 385, 461);
-  text(Reihenfolge_Sensor[0] + "         " + Reihenfolge_Sensor[1] + "          " + Reihenfolge_Sensor[2] + "        " +Reihenfolge_Sensor[3] + "         " +Reihenfolge_Sensor[4], 385, 565);
+  text(myText2[0] + "         " + myText2[1] + "         " + myText2[2] + "         " +myText2[3] + "         " +myText2[4], 385, 365);
+  text("C         A         B         E         D", 385, 461);
+  text(Reihenfolge_Sensor[0] + "         " + Reihenfolge_Sensor[1] + "         " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[3] + "         " +Reihenfolge_Sensor[4], 385, 565);
   zumObermenu.x = 940;
   zumObermenu.y = 660;
   zumObermenu.show();

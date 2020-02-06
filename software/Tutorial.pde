@@ -1296,30 +1296,27 @@ void Tutorial8() {
 
   if (aktualisierung_right_tutorial.isClicked()) {
     intervall += 1;
-    if (intervall == 5) {
+    if (intervall == 4) {
       intervall = 0;
     }
   }
   if (aktualisierung_left_tutorial.isClicked()) {
     intervall -= 1;
     if (intervall == -1) {
-      intervall = 4;
+      intervall = 3;
     }
   }
   String txt2 = "";
   if (intervall == 0) {
-    txt2 = "Maximum";
-  } else if (intervall == 1) {
     txt2 = "1 Sekunde";
-  } else if (intervall == 2) {
+  } else if (intervall == 1) {
     txt2 = "2 Sekunden";
+  } else if (intervall == 2) {
+    txt2 = "4 Sekunden";
   } else if (intervall == 3) {
-    txt2 = "5 Sekunden";
-    tutorial_weiter.show();
-  } else if (intervall == 4) {
     txt2 = "10 Sekunden";
-  }
-
+    tutorial_weiter.show();
+  } 
   textSize(18);
   textAlign(CENTER);
   text(txt2, 1163, 580);
