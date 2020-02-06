@@ -44,6 +44,8 @@ void Tutorial1() {
 }
 
 
+
+
 void Tutorial2() {
   stroke(0);
   fill(255);
@@ -483,7 +485,7 @@ void Tutorial4() {
   if (graph_rechts != 999) {
     tutorial_graph(graph_rechts, color(0, 0, 255), skalierung_blau, false, true, 0, 0);
   }
-  text(index_tutorial, 925, 600);
+  // text(index_tutorial, 925, 600);
   text("0", 125, 600);
 
   noFill();
@@ -501,7 +503,6 @@ void Tutorial4() {
   tutorial_skalierung_blau_up.show();
   tutorial_skalierung_blau_down.show();
 }
-
 
 
 
@@ -862,8 +863,6 @@ void Tutorial6() {
   if (verbinde_tutorial.checked) {
     connect = true;
   }
-
-
 
   if (graph_links != 999) {
     tutorial_graph(graph_links, color(255, 0, 0), skalierung_rot, error, connect, 0, 0);
@@ -1437,11 +1436,18 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
   float min = 9999;
   float error_val = 0;
 
+  float factor = 1000;
 
-  float[] gemitteltes_Array = new float[1000];
-
-
-
+  if (intervall == 0) {
+    factor = 1000;
+  } else if (intervall == 1) {
+    factor = 2000;
+  } else if (intervall == 2) {
+    factor = 5000;
+  } else if (intervall == 3) {
+    factor = 10000;
+  } 
+  
   int anzahl_werte = 0;
   if (anzeige == 0) {
     anzahl_werte = index_tutorial;
@@ -1455,27 +1461,21 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
     anzahl_werte = 720;
   }
 
-  float factor = 1000;
 
-  if (intervall == 0) {
-    factor = 750;
-  } else if (intervall == 1) {
-    factor = 1000;
-  } else if (intervall == 2) {
-    factor = 2000;
-  } else if (intervall == 3) {
-    factor = 5000;
-  } else if (intervall == 4) {
-    factor = 10000;
-  }
 
   if (tutorial_Start_first_time && tutorial_Start) {
     index_tutorial = floor((millis() - start_time_tutorial)/factor);
   }
 
   if (!tutorial_Start && tutorial_Start_first_time) {
-    tutorial_data[index][index_tutorial] = (millis() - start_time_tutorial)/1000;
+    for (int i = 0; i < 9; i++) {
+      for (int j = index_tutorial; j < floor((millis() - start_time_tutorial)/factor); j++) {
+        tutorial_data[i][j] = tutorial_data[i][j-1];
+      }
+    }
   }
+
+
   if (index_tutorial == 1000) {
     start_time_tutorial = millis();
     index_tutorial = 0;
@@ -1539,6 +1539,8 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
     x_abstand = 1;
   }
 
+
+
   boolean erstegezeichnet = false;
   boolean erstegezeichnet2 = false;
 
@@ -1564,8 +1566,8 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
         }
       }
     }
-    float x1 = 125 + (tutorial_data[9][i-1] - tutorial_data[9][temp]) *x_abstand;
-    float x2 = 125 + (tutorial_data[9][i] - tutorial_data[9][temp])*x_abstand;
+    float x1 = 125 + factor*800*(tutorial_data[9][i-1] - tutorial_data[9][temp])/(1000*(anzahl_werte-1));
+    float x2 = 125 + factor*800*(tutorial_data[9][i] - tutorial_data[9][temp])/(1000*(anzahl_werte-1));
     float y1 = 575 - 400*(tutorial_data[index][i-1] - min)/(max - min);
     float y2 = 575 - 400*(tutorial_data[index][i] - min)/(max - min);
     stroke(c);
@@ -1641,4 +1643,33 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
   }
   fill(0);
   text(round(tutorial_data[9][anzahl_werte]), 925, 600);
+}
+
+
+void resetTutorial() {
+  tutorial_Rot.name = "Links";
+  tutorial_Blau.name = "Rechts";
+  tutorial_Start = false;
+  start_time_tutorial = millis();
+  reset_bool_tutorial = false;
+//  tutorial_resettet = true;
+  skalierung_rot = 0;
+  skalierung_blau = 0;
+  fehler_tutorial.checked = false;
+  verbinde_tutorial.checked = true;
+  tutorial_Start_first_time = false;
+
+
+  for (int j = 0; j < 1000; j++) {
+    tutorial_data[0][j] = 20 + noise(0.1*j + 123);
+    tutorial_data[1][j] = 50 + 5*noise(0.1*j+ 234);
+    tutorial_data[2][j] = 450 + 100*noise(0.1*j+ 345);
+    tutorial_data[3][j] = 30 + 20*noise(0.1*j+ 456);
+    tutorial_data[4][j] = 450 + 100*noise(0.1*j+ 2344);
+    tutorial_data[5][j] = 30 + 5*noise(0.01*j+ 3412);
+    tutorial_data[6][j] =  tutorial_data[5][j] + 1*noise(0.1*j+ 1231);
+    tutorial_data[7][j] =  tutorial_data[6][j] + 2*noise(0.1*j+ 1);
+    tutorial_data[8][j] =  tutorial_data[7][j] + 3*noise(0.1*j+ 3);
+    tutorial_data[9][j] =  1*j;
+  }
 }

@@ -135,6 +135,7 @@ boolean MenschSensorAbgeschlossen = false;
 
 PImage Board, KreideA, KreideB, Tafel, Schwaemme;
 PImage Eco_Boden, Eco_Edding, Eco_Kleber, Kork, Sekundenkleber, Edding, Stinkelack, Eco_Lack;
+PImage blauer_engel;
 
 // Das Programm ist in Seiten unterteilt
 
@@ -260,11 +261,11 @@ void setup() {
   d2 = new Textfield(750, 450, 110, 100, myText2[3], true);
   e2 = new Textfield(900, 450, 110, 100, myText2[4], true);
 
-A_wiederholen = new button(600, 20, 210, 35, "Probe A wiederholen", 5, true, 20);
-B_wiederholen = new button(600, 60, 210, 35, "Probe B wiederholen", 5, true, 20);
-C_wiederholen = new button(600, 100, 210, 35, "Probe C wiederholen", 5, true, 20);
-D_wiederholen = new button(830, 20, 210, 35, "Probe D wiederholen", 5, true, 20);
-E_wiederholen = new button(830, 60, 210, 35, "Probe E wiederholen", 5, true, 20);
+  A_wiederholen = new button(600, 20, 210, 35, "Probe A wiederholen", 5, true, 20);
+  B_wiederholen = new button(600, 60, 210, 35, "Probe B wiederholen", 5, true, 20);
+  C_wiederholen = new button(600, 100, 210, 35, "Probe C wiederholen", 5, true, 20);
+  D_wiederholen = new button(830, 20, 210, 35, "Probe D wiederholen", 5, true, 20);
+  E_wiederholen = new button(830, 60, 210, 35, "Probe E wiederholen", 5, true, 20);
 
   Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
 
@@ -461,6 +462,8 @@ E_wiederholen = new button(830, 60, 210, 35, "Probe E wiederholen", 5, true, 20)
   Stoff7_bild = loadImage("/img/Stoff7.png");
   Stoff8_bild = loadImage("/img/Stoff8.png");
 
+  blauer_engel = loadImage("/img/blauer_engel.png");
+
   //
 
 
@@ -472,12 +475,12 @@ E_wiederholen = new button(830, 60, 210, 35, "Probe E wiederholen", 5, true, 20)
   //settings = new station(450, 350, false);
 
 
-  one = new button(100, 24, 450, 150, "Station 1\nDie Messsoftware", -8, true, 40);
-  two = new button(100, 198, 450, 150, "Station 2\nNase vs. Sensor", -8, true, 40);
+  one = new button(30, 24, 400, 150, "Station 1\nDie Messsoftware", -8, true, 40);
+  two = new button(30, 198, 400, 150, "Station 2\nNase vs. Sensor", -8, true, 40);
   two_a = new button(95, 25, 450, 200, "Station 2.1\nIch rieche was,\nwas du nicht riechst", -35, true, 40);
   two_b = new button(735, 25, 450, 200, "Station 2.2\nTVOC-Duelle", -8, true, 40);
-  three = new button(100, 372, 450, 150, "Station 3\nDicke Luft", -8, true, 40);
-  four = new button(100, 546, 450, 150, "Station 4\nFeinstaubalarm", -8, true, 40);
+  three = new button(30, 372, 400, 150, "Station 3\nDicke Luft", -8, true, 40);
+  four = new button(30, 546, 400, 150, "Station 4\nFeinstaubalarm", -8, true, 40);
 
   A = new Probe(355, 460, "A", true, false);
   B = new Probe(505, 460, "B", true, false);
@@ -553,7 +556,7 @@ E_wiederholen = new button(830, 60, 210, 35, "Probe E wiederholen", 5, true, 20)
     tutorial_data[6][j] =  tutorial_data[5][j] + 1*noise(0.1*j+ 1231);
     tutorial_data[7][j] =  tutorial_data[6][j] + 2*noise(0.1*j+ 1);
     tutorial_data[8][j] =  tutorial_data[7][j] + 3*noise(0.1*j+ 3);
-    tutorial_data[9][j] =  0.5*j;
+    tutorial_data[9][j] =  1*j;
   }
 }
 
@@ -1121,6 +1124,7 @@ void draw() {
   }
 
   if (tutorial_ueberspringen.isClicked()) {
+    resetTutorial();
     page = -1;
   }
   if (tutorial_zum.isClicked()) {
@@ -1174,6 +1178,7 @@ void draw() {
   if (tutorial_reset.isClicked()) {
     reset_bool_tutorial = true;
   }
+
 
   if (reset_bool_tutorial) {
     sicher_tutorial();
@@ -1247,6 +1252,7 @@ void draw() {
 
   if (tutorial_weiter.isClicked()) {
     if (page == -7.222) {
+      resetTutorial();
       page = -1;
     }
     if (page == -7.22) {
@@ -1703,7 +1709,7 @@ void keyPressed() {
         }
       } else if (keyCode == DELETE) {
         myText2[2] = "" ;
-      }else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText2[2].length() < 1) {
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && myText2[2].length() < 1) {
         if (key == 'A' || key == 'B' || key == 'C' || key == 'D' || key == 'E') {
           myText2[2] = myText2[2] + key;
         }

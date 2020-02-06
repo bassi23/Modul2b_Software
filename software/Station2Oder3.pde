@@ -8,38 +8,24 @@ void Station2Oder3() {
 
   textSize(20);
   fill(0);
-  //text("Station 2a - Mensch vs. Sensor", 220, 250);
-  //text("Station 2b - TVOC-Duelle", 670, 250);
-  
-  //image(Vorschau_Station2a, 220, 300);
-  //image(Vorschau_Station2b, 710, 300);
 
+  textAlign(CENTER);
+  textSize(20);
+  text("Wie gut ist eure Nase? Findet es heraus und\ntretet gegen einen Sensor an.\n\nOrdnet 5 verschiedene Ethanolkonzentrationen\nder Größe nach an.", 330, 300);
+  text("Untersucht Produkte des Alltags auf ihre\nEmission von Schadstoffen.\n\nHalten Alternativen, was sie versprechen?", 970, 300);
 
-  A = new Probe(355, 260, "A", true, false);
-  B = new Probe(505, 260, "B", true, false);
-  C = new Probe(655, 260, "C", true, false);
-  D = new Probe(805, 260, "D", true, false);
-  E = new Probe(955, 260, "E", true, false);
-
-
-  A.x = 355*scale_factor;
-  A.y = 530*scale_factor;
-  B.x = 505*scale_factor;
-  B.y = 530*scale_factor;
-  C.x = 655*scale_factor;
-  C.y = 530*scale_factor;
-  D.x = 805*scale_factor;
-  D.y = 530*scale_factor;
-  E.x = 955*scale_factor;
-  E.y = 530*scale_factor;
-  A2.x = 355*scale_factor;
-  A2.y = 640*scale_factor;
-  B2.x = 505*scale_factor;
-  B2.y = 640*scale_factor;
-  C2.x = 655*scale_factor;
-  C2.y = 640*scale_factor;
-  D2.x = 805*scale_factor;
-  D2.y = 640*scale_factor;
-  E2.x = 955*scale_factor;
-  E2.y = 640*scale_factor;
+  image(Vorschau_Station2, 230, 450);
+  image(Stoff1_bild, 850, 550);
+  image(Stoff2_bild, 1050, 550);
+  textSize(40);
+  text("vs.", 1010, 605);
+  textSize(20);
+  image(blauer_engel, 855, 420);
+  image(blauer_engel, 1050, 420);
+  strokeWeight(4);
+  stroke(255, 0, 0);
+  line(850, 420, 950, 520);
+  line(950, 420, 850, 520);
+  noStroke();
+  strokeWeight(1);
 }

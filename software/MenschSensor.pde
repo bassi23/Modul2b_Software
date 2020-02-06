@@ -366,7 +366,7 @@ void Station2_Sensor() {
 
   if (up2.isClicked()) {
     scale_MenschSensor += 1;
-    if (scale_MenschSensor > 7) {
+    if (scale_MenschSensor > 8) {
       scale_MenschSensor = 0;
     }
   }
@@ -395,8 +395,8 @@ void Station2_Sensor() {
     //println(MenschSensorMessen, (MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]));
   }
 
-   if ((millis() - currentTime)/1000 > 60) {
-    // MenschSensorMessen = false;
+  if ((millis() - currentTime)/1000 > 60) {
+    MenschSensorMessen = false;
     if (prob2 != 5) {
       if (temp == "A") {
         Station2_Aufgabentext_b1.show();
@@ -416,8 +416,8 @@ void Station2_Sensor() {
       }
       //text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'. Eine Messung\ndauert 60 Sekunden.", 20, 120);
       messen.show();
+      letzteWiederholen.show();
     }
-    letzteWiederholen.show();
   } else {
     textSize(20);
     textFont(bold);
@@ -608,6 +608,8 @@ void Station2_Sensor() {
   if (MenschSensorAbgeschlossen) {
     if (prob == 5) {
       messen.hide();
+      text("Bist du mit der Messung zufrieden?", 20, 60);
+      ja_zufrieden.show();
     }
     if (indexMenschSensor > 1) {
       if ((MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 60) {
@@ -625,6 +627,8 @@ void Station2_Sensor() {
   } else {
     ja_zufrieden.hide();
   }
+
+  println(prob);
   textSize(25);
 
   fill(255);
@@ -771,8 +775,8 @@ void Station2_Sensor() {
     prob2 = prob;
   }
 
-  if(indexMenschSensor > maxIndexRiechen){
-   maxIndexRiechen = indexMenschSensor; 
+  if (indexMenschSensor > maxIndexRiechen) {
+    maxIndexRiechen = indexMenschSensor;
   }
 
 
@@ -859,29 +863,14 @@ void dottedLine(float x1, float y1, float x2, float yMax) {
   }
 }
 
-
+String[] Reihenfolge_Sensor_temp = {"A", "B", "C", "D", "E"};
 
 void Station2_Vergleich() {
   ja_zufrieden.hide();
   messen.hide();
   letzteWiederholen.hide();
-  for (int i = 0; i < 5; i++) {
-    if (MesswertSensor2[i] == MesswertSensor[0]) {
-      Reihenfolge_Sensor[i] = "A";
-    }
-    if (MesswertSensor2[i] == MesswertSensor[1]) {
-      Reihenfolge_Sensor[i] = "B";
-    }
-    if (MesswertSensor2[i] == MesswertSensor[2]) {
-      Reihenfolge_Sensor[i] = "C";
-    }
-    if (MesswertSensor2[i] == MesswertSensor[3]) {
-      Reihenfolge_Sensor[i] = "D";
-    }
-    if (MesswertSensor2[i] == MesswertSensor[4]) {
-      Reihenfolge_Sensor[i] = "E";
-    }
-  }
+
+
   textSize(20);
   Station2_Aufgabentext_c.show();
   Station2_Aufgabentext_c.y = 10;
@@ -926,4 +915,52 @@ void Station2_Vergleich() {
   zumObermenu.x = 940;
   zumObermenu.y = 660;
   zumObermenu.show();
+}
+
+
+
+////////////////// EIN ARRAY AUF GRUNDLAGE EINES ANDEREN ORDNEN //////////////////////
+
+String[] sortArray(float[] zahlen, String[] b) {
+  int k = zahlen.length;
+  String[] b_new = new String[k];
+  int[] zahlen2 = new int[k];
+  for (int i = 0; i < k; i++) {
+    zahlen2[i] = findMinIndex(zahlen);
+    b_new[i] = b[zahlen2[i]];
+    zahlen = removeByIndex(zahlen, zahlen2[i]);
+    b = removeStringByIndex(b, zahlen2[i]);
+  }
+  return b_new;
+}
+
+int findMinIndex(float[] a) {
+  int minIndex = 0;
+  float min = 999999999;
+
+  for (int i = 0; i < a.length; i++) {
+    if (a[i] < min) {
+      min = a[i];
+      minIndex = i;
+    }
+  }
+  return  minIndex;
+}
+
+float[] removeByIndex(float[] array, int index) {
+  int index2 = array.length-1;
+  float old = array[index];
+  array[index] = array[index2];
+  array[index2] = old;
+  array = shorten(array);
+  return array;
+}
+
+String[] removeStringByIndex(String[] array, int index) {
+  int index2 = array.length-1;
+  String old = array[index];
+  array[index] = array[index2];
+  array[index2] = old;
+  array = shorten(array);
+  return array;
 }
