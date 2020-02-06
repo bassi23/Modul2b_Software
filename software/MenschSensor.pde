@@ -521,6 +521,7 @@ void Station2_Sensor() {
   if (A_wiederholen.isClicked()) {
     prob = 1;
     indexMenschSensor = 0;
+    MenschSensorMessen = true;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
@@ -536,6 +537,7 @@ void Station2_Sensor() {
   if (B_wiederholen.isClicked()) {
     prob = 2;
     indexMenschSensor = 0;
+    MenschSensorMessen = true;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
@@ -552,6 +554,7 @@ void Station2_Sensor() {
   if (C_wiederholen.isClicked()) {
     prob = 3;
     indexMenschSensor = 0;
+    MenschSensorMessen = true;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
@@ -568,6 +571,7 @@ void Station2_Sensor() {
   if (D_wiederholen.isClicked()) {
     prob = 4;
     indexMenschSensor = 0;
+    MenschSensorMessen = true;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
@@ -584,6 +588,7 @@ void Station2_Sensor() {
   if (E_wiederholen.isClicked()) {
     prob = 5;
     indexMenschSensor = 0;
+    MenschSensorMessen = true;
     A_wiederholen.hide();
     B_wiederholen.hide();
     C_wiederholen.hide();
@@ -600,6 +605,13 @@ void Station2_Sensor() {
   if (indexMenschSensor > 1) {
     if (prob == 5 && (MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 57) {
       MenschSensorAbgeschlossen = true;
+    }
+    if (prob == 5 && (MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 57 && MenschSensorAbgeschlossen) {
+      A_wiederholen.show();
+      B_wiederholen.show();
+      C_wiederholen.show();
+      D_wiederholen.show();
+      E_wiederholen.show();
     }
   }
 

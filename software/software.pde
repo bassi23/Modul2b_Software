@@ -570,9 +570,9 @@ void draw() {
     mouse_time = millis();
   }
   if (millis() - mouse_time > 60000) {
-    frameRate(5);
+    frameRate(20);
   } else {
-    frameRate(30);
+    frameRate(60);
   }
 
   textFont(normal);
