@@ -1782,7 +1782,15 @@ class slider_MS {
 
 
 void mouseReleased() {
-
+  if (mouseX > Kalibrierung2_2.x*scale_factor && mouseX < (Kalibrierung2_2.x + Kalibrierung2_2.dx)*scale_factor && mouseY > Kalibrierung2_2.y*scale_factor && mouseY < (Kalibrierung2_2.y + Kalibrierung2_2.dy)*scale_factor) {
+    if (Kalibrierung2_2.active) {
+      Kalibrierung2_2.active = false;
+    } else {
+      Kalibrierung2_2.active = true;
+    }
+  }else{
+    Kalibrierung2_2.active = false;
+  }
 
   if (mouseX > a.x*scale_factor && mouseX < (a.x + a.dx)*scale_factor && mouseY > a.y*scale_factor && mouseY < (a.y + a.dy)*scale_factor) {
     a.active = true;

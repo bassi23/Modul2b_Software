@@ -42,14 +42,17 @@ void TVOC_Duelle_Riechen() {
   Station3_Aufgabentext_a2.show();
   // text("\nOrdne die Emission der folgenden Stoffe auf der unteren Skala an! Vergib Punkte von 0 (nicht wahrnehmbar) bis\n6(extrem stark).", 20, 220); 
   text("nicht wahrnehmbar (0)", 50, 480);
-  text("extrem stark (6)", 1050, 480);
+  text("extrem stark (6)", 1020, 480);
   TVOC_Duelle_Start.hide();
 
 
-  for (int i = 0; i < 200; i++) {
-    fill(255*(float(i)/200), 255-255*(float(i)/200), 0);
-    rect(240 + 4*i, 450, 4, 50);
+  for (int i = 0; i < 50; i++) {
+    fill(255*(float(i)/50), 255-255*(float(i)/50), 0);
+    rect(290 + 14*i, 450, 14, 50);
   }
+
+
+
   Sensormessung.visible = false;
 
   if (naechstes_Duell.isClicked()) {
@@ -91,14 +94,14 @@ void TVOC_Duelle_Riechen() {
   }
 
 
-  tvoc_duelle_werte_mensch[0] = 6*(Stoff1.x - 240)/800;
-  tvoc_duelle_werte_mensch[1] = 6*(Stoff2.x- 240)/800;
-  tvoc_duelle_werte_mensch[2] = 6*(Stoff3.x- 240)/800;
-  tvoc_duelle_werte_mensch[3] = 6*(Stoff4.x- 240)/800;
-  tvoc_duelle_werte_mensch[4] = 6*(Stoff5.x- 240)/800;
-  tvoc_duelle_werte_mensch[5] = 6*(Stoff6.x- 240)/800;
-  tvoc_duelle_werte_mensch[6] = 6*(Stoff7.x- 240)/800;
-  tvoc_duelle_werte_mensch[7] = 6*(Stoff8.x- 240)/800;
+  tvoc_duelle_werte_mensch[0] = 6*(Stoff1.x - 290)/700;
+  tvoc_duelle_werte_mensch[1] = 6*(Stoff2.x- 290)/700;
+  tvoc_duelle_werte_mensch[2] = 6*(Stoff3.x- 290)/700;
+  tvoc_duelle_werte_mensch[3] = 6*(Stoff4.x- 290)/700;
+  tvoc_duelle_werte_mensch[4] = 6*(Stoff5.x- 290)/700;
+  tvoc_duelle_werte_mensch[5] = 6*(Stoff6.x- 290)/700;
+  tvoc_duelle_werte_mensch[6] = 6*(Stoff7.x- 290)/700;
+  tvoc_duelle_werte_mensch[7] = 6*(Stoff8.x- 290)/700;
 }
 
 
@@ -126,7 +129,7 @@ class TVOC_Kandidat {
     } else {
       text(name, x, y + 70);
     }
-    float points = (x-240)/80;
+    float points = (x-290)/70;
     float points2 = 6*points/10;
     text(nf(points2, 0, 1), x-70, y);
     String skala = "";
@@ -148,11 +151,11 @@ class TVOC_Kandidat {
     textAlign(CORNER);
     text(skala, x+55, y);
 
-    if (mouseX > (x - image.width/2)*scale_factor && mouseX < (x + image.width/2)*scale_factor && (mouseY - scroll) > (y - image.height/2)*scale_factor && (mouseY - scroll) < (y + image.height/2)*scale_factor && mousePressed && mouseX > scale_factor*240 && mouseX < scale_factor*1040) {
+    if (mouseX > (x - image.width/2)*scale_factor && mouseX < (x + image.width/2)*scale_factor && (mouseY - scroll) > (y - image.height/2)*scale_factor && (mouseY - scroll) < (y + image.height/2)*scale_factor && mousePressed && mouseX > scale_factor*290 && mouseX < scale_factor*990) {
       x = mouseX/scale_factor;
     }
 
-    float r = 255*(x - 240)/800;
+    float r = 255*(x - 290)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -213,23 +216,24 @@ void TVOC_Duelle_Messen() {
   text("Messung des\nSensors", 20, 450);
   textFont(normal);
   text("nicht wahrnehmbar (0)", 10, 380);
-  text("extrem stark (6)", 1060, 380);
+  text("extrem stark (6)", 1020, 380);
   text("nicht wahrnehmbar (0)", 10, 630);
-  text("extrem stark (6)", 1060, 630);
+  text("extrem stark (6)", 1020, 630);
   stroke(0);
   // line(0, 125, 1280, 125);
   noStroke();
   for (int i = 0; i < 50; i++) {
     fill(255*(float(i)/50), 255-255*(float(i)/50), 0);
-    rect(240 + 16*i, 350, 16, 50);
-    rect(240 + 16*i, 600, 16, 50);
+    rect(290 + 14*i, 350, 14, 50);
+    rect(290 + 14*i, 600, 14, 50);
   }
   fill(0);
+
   if (tvoc_stoff == 1) {
     //Meine Vorhersage
     image(Stoff1_bild, Stoff1.x - 50, 210);
     text(nf(tvoc_duelle_werte_mensch[0], 0, 1), Stoff1.x - 90, 260);
-    float points = 6*(Stoff1.x-240)/800;
+    float points = tvoc_duelle_werte_mensch[0];
     String skala = "";
     if (points < 0.5) {
       skala = "nicht wahrnehmbar";
@@ -248,7 +252,7 @@ void TVOC_Duelle_Messen() {
     }
     text(skala, Stoff1.x + 70, 260);
 
-    float r = 255*(Stoff1.x - 310)/800;
+    float r = 255*(Stoff1.x - 360)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -258,7 +262,7 @@ void TVOC_Duelle_Messen() {
   } else if (tvoc_stoff == 2) {
     image(Stoff2_bild, Stoff2.x - 50, 210);
     text(nf(tvoc_duelle_werte_mensch[1], 0, 1), Stoff2.x - 90, 250);
-    float points = 6*(Stoff1.x-240)/800;
+    float points = tvoc_duelle_werte_mensch[1];
     String skala = "";
     if (points < 0.5) {
       skala = "nicht wahrnehmbar";
@@ -275,8 +279,8 @@ void TVOC_Duelle_Messen() {
     } else {
       skala = "extrem stark";
     }
-    text(skala, Stoff1.x + 70, 260);
-    float r = 255*(Stoff2.x - 310)/800;
+    text(skala, Stoff2.x + 70, 260);
+    float r = 255*(Stoff2.x - 360)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -286,7 +290,7 @@ void TVOC_Duelle_Messen() {
   } else if (tvoc_stoff == 3) {
     text(nf(tvoc_duelle_werte_mensch[2], 0, 1), Stoff3.x - 90, 250);
     image(Stoff3_bild, Stoff3.x - 50, 210);
-    float points = 6*(Stoff1.x-240)/800;
+    float points = tvoc_duelle_werte_mensch[2];
     String skala = "";
     if (points < 0.5) {
       skala = "nicht wahrnehmbar";
@@ -303,8 +307,8 @@ void TVOC_Duelle_Messen() {
     } else {
       skala = "extrem stark";
     }
-    text(skala, Stoff1.x + 70, 260);
-    float r = 255*(Stoff3.x - 310)/800;
+    text(skala, Stoff3.x + 70, 260);
+    float r = 255*(Stoff3.x - 360)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -314,7 +318,7 @@ void TVOC_Duelle_Messen() {
   } else if (tvoc_stoff == 4) {
     text(nf(tvoc_duelle_werte_mensch[3], 0, 1), Stoff4.x - 90, 250);
     image(Stoff4_bild, Stoff4.x - 50, 210);
-    float points = 6*(Stoff1.x-240)/800;
+    float points = tvoc_duelle_werte_mensch[3];
     String skala = "";
     if (points < 0.5) {
       skala = "nicht wahrnehmbar";
@@ -331,8 +335,8 @@ void TVOC_Duelle_Messen() {
     } else {
       skala = "extrem stark";
     }
-    text(skala, Stoff1.x + 70, 260);
-    float r = 255*(Stoff4.x - 310)/800;
+    text(skala, Stoff4.x + 70, 260);
+    float r = 255*(Stoff4.x - 360)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -342,7 +346,7 @@ void TVOC_Duelle_Messen() {
   } else if (tvoc_stoff == 5) {
     text(nf(tvoc_duelle_werte_mensch[4], 0, 1), Stoff5.x - 90, 250);
     image(Stoff5_bild, Stoff5.x - 50, 210);
-    float points = 6*(Stoff1.x-240)/800;
+    float points = tvoc_duelle_werte_mensch[4];
     String skala = "";
     if (points < 0.5) {
       skala = "nicht wahrnehmbar";
@@ -359,8 +363,8 @@ void TVOC_Duelle_Messen() {
     } else {
       skala = "extrem stark";
     }
-    text(skala, Stoff1.x + 70, 260);
-    float r = 255*(Stoff5.x - 310)/800;
+    text(skala, Stoff5.x + 70, 260);
+    float r = 255*(Stoff5.x - 360)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -370,7 +374,7 @@ void TVOC_Duelle_Messen() {
   } else if (tvoc_stoff == 6) {
     text(nf(tvoc_duelle_werte_mensch[5], 0, 1), Stoff6.x - 90, 250);
     image(Stoff6_bild, Stoff6.x - 50, 210);
-    float points = 6*(Stoff1.x-240)/800;
+    float points = tvoc_duelle_werte_mensch[5];
     String skala = "";
     if (points < 0.5) {
       skala = "nicht wahrnehmbar";
@@ -387,8 +391,8 @@ void TVOC_Duelle_Messen() {
     } else {
       skala = "extrem stark";
     }
-    text(skala, Stoff1.x + 70, 260);
-    float r = 255*(Stoff6.x - 310)/800;
+    text(skala, Stoff6.x + 70, 260);
+    float r = 255*(Stoff6.x - 360)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -398,7 +402,7 @@ void TVOC_Duelle_Messen() {
   } else if (tvoc_stoff == 7) {
     text(nf(tvoc_duelle_werte_mensch[6], 0, 1), Stoff7.x - 90, 250);
     image(Stoff7_bild, Stoff7.x - 50, 210);
-    float points = 6*(Stoff1.x-240)/800;
+    float points = tvoc_duelle_werte_mensch[6];
     String skala = "";
     if (points < 0.5) {
       skala = "nicht wahrnehmbar";
@@ -415,8 +419,8 @@ void TVOC_Duelle_Messen() {
     } else {
       skala = "extrem stark";
     }
-    text(skala, Stoff1.x + 70, 260);
-    float r = 255*(Stoff7.x - 310)/800;
+    text(skala, Stoff7.x + 70, 260);
+    float r = 255*(Stoff7.x - 360)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -426,7 +430,7 @@ void TVOC_Duelle_Messen() {
   } else if (tvoc_stoff == 8) {
     text(nf(tvoc_duelle_werte_mensch[7], 0, 1), Stoff8.x - 90, 250);
     image(Stoff8_bild, Stoff8.x - 50, 210);
-    float points = 6*(Stoff1.x-240)/800;
+    float points = tvoc_duelle_werte_mensch[7];
     String skala = "";
     if (points < 0.5) {
       skala = "nicht wahrnehmbar";
@@ -444,7 +448,7 @@ void TVOC_Duelle_Messen() {
       skala = "extrem stark";
     }
     text(skala, Stoff1.x + 70, 260);
-    float r = 255*(Stoff8.x - 310)/800;
+    float r = 255*(Stoff8.x - 360)/700;
     float g = 255 - r;
     strokeWeight(4);
     stroke(r, g, 0);
@@ -455,17 +459,17 @@ void TVOC_Duelle_Messen() {
   //Messung des Sensors
   if (index > 1) {
     float x = sgp_tvoc_data[index - 1];
-    x = (800*x/1000 + 240)*scale_factor;
-    if (x > 1040*scale_factor) {
-      x = 1040*scale_factor;
+    x = (x * float(Kalibrierung_Station2_2.replace(',', '.')) + 290)*scale_factor;
+    if (x > 990*scale_factor) {
+      x = 990*scale_factor;
     }
     imageMode(CENTER);
     if (tvoc_stoff == 1) {
       image(Stoff1_bild, x, 510);
-      tvoc_duelle_werte_sensor[0] = (x - 240)/80;
+      tvoc_duelle_werte_sensor[0] = (x - 290)/70;
       text(nf(tvoc_duelle_werte_sensor[0], 0, 1), x - 90, 520);
 
-      float points = 6*(x-240)/800;
+      float points = 6*(x-290)/700;
       String skala = "";
       if (points < 0.5) {
         skala = "nicht wahrnehmbar";
@@ -482,12 +486,14 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 70, 520);
+      textAlign(CENTER);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 170, 520);
+      textAlign(CORNER);
     } else if (tvoc_stoff == 2) {
       image(Stoff2_bild, x, 510);
-      tvoc_duelle_werte_sensor[1] = (x - 240)/80;
+      tvoc_duelle_werte_sensor[1] = (x - 290)/70;
       text(nf(tvoc_duelle_werte_sensor[1], 0, 1), x - 90, 520);
-      float points = 6*(x-240)/800;
+      float points = 6*(x-290)/700;
       String skala = "";
       if (points < 0.5) {
         skala = "nicht wahrnehmbar";
@@ -504,12 +510,14 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala, x + 70, 520);
+      textAlign(CENTER);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 170, 520);
+      textAlign(CORNER);
     } else if (tvoc_stoff == 3) {
       image(Stoff3_bild, x, 510);
-      tvoc_duelle_werte_sensor[2] = (x - 240)/80;
+      tvoc_duelle_werte_sensor[2] = (x - 290)/70;
       text(nf(tvoc_duelle_werte_sensor[2], 0, 1), x - 90, 520);
-      float points = 6*(x-240)/800;
+      float points = 6*(x-290)/700;
       String skala = "";
       if (points < 0.5) {
         skala = "nicht wahrnehmbar";
@@ -526,12 +534,14 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala, x + 70, 520);
+      textAlign(CENTER);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 170, 520);
+      textAlign(CORNER);
     } else if (tvoc_stoff == 4) {
       image(Stoff4_bild, x, 510);
-      tvoc_duelle_werte_sensor[3] = (x - 240)/80;
+      tvoc_duelle_werte_sensor[3] = (x - 290)/70;
       text(nf(tvoc_duelle_werte_sensor[3], 0, 1), x - 90, 520);
-      float points = 6*(x-240)/800;
+      float points = 6*(x-290)/700;
       String skala = "";
       if (points < 0.5) {
         skala = "nicht wahrnehmbar";
@@ -548,12 +558,14 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala, x + 70, 520);
+      textAlign(CENTER);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 170, 520);
+      textAlign(CORNER);
     } else if (tvoc_stoff == 5) {
       image(Stoff5_bild, x, 510);
-      tvoc_duelle_werte_sensor[4] = (x - 240)/80;
+      tvoc_duelle_werte_sensor[4] = (x - 290)/70;
       text(nf(tvoc_duelle_werte_sensor[4], 0, 1), x - 90, 520);
-      float points = 6*(x-240)/800;
+      float points = 6*(x-290)/700;
       String skala = "";
       if (points < 0.5) {
         skala = "nicht wahrnehmbar";
@@ -570,12 +582,14 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala, x + 70, 520);
+      textAlign(CENTER);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 170, 520);
+      textAlign(CORNER);
     } else if (tvoc_stoff == 6) {
       image(Stoff6_bild, x, 510);
-      tvoc_duelle_werte_sensor[5] = (x - 240)/80;
+      tvoc_duelle_werte_sensor[5] = (x - 290)/70;
       text(nf(tvoc_duelle_werte_sensor[5], 0, 1), x - 90, 520);
-      float points = 6*(x-240)/800;
+      float points = 6*(x-290)/700;
       String skala = "";
       if (points < 0.5) {
         skala = "nicht wahrnehmbar";
@@ -592,12 +606,14 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala, x + 70, 520);
+      textAlign(CENTER);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 170, 520);
+      textAlign(CORNER);
     } else if (tvoc_stoff == 7) {
       image(Stoff7_bild, x, 510);
-      tvoc_duelle_werte_sensor[6] = (x - 240)/80;
+      tvoc_duelle_werte_sensor[6] = (x - 290)/70;
       text(nf(tvoc_duelle_werte_sensor[6], 0, 1), x - 90, 520);
-      float points = 6*(x-240)/800;
+      float points = 6*(x-290)/700;
       String skala = "";
       if (points < 0.5) {
         skala = "nicht wahrnehmbar";
@@ -614,12 +630,14 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala, x + 70, 520);
+      textAlign(CENTER);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 170, 520);
+      textAlign(CORNER);
     } else if (tvoc_stoff == 8) {
       image(Stoff8_bild, x, 510);
-      tvoc_duelle_werte_sensor[7] = (x - 240)/80;
+      tvoc_duelle_werte_sensor[7] = (x - 290)/70;
       text(nf(tvoc_duelle_werte_sensor[7], 0, 1), x - 90, 520);
-      float points = 6*(x-240)/800;
+      float points = 6*(x-290)/700;
       String skala = "";
       if (points < 0.5) {
         skala = "nicht wahrnehmbar";
@@ -636,10 +654,12 @@ void TVOC_Duelle_Messen() {
       } else {
         skala = "extrem stark";
       }
-      text(skala, x + 70, 520);
+      textAlign(CENTER);
+      text(skala +  "\n(in ppb: " + sgp_tvoc_data[index - 1] + ")", x + 170, 520);
+      textAlign(CORNER);
     }
     imageMode(CORNER);
-    float r_sensor = 255*(x - 240)/800;
+    float r_sensor = 255*(x - 290)/700;
     float g_sensor = 255 - r_sensor;
     strokeWeight(4);
     stroke(r_sensor, g_sensor, 0);
@@ -648,6 +668,8 @@ void TVOC_Duelle_Messen() {
     line(x, 600, x + 20, 580);
   }
   strokeWeight(1);
+
+  zur_Auswertung.y = 470;
 }
 
 
@@ -888,4 +910,89 @@ void Analyse() {
   line(0, 80, 1280, 80);
   line(250, 420, 1280, 420);
   line(780, 80, 780, 420);
+}
+
+
+
+
+void Zusammenfassung_Mensch_Sensor() {
+  TVOC_Duelle_uebertragen.show();
+  translate(0, 40);
+  noFill();
+  stroke(0);
+  rect(200, 50, 400, 550);  
+  rect(50, 150, 550, 450);
+  rect(350, 600, 250, 70);
+
+  rect(680, 50, 400, 550);
+  rect(680, 150, 400, 450);
+  rect(680, 600, 250, 70);
+
+
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 4; j++) {
+      rect(360 + 130*i, 170 + 105*j, 90, 90); 
+      rect(700 + 130*i, 170 + 105*j, 90, 90);
+    }
+  }
+
+
+  textFont(bold);
+  textSize(30);
+  textAlign(CENTER);
+  text("herkömmliche\nProdukte", 400, 90);
+  text("emissionsarme\nVergleichsprodukte", 880, 90);
+
+  text("Nase     Sensor", 485, 645);
+  text("Nase     Sensor", 810, 645);
+  textFont(normal);
+  textSize(35);
+  text("Farben", 125, 215);
+  text("Filzstifte", 125, 320);
+  text("Kleber", 125, 425);
+  text("Böden", 125, 530);
+
+  for (int i = 0; i < 5; i++) {
+    text("vs.", 645, 120 + 105*i);
+  }
+
+
+  text(nf(tvoc_duelle_werte_mensch[0], 0, 1), 405, 225 + 105*0); 
+  text(nf(tvoc_duelle_werte_mensch[1], 0, 1), 745, 225 + 105*0);
+  text(nf(tvoc_duelle_werte_mensch[2], 0, 1), 405, 225 + 105*1); 
+  text(nf(tvoc_duelle_werte_mensch[3], 0, 1), 745, 225 + 105*1); 
+  text(nf(tvoc_duelle_werte_mensch[4], 0, 1), 745, 225 + 105*2); 
+  text(nf(tvoc_duelle_werte_mensch[5], 0, 1), 405, 225 + 105*2); 
+  text(nf(tvoc_duelle_werte_mensch[6], 0, 1), 405, 225 + 105*3); 
+  text(nf(tvoc_duelle_werte_mensch[7], 0, 1), 745, 225 + 105*3); 
+
+
+  text(nf(tvoc_duelle_werte_sensor[0], 0, 1), 535, 225 + 105*0); 
+  text(nf(tvoc_duelle_werte_sensor[1], 0, 1), 875, 225 + 105*0);
+  text(nf(tvoc_duelle_werte_sensor[2], 0, 1), 535, 225 + 105*1); 
+  text(nf(tvoc_duelle_werte_sensor[3], 0, 1), 875, 225 + 105*1); 
+  text(nf(tvoc_duelle_werte_sensor[4], 0, 1), 875, 225 + 105*2); 
+  text(nf(tvoc_duelle_werte_sensor[5], 0, 1), 535, 225 + 105*2); 
+  text(nf(tvoc_duelle_werte_sensor[6], 0, 1), 535, 225 + 105*3); 
+  text(nf(tvoc_duelle_werte_sensor[7], 0, 1), 875, 225 + 105*3); 
+
+
+
+
+  textAlign(CORNER);
+  image(Stoff1_bild, 230, 170);
+  image(Stoff2_bild, 950, 170);
+  image(Stoff3_bild, 230, 275);
+  image(Stoff4_bild, 950, 275);
+  image(Stoff5_bild, 230, 380);
+  image(Stoff6_bild, 950, 380);
+  image(Stoff7_bild, 230, 485);
+  image(Stoff8_bild, 950, 485);
+  zur_Auswertung.show();  
+  zur_Auswertung.y = 530;
+  if (zur_Auswertung.isClicked()) {
+    delay(200);
+    page = 3.1111;
+  }
+  translate(0, -40);
 }

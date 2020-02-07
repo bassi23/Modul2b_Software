@@ -18,6 +18,15 @@ void setting() {
   text("Auflösung", 50, 500);
   text("Stationen freigeben", 1050, 500);
 
+
+  text("Kalibrierung Station 2.2", 50, 600);
+  Kalibrierung2_2.show(Kalibrierung_Station2_2);
+  textSize(16);
+  text("nicht wahrnehmbar: 0 - " + 60/float(Kalibrierung_Station2_2) + "\nsehr schwach: " + 60/float(Kalibrierung_Station2_2) + " - " + 3*60/float(Kalibrierung_Station2_2)+ "\nschwach: " + 3*60/float(Kalibrierung_Station2_2) + " - " + 5*60/float(Kalibrierung_Station2_2)+ "\ndeutlich: " + 5*60/float(Kalibrierung_Station2_2) + " - " + 7*60/float(Kalibrierung_Station2_2)+ "\nstark: " + 7*60/float(Kalibrierung_Station2_2) + " - " + 9*60/float(Kalibrierung_Station2_2)+ "\nsehr stark: " + 9*60/float(Kalibrierung_Station2_2) + " - " + 11*60/float(Kalibrierung_Station2_2) + "\nextrem stark: > " +11*60/float(Kalibrierung_Station2_2), 630, 550);
+  //new Textfield22(350, 565, 100, 50, Kalibrierung_Station2_2, true);
+  textSize(20);
+
+  textAlign(CORNER);
   if (BaselineString[4] == "0000") {
     text("eCO2-Baseline: " + BaselineString[0]  + ";     TVOC-Baseline: " + BaselineString[1], 250, 250);
   } else {

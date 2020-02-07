@@ -121,7 +121,7 @@ void MenschSensor() {
         }
       }
       if (!E2.active) {
-        if (E.x > (255 + 150*i)*scale_factor && E2.x < (455+ 150*i)*scale_factor && E2.y > 300*scale_factor && E2.y  < 500*scale_factor ) {
+        if (E2.x > (255 + 150*i)*scale_factor && E2.x < (455+ 150*i)*scale_factor && E2.y > 300*scale_factor && E2.y  < 500*scale_factor ) {
           E2.x = (355 + 150*i)*scale_factor; 
           E2.y = 400*scale_factor;
         }
@@ -641,7 +641,6 @@ void Station2_Sensor() {
     ja_zufrieden.hide();
   }
 
-  println(prob);
   textSize(25);
 
   fill(255);

@@ -18,7 +18,7 @@ dropdown Aufloesung, Alle_Sensoren_Rot, Alle_Sensoren_Blau, SPS_Rot_Station1, SP
 dropdown dateiformat, autosave, connect, error_bars, freie_stationen, strichdicke;
 checkbox verbinde, fehler, verbinde_tutorial, fehler_tutorial, fehler_innenraum, verbinde_innenraum;
 
-Aufgabentext Station1_Aufgabentext;
+Aufgabentext Station1_Aufgabentext, TVOC_Duelle_uebertragen;
 Aufgabentext Station2_Aufgabentext_a, Station2_Aufgabentext_a2, Station2_Aufgabentext_b1, Station2_Aufgabentext_b2, Station2_Aufgabentext_b3, Station2_Aufgabentext_b4, Station2_Aufgabentext_b5, Station2_Aufgabentext_c;
 Aufgabentext Station3_Aufgabentext_a1, Station3_Aufgabentext_a2, Station3_Aufgabentext_b1;
 Aufgabentext Station4_Aufgabentext_a, Station4_Aufgabentext_a2, Station4_Aufgabentext_b, Station4_Aufgabentext_c;
@@ -31,8 +31,13 @@ String[] myText = {"A", "B", "C", "D", "E"};
 String[] myText2 = {"D", "A", "C", "B", "E"};
 String[] myText_Sorted = {"", "", "", "", ""};
 String[] myText2_Sorted = {"", "", "", "", ""};
+
+
+String Kalibrierung_Station2_2 = "1";
 Textfield a, b, c, d, e;
 Textfield a2, b2, c2, d2, e2;
+
+Textfield22 Kalibrierung2_2; 
 
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)", "Fullscreen", "frei"};
@@ -117,7 +122,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = -1;
+float page = 3.111;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -261,6 +266,8 @@ void setup() {
   d2 = new Textfield(750, 450, 110, 100, myText2[3], true);
   e2 = new Textfield(900, 450, 110, 100, myText2[4], true);
 
+  Kalibrierung2_2 = new Textfield22(350, 565, 100, 50, Kalibrierung_Station2_2, false);
+
   A_wiederholen = new button(600, 20, 210, 35, "Probe A wiederholen", 5, true, 20);
   B_wiederholen = new button(600, 60, 210, 35, "Probe B wiederholen", 5, true, 20);
   C_wiederholen = new button(600, 100, 210, 35, "Probe C wiederholen", 5, true, 20);
@@ -284,6 +291,7 @@ void setup() {
   Station3_Aufgabentext_a2 = new Aufgabentext(" Ordne die Emission der folgenden Stoffe auf der unteren Skala an, indem du zunächst daran riechst. Vergib Punkte von 0 (nicht wahrnehmbar) bis 6 (extrem stark). Notiere deine Einschätzung auch in der Broschüre.", 20, 230, 1250, 90);
 
   Station3_Aufgabentext_b1 = new Aufgabentext(" Miss nun die verschiedenen Stoffe mit dem Sensor. Lege die Proben in die Plexiglasbox und stelle das Sensorboard darüber. Warte bis der Sensor ein Gleichgewicht erreicht hat und notiere die auch diese Einschätzung in der Broschüre.", 20, 60, 1250, 90);
+  TVOC_Duelle_uebertragen = new Aufgabentext(" Übernehmt bitte die Ergebnisse in die Tabelle in der Bröschüre.", 20, 10, 700, 55);
 
 
   Station4_Aufgabentext_a = new Aufgabentext(" In diesem Experiment wirst du Messungen der Innenraumluftqualität durchführen. Eine Messung besteht aus 2 Phasen:", 25, 70, 1200, 235);
@@ -395,7 +403,7 @@ void setup() {
   //
   Stationen = new button(100, 100, 500, 400, "Stationen", 20, true, 70);
   Sensoren = new button(650, 100, 500, 400, "Sensoren", 20, true, 70);
-  zumObermenu = new button(1125, 605, 140, 50, "Hauptmenü", 5, true, 20);
+  zumObermenu = new button(1125, 655, 140, 50, "Hauptmenü", 5, true, 20);
   zumObermenu.hide();
 
   //
@@ -853,8 +861,10 @@ void draw() {
   } else if (page == 3.11) {
     TVOC_Duelle_Messen();
   } else if (page == 3.111) {
-    Auswertung_Station3();
+    Zusammenfassung_Mensch_Sensor();
   } else if (page == 3.1111) {
+    Auswertung_Station3();
+  } else if (page == 3.11111) {
     Analyse();
   } else if (page == 4) {
     Innenraumluft();
@@ -1001,6 +1011,8 @@ void draw() {
         page = 3.11;
       } else if (page == 3.1111) {
         page = 3.111;
+      } else if (page == 3.11111) {
+        page = 3.1111;
       } else if (page == 4.1) {
         page = 4;
       } else if (page == 4.11) {
@@ -1316,7 +1328,7 @@ void draw() {
   }
 
   if (TVOC_analyse.isClicked()) {
-    page = 3.1111;
+    page = 3.11111;
   }
 
   if (tutorial_Start_Stopp.isClicked()) {
@@ -1603,6 +1615,27 @@ void keyPressed() {
     surface.setSize(floor(w), floor(h));
   }
 
+
+  if (page == 10) {
+    if (Kalibrierung2_2.active) {
+      if (keyCode == BACKSPACE) {
+        if (Kalibrierung_Station2_2.length() > 0 ) {
+          Kalibrierung_Station2_2 = Kalibrierung_Station2_2.substring( 0, Kalibrierung_Station2_2.length()- 1 );
+        }
+      } 
+      if (keyCode == DELETE) {
+        Kalibrierung_Station2_2 = "" ;
+      } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && Kalibrierung_Station2_2.length() < 5) {
+        if (key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8' || key == '9' || key == '0' || key == '.' || key == ',') {
+          Kalibrierung_Station2_2 = Kalibrierung_Station2_2 + key;
+        }
+      }
+    }
+  }
+
+
+
+
   if (page == 2) {
     if (a.active) {
       if (keyCode == BACKSPACE) {
@@ -1756,6 +1789,53 @@ void keyPressed() {
 //  }
 
 //}
+
+
+
+class Textfield22 {
+  float x, y, dx, dy;
+  String text;
+  boolean active;
+
+  Textfield22(float x_, float y_, float dx_, float dy_, String text_, boolean active_) {
+    x = x_;
+    y = y_;
+    dx = dx_;
+    dy = dy_;
+    text = text_;
+    active = active_;
+  }
+
+
+  void show(String txt) {
+    if (this.active) {
+      fill(200);
+      stroke(0);
+      rect(x, y, dx, dy);
+      if (round(millis()/500) % 2 == 0) {
+        stroke(0);
+      } else {
+        stroke(200);
+      }
+
+      line(x + dx/2 + textWidth(txt)/2, y + 10, x + dx/2 + textWidth(txt)/2, y + dy - 10);
+    } else {
+      fill(255);
+      stroke(0);
+      rect(x, y, dx, dy);
+    }
+
+
+    fill(0);
+    textAlign(CENTER);
+    text(txt, x + dx/2, y + dy/2 + 10);
+  }
+
+  //  boolean isActive() {
+  //    return(mouseX > x*scale_factor && mouseX < (x + dx)*scale_factor && mouseY > y*scale_factor && mouseY < (y + dy)*scale_factor);
+  //  }
+}
+
 
 
 
