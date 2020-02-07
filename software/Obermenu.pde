@@ -10,7 +10,8 @@ void Obermenu() {
   tutorial_zum.show();
   Stationen.show();
   Sensoren.show();
-
+  two.hide();
+  Geruchstest.hide();
   fill(0);
   textSize(30);
   textAlign(CENTER);
