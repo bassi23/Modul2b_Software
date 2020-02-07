@@ -8,7 +8,7 @@ void setting() {
   textSize(30);
   fill(0);
   reconnect();
-
+  tutorial_zum.hide();
 
   textSize(20);
   text("Daten speichern", 50, 50);
