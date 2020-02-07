@@ -22,7 +22,7 @@ Aufgabentext Station1_Aufgabentext, TVOC_Duelle_uebertragen;
 Aufgabentext Station2_Aufgabentext_a, Station2_Aufgabentext_a2, Station2_Aufgabentext_b1, Station2_Aufgabentext_b2, Station2_Aufgabentext_b3, Station2_Aufgabentext_b4, Station2_Aufgabentext_b5, Station2_Aufgabentext_c;
 Aufgabentext Station3_Aufgabentext_a1, Station3_Aufgabentext_a2, Station3_Aufgabentext_b1;
 Aufgabentext Station4_Aufgabentext_a, Station4_Aufgabentext_a2, Station4_Aufgabentext_b, Station4_Aufgabentext_c;
-
+Aufgabentext TVOC_Duelle_Analyse, Duell_Aufgabentext;
 
 dropdown tutorial_Rot, tutorial_Blau;
 
@@ -108,6 +108,9 @@ button setBaseline;
 
 button Station2_Riechen2, A_wiederholen, B_wiederholen, C_wiederholen, D_wiederholen, E_wiederholen;
 
+
+button Duell1, Duell2, Duell3, Duell4;
+
 Probe A, B, C, D, E;
 Probe A2, B2, C2, D2, E2;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
@@ -122,7 +125,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = 3.111;
+float page = 3.11111;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -293,6 +296,9 @@ void setup() {
   Station3_Aufgabentext_b1 = new Aufgabentext(" Miss nun die verschiedenen Stoffe mit dem Sensor. Lege die Proben in die Plexiglasbox und stelle das Sensorboard darüber. Warte bis der Sensor ein Gleichgewicht erreicht hat und notiere die auch diese Einschätzung in der Broschüre.", 20, 60, 1250, 90);
   TVOC_Duelle_uebertragen = new Aufgabentext(" Übernehmt bitte die Ergebnisse in die Tabelle in der Bröschüre.", 20, 10, 700, 55);
 
+  TVOC_Duelle_Analyse = new Aufgabentext(" Mal sehen, was die einzelnen Proben enthalten. Halten die alternativen Produkte, was sie versprechen? Wählt eines der Duelle aus und seht euch die Zusammensetzung der Proben genauer an.", 20, 20, 1240, 90);
+  Duell_Aufgabentext = new Aufgabentext(" Hinweise: Wenn ihr mit der Maus über die (?) fahrt, könnt ihr zusätzliche Infos zu den Peaks einholen. Achtet bei eurer Einschätzung auch auf eine geeignete Skalierung.", 20, 20, 1240, 90);
+
 
   Station4_Aufgabentext_a = new Aufgabentext(" In diesem Experiment wirst du Messungen der Innenraumluftqualität durchführen. Eine Messung besteht aus 2 Phasen:", 25, 70, 1200, 235);
   Station4_Aufgabentext_a2 = new Aufgabentext(" Klicke auf diesen Button, um eine Messung mit ausgeschaltetem Ventilator durchzu- führen", 380, 450, 500, 170);
@@ -374,6 +380,15 @@ void setup() {
   TVOC_analyse = new button(1115, 600, 140, 50, "Analyse", 5, true, 20);
 
   Feinstaub_weiter = new button(1115, 600, 140, 50, "weiter", 5, true, 20);
+
+
+
+  Duell1 = new button(250, 200, 200, 100, "Duell 1 - Farben", 5, true, 20);
+  Duell2  = new button(930, 200, 200, 100, "Duell 2 - Filzstifte", 5, true, 20);
+  Duell3  = new button(250, 450, 200, 100, "Duell 3 - Kleber", 5, true, 20);
+  Duell4 = new button(930, 450, 200, 100, "Duell 4 - Böden", 5, true, 20);
+
+
 
 
   x_up = new button(900, 680, 50, 30, "right_arrow", 5, true, 20);
@@ -866,6 +881,14 @@ void draw() {
     Auswertung_Station3();
   } else if (page == 3.11111) {
     Analyse();
+  } else if (page == 3.2) {
+    Duell1_();
+  } else if (page == 3.3) {
+    Duell2_();
+  } else if (page == 3.4) {
+    Duell3_();
+  } else if (page == 3.5) {
+    Duell4_();
   } else if (page == 4) {
     Innenraumluft();
     zumObermenu.hide();
@@ -1013,6 +1036,8 @@ void draw() {
         page = 3.111;
       } else if (page == 3.11111) {
         page = 3.1111;
+      } else if (page == 3.2 || page == 3.3 || page == 3.4 || page == 3.5) {
+        page = 3.11111;
       } else if (page == 4.1) {
         page = 4;
       } else if (page == 4.11) {

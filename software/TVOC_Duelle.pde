@@ -824,93 +824,102 @@ void Auswertung_Station3() {
 
 void Analyse() {
   textFont(normal);
-  text("Fahre mit der Maus über die gestesteten Stoffe, um ein Spektrum der Komponenten der Stoffe zu sehen", 20, 50);
-  textFont(bold);
-  text("Gaschromatographie-Spektrum", 280, 110);
-  text("Hauptbestandteile", 800, 110);
-  text("Einschätzung", 280, 450);
-  image(Stoff1_bild, 20, 100);
-  image(Stoff2_bild, 130, 100);
-  image(Stoff3_bild, 20, 250);
-  image(Stoff4_bild, 130, 250);
-  image(Stoff5_bild, 20, 400);
-  image(Stoff6_bild, 130, 400);
-  image(Stoff7_bild, 20, 550);
-  image(Stoff8_bild, 130, 550);
+  TVOC_Duelle_Analyse.show();
 
-  if (mouseX > 20*scale_factor && mouseX < 120*scale_factor && mouseY >100*scale_factor && mouseY < 200*scale_factor) {
-    image(Stinkelack, 280, 130);
-    textFont(normal);
-    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
-    text("Stinkelack stinkt und ist nicht so dufte für die Gesundheit", 280, 490);
+  image(Stoff1_bild, 150, 200);
+  image(Stoff2_bild, 450, 200);
+  image(Stoff3_bild, 830, 200);
+  image(Stoff4_bild, 1130, 200);
+  image(Stoff5_bild, 150, 450);
+  image(Stoff6_bild, 450, 450);
+  image(Stoff7_bild, 825, 450);
+  image(Stoff8_bild, 1135, 450);
+
+  textAlign(CENTER);
+
+  Duell1.show();
+  Duell2.show();
+  Duell3.show();
+  Duell4.show();
+
+  if (Duell1.isClicked()) {
+    page = 3.2;
   }
-  if (mouseX > 130*scale_factor && mouseX < 230*scale_factor && mouseY >100*scale_factor && mouseY < 200*scale_factor) {
-    image(Eco_Lack, 280, 130);
-    textFont(normal);
-    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
-    text("Es ist Obst im Haus", 280, 490);
+  if (Duell2.isClicked()) {
+    page = 3.3;
   }
-
-  if (mouseX > 20*scale_factor && mouseX < 120*scale_factor && mouseY >250*scale_factor && mouseY < 350*scale_factor) {
-    image(Edding, 280, 130);
-    textFont(normal);
-    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
-    text("Edding stinkt und ist nicht so dufte für die Gesundheit", 280, 490);
+  if (Duell3.isClicked()) {
+    page = 3.4;
   }
-  if (mouseX > 130*scale_factor && mouseX < 230*scale_factor && mouseY >250*scale_factor && mouseY < 350*scale_factor) {
-    image(Eco_Edding, 280, 130);
-    textFont(normal);
-    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
-    text("Es ist Obst im Haus", 280, 490);
+  if (Duell4.isClicked()) {
+    page = 3.5;
   }
-
-
-  if (mouseX > 20*scale_factor && mouseX < 120*scale_factor && mouseY >400*scale_factor && mouseY < 500*scale_factor) {
-    image(Sekundenkleber, 280, 130);
-    textFont(normal);
-    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
-    text("Sekundenkleber stinkt und ist nicht so dufte für die Gesundheit", 280, 490);
-  }
-  if (mouseX > 130*scale_factor && mouseX < 230*scale_factor && mouseY >400*scale_factor && mouseY < 500*scale_factor) {
-    image(Eco_Kleber, 280, 130);
-    textFont(normal);
-    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
-    text("Es ist Obst im Haus", 280, 490);
-  }
-
-
-  if (mouseX > 20*scale_factor && mouseX < 120*scale_factor && mouseY >550*scale_factor && mouseY < 650*scale_factor) {
-    image(Kork, 280, 130);
-    textFont(normal);
-    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
-    text("Kork stinkt und ist nicht so dufte für die Gesundheit", 280, 490);
-  }
-  if (mouseX > 130*scale_factor && mouseX < 230*scale_factor && mouseY >550*scale_factor && mouseY < 650*scale_factor) {
-    image(Eco_Boden, 280, 130);
-    textFont(normal);
-    text("- Bestandteil 1\n- Bestandteil 2\n- ...", 800, 150);
-    text("Es ist Obst im Haus", 280, 490);
-  }
-
-
-
-  //Eco_Boden 
-  //Eco_Edding
-  //Eco_Kleber 
-  //Kork
-  //Sekundenkleber 
-  //Edding 
-  //Stinkelack 
-  //Eco_Lack 
-
-
-  strokeWeight(2);
-  stroke(0);
-  line(250, 80, 250, 720);
-  line(0, 80, 1280, 80);
-  line(250, 420, 1280, 420);
-  line(780, 80, 780, 420);
 }
+
+// Farben
+void Duell1_() {
+  Duell_Aufgabentext.show();
+  image(Stoff1_bild, 250, 150);
+  image(Stoff2_bild, 950, 150);
+
+  fill(255);
+  stroke(200);
+  rect(100, 300, 500, 300);
+  rect(740, 300, 500, 300);
+
+
+  stroke(0);
+  line(100, 300, 100, 605);
+  line(95, 600, 600, 600);
+
+  line(95, 305, 100, 300);
+  line(100, 300, 105, 305);
+
+  line(595, 595, 600, 600);
+  line(600, 600, 595, 605);
+
+  line(740, 300, 740, 605);
+  line(735, 600, 1240, 600);
+
+  line(735, 305, 740, 300);
+  line(740, 300, 745, 305);
+
+  line(1235, 595, 1240, 600);
+  line(1240, 600, 1235, 605);
+
+  noStroke();
+
+  textAlign(CENTER);
+  fill(0);
+  text("Retentionszeit / min", 350, 645);
+  text("Retentionszeit / min", 1010, 645);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
+
+
+  popMatrix();
+}
+
+// Filzstifte
+void Duell2_() {
+}
+
+
+// Kleber
+void Duell3_() {
+}
+
+
+// Böden
+void Duell4_() {
+}
+
+
+
+
 
 
 

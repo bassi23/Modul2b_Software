@@ -447,7 +447,7 @@ void Tutorial4() {
 
   if (tutorial_skalierung_rot_up.isClicked()) {
     skalierung_rot += 1;
-    if (skalierung_rot == 4) {
+    if (skalierung_rot == 5) {
       skalierung_rot = 0;
     }
   }
@@ -460,7 +460,7 @@ void Tutorial4() {
 
   if (tutorial_skalierung_blau_up.isClicked()) {
     skalierung_blau += 1;
-    if (skalierung_blau == 4) {
+    if (skalierung_blau == 5) {
       skalierung_blau = 0;
     }
   }
@@ -642,7 +642,7 @@ void Tutorial5() {
 
   if (tutorial_skalierung_rot_up.isClicked()) {
     skalierung_rot += 1;
-    if (skalierung_rot == 4) {
+    if (skalierung_rot == 5) {
       skalierung_rot = 0;
     }
   }
@@ -655,7 +655,7 @@ void Tutorial5() {
 
   if (tutorial_skalierung_blau_up.isClicked()) {
     skalierung_blau += 1;
-    if (skalierung_blau == 4) {
+    if (skalierung_blau == 5) {
       skalierung_blau = 0;
     }
   }
@@ -832,7 +832,7 @@ void Tutorial6() {
 
   if (tutorial_skalierung_rot_up.isClicked()) {
     skalierung_rot += 1;
-    if (skalierung_rot == 4) {
+    if (skalierung_rot == 5) {
       skalierung_rot = 0;
     }
   }
@@ -845,7 +845,7 @@ void Tutorial6() {
 
   if (tutorial_skalierung_blau_up.isClicked()) {
     skalierung_blau += 1;
-    if (skalierung_blau == 4) {
+    if (skalierung_blau == 5) {
       skalierung_blau = 0;
     }
   }
@@ -1056,7 +1056,7 @@ void Tutorial7() {
 
   if (tutorial_skalierung_rot_up.isClicked()) {
     skalierung_rot += 1;
-    if (skalierung_rot == 4) {
+    if (skalierung_rot == 5) {
       skalierung_rot = 0;
     }
   }
@@ -1069,7 +1069,7 @@ void Tutorial7() {
 
   if (tutorial_skalierung_blau_up.isClicked()) {
     skalierung_blau += 1;
-    if (skalierung_blau == 4) {
+    if (skalierung_blau == 5) {
       skalierung_blau = 0;
     }
   }
@@ -1312,10 +1312,10 @@ void Tutorial8() {
   } else if (intervall == 1) {
     txt2 = "2 Sekunden";
   } else if (intervall == 2) {
-    txt2 = "4 Sekunden";
+    txt2 = "5 Sekunden";
+    tutorial_weiter.show();
   } else if (intervall == 3) {
     txt2 = "10 Sekunden";
-    tutorial_weiter.show();
   } 
   textSize(18);
   textAlign(CENTER);
@@ -1323,7 +1323,7 @@ void Tutorial8() {
 
   if (tutorial_skalierung_rot_up.isClicked()) {
     skalierung_rot += 1;
-    if (skalierung_rot == 4) {
+    if (skalierung_rot == 5) {
       skalierung_rot = 0;
     }
   }
@@ -1337,7 +1337,7 @@ void Tutorial8() {
 
   if (tutorial_skalierung_blau_up.isClicked()) {
     skalierung_blau += 1;
-    if (skalierung_blau == 4) {
+    if (skalierung_blau == 5) {
       skalierung_blau = 0;
     }
   }
@@ -1429,6 +1429,8 @@ int index_tutorial2 = 0;
 float time_tutorial = 0;
 
 void tutorial_graph(int index, color c, int scale, boolean error, boolean connect, int anzeige, int intervall) {
+
+  println(scale);
   float max = 0;
   float min = 9999;
   float error_val = 0;
@@ -1444,7 +1446,7 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
   } else if (intervall == 3) {
     factor = 10000;
   } 
-  
+
   int anzahl_werte = 0;
   if (anzeige == 0) {
     anzahl_werte = index_tutorial;
@@ -1498,13 +1500,16 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
       line(125, 175 + 80*i, 925, 175 + 80*i);
     }
   }
-  for (int i = 1; i < 5; i++) {
+  for (int i = 0; i < 5; i++) {
     if (scale == i) {
       if (index == 0) { //Temperatur
         max = 20 + 5*i;
       }
       if (index == 1) { //Luftfeuchte
         max = 25 + 25*i;
+        if(max == 125){
+         max = 100; 
+        }
       }
       if (index == 2) { //CO2
         max = 500 + 500*i;
@@ -1515,7 +1520,7 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
       if (index == 4) { //eCO2
         max = 500 + 50*i;
       }
-      if (index >4 && index < 9) { //PM1
+      if (index > 4 && index < 9) { //PM1
         max = 25 + 25*i;
       }
     }
@@ -1599,12 +1604,15 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
         if (e21 > 575) {
           e21 = 575;
         }
-        line(x1, e11, x1, e21);
-        line(x1-2, e11, x1+2, e11);
-        line(x1-2, e21, x1+2, e21);
+        if (x2 <= 925 && y1 >= 175 && y2 > 175 && y1 <= 575 && y2 <= 575) {
+          line(x1, e11, x1, e21);
+          line(x1-2, e11, x1+2, e11);
+          line(x1-2, e21, x1+2, e21);
+        }
         erstegezeichnet2 = true;
       }
-      if (x2 <= 925) {
+
+      if (x2 <= 925 && y1 >= 175 && y2 > 175 && y1 <= 575 && y2 <= 575) {
         line(x2, e1, x2, e2);
         line(x2-2, e1, x2+2, e1);
         line(x2-2, e2, x2+2, e2);
@@ -1612,16 +1620,18 @@ void tutorial_graph(int index, color c, int scale, boolean error, boolean connec
     }
 
     if (connect) {
-      if (x2 <= 925) {
+      if (x2 <= 925 && y1 >= 175 && y2 > 175 && y1 <= 575 && y2 <= 575) {
         line(x1, y1, x2, y2);
       }
     } else {
       if (!erstegezeichnet) {
-        line(x1-3, y1, x1 + 3, y1);
-        line(x1, y1-3, x1, y1 + 3);
-        erstegezeichnet = true;
+        if (x2 <= 925 && y1 >= 175 && y2 > 175 && y1 <= 575 && y2 <= 575) {
+          line(x1-3, y1, x1 + 3, y1);
+          line(x1, y1-3, x1, y1 + 3);
+          erstegezeichnet = true;
+        }
       }
-      if (x2 <= 925) {
+      if (x2 <= 925 && y1 >= 175 && y2 > 175 && y1 <= 575 && y2 <= 575) {
         line(x2-3, y2, x2 + 3, y2);
         line(x2, y2-3, x2, y2 + 3);
       }
@@ -1649,13 +1659,13 @@ void resetTutorial() {
   tutorial_Start = false;
   start_time_tutorial = millis();
   reset_bool_tutorial = false;
-//  tutorial_resettet = true;
+  //  tutorial_resettet = true;
   skalierung_rot = 0;
   skalierung_blau = 0;
   fehler_tutorial.checked = false;
   verbinde_tutorial.checked = true;
   tutorial_Start_first_time = false;
-
+  index_tutorial = 0;
 
   for (int j = 0; j < 1000; j++) {
     tutorial_data[0][j] = 20 + noise(0.1*j + 123);
