@@ -276,6 +276,8 @@ void alleSensoren() {
   zumObermenu.show();
   verbinde.show();
   fehler.show();
+  zumObermenu.y = 600;
+  
 
   if (fehler.checked) {
     error_bars.name = "anzeigen";

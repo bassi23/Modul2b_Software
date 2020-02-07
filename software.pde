@@ -126,7 +126,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = 3.11111;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -378,7 +378,7 @@ void setup() {
   aktualisierung_right = new button(1200, 500, 50, 30, "right_arrow", 5, true, 20);
   aktualisierung_left = new button(1115, 500, 50, 30, "left_arrow", 5, true, 20);
 
-  TVOC_analyse = new button(700, 200, 350, 150, "GCMS-Analysen", 5, true, 40);
+  TVOC_analyse = new button(700, 350, 350, 150, "GCMS-Analysen", 5, true, 40);
 
   Feinstaub_weiter = new button(1115, 600, 140, 50, "weiter", 5, true, 20);
 
@@ -389,7 +389,7 @@ void setup() {
   Duell3  = new button(250, 450, 200, 100, "Duell 3 - Kleber", 5, true, 20);
   Duell4 = new button(930, 450, 200, 100, "Duell 4 - Böden", 5, true, 20);
 
-  Geruchstest = new button(250, 200, 350, 150, "Geruchstest", 5, true, 40);
+  Geruchstest = new button(250, 350, 350, 150, "Geruchstest", 5, true, 40);
 
 
   x_up = new button(900, 680, 50, 30, "right_arrow", 5, true, 20);

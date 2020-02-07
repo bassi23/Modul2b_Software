@@ -922,16 +922,145 @@ void Duell1_() {
 
 // Filzstifte
 void Duell2_() {
+   Duell_Aufgabentext.show();
+  image(Stoff3_bild, 250, 150);
+  image(Stoff4_bild, 950, 150);
+
+  fill(255);
+  stroke(200);
+  rect(100, 300, 500, 300);
+  rect(740, 300, 500, 300);
+
+
+  stroke(0);
+  line(100, 300, 100, 605);
+  line(95, 600, 600, 600);
+
+  line(95, 305, 100, 300);
+  line(100, 300, 105, 305);
+
+  line(595, 595, 600, 600);
+  line(600, 600, 595, 605);
+
+  line(740, 300, 740, 605);
+  line(735, 600, 1240, 600);
+
+  line(735, 305, 740, 300);
+  line(740, 300, 745, 305);
+
+  line(1235, 595, 1240, 600);
+  line(1240, 600, 1235, 605);
+
+  noStroke();
+
+  textAlign(CENTER);
+  fill(0);
+  text("Retentionszeit / min", 350, 645);
+  text("Retentionszeit / min", 1010, 645);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
+
+
+  popMatrix();
 }
 
 
 // Kleber
 void Duell3_() {
+   Duell_Aufgabentext.show();
+  image(Stoff5_bild, 250, 150);
+  image(Stoff6_bild, 950, 150);
+
+  fill(255);
+  stroke(200);
+  rect(100, 300, 500, 300);
+  rect(740, 300, 500, 300);
+
+
+  stroke(0);
+  line(100, 300, 100, 605);
+  line(95, 600, 600, 600);
+
+  line(95, 305, 100, 300);
+  line(100, 300, 105, 305);
+
+  line(595, 595, 600, 600);
+  line(600, 600, 595, 605);
+
+  line(740, 300, 740, 605);
+  line(735, 600, 1240, 600);
+
+  line(735, 305, 740, 300);
+  line(740, 300, 745, 305);
+
+  line(1235, 595, 1240, 600);
+  line(1240, 600, 1235, 605);
+
+  noStroke();
+
+  textAlign(CENTER);
+  fill(0);
+  text("Retentionszeit / min", 350, 645);
+  text("Retentionszeit / min", 1010, 645);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
+
+
+  popMatrix();
 }
 
 
 // Böden
 void Duell4_() {
+   Duell_Aufgabentext.show();
+  image(Stoff7_bild, 250, 150);
+  image(Stoff8_bild, 950, 150);
+
+  fill(255);
+  stroke(200);
+  rect(100, 300, 500, 300);
+  rect(740, 300, 500, 300);
+
+
+  stroke(0);
+  line(100, 300, 100, 605);
+  line(95, 600, 600, 600);
+
+  line(95, 305, 100, 300);
+  line(100, 300, 105, 305);
+
+  line(595, 595, 600, 600);
+  line(600, 600, 595, 605);
+
+  line(740, 300, 740, 605);
+  line(735, 600, 1240, 600);
+
+  line(735, 305, 740, 300);
+  line(740, 300, 745, 305);
+
+  line(1235, 595, 1240, 600);
+  line(1240, 600, 1235, 605);
+
+  noStroke();
+
+  textAlign(CENTER);
+  fill(0);
+  text("Retentionszeit / min", 350, 645);
+  text("Retentionszeit / min", 1010, 645);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
+
+
+  popMatrix();
 }
 
 
