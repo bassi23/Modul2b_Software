@@ -3,7 +3,7 @@ void TVOC_Duelle() {
   textSize(20);
   fill(0);
   textFont(bold);
-  text("Station 3 - TVOC-Duelle", 20, 50);
+  text("Station 2.2 - TVOC-Duelle", 20, 50);
   textFont(normal);
   Station3_Aufgabentext_a1.show();
   //  text("Vergleiche verschiedene Materialien auf die Ausdünstung von flüchtigen organischen Verbindungen (TVOC). Welche Stoffe\nemittieren am meisten? Gib zuvor eine Prognose ab, indem du an den Stoffen riechst.", 20, 100);
@@ -25,6 +25,14 @@ void TVOC_Duelle() {
 }
 
 int Duell_Runde = 1;
+
+void ZwischenFolieTVOC() {
+  TVOC_analyse.show();
+  Geruchstest.show();
+}
+
+
+
 
 void TVOC_Duelle_Riechen() {
   weiter_zum_Sensor.hide();
@@ -817,7 +825,12 @@ void Auswertung_Station3() {
   rect(730, 650, 30, - 37.5*tvoc_duelle_werte_mensch[7]);
   rect(860, 650, 30, -37.5*6*tvoc_duelle_werte_sensor[7]/10);
 
-  TVOC_analyse.show();
+  //TVOC_analyse.show();
+  zumObermenu2.show();
+  if (zumObermenu2.isClicked()) {
+    delay(200);
+    page = 2.5;
+  }
 }
 
 
@@ -836,22 +849,26 @@ void Analyse() {
   image(Stoff8_bild, 1135, 450);
 
   textAlign(CENTER);
-
+  Geruchstest.hide();
   Duell1.show();
   Duell2.show();
   Duell3.show();
   Duell4.show();
 
   if (Duell1.isClicked()) {
+    delay(200);
     page = 3.2;
   }
   if (Duell2.isClicked()) {
+    delay(200);
     page = 3.3;
   }
   if (Duell3.isClicked()) {
+    delay(200);
     page = 3.4;
   }
   if (Duell4.isClicked()) {
+    delay(200);
     page = 3.5;
   }
 }
@@ -905,16 +922,145 @@ void Duell1_() {
 
 // Filzstifte
 void Duell2_() {
+   Duell_Aufgabentext.show();
+  image(Stoff3_bild, 250, 150);
+  image(Stoff4_bild, 950, 150);
+
+  fill(255);
+  stroke(200);
+  rect(100, 300, 500, 300);
+  rect(740, 300, 500, 300);
+
+
+  stroke(0);
+  line(100, 300, 100, 605);
+  line(95, 600, 600, 600);
+
+  line(95, 305, 100, 300);
+  line(100, 300, 105, 305);
+
+  line(595, 595, 600, 600);
+  line(600, 600, 595, 605);
+
+  line(740, 300, 740, 605);
+  line(735, 600, 1240, 600);
+
+  line(735, 305, 740, 300);
+  line(740, 300, 745, 305);
+
+  line(1235, 595, 1240, 600);
+  line(1240, 600, 1235, 605);
+
+  noStroke();
+
+  textAlign(CENTER);
+  fill(0);
+  text("Retentionszeit / min", 350, 645);
+  text("Retentionszeit / min", 1010, 645);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
+
+
+  popMatrix();
 }
 
 
 // Kleber
 void Duell3_() {
+   Duell_Aufgabentext.show();
+  image(Stoff5_bild, 250, 150);
+  image(Stoff6_bild, 950, 150);
+
+  fill(255);
+  stroke(200);
+  rect(100, 300, 500, 300);
+  rect(740, 300, 500, 300);
+
+
+  stroke(0);
+  line(100, 300, 100, 605);
+  line(95, 600, 600, 600);
+
+  line(95, 305, 100, 300);
+  line(100, 300, 105, 305);
+
+  line(595, 595, 600, 600);
+  line(600, 600, 595, 605);
+
+  line(740, 300, 740, 605);
+  line(735, 600, 1240, 600);
+
+  line(735, 305, 740, 300);
+  line(740, 300, 745, 305);
+
+  line(1235, 595, 1240, 600);
+  line(1240, 600, 1235, 605);
+
+  noStroke();
+
+  textAlign(CENTER);
+  fill(0);
+  text("Retentionszeit / min", 350, 645);
+  text("Retentionszeit / min", 1010, 645);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
+
+
+  popMatrix();
 }
 
 
 // Böden
 void Duell4_() {
+   Duell_Aufgabentext.show();
+  image(Stoff7_bild, 250, 150);
+  image(Stoff8_bild, 950, 150);
+
+  fill(255);
+  stroke(200);
+  rect(100, 300, 500, 300);
+  rect(740, 300, 500, 300);
+
+
+  stroke(0);
+  line(100, 300, 100, 605);
+  line(95, 600, 600, 600);
+
+  line(95, 305, 100, 300);
+  line(100, 300, 105, 305);
+
+  line(595, 595, 600, 600);
+  line(600, 600, 595, 605);
+
+  line(740, 300, 740, 605);
+  line(735, 600, 1240, 600);
+
+  line(735, 305, 740, 300);
+  line(740, 300, 745, 305);
+
+  line(1235, 595, 1240, 600);
+  line(1240, 600, 1235, 605);
+
+  noStroke();
+
+  textAlign(CENTER);
+  fill(0);
+  text("Retentionszeit / min", 350, 645);
+  text("Retentionszeit / min", 1010, 645);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
+
+
+  popMatrix();
 }
 
 

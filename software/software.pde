@@ -99,13 +99,14 @@ button reset_innenraum;
 button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred, genaueAnalyse, up2_Station4, down2_Station4;
 
 button Feinstaub_weiter;
+button Geruchstest;
 
 button tutorial_ueberspringen, tutorial_weiter, tutorial_zum, tutorial_back, tutorial_Start_Stopp;
 button tutorial_skalierung_rot_up, tutorial_skalierung_rot_down, tutorial_skalierung_blau_up, tutorial_skalierung_blau_down;
 button tutorial_reset, sicher_ja_reset, sicher_nein_reset, left_tutorial, right_tutorial, aktualisierung_right_tutorial, aktualisierung_left_tutorial;
 
 button setBaseline;
-
+button zumObermenu2;
 button Station2_Riechen2, A_wiederholen, B_wiederholen, C_wiederholen, D_wiederholen, E_wiederholen;
 
 
@@ -125,7 +126,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = 3.11111;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -377,7 +378,7 @@ void setup() {
   aktualisierung_right = new button(1200, 500, 50, 30, "right_arrow", 5, true, 20);
   aktualisierung_left = new button(1115, 500, 50, 30, "left_arrow", 5, true, 20);
 
-  TVOC_analyse = new button(1115, 600, 140, 50, "Analyse", 5, true, 20);
+  TVOC_analyse = new button(700, 200, 350, 150, "GCMS-Analysen", 5, true, 40);
 
   Feinstaub_weiter = new button(1115, 600, 140, 50, "weiter", 5, true, 20);
 
@@ -388,7 +389,7 @@ void setup() {
   Duell3  = new button(250, 450, 200, 100, "Duell 3 - Kleber", 5, true, 20);
   Duell4 = new button(930, 450, 200, 100, "Duell 4 - Böden", 5, true, 20);
 
-
+  Geruchstest = new button(250, 200, 350, 150, "Geruchstest", 5, true, 40);
 
 
   x_up = new button(900, 680, 50, 30, "right_arrow", 5, true, 20);
@@ -419,6 +420,7 @@ void setup() {
   Stationen = new button(100, 100, 500, 400, "Stationen", 20, true, 70);
   Sensoren = new button(650, 100, 500, 400, "Sensoren", 20, true, 70);
   zumObermenu = new button(1125, 655, 140, 50, "Hauptmenü", 5, true, 20);
+  zumObermenu2 =  new button(1115, 600, 140, 50, "Stationsmenü", 5, true, 20);
   zumObermenu.hide();
 
   //
@@ -668,6 +670,10 @@ void draw() {
   //four.hide();
   //two_a.hide();
   //two_b.hide();
+  Duell1.hide();
+  Duell2.hide();
+  Duell3.hide();
+  Duell4.hide();
 
   if (page != 0) {
     one.hide();
@@ -799,8 +805,14 @@ void draw() {
     }
     if (two_b.isClicked()) {
       delay(200);
+      page = 2.75;
+    }
+    if (Geruchstest.isClicked()) {
+      delay(200);
       page = 3;
     }
+
+
     if (three.isClicked()) {
       delay(200);
       page = 4;
@@ -822,7 +834,7 @@ void draw() {
     verbinde.y = 200;
     fehler.y = 160;
   }
-
+  println(page);
   if (page == -1) {
     Obermenu();
     einstellungen.show();
@@ -868,6 +880,8 @@ void draw() {
   } else if (page == 2.5) {
     Station2Oder3();
     zumObermenu.hide();
+  } else if (page == 2.75) {
+    ZwischenFolieTVOC();
   } else if (page == 3) {
     TVOC_Duelle();
     zumObermenu.hide();
@@ -1034,8 +1048,10 @@ void draw() {
         page = 3.11;
       } else if (page == 3.1111) {
         page = 3.111;
+      } else if (page == 2.75) {
+        page = 2.5;
       } else if (page == 3.11111) {
-        page = 3.1111;
+        page = 2.75;
       } else if (page == 3.2 || page == 3.3 || page == 3.4 || page == 3.5) {
         page = 3.11111;
       } else if (page == 4.1) {
@@ -1046,7 +1062,9 @@ void draw() {
         page = 4.11;
       } else if (page == 4.1111) {
         page = 4.11;
-      } else if (page == 2 || page == 3) {
+      } else if (page == 3) {
+        page = 2.75;
+      } else if (page == 2) {
         page = 2.5;
       } else {
         page = 0;

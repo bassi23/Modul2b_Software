@@ -89,4 +89,10 @@ void hauptmenu() {
   strokeWeight(3);
   stroke(0);
   line(520, 0, 520, 720);
+  zumObermenu2.y = 650;
+  if(zumObermenu2.isClicked()){
+    delay(200);
+    page = 1;    
+  }
+
 }
