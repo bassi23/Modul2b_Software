@@ -31,6 +31,7 @@ int scale_Innenraum2 = 0;
 
 void Innenraumluft_a() {
   fill(0);
+  zumObermenu.y = 605;
   textSize(20);
   image(fan_aus, 500, 35);
   int Rot = -1;

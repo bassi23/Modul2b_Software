@@ -827,6 +827,7 @@ void Auswertung_Station3() {
 
   //TVOC_analyse.show();
   zumObermenu2.show();
+  zumObermenu2.y = 605;
   if (zumObermenu2.isClicked()) {
     delay(200);
     page = 2.5;
@@ -854,7 +855,7 @@ void Analyse() {
   Duell2.show();
   Duell3.show();
   Duell4.show();
-
+  skalierung_angleichen.checked = false;
   if (Duell1.isClicked()) {
     delay(200);
     page = 3.2;
@@ -873,11 +874,88 @@ void Analyse() {
   }
 }
 
+
+
+
+void GCMS_Peak(float x, float y, String left_right, String title, String was, String Verwendung, int anzahlGefahren, PImage[] p) {
+  textAlign(CORNER);
+  if (mouseX > x*scale_factor && mouseX < (x+50)*scale_factor && mouseY > y*scale_factor && mouseY < (y+50)*scale_factor) {
+    if (left_right == "left") {
+      fill(255);
+      rect(680, 150, 580, 500);
+      fill(0);
+      textSize(20);
+      textFont(bold);
+      text(title, 700, 180);
+      text("Verwendung", 700, 330);
+      text("Gefahrenhinweise", 700, 490);
+      textFont(normal);
+      text(was, 700, 220);
+      text(Verwendung, 700, 380);
+      if (anzahlGefahren == 1) {
+        image(p[0], 950, 520);
+      }
+      if (anzahlGefahren == 2) {
+        image(p[0], 875, 520);
+        image(p[1], 1025, 520);
+      }
+      if (anzahlGefahren == 3) {
+        image(p[0], 800, 520);
+        image(p[1], 950, 520);
+        image(p[2], 1100, 520);
+      }
+      if (anzahlGefahren == 4) {
+        image(p[0], 725, 520);
+        image(p[1], 875, 520);
+        image(p[2], 1025, 520);
+        image(p[3], 1175, 520);
+      }
+    } else {
+      fill(255);
+      rect(20, 150, 580, 500);
+      fill(0);
+      textSize(20);
+      textFont(bold);
+      text(title, 40, 180);
+      text("Verwendung", 40, 330);
+      text("Gefahrenhinweise", 40, 490);
+      textFont(normal);
+      text(was, 40, 220);
+      text(Verwendung, 40, 380);
+
+
+
+      if (anzahlGefahren == 1) {
+        image(p[0], 275, 520);
+      }
+      if (anzahlGefahren == 2) {
+        image(p[0], 200, 520);
+        image(p[1], 350, 520);
+      }
+      if (anzahlGefahren == 3) {
+        image(p[0], 125, 520);
+        image(p[1], 275, 520);
+        image(p[2], 425, 520);
+      }
+      if (anzahlGefahren == 4) {
+        image(p[0], 50, 520);
+        image(p[1], 200, 520);
+        image(p[2], 350, 520);
+        image(p[3], 500, 520);
+      }
+    }
+  }
+  textAlign(CENTER);
+}
+
+
+
 // Farben
 void Duell1_() {
   Duell_Aufgabentext.show();
   image(Stoff1_bild, 250, 150);
   image(Stoff2_bild, 950, 150);
+  image(blauer_engel, 1050, 150);
 
   fill(255);
   stroke(200);
@@ -908,29 +986,49 @@ void Duell1_() {
 
   textAlign(CENTER);
   fill(0);
-  text("Retentionszeit / min", 350, 645);
-  text("Retentionszeit / min", 1010, 645);
+  text("Retentionszeit", 350, 645);
+  text("Retentionszeit", 1010, 645);
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
-  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
   popMatrix();
 
   stroke(200);
-  for (int i = 0; i < 10; i++) {
-    line(100, 300 + 30*i, 600, 300 + 30*i);
-    line(740, 300 + 30*i, 1240, 300 + 30*i);
-    if (i!=0) {
-      line(100 + 50*i, 300, 100 + 50*i, 600);
-      line(740 + 50*i, 300, 740 + 50*i, 600);
-    }
+  for (int i = 0; i < 13; i++) {
+    line(100, 300 + 300*i/13, 600, 300 + 300*i/13);
+    line(740, 300 + 300*i/13, 1240, 300 + 300*i/13);
+  }
+  for (int i = 1; i < 10; i++) {
+    line(100 + 50*i, 300, 100 + 50*i, 600);
+    line(740 + 50*i, 300, 740 + 50*i, 600);
   }
 
 
-  float maxLack = 15;
 
+  float maxLack = 13.1;
+  float maxLack_Eco = 1.31;
+  text("Skalierung angleichen", 600, 700);
+  skalierung_angleichen.show();
 
+  if (skalierung_angleichen.checked) {
+    maxLack_Eco = 13;
+  }
+
+  fill(0);
+  textSize(16);
+  for (int i = 0; i < 14; i++) {
+    text(i, 700, 605 - 300*i/13);
+    text(i, 60, 605 - 300*i/13);
+  }
+  textSize(20);
+  text("Counts in " + 10, 750, 280);
+  text("Counts in " + 10, 110, 280);
+  text(9, 175, 265);
+  if (skalierung_angleichen.checked) {
+    text(9, 815, 265);
+  } else {
+    text("8", 815, 265);
+  }
 
 
   stroke(0);
@@ -939,21 +1037,69 @@ void Duell1_() {
     float x2 = 100 + 500*i/Stinkelack_data.length;
     float y1 = 600 - 300*Stinkelack_data[i-1]/maxLack;
     float y2 = 600 - 300*Stinkelack_data[i]/maxLack;
-
-    line(x1, y1, x2, y2);
+    if (y2 > 300 && y1 > 300) {
+      line(x1, y1, x2, y2);
+    }
   }
 
 
+  stroke(0);
 
-  float maxLack_Eco = 1.5;
+
   for (int i = 1; i < GuterLack_data.length; i++) {
     float x1 = 740 + 500*(i-1)/GuterLack_data.length;
     float x2 = 740 + 500*i/GuterLack_data.length;
     float y1 = 600 - 300*GuterLack_data[i-1]/maxLack_Eco;
     float y2 = 600 - 300*GuterLack_data[i]/maxLack_Eco;
-
-    line(x1, y1, x2, y2);
+    if (y2 > 300 && y1 > 300) {
+      line(x1, y1, x2, y2);
+    }
   }
+
+  ///////////////////////////////////////
+  fill(255);
+  stroke(0);
+  rect(200, 350, 50, 50);
+  fill(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("?", 200 + 25, 350 + 35);
+
+  fill(255);
+  stroke(0);
+  rect(785, 510 - 0.6*220/maxLack_Eco, 50, 50);
+  rect(950, 420 - 0.6*220/maxLack_Eco, 50, 50);
+  rect(1030, 440 - 0.6*220/maxLack_Eco, 50, 50);
+  rect(1090, 510 - 0.6*220/maxLack_Eco, 50, 50);
+  rect(1160, 540 - 0.6*220/maxLack_Eco, 50, 50);
+  fill(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("?", 785 + 25, 545 - 0.6*220/maxLack_Eco);
+  text("?", 950 + 25, 420 + 35 - 0.6*220/maxLack_Eco);
+  text("?", 1030 + 25, 440 + 35 - 0.6*220/maxLack_Eco);
+  text("?", 1090 + 25, 510 + 35 - 0.6*220/maxLack_Eco);
+  text("?", 1160 + 25, 540 + 35 - 0.6*220/maxLack_Eco);
+  //////////////////////////////////////
+  PImage[] Hexamethyldisiloxan = {entzuendlich, umweltschaedlich};
+  PImage[] Octamethylcyclotetrasiloxan = {entzuendlich, gesundheitsschaedlich};
+  PImage[] Ethylhexanol = {reizend};
+  PImage[] Essigsaeure = {entzuendlich, aetzend};
+  PImage[] Ameisensaeure = {entzuendlich, giftig, aetzend};
+
+
+
+
+  GCMS_Peak(200, 350, "left", "Welche Peaks nehmen wir hier?", "Beschreibung", "Verwendung", 2, Hexamethyldisiloxan);
+
+
+
+
+  GCMS_Peak(785, 510 - 0.6*220/maxLack_Eco, "right", "Hexamethyldisiloxan", "Es entsteht bei Kontakt zwischen Chlortrimethylsilan\nmt Wasser.", "Herstellung von quarzähnlichen Schichten oder Flamm-\nbeschichtung.", 2, Hexamethyldisiloxan);
+  GCMS_Peak(950, 420 - 0.6*220/maxLack_Eco, "right", "Octamethylcyclotetrasiloxan", "Es ist eine farblose Flüssigkeit mit schwachem\nGeruch und gehört zur Gruppe Organosiliciumverbin-\ndungen.", "Ausgangsstoff bei der Herstellung von Gummi, Fahr-\nzeugpflegeprodukten, Entschäumern und Abdichtungen.", 2, Octamethylcyclotetrasiloxan);
+  GCMS_Peak(1030, 440 - 0.6*220/maxLack_Eco, "right", "2-Ethylhexanol", "es ist vollsynthetischer, verzweigter primärer Alkohol\nmit alkoholartigem Geruch.", "Durch Reaktion mit Phthalsäure entsteht ein Weich-\nmacher, der häufig in PVC zu finden ist. Selten wird es\nals Lösungsmittel verwendet.", 1, Ethylhexanol);
+  GCMS_Peak(1090, 510 - 0.6*220/maxLack_Eco, "right", "Essigsäure", "Es ist eine farblose, ätzende, hygroskopische,\nbrennbare Flüssigkeit und gilt als schwache Säure.", "Es hat eine große Bedeutung als Geschmacksstoff,\nwird aber auch aufgrund ihres abtötenden Effekts gegen-\nüber Bakterien eingesetzt.", 2, Essigsaeure);
+  GCMS_Peak(1160, 540 - 0.6*220/maxLack_Eco, "right", "Ameisensäure", "Es ist eine farblose, ätzende und in Wasser lösliche\nFlüssigkeit, die in der Natur vielfach von Lebewesen zu\nVerteidigungszwecken genutzt wird.", "Sie tötet zudem Bakterien gut ab und wird in der che-\nmischen Industrie zur Neutralisation von alkalischen\nReaktionsgemischen genutzt.", 3, Ameisensaeure);
 }
 
 // Filzstifte
@@ -961,6 +1107,8 @@ void Duell2_() {
   Duell_Aufgabentext.show();
   image(Stoff3_bild, 250, 150);
   image(Stoff4_bild, 950, 150);
+  image(blauer_engel, 1050, 150);
+
 
   fill(255);
   stroke(200);
@@ -991,29 +1139,54 @@ void Duell2_() {
 
   textAlign(CENTER);
   fill(0);
-  text("Retentionszeit / min", 350, 645);
-  text("Retentionszeit / min", 1010, 645);
+  text("Retentionszeit", 350, 645);
+  text("Retentionszeit", 1010, 645);
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
-  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
-
-
   popMatrix();
   stroke(200);
-  for (int i = 0; i < 10; i++) {
-    line(100, 300 + 30*i, 600, 300 + 30*i);
-    line(740, 300 + 30*i, 1240, 300 + 30*i);
-    if (i!=0) {
-      line(100 + 50*i, 300, 100 + 50*i, 600);
-      line(740 + 50*i, 300, 740 + 50*i, 600);
-    }
+  for (int i = 0; i < 7; i++) {
+    line(100, 300 + 300*i/7, 600, 300 + 300*i/7);
+    line(740, 300 + 300*i/7, 1240, 300 + 300*i/7);
+  }
+  for (int i = 1; i < 10; i++) {
+    line(100 + 50*i, 300, 100 + 50*i, 600);
+    line(740 + 50*i, 300, 740 + 50*i, 600);
   }
 
   stroke(0);
 
-  float maxEdding = 7;
+
+  float maxEdding = 6;
+  float maxEdding_Eco = 0.6;
+
+
+
+  text("Skalierung angleichen", 600, 700);
+  skalierung_angleichen.show();
+
+  if (skalierung_angleichen.checked) {
+    maxEdding_Eco = 6;
+  }
+
+  fill(0);
+  textSize(16);
+  for (int i = 0; i < 7; i++) {
+    text(i, 700, 605 - 300*i/6);
+    text(i, 60, 605 - 300*i/6);
+  }
+  textSize(20);
+  text("Counts in " + 10, 750, 280);
+  text("Counts in " + 10, 110, 280);
+  text(9, 175, 265);
+  if (skalierung_angleichen.checked) {
+    text(9, 815, 265);
+  } else {
+    text("8", 815, 265);
+  }
+
+
   stroke(0);
   for (int i = 1; i < Edding_data.length; i++) {
     float x1 = 100 + 500*(i-1)/Edding_data.length;
@@ -1024,8 +1197,6 @@ void Duell2_() {
     line(x1, y1, x2, y2);
   }
 
-
-  float maxEdding_Eco = 0.5;
   for (int i = 1; i < Eco_Edding_data.length; i++) {
     float x1 = 740 + 500*(i-1)/Eco_Edding_data.length;
     float x2 = 740 + 500*i/Eco_Edding_data.length;
@@ -1034,6 +1205,48 @@ void Duell2_() {
 
     line(x1, y1, x2, y2);
   }
+
+  ///////////////////////////////////////
+  fill(255);
+  stroke(0);
+  rect(110, 300, 50, 50);
+  rect(200, 350, 50, 50);
+  rect(300, 520, 50, 50);
+  rect(420, 520, 50, 50);
+  fill(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("?", 110 + 25, 300 + 35);
+  text("?", 200 + 25, 350 + 35);
+  text("?", 300 + 25, 520 + 35);
+  text("?", 420 + 25, 520 + 35);
+  fill(255);
+  stroke(0);
+  rect(785, 530 - 0.6*220/maxEdding_Eco, 50, 50);
+  rect(890, 520 + 2*maxEdding_Eco, 50, 50);
+  rect(1160, 480 + 8*maxEdding_Eco, 50, 50);
+  fill(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("?", 785 + 25, 565 - 0.6*220/maxEdding_Eco);
+  text("?", 890 + 25, 520 + 35 + 2*maxEdding_Eco);
+  text("?", 1160 + 25, 515 + 8*maxEdding_Eco);
+  //////////////////////////////////////
+  PImage[] Formamid = {gesundheitsschaedlich};
+  PImage[] n_Dodecan = {gesundheitsschaedlich};
+  ///
+  PImage[] Isopropanol = {entzuendlich, reizend};
+  PImage[] Ethylbenzol = {entzuendlich, gesundheitsschaedlich, reizend};
+  PImage[] Acrylsaeure = {entzuendlich, aetzend, reizend, umweltschaedlich};
+
+  GCMS_Peak(110, 300, "left", "N-methoxy-Formamid", "Formamid ist das Amid der Ameisensäure und das\neinfachste Carbonsäureamid.", "Es ist ein häufig verwendetes Lösungsmittel, etwa für\nLacke, bestimmte Polymere und Beize sowie Tinte\nin Filzstiften.", 1, Formamid);
+  GCMS_Peak(200, 350, "left", "Isopropanol", "Es ist der einfachste nicht cyclische, sekundäre Alkohol\nund ein einwertiger Alkohol.", "Lösungsmittel für Fette, Lacke, Harze und Tinte.", 2, Isopropanol);
+  GCMS_Peak(300, 520, "left", "Ethylbenzol", "Es ist eine farblose, benzolähnlich riechende Flüssigkeit.\nEs ist ein aromatischer Kohlenwasserstoff.", "Es ist Lösungsmittel für Farben und findet sich in Kunst-\nstoffen. Neben Benzol und Toluol gehört Ethylbenzol zu\nden technisch wichtigen Aromaten.", 3, Ethylbenzol);
+  GCMS_Peak(420, 520, "left", "N-Dodecane", "Es ist eine farblose, brennbare, mild riechende Flüssig-\nkeit.", "Es wird bei der Wiederaufarbeitung abgebrannter Brenn-\nelemente als Lösungsmittel bei der Extraktion von Uran\nund Plutonium eingesetzt und ist Bestandteil von Diesel.", 1, n_Dodecan);
+  //////
+  GCMS_Peak(785, 530 - 0.6*220/maxEdding_Eco, "right", "Isopropanol", "Es ist der einfachste nicht cyclische, sekundäre Alkohol\nund ein einwertiger Alkohol.", "Lösungsmittel für Fette, Lacke, Harze und Tinte.", 2, Isopropanol);
+  GCMS_Peak(890, 520 + 2*maxEdding_Eco, "right", "Ethylbenzol", "Es ist eine farblose, benzolähnlich riechende Flüssigkeit.\nEs ist ein aromatischer Kohlenwasserstoff.", "Es ist Lösungsmittel für Farben und findet sich in Kunst-\nstoffen. Neben Benzol und Toluol gehört Ethylbenzol zu\nden technisch wichtigen Aromaten.", 3, Ethylbenzol);
+  GCMS_Peak(1160, 480 + 8*maxEdding_Eco, "right", "Acrylsäure", "Sie ist eine farblose, mit Wasser mischbare bei Raumtem-\nperatur flüssige chemische Verbindung mit stechendem,\nessigähnlichem Geruch.", "Ihre Hauptverwendung ist die Polymerisation zu\nSuperabsorbern (Anwendung z. B. in Windeln).", 4, Acrylsaeure);
 }
 
 
@@ -1077,22 +1290,55 @@ void Duell3_() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
-  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
-
-
+  // text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  // text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
   popMatrix();
 
   stroke(200);
-  for (int i = 0; i < 10; i++) {
-    line(100, 300 + 30*i, 600, 300 + 30*i);
-    line(740, 300 + 30*i, 1240, 300 + 30*i);
-    if (i!=0) {
-      line(100 + 50*i, 300, 100 + 50*i, 600);
-      line(740 + 50*i, 300, 740 + 50*i, 600);
-    }
+  for (int i = 0; i < 12; i++) {
+    line(100, 300 + 300*i/12, 600, 300 + 300*i/12);
+    line(740, 300 + 300*i/12, 1240, 300 + 300*i/12);
   }
-  float maxBastelkleber = 2.5;
+  for (int i = 1; i < 10; i++) {
+    line(100 + 50*i, 300, 100 + 50*i, 600);
+    line(740 + 50*i, 300, 740 + 50*i, 600);
+  }
+
+
+
+  float maxBastelkleber = 0.22;
+  float maxSekundenkleber = 4.4;
+
+
+
+  text("Skalierung angleichen", 600, 700);
+  skalierung_angleichen.show();
+
+  if (skalierung_angleichen.checked) {
+    maxBastelkleber = 44;
+  }
+
+
+  fill(0);
+  textSize(16);
+  stroke(200);
+  for (int i = 0; i < 12; i++) {
+    if (skalierung_angleichen.checked) {
+      text(nf(0.4*i, 0, 1), 60, 605 - 300*i/11);
+    } else {
+      text(nf(0.2*i, 0, 1), 60, 605 - 300*i/11);
+    }
+    text(nf(0.4*i, 0, 1), 700, 605 - 300*i/11);
+  }
+  textSize(20);
+  text("Counts in " + 10, 750, 280);
+  text("Counts in " + 10, 110, 280);
+  text(9, 815, 265);
+  if (skalierung_angleichen.checked) {
+    text(9, 175, 265);
+  } else {
+    text("7", 175, 265);
+  }
   stroke(0);
   for (int i = 1; i < Bastelkleber_data.length; i++) {
     float x1 = 100 + 500*(i-1)/Bastelkleber_data.length;
@@ -1103,8 +1349,6 @@ void Duell3_() {
     line(x1, y1, x2, y2);
   }
 
-
-  float maxSekundenkleber = 5;
   for (int i = 1; i < Sekundenkleber_data.length; i++) {
     float x1 = 740 + 500*(i-1)/Sekundenkleber_data.length;
     float x2 = 740 + 500*i/Sekundenkleber_data.length;
@@ -1113,6 +1357,50 @@ void Duell3_() {
 
     line(x1, y1, x2, y2);
   }
+
+  ///////////////////////////////////////
+  fill(255);
+  stroke(0);
+  rect(110, 300 + maxBastelkleber*5, 50, 50);
+  rect(300, 440+ maxBastelkleber*2, 50, 50);
+  rect(420, 390+ maxBastelkleber*3, 50, 50);
+
+  fill(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("?", 110 + 25, 300 + maxBastelkleber*5 + 35);
+  text("?", 300 + 25, 440+ maxBastelkleber*2 + 35);
+  text("?", 420 + 25, 390+ maxBastelkleber*3 + 35);
+
+  fill(255);
+  stroke(0);
+  rect(750, 500, 50, 50);
+  rect(940, 330, 50, 50);
+  rect(1125, 500, 50, 50);
+  fill(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("?", 750 + 25, 535);
+  text("?", 940 + 25, 365);
+  text("?", 1125 + 25, 535);
+  //////////////////////////////////////
+  PImage[] Butanol = {entzuendlich, aetzend, gesundheitsschaedlich};
+  PImage[] n_Butyl_Ester = {entzuendlich, reizend};
+  PImage[] buttersaeure = {aetzend, reizend};
+  ///
+  PImage[] Methacrylsaeuremethylester = {entzuendlich, reizend};
+  PImage[] Cyanacrylate = {reizend};
+  PImage[] Undecane = {gesundheitsschaedlich};
+
+  GCMS_Peak(110, 300 + maxBastelkleber*5, "left", "1-Butanol", "1-Butanol (auch n-Butanol oder nach IUPAC Butan-1-ol)\nist eine chemische Verbindung aus der Gruppe der Al-\nkanole.", "Es wird als Lösungsmittel bei der Herstellung von Lacken\nverwendet. Es verhindert das Weißanlaufen beim Trock-\nnen der Lacke in feuchter Umgebung.", 3, Butanol);
+  GCMS_Peak(300, 440 + maxBastelkleber*2, "left", "Essigsäure-N-Butylester", "Es ist ein klares, farbloses Lösungsmittel mit eher ange-\nnehmem, fruchtartigem Geruch.", "Es ist ein weitverbreitetes Lacklösungsmittel. Aufgrund\nseiner starken Lösungskraft findet es auch als Bestandteil\nvon Nagellackentfernern und Verdünnern Verwendung. ", 2, n_Butyl_Ester);
+  GCMS_Peak(420, 390+ maxBastelkleber*3, "left", "Buttersäure", "Es ist der Trivialname der Butansäure, einer Carbonsäure\nund gleichzeitig der einfachsten Fettsäure. Sie entsteht\nin der Natur durch Buttersäuregärung.", "Es findet Anwendung in Biokraftstoffen, sowie in der\npharmazeutischen und chemischen Industrie.", 2, buttersaeure);
+
+
+  //////
+  GCMS_Peak(750, 500, "right", "Methacrylsäuremethylester", "Es ist eine farblose Flüssigkeit mit unangenehm ester-\nartigem Geruch. Es ist leicht entzündlich und verdunstet\nleicht.", "Es wird vornehmlich zur Herstellung von Acrylglas ver-\nwendet. Weiterhin ist es, in der Regel, der Hauptbestand-\nteil jeder Dentalprothese aus Kunststoff.", 2, Methacrylsaeuremethylester);
+  GCMS_Peak(940, 330, "right", "Cyanacrylate", "Es sind polymerisierbare, bei Raumtemperatur flüssige\nchemische Verbindungen (Monomere), die häufig als\nKlebstoffe verwendet werden.", "Früher wurde es verwendet, um menschliche Wunden zu\nkleben. Heute findet es hauptsächlich Einsatz in Sekun-\ndenklebern.", 1, Cyanacrylate);
+  GCMS_Peak(1130, 500, "right", "Undecane", "Die Stoffgruppe der Undecane umfasst insgesamt\n159 weitere, verzweigte Konstitutionsisomere.", "n-Undecan ist unter anderem ein Bestandteil von Benzin\nund Dieselkraftstoff. ", 1, Undecane);
 }
 
 
@@ -1156,11 +1444,41 @@ void Duell4_() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
-  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
-  text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
+  //text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(50*scale_factor));
+  //text("Counts / a.u.", -height/2 + (270)*scale_factor, -width/2+(700*scale_factor));
 
 
   popMatrix();
+  float max_Eco_Boden = 0.25;
+  float max_Kork = 0.1;
+  text("Skalierung angleichen", 600, 700);
+  skalierung_angleichen.show();
+
+  if (skalierung_angleichen.checked) {
+    max_Kork = 0.25;
+  }
+
+  fill(0);
+  textSize(16);
+  stroke(200);
+  for (int i = 0; i < 11; i++) {
+    if (skalierung_angleichen.checked) {
+      text(nf(0.25*i, 0, 2), 60, 605 - 300*i/10);
+    } else {
+      text(i, 60, 605 - 300*i/10);
+    }
+    text(nf(0.25*i, 0, 2), 700, 605 - 300*i/10);
+  }
+  textSize(20);
+  text("Counts in " + 10, 750, 280);
+  text("Counts in " + 10, 110, 280);
+  text(8, 815, 265);
+  if (skalierung_angleichen.checked) {
+    text(8, 175, 265);
+  } else {
+    text("7", 175, 265);
+  }
+
 
 
   stroke(200);
@@ -1173,7 +1491,7 @@ void Duell4_() {
     }
   }
 
-  float max_Kork = 0.25;
+
   stroke(0);
   for (int i = 1; i < Kork_Boden_data.length; i++) {
     float x1 = 100 + 500*(i-1)/Kork_Boden_data.length;
@@ -1185,7 +1503,6 @@ void Duell4_() {
   }
 
 
-  float max_Eco_Boden = 0.25;
   for (int i = 1; i < Eco_Boden_data.length; i++) {
     float x1 = 740 + 500*(i-1)/Eco_Boden_data.length;
     float x2 = 740 + 500*i/Eco_Boden_data.length;
@@ -1194,6 +1511,53 @@ void Duell4_() {
 
     line(x1, y1, x2, y2);
   }
+
+
+
+
+
+  ///////////////////////////////////////
+  fill(255);
+  stroke(0);
+  rect(145, 360 + max_Kork*500, 50, 50);
+  rect(270, 280+ max_Kork*700, 50, 50);
+  rect(420, 320+ max_Kork*500, 50, 50);
+
+  fill(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("?", 145 + 25, 360 + max_Kork*500 + 35);
+  text("?", 270 + 25, 280+ max_Kork*700 + 35);
+  text("?", 420 + 25, 320+ max_Kork*500 + 35);
+
+  fill(255);
+  stroke(0);
+  rect(770, 500, 50, 50);
+  rect(940, 330, 50, 50);
+  rect(1070, 330, 50, 50);
+  fill(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("?", 770 + 25, 535);
+  text("?", 940 + 25, 365);
+  text("?", 1070 + 25, 365);
+  //////////////////////////////////////
+  PImage[] Ethylenglycolmonobutylether = {gesundheitsschaedlich};  ////////?????????????????????????????????
+  PImage[] n_Decan = {entzuendlich, gesundheitsschaedlich};
+  ///
+  PImage[] Isopropanol = {entzuendlich, reizend};
+  PImage[] Cyclopentanon = {entzuendlich, reizend};
+  PImage[] Hexanol = {entzuendlich, gesundheitsschaedlich};
+
+  GCMS_Peak(145, 360 + max_Kork*500, "left", "Isopropanol", "Es ist der einfachste nicht cyclische, sekundäre Alkohol\nund ein einwertiger Alkohol.", "Lösungsmittel für Fette, Lacke, Harze und Tinte.", 2, Isopropanol);
+  GCMS_Peak(270, 280 + max_Kork*700, "left", "Ethylenglycolmonobutylether", "??????", "?????????", 1, Ethylenglycolmonobutylether);
+  GCMS_Peak(420, 320+ max_Kork*500, "left", "n-Decan", "Es ist eine farblose Flüssigkeit und eine organische\nchemische Verbindung aus der Gruppe der höheren\nAlkane.", "Decane sind Bestandteil der Kraftstoffe, zum Beispiel für\nAutos und Flugzeuge.", 2, n_Decan);
+
+
+  //////
+  GCMS_Peak(770, 500, "right", "Isopropanol", "Es ist der einfachste nicht cyclische, sekundäre Alkohol\nund ein einwertiger Alkohol.", "Lösungsmittel für Fette, Lacke, Harze und Tinte.", 2, Isopropanol);
+  GCMS_Peak(940, 330, "right", "Cyclopentanon", " ist als Baustein in natürlichen Verbindungen zu finden.", "In der Mikroelektronik wird Cyclopentanon als Lösungs-\nmittel für Fotolacke und Polyimide verwendet.", 2, Cyclopentanon);
+  GCMS_Peak(1070, 330, "right", "1-Hexanol", " ist ein aliphatischer, primärer Alkohol aus der homo-\nlogen Reihe der Alkanole.", "wird zuweilen in der organischen Chemie als Lösungs-\nmittel für Kohlenwasserstoffe, Schellack, Leinöl,\nHormone und viele Harze eingesetzt.", 2, Hexanol);
 }
 
 
@@ -1284,6 +1648,10 @@ void Zusammenfassung_Mensch_Sensor() {
   }
   translate(0, -40);
 }
+
+
+
+
 
 
 
@@ -1565,56 +1933,56 @@ float[] GuterLack_data = {0.21856698759,
 };
 
 
-float[] Eco_Edding_data = {0.26258549335,   0.23434027695,   0.202088454,   0.16922734959,  0.13786628459,   0.11079591257,   0.0877389991,   0.06875745631,   0.05568973517,   0.04493092023,   0.0376540901,   0.03167088304,   0.02793543837,   0.02560574616,   0.02376969548,   0.02234846909,   0.02071739604,   0.02036679122,   0.01921604913,   0.01886191616,   0.01827639475,   0.01777699127,   0.01682418449,   0.01667126699,   0.01603495443,   0.01549717971,   0.01450571898,   0.01462529212,   0.01415924486,   0.01417029912,   0.01417499535,   0.01379627829,   0.01402757899,   0.01375863714,   0.0138667756,   0.01358931866,   0.02276337152,   0.1092004429,   0.20535567243,   0.29449091423,   0.37333405206,   0.41816503216,   0.44319008297,   0.39670314692,   0.28860073738,   0.18001914821,   0.10723858432,   0.06640719875,   0.0427345366,   0.0318362807,   0.02618297918,   0.02367118273,   0.02228556508,   0.02097337737,   0.01974653455,   0.01780966467,   0.0161279674,   0.01404596139,   0.01305535065,   0.01200640415,   0.01161687264,   0.01176602839,   0.01179605468, 
-  0.01201197283,   0.01156554342,   0.01138809809,   0.01070724301,   0.01021756703,   0.00978852286,   0.00984111485,   0.00936319315,   0.00945138976,   0.00926492962,   0.00956224602,   0.00966081167,   0.00948973806,   0.00935708043,   0.00862040145,   0.0082678798,   0.00812047772,   0.00785167019,   0.00797263957,  0.00798392726,   0.00772750361,   0.00904417141,   0.01100861425,   0.01096136441,   0.01006120443,   0.00856397491,   0.00754801286,   0.00755530438,   0.00746603719,   0.0075747097,   0.00712005256,   0.00684910364,   0.00662319648,   0.00642570075,   0.00647215903,   0.00648707778,   0.00671603866,   0.00689465434,   0.00649349758,   0.00619971989,   0.0062686142,   0.00601548536,   0.00603112787,   0.00604749139,   0.00630235421,   0.006601561,   0.00685135531,   0.00867454201,   0.00934051814,   0.00729671402,   0.01070054669,   0.01426410433,   0.00991259262,   0.0061807237,   0.00587443967,  0.0057039031,   0.00593356315,   0.0062473216,   0.00609793035,   0.00691172731,   0.0074235998,   0.00674184065,   0.00861129815,   0.00853076012,   0.00578267328,   0.00530399136,   0.00548288723,   0.00524035955,  0.00513190362,   0.00516121564,   0.00514715201,   0.00528548701,   0.005186284,   0.00582170802,   0.00588599711,   0.00556282108,   0.00494640283,   0.0051249571,   0.00511603976,   0.00536383654,   0.00498161561,   0.00540775177,   0.00514476272,   0.00919011945,   0.00889311291,  0.00692233567,   0.00731787002,   0.00764700334,   0.0055757505,   0.00522085268,   0.00665970459,   0.00869119695,   0.00619973375,   0.00528779889,   0.00943187722,   0.00776030922,   0.0110734448,   0.00566065774,   0.00589103419,   0.00522163709,   0.00524743763,   0.00532746908,   0.00502434917,   0.0054390494,   0.00997951483,   0.00580683129,   0.00618219235,   0.00629010577,   0.00515879773,   0.00532541723,   0.00537518227,   0.00836025722,   0.00533309461,   0.00545978381,   0.00503162731,   0.00537682489,   0.00512114104,   0.00510004205,   0.00550746995,   0.00512028882,   0.00477297768,   0.00497295895,   0.00497893274, 
-  0.00494467483,   0.00491418211,   0.00743683549,   0.00508035307,   0.00510378576,   0.00499341492,   0.00869530177,   0.00631689447,   0.00477478212,   0.00453075341,   0.0044458099,   0.00465223292,   0.00455197467,   0.00446308716,   0.00473356202,   0.00439191702,   0.00451673461,   0.00457773915,   0.00432904629,   0.0043199235,   0.00433583837,   0.00438116307,   0.00432529518,   0.00442598988,   0.00440384601,   0.00442386636,   0.00475799034,  0.00464490451,   0.00427920696,  0.00435186522,   0.00526908426,   0.00440469964,   0.00440407803,  0.00424808308,   0.00431585365,   0.00435009544,   0.00449812508,   0.00410601557,   0.00428640733,   0.00446723232,   0.00417505341,   0.00422499517,   0.0041392684,   0.00473152648,   0.0045935269,   0.00446545098,   0.0041899349,   0.00449259603,   0.00423951488, 
-  0.00422804298,   0.0041884577,   0.00425031928,   0.00529417815,   0.00513471103,   0.00415164931,   0.00480623787,   0.00442459607,   0.00435952256,   0.00427519751,   0.00447117346,   0.00455355171,   0.00408358625,   0.00435422305,   0.00441375266,   0.00453959826,   0.00627436641,   0.00436126654,   0.00440070785,   0.0041590892,   0.00408025656,   0.00463885504,   0.00427797048,   0.00441881459,   0.00458057407,   0.00469750545,   0.00416059769,   0.00418335543,   0.00446936065
+float[] Eco_Edding_data = {0.05568973517, 0.04493092023, 0.0376540901, 0.03167088304, 0.02793543837, 0.02560574616, 0.02376969548, 0.02234846909, 0.02071739604, 0.02036679122, 0.01921604913, 0.01886191616, 0.01827639475, 0.01777699127, 0.01682418449, 0.01667126699, 0.01603495443, 0.01549717971, 0.01450571898, 0.01462529212, 0.01415924486, 0.01417029912, 0.01417499535, 0.01379627829, 0.01402757899, 0.01375863714, 0.0138667756, 0.01358931866, 0.02276337152, 0.1092004429, 0.20535567243, 0.29449091423, 0.37333405206, 0.41816503216, 0.44319008297, 0.39670314692, 0.28860073738, 0.18001914821, 0.10723858432, 0.06640719875, 0.0427345366, 0.0318362807, 0.02618297918, 0.02367118273, 0.02228556508, 0.02097337737, 0.01974653455, 0.01780966467, 0.0161279674, 0.01404596139, 0.01305535065, 0.01200640415, 0.01161687264, 0.01176602839, 0.01179605468, 
+  0.01201197283, 0.01156554342, 0.01138809809, 0.01070724301, 0.01021756703, 0.00978852286, 0.00984111485, 0.00936319315, 0.00945138976, 0.00926492962, 0.00956224602, 0.00966081167, 0.00948973806, 0.00935708043, 0.00862040145, 0.0082678798, 0.00812047772, 0.00785167019, 0.00797263957, 0.00798392726, 0.00772750361, 0.00904417141, 0.01100861425, 0.01096136441, 0.01006120443, 0.00856397491, 0.00754801286, 0.00755530438, 0.00746603719, 0.0075747097, 0.00712005256, 0.00684910364, 0.00662319648, 0.00642570075, 0.00647215903, 0.00648707778, 0.00671603866, 0.00689465434, 0.00649349758, 0.00619971989, 0.0062686142, 0.00601548536, 0.00603112787, 0.00604749139, 0.00630235421, 0.006601561, 0.00685135531, 0.00867454201, 0.00934051814, 0.00729671402, 0.01070054669, 0.01426410433, 0.00991259262, 0.0061807237, 0.00587443967, 0.0057039031, 0.00593356315, 0.0062473216, 0.00609793035, 0.00691172731, 0.0074235998, 0.00674184065, 0.00861129815, 0.00853076012, 0.00578267328, 0.00530399136, 0.00548288723, 0.00524035955, 0.00513190362, 0.00516121564, 0.00514715201, 0.00528548701, 0.005186284, 0.00582170802, 0.00588599711, 0.00556282108, 0.00494640283, 0.0051249571, 0.00511603976, 0.00536383654, 0.00498161561, 0.00540775177, 0.00514476272, 0.00919011945, 0.00889311291, 0.00692233567, 0.00731787002, 0.00764700334, 0.0055757505, 0.00522085268, 0.00665970459, 0.00869119695, 0.00619973375, 0.00528779889, 0.00943187722, 0.00776030922, 0.0110734448, 0.00566065774, 0.00589103419, 0.00522163709, 0.00524743763, 0.00532746908, 0.00502434917, 0.0054390494, 0.00997951483, 0.00580683129, 0.00618219235, 0.00629010577, 0.00515879773, 0.00532541723, 0.00537518227, 0.00836025722, 0.00533309461, 0.00545978381, 0.00503162731, 0.00537682489, 0.00512114104, 0.00510004205, 0.00550746995, 0.00512028882, 0.00477297768, 0.00497295895, 0.00497893274, 
+  0.00494467483, 0.00491418211, 0.00743683549, 0.00508035307, 0.00510378576, 0.00499341492, 0.00869530177, 0.00631689447, 0.00477478212, 0.00453075341, 0.0044458099, 0.00465223292, 0.00455197467, 0.00446308716, 0.00473356202, 0.00439191702, 0.00451673461, 0.00457773915, 0.00432904629, 0.0043199235, 0.00433583837, 0.00438116307, 0.00432529518, 0.00442598988, 0.00440384601, 0.00442386636, 0.00475799034, 0.00464490451, 0.00427920696, 0.00435186522, 0.00526908426, 0.00440469964, 0.00440407803, 0.00424808308, 0.00431585365, 0.00435009544, 0.00449812508, 0.00410601557, 0.00428640733, 0.00446723232, 0.00417505341, 0.00422499517, 0.0041392684, 0.00473152648, 0.0045935269, 0.00446545098, 0.0041899349, 0.00449259603, 0.10423951488, 
+  0.00422804298, 0.0041884577, 0.00425031928, 0.00529417815, 0.00513471103, 0.00415164931, 0.00480623787, 0.00442459607, 0.00435952256, 0.00427519751, 0.00447117346, 0.00455355171, 0.00408358625, 0.00435422305, 0.00441375266, 0.00453959826, 0.00627436641, 0.00436126654, 0.00440070785, 0.0041590892, 0.00408025656, 0.00463885504, 0.00427797048, 0.00441881459, 0.00458057407, 0.00469750545, 0.00416059769, 0.00418335543, 0.00446936065
 };
 float[] Edding_data = {
-  0.26820091242,   0.24358529566,   0.20508564979,   0.17288549749, 
-  0.14299456041,   0.11993591615,   0.1003166816,   0.08558515325,   0.07466378234,   0.06583079313,   0.05925954178,   0.05252427344,   0.0487283052,   0.04465918397,   0.04084444164,   0.03715551439, 
-  0.03398367085,   0.03029492779,   0.0278187164,   0.02632150513,   0.02395062098,   0.0228429232,   0.02211649515, 
-  0.02049484817,   0.01964064656,   0.01858593949,   0.0172259789,   0.01660725494,   0.01546192764,   0.01462007957,   0.01401677146,  0.01406114639,   0.01628522234,   0.02023917841,   0.02409181256,  1.51135316169, 
-  3.17525364463,   4.22302392289,   4.77962357785,   5.08059079678,   5.22547915577,   5.19419020084,   5.03204647505,   4.77339573839, 
-  4.49835013104,   4.24349791743,   3.99399121724,   3.73390680119,   3.61055370414,   3.4476296258,   3.34565655744,   3.26745494977,   3.22070379464,  3.20567314679, 
-  3.83076007253,   0.78091905877,   0.6460257377,   0.97312495815,  0.31330037692,   0.26473132941,   0.22703316284,   0.20687990966,   0.18563902505, 
-  0.16984516742,   0.15500635052,   0.14834584942,   0.13776311244,   0.12540937791,   0.11686784162,   0.110709231,   0.10618670316, 
-  0.10371641516,   0.10331362621,   0.10270919762,   0.08755771151,   0.0788395717,   0.07340640748,   0.07053175059,   0.0674533931,   0.06401674568,   0.06367489029, 
+  0.26820091242, 0.24358529566, 0.20508564979, 0.17288549749, 
+  0.14299456041, 0.11993591615, 0.1003166816, 0.08558515325, 0.07466378234, 0.06583079313, 0.05925954178, 0.05252427344, 0.0487283052, 0.04465918397, 0.04084444164, 0.03715551439, 
+  0.03398367085, 0.03029492779, 0.0278187164, 0.02632150513, 0.02395062098, 0.0228429232, 0.02211649515, 
+  0.02049484817, 0.01964064656, 0.01858593949, 0.0172259789, 0.01660725494, 0.01546192764, 0.01462007957, 0.01401677146, 0.01406114639, 0.01628522234, 0.02023917841, 0.02409181256, 1.51135316169, 
+  3.17525364463, 4.22302392289, 4.77962357785, 5.08059079678, 5.22547915577, 5.19419020084, 5.03204647505, 4.77339573839, 
+  4.49835013104, 4.24349791743, 3.99399121724, 3.73390680119, 3.61055370414, 3.4476296258, 3.34565655744, 3.26745494977, 3.22070379464, 3.20567314679, 
+  3.83076007253, 0.78091905877, 0.6460257377, 0.97312495815, 0.31330037692, 0.26473132941, 0.22703316284, 0.20687990966, 0.18563902505, 
+  0.16984516742, 0.15500635052, 0.14834584942, 0.13776311244, 0.12540937791, 0.11686784162, 0.110709231, 0.10618670316, 
+  0.10371641516, 0.10331362621, 0.10270919762, 0.08755771151, 0.0788395717, 0.07340640748, 0.07053175059, 0.0674533931, 0.06401674568, 0.06367489029, 
   0.06994428803, 
-  0.09533096108,   0.08103504837, 
-  0.05991277977,   0.05441561152, 
-  0.05284854571,   0.05061266979, 
-  0.04972197844,   0.05343951517, 
-  0.06220079528,   0.09167525722, 
-  0.16150961826,   0.15434526095, 
-  0.06758998903,   0.04515238366, 
-  0.04160909774,   0.04094213064, 
-  0.04179133184,   0.05560596322, 
-  0.0811294976,   0.05808601688, 
-  0.03988302388,  0.03651148901,  0.03668132219,  0.03927270229,  0.04425533388, 
-  0.0591348789,   0.1368898026, 
-  0.1102994194,   0.14564392427, 
-  0.33088069771,  0.12670729405,  0.08855712792,  0.25753194273, 
-  0.15874257405,  0.045403887,   0.06384099576, 
-  0.07140685433,  0.03380916715,   0.02954860501,  0.02853252977,   0.044253616,   0.11208522657, 
-  0.05279297486,   0.03019994876,   0.02965758196,   0.02595032995,   0.02504164846,   0.02400232268,   0.02368476242,   0.02345151071, 
-  0.0230833786,   0.02504789152, 
-  0.02555822365,
-  0.02425441508,
-  0.02245500634,   0.02221898392, 
+  0.09533096108, 0.08103504837, 
+  0.05991277977, 0.05441561152, 
+  0.05284854571, 0.05061266979, 
+  0.04972197844, 0.05343951517, 
+  0.06220079528, 0.09167525722, 
+  0.16150961826, 0.15434526095, 
+  0.06758998903, 0.04515238366, 
+  0.04160909774, 0.04094213064, 
+  0.04179133184, 0.05560596322, 
+  0.0811294976, 0.05808601688, 
+  0.03988302388, 0.03651148901, 0.03668132219, 0.03927270229, 0.04425533388, 
+  0.0591348789, 0.1368898026, 
+  0.1102994194, 0.14564392427, 
+  0.33088069771, 0.12670729405, 0.08855712792, 0.25753194273, 
+  0.15874257405, 0.045403887, 0.06384099576, 
+  0.07140685433, 0.03380916715, 0.02954860501, 0.02853252977, 0.044253616, 0.11208522657, 
+  0.05279297486, 0.03019994876, 0.02965758196, 0.02595032995, 0.02504164846, 0.02400232268, 0.02368476242, 0.02345151071, 
+  0.0230833786, 0.02504789152, 
+  0.02555822365, 
+  0.02425441508, 
+  0.02245500634, 0.02221898392, 
   0.02126514253, 
   0.02064643265, 
   0.02174922563, 
   0.02111143812, 
-  0.02894181564,   0.02378697789, 
+  0.02894181564, 0.02378697789, 
   0.02252087883, 
   0.02115316088, 
-  0.020628458,   0.0207475702, 
+  0.020628458, 0.0207475702, 
   0.02018261027, 
   0.01982733966, 
   0.02014006909, 
   0.01974898124, 
-  0.01975159165,   0.02054262377, 
+  0.01975159165, 0.02054262377, 
   0.03212184607, 
   0.02342779858, 
   0.02151474867, 
@@ -1727,34 +2095,7 @@ float[] Edding_data = {
   0.01133756685, 
 };
 
-float[] Bastelkleber_data = {1.57227459905, 
-  1.74065209403, 
-  1.8666030107, 
-  2.00114036139, 
-  1.99312025878, 
-  1.94202036402, 
-  1.83971767768, 
-  1.6774669363, 
-  1.43001843011, 
-  1.18603211418, 
-  0.86954526015, 
-  0.60628250975, 
-  0.41035931786, 
-  0.26823678268, 
-  0.1774841214, 
-  0.12573376151, 
-  0.10017623538, 
-  0.10064368558, 
-  0.11192812302, 
-  0.12812969049, 
-  0.14215155187, 
-  0.15113412726, 
-  0.15633696943, 
-  0.15275421809, 
-  0.14562318559, 
-  0.13118398738, 
-  0.10792525304, 
-  0.07936106211, 
+float[] Bastelkleber_data = {
   0.05599616908, 
   0.04168374023, 
   0.03755302338, 
@@ -1938,59 +2279,7 @@ float[] Bastelkleber_data = {1.57227459905,
   0.00509531508, 
   0.00508472917, 
   0.00553779782, 
-  0.01330753848, 
-  0.00677888683, 
-  0.05960095039, 
-  0.00671184438, 
-  0.00549894868, 
-  0.00589760926, 
-  0.00957633696, 
-  0.00612560874, 
-  0.0076115352, 
-  0.00556898547, 
-  0.0049862547, 
-  0.00522782438, 
-  0.00496857192, 
-  0.00480744546, 
-  0.0052167612, 
-  0.00552007798, 
-  0.0049355596, 
-  0.00534989319, 
-  0.00504897373, 
-  0.00530896675, 
-  0.00529896477, 
-  0.00518034927, 
-  0.00615769127, 
-  0.00526377471, 
-  0.00510515703, 
-  0.00495722817, 
-  0.00481342317, 
-  0.00481981152, 
-  0.00479171456, 
-  0.00484135342, 
-  0.00476096828, 
-  0.00474521169, 
-  0.00476743483, 
-  0.00455009346, 
-  0.00480437972, 
-  0.00476113286, 
-  0.0048432671, 
-  0.00486693407, 
-  0.0046644384, 
-  0.00492280128, 
-  0.00472082196, 
-  0.00471811, 
-  0.00469502709, 
-  0.0047161353, 
-  0.00475237426, 
-  0.00473243592, 
-  0.00467795249, 
-  0.00474454816, 
-  0.00480384287, 
-  0.00467156727, 
-  0.00484266429, 
-  0.00466370887, 
-  0.00482953927};
+};
 
 float[] Sekundenkleber_data = {0.62107873032, 
   0.6450156885, 
@@ -2258,16 +2547,7 @@ float[] Sekundenkleber_data = {0.62107873032,
   0.05792939025};
 
 
-float[] Eco_Boden_data = {0.19848404076, 
-  0.16728851455, 
-  0.13494526997, 
-  0.10614739752, 
-  0.0838039592, 
-  0.06586101679, 
-  0.05303021432, 
-  0.0430049222, 
-  0.03560161386, 
-  0.02956861752, 
+float[] Eco_Boden_data = {
   0.02634235906, 
   0.02252821886, 
   0.02174186316, 
@@ -2425,7 +2705,7 @@ float[] Eco_Boden_data = {0.19848404076,
   0.00485313122, 
   0.00457756033, 
   0.01883096846, 
-  0.14744656996, 
+  0.22744656996, 
   0.01380601059, 
   0.00985102058, 
   0.01072269532, 
@@ -2525,229 +2805,17 @@ float[] Eco_Boden_data = {0.19848404076,
 };
 
 
-float[] Kork_Boden_data = {0.20607251562, 
-  0.17583200152, 
-  0.14653637113, 
-  0.11824942731, 
-  0.09216631584, 
-  0.07312391368, 
-  0.0586299528, 
-  0.04478875668, 
-  0.03822349562, 
-  0.03161241389, 
-  0.02661842777, 
-  0.02440274598, 
-  0.02250262403, 
-  0.0214709272, 
-  0.02060179725, 
-  0.02015347983, 
-  0.0198670118, 
-  0.01841756608, 0.01782651008, 0.01712973327, 0.01649703204, 
-  0.01621753417, 
-  0.01702382841, 
-  0.01887128615, 0.01970115968, 0.02078872451, 0.02152128549, 0.02212620433, 0.02169119403, 0.02015691798, 
-  0.01825827408, 0.01571418231, 0.01347336486, 0.01172147227, 
-  0.01089183322, 0.01060885721, 
-  0.01029126596, 0.01536103329, 0.02347586633, 
-  0.03035987282, 
-  0.03663029841, 0.04062732738, 0.04370790028, 
-  0.04219559942, 
-  0.03646003565, 0.0267474692, 
-  0.01946348877, 
-  0.01509326267, 0.01200987616, 
-  0.01047893848, 0.00961652921, 
-  0.00892356839, 
-  0.00845944225, 0.00798339029, 0.00762049259, 
-  0.00749275466, 0.00742914964, 0.00733150205, 
-  0.00742483737, 
-  0.0073159438, 0.00714115333, 0.00703929449, 0.00683533881, 0.00652611832, 0.00655232016, 0.00655117516, 0.00661283532, 0.00688255449, 0.00697029137, 
-  0.00656851234, 
-  0.00654337307, 0.00600025757, 
-  0.00636437644, 
-  0.00650002279, 0.00647961204, 
-  0.00642950007, 0.00660923456, 
-  0.00744716266, 
-  0.00904141226, 0.01059015624, 
-  0.01075892759, 
-  0.00927246621, 
-  0.00760282466, 0.00724403387, 
-  0.0086830679, 
-  0.01031782097, 
-  0.00996694589, 
-  0.00847387185, 
-  0.00680003027, 
-  0.0065393367, 
-  0.00642219286, 
-  0.00599024892, 
-  0.00556328594, 
-  0.00530308182, 
-  0.00509658356, 
-  0.00511618534, 
-  0.00495141711, 
-  0.00509660146, 
-  0.00522591034, 
-  0.00636400837, 
-  0.00941523998, 
-  0.01218685064, 
-  0.01886896862, 
-  0.01542140786, 
-  0.01053545766, 
-  0.01088284227, 
-  0.00954522098, 
-  0.00650564753, 
-  0.00982468664, 
-  0.01111956847, 
-  0.0094437431, 
-  0.0089718582, 
-  0.00825268606, 
-  0.01409126561, 
-  0.01716575039, 
-  0.01142566703, 
-  0.00692230241, 
-  0.00540794977, 
-  0.00595871113, 
-  0.00601024743, 
-  0.00898871138, 
-  0.01237551382, 
-  0.00987495691, 
-  0.00972001087, 
-  0.03503706128, 
-  0.09244422769, 
-  0.02975367685, 
-  0.0125224203, 
-  0.00921662882, 
-  0.00817495125, 
-  0.00695255915, 
-  0.00993403767, 
-  0.00768664041, 
-  0.00747630468, 
-  0.00649645431, 
-  0.00709058794, 
-  0.00833314906, 
-  0.00673367907, 
-  0.00619849981, 
-  0.00516550391, 
-  0.00609297304, 
-  0.00636510668, 
-  0.01924690032, 
-  0.04312951832, 
-  0.00836790257, 
-  0.00570623083, 
-  0.00973291031, 
-  0.01183936453, 
-  0.01634913941, 
-  0.01478162872, 
-  0.02276686186, 
-  0.0080702977, 
-  0.00666415882, 
-  0.00825478657, 
-  0.01797202154, 
-  0.01396299805, 
-  0.01667769288, 
-  0.00648594751, 
-  0.00764141665, 
-  0.00983750504, 
-  0.00985192333, 
-  0.01134169061, 
-  0.00843089637, 
-  0.07952930527, 
-  0.00796506214, 
-  0.00666020566, 
-  0.02308677804, 
-  0.01365467728, 
-  0.01403120576, 
-  0.03882309597, 
-  0.01319678406, 
-  0.00785219229, 
-  0.01017122273, 
-  0.0105623794, 
-  0.00985605549, 
-  0.04031507965, 
-  0.01095938168, 
-  0.02732087035, 
-  0.0081949879, 
-  0.00727128306, 
-  0.00695951817, 
-  0.00772909582, 
-  0.01191102602, 
-  0.00622807478, 
-  0.00804893297, 
-  0.00624536028, 
-  0.00669580119, 
-  0.00585639363, 
-  0.01575027469, 
-  0.00530957894, 
-  0.00496426732, 
-  0.00528740089, 
-  0.00901836491, 
-  0.00509081089, 
-  0.00486015661, 
-  0.00421645725, 
-  0.00440078495, 
-  0.00400970765, 
-  0.00437486486, 
-  0.00415222815, 
-  0.00412026651, 
-  0.00390817365, 
-  0.00643635427, 
-  0.00455631232, 
-  0.0041609392, 
-  0.00393005546, 
-  0.00386106467, 
-  0.00431971326, 
-  0.00383079798, 
-  0.00750186693, 
-  0.00382359206, 
-  0.00396035552, 
-  0.00386441948, 
-  0.00378151412, 
-  0.00363261348, 
-  0.00360538411, 
-  0.00389106019, 
-  0.00436176295, 
-  0.00434977808, 
-  0.00375940331, 
-  0.0036462801, 
-  0.00657652951, 
-  0.0038739726, 
-  0.00361578118, 
-  0.003542386, 
-  0.00341090084, 
-  0.00349757514, 
-  0.00340525332, 
-  0.00480123032, 
-  0.00348458042, 
-  0.00353650906, 
-  0.00347828246, 
-  0.00367810773, 
-  0.0035043285, 
-  0.00348488477, 
-  0.00542199869, 
-  0.00361496827, 
-  0.00353502312, 
-  0.00347807863, 
-  0.00363899811, 
-  0.00340328805, 
-  0.00331058132, 
-  0.00314871809, 
-  0.00331879758, 
-  0.00340674797, 
-  0.00437701862, 
-  0.00333088094, 
-  0.00317569046, 
-  0.00339219811, 
-  0.00343766574, 
-  0.00348886796, 
-  0.00355503011, 
-  0.00330470739, 
-  0.00335964412, 
-  0.00343139196, 
-  0.00322339158, 
-  0.00326673735, 
-  0.00311222681, 
-  0.00313032687, 
-  0.00340036677, 
-  0.00333635127, 
-  0.00338090672, 
-  0.00320966802, 
-  0.00334768852};
+float[] Kork_Boden_data = {0.04478875668, 0.03822349562, 0.03161241389, 0.02661842777, 0.02440274598, 0.02250262403, 0.0214709272, 0.02060179725, 
+  0.02015347983, 0.0198670118, 0.01841756608, 0.01782651008, 0.01712973327, 0.01649703204, 0.01621753417, 0.01702382841, 0.01887128615, 0.01970115968, 0.02078872451, 0.02152128549, 0.02212620433, 0.02169119403, 0.02015691798, 
+  0.01825827408, 0.01571418231, 0.01347336486, 0.01172147227, 0.01089183322, 0.01060885721, 0.01029126596, 0.01536103329, 0.02347586633, 0.0303597282, 0.03663029841, 0.04062732738, 0.04370790028, 0.04219559942, 0.03646003565, 0.0267474692, 
+  0.01946348877, 0.01509326267, 0.01200987616, 0.01047893848, 0.00961652921, 0.00892356839, 0.00845944225, 0.00798339029, 0.00762049259, 0.00749275466, 0.00742914964, 0.00733150205, 0.00742483737, 0.0073159438, 0.00714115333, 0.00703929449, 0.00683533881, 0.00652611832, 0.00655232016, 0.00655117516, 0.00661283532, 0.00688255449, 0.00697029137, 0.00656851234, 0.00654337307, 0.00600025757, 0.00636437644, 0.00650002279, 0.00647961204, 0.00642950007, 0.00660923456, 
+  0.00744716266, 0.00904141226, 0.01059015624, 0.01075892759, 0.00927246621, 0.00760282466, 0.00724403387, 0.0086830679, 0.01031782097, 0.00996694589, 0.00847387185, 0.00680003027, 0.0065393367, 0.00642219286, 0.00599024892, 
+  0.00556328594, 0.00530308182, 0.00509658356, 0.00511618534, 0.00495141711, 0.00509660146, 0.00522591034, 0.00636400837, 0.00941523998, 0.01218685064, 0.01886896862, 0.01542140786, 0.01053545766, 0.01088284227, 
+  0.00954522098, 0.00650564753, 0.00982468664, 0.01111956847, 0.0094437431, 0.0089718582, 0.00825268606, 0.01409126561, 0.01716575039, 0.01142566703, 0.00692230241, 0.00540794977, 0.00595871113, 0.00601024743, 0.00898871138, 0.01237551382, 0.00987495691, 
+  0.00972001087, 0.03503706128, 0.09244422769, 0.02975367685, 0.0125224203, 0.00921662882, 0.00817495125, 0.00695255915, 0.00993403767, 0.00768664041, 0.00747630468, 0.00649645431, 0.00709058794, 0.00833314906, 0.00673367907, 0.00619849981, 0.00516550391, 0.00609297304, 0.00636510668, 0.01924690032, 
+  0.04312951832, 0.00836790257, 0.00570623083, 0.00973291031, 0.01183936453, 0.01634913941, 0.01478162872, 0.02276686186, 0.0080702977, 0.00666415882, 0.00825478657, 0.01797202154, 0.01396299805, 0.01667769288, 0.00648594751, 0.00764141665, 0.00983750504, 0.00985192333, 0.01134169061, 
+  0.00843089637, 0.07952930527, 0.00796506214, 0.00666020566, 0.02308677804, 0.01365467728, 0.01403120576, 0.03882309597, 0.01319678406, 0.00785219229, 0.01017122273, 0.0105623794, 0.00985605549, 0.04031507965, 0.01095938168, 
+  0.02732087035, 0.0081949879, 0.00727128306, 0.00695951817, 0.00772909582, 0.01191102602, 0.00622807478, 0.00804893297, 0.00624536028, 0.00669580119, 0.00585639363, 0.01575027469, 0.00530957894, 0.00496426732, 0.00528740089, 0.00901836491, 
+  0.00509081089, 0.00486015661, 0.00421645725, 0.00440078495, 0.00400970765, 0.00437486486, 0.00415222815, 0.00412026651, 0.00390817365, 0.0063635427, 0.00455631232, 0.0041609392, 0.00393005546, 0.00386106467, 0.00431971326, 0.00383079798, 0.00750186693, 0.00382359206, 0.00396035552, 0.00386441948, 
+  0.00378151412, 0.00363261348, 0.00360538411, 0.00389106019, 0.00436176295, 0.00434977808, 0.00375940331, 0.0036462801, 0.00657652951, 0.0038739726, 0.00361578118, 0.003542386, 0.00341090084, 0.00349757514, 0.00340525332, 0.00480123032, 0.00348458042, 0.00353650906, 0.00347828246, 0.00367810773, 0.0035043285, 0.00348488477, 0.00542199869, 0.00361496827, 0.00353502312, 0.00347807863, 0.00363899811, 0.00340328805, 
+  0.00331058132, 0.00314871809, 0.00331879758, 0.00340674797, 0.00437701862, 0.00333088094, 0.00317569046, 0.00339219811, 0.00343766574, 0.00348886796, 0.00355503011, 0.00330470739, 0.00335964412, 0.00343139196, 0.00322339158, 0.00326673735, 0.00311222681, 0.00313032687, 0.00340036677, 0.00333635127, 0.00338090672, 0.00320966802, 0.00334768852};

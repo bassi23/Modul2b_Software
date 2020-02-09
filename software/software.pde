@@ -27,6 +27,8 @@ Aufgabentext TVOC_Duelle_Analyse, Duell_Aufgabentext;
 dropdown tutorial_Rot, tutorial_Blau;
 
 
+checkbox skalierung_angleichen;
+
 String[] myText = {"A", "B", "C", "D", "E"};
 String[] myText2 = {"D", "A", "C", "B", "E"};
 String[] myText_Sorted = {"", "", "", "", ""};
@@ -108,7 +110,7 @@ button tutorial_reset, sicher_ja_reset, sicher_nein_reset, left_tutorial, right_
 button setBaseline;
 button zumObermenu2;
 button Station2_Riechen2, A_wiederholen, B_wiederholen, C_wiederholen, D_wiederholen, E_wiederholen;
-
+button abbruch_Station2;
 
 button Duell1, Duell2, Duell3, Duell4;
 
@@ -126,7 +128,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = 3.2;
+float page = -1;
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -145,6 +147,8 @@ boolean MenschSensorAbgeschlossen = false;
 PImage Board, KreideA, KreideB, Tafel, Schwaemme;
 PImage Eco_Boden, Eco_Edding, Eco_Kleber, Kork, Sekundenkleber, Edding, Stinkelack, Eco_Lack;
 PImage blauer_engel;
+PImage aetzend, entzuendlich, gesundheitsschaedlich, giftig, reizend, umweltschaedlich;
+
 
 // Das Programm ist in Seiten unterteilt
 
@@ -220,6 +224,13 @@ void setup() {
   Tafel= loadImage("img/Tafel.png");
   Schwaemme = loadImage("img/Schwaemme.png");
 
+  aetzend = loadImage("img/ätzend.png");
+  entzuendlich = loadImage("img/entzündlich.png");
+  gesundheitsschaedlich = loadImage("img/gesundheitsschädlich.png");
+  giftig = loadImage("img/giftig.png");
+  reizend = loadImage("img/reizend.png");
+  umweltschaedlich  = loadImage("img/umweltschädlich.png");
+
 
 
 
@@ -272,11 +283,11 @@ void setup() {
 
   Kalibrierung2_2 = new Textfield22(350, 565, 100, 50, Kalibrierung_Station2_2, false);
 
-  A_wiederholen = new button(600, 20, 210, 35, "Probe A wiederholen", 5, true, 20);
-  B_wiederholen = new button(600, 60, 210, 35, "Probe B wiederholen", 5, true, 20);
-  C_wiederholen = new button(600, 100, 210, 35, "Probe C wiederholen", 5, true, 20);
-  D_wiederholen = new button(830, 20, 210, 35, "Probe D wiederholen", 5, true, 20);
-  E_wiederholen = new button(830, 60, 210, 35, "Probe E wiederholen", 5, true, 20);
+  A_wiederholen = new button(600, 20, 210, 35, "Probe A vermessen", 5, true, 20);
+  B_wiederholen = new button(600, 60, 210, 35, "Probe B vermessen", 5, true, 20);
+  C_wiederholen = new button(600, 100, 210, 35, "Probe C vermessen", 5, true, 20);
+  D_wiederholen = new button(830, 20, 210, 35, "Probe D vermessen", 5, true, 20);
+  E_wiederholen = new button(830, 60, 210, 35, "Probe E vermessen", 5, true, 20);
 
   Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
 
@@ -341,6 +352,9 @@ void setup() {
   fehler_tutorial = new checkbox(1215, 240, 25, false);
   verbinde_tutorial = new checkbox(1215, 275, 25, true);
 
+
+  skalierung_angleichen = new checkbox(730, 678, 30, false);
+
   fehler_innenraum = new checkbox(1225, 195, 30, false);
   verbinde_innenraum = new checkbox(1225, 240, 30, true);
 
@@ -390,7 +404,8 @@ void setup() {
   Duell4 = new button(930, 450, 200, 100, "Duell 4 - Böden", 5, true, 20);
 
   Geruchstest = new button(250, 350, 350, 150, "Geruchstest", 5, true, 40);
-
+  abbruch_Station2 = new button(1100, 20, 100, 50, "Abbruch", 5, true, 20);
+  ja_zufrieden = new button(1100, 120, 100, 50, "Weiter", 5, true, 20);
 
   x_up = new button(900, 680, 50, 30, "right_arrow", 5, true, 20);
   x_down = new button(840, 680, 50, 30, "left_arrow", 5, true, 20);
@@ -523,7 +538,6 @@ void setup() {
   Station2_Riechen2 = new button(557, 615, 200, 100, "2. Versuch", 5, false, 20);
   messen = new button(875, 70, 150, 100, "Messen", 5, true, 20);
   letzteWiederholen = new button(1050, 70, 150, 100, "letzte Messung\nwiederholen", -9, true, 20);
-  ja_zufrieden = new button(400, 20, 120, 50, "Ja", 5, true, 20);
   reset_Station2 =  new button(970, 660, 140, 50, "Reset", 5, true, 20);
 
 
@@ -590,7 +604,6 @@ float mouse_time = 0;
 
 void draw() {
   // println(page);
-
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
@@ -674,6 +687,7 @@ void draw() {
   Duell2.hide();
   Duell3.hide();
   Duell4.hide();
+  tutorial_reset.hide();
 
   if (page != 0) {
     one.hide();
@@ -834,7 +848,7 @@ void draw() {
     verbinde.y = 200;
     fehler.y = 160;
   }
-  println(page);
+  //  println(page);
   if (page == -1) {
     Obermenu();
     einstellungen.show();
@@ -879,6 +893,7 @@ void draw() {
     Station2_Vergleich();
   } else if (page == 2.5) {
     Station2Oder3();
+    Geruchstest.hide();
     zumObermenu.hide();
   } else if (page == 2.75) {
     ZwischenFolieTVOC();
@@ -1224,10 +1239,21 @@ void draw() {
     MesswertSensor[2] = 0;
     MesswertSensor[3] = 0;
     MesswertSensor[4] = 0;
+    messen_Station2 = false;
+    prob = 1;
+    indexMenschSensor = 0;
+    MenschSensorMessen = false;
   }
 
   if (reset_Station2.isClicked()) {
     reset_bool_station2 = true;
+    messen_Station2 = false;
+    prob = 1;
+    indexMenschSensor = 0;
+    MenschSensorMessen = false;
+    for (int i = 0; i < 5; i++) {
+      Proben_Vermessen[i] = false;
+    }
   }
 
   if (tutorial_reset.isClicked()) {

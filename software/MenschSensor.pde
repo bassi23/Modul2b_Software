@@ -42,8 +42,6 @@ void MenschSensor() {
     //  rect(300 + 150*i, 345, 110, 110);
   }
 
-
-
   a.show(myText[0]);
   b.show(myText[1]);
   c.show(myText[2]);
@@ -62,73 +60,6 @@ void MenschSensor() {
   }
   myText_Sorted = sort(myText);
   myText2_Sorted = sort(myText2);
-
-
-  for (int i = 0; i < 5; i++) {
-    if (!A.active) {
-      if (A.x > (255 + 150*i)*scale_factor && A.x < (455+ 150*i)*scale_factor && A.y > 170*scale_factor && A.y  < 370*scale_factor ) {
-        A.x = (355 + 150*i)*scale_factor; 
-        A.y = 270*scale_factor;
-      }
-      if (!B.active) {
-        if (B.x > (255 + 150*i)*scale_factor && B.x < (455+ 150*i)*scale_factor && B.y > 170*scale_factor && B.y  < 370*scale_factor ) {
-          B.x = (355 + 150*i)*scale_factor; 
-          B.y = 270*scale_factor;
-        }
-      }
-      if (!C.active) {
-        if (C.x > (255 + 150*i)*scale_factor && C.x < (455+ 150*i)*scale_factor && C.y > 170*scale_factor && C.y  < 370*scale_factor ) {
-          C.x = (355 + 150*i)*scale_factor; 
-          C.y = 270*scale_factor;
-        }
-      }
-      if (!D.active) {
-        if (D.x > (255 + 150*i)*scale_factor && D.x < (455+ 150*i)*scale_factor && D.y > 170*scale_factor && D.y  < 370*scale_factor ) {
-          D.x = (355 + 150*i)*scale_factor; 
-          D.y = 270*scale_factor;
-        }
-      }
-      if (!E.active) {
-        if (E.x > (255 + 150*i)*scale_factor && E.x < (455+ 150*i)*scale_factor && E.y > 170*scale_factor && E.y  < 370*scale_factor ) {
-          E.x = (355 + 150*i)*scale_factor; 
-          E.y = 270*scale_factor;
-        }
-      }
-    }
-  }
-  for (int i = 0; i < 5; i++) {
-    if (!A2.active) {
-      if (A2.x > (255 + 150*i)*scale_factor && A2.x < (455+ 150*i)*scale_factor && A2.y > 300*scale_factor && A2.y  < 500*scale_factor ) {
-        A2.x = (355 + 150*i)*scale_factor; 
-        A2.y = 400*scale_factor;
-      }
-      if (!B2.active) {
-        if (B2.x > (255 + 150*i)*scale_factor && B2.x < (455+ 150*i)*scale_factor && B2.y > 300*scale_factor && B2.y  < 500*scale_factor ) {
-          B2.x = (355 + 150*i)*scale_factor; 
-          B2.y = 400*scale_factor;
-        }
-      }
-      if (!C2.active) {
-        if (C2.x > (255 + 150*i)*scale_factor && C2.x < (455+ 150*i)*scale_factor && C2.y > 300*scale_factor && C2.y  < 500*scale_factor ) {
-          C2.x = (355 + 150*i)*scale_factor; 
-          C2.y = 400*scale_factor;
-        }
-      }
-      if (!D2.active) {
-        if (D2.x > (255 + 150*i)*scale_factor && D2.x < (455+ 150*i)*scale_factor && D2.y > 300*scale_factor && D2.y  < 500*scale_factor ) {
-          D2.x = (355 + 150*i)*scale_factor; 
-          D2.y = 400*scale_factor;
-        }
-      }
-      if (!E2.active) {
-        if (E2.x > (255 + 150*i)*scale_factor && E2.x < (455+ 150*i)*scale_factor && E2.y > 300*scale_factor && E2.y  < 500*scale_factor ) {
-          E2.x = (355 + 150*i)*scale_factor; 
-          E2.y = 400*scale_factor;
-        }
-      }
-    }
-  }
-
 
   stroke(0);
   for (float i = 0; i < 100; i++) {
@@ -356,14 +287,22 @@ int scale_MenschSensor = 0;
 float maxIndexRiechen = 0;
 
 void Station2_Sensor() {
+  reset.hide();
   reset_Station2.show();
   up2.show();
   down2.show();
+  A_wiederholen.hide();
+  B_wiederholen.hide();
+  C_wiederholen.hide();
+  D_wiederholen.hide();
+  E_wiederholen.hide();
+  letzteWiederholen.hide();
+  Geruchstest.hide();
+  zumObermenu2.hide();
 
 
 
-
-
+  //////////////////////  Skalierung einstellen ////////////////////
   if (up2.isClicked()) {
     scale_MenschSensor += 1;
     if (scale_MenschSensor > 8) {
@@ -377,72 +316,310 @@ void Station2_Sensor() {
       scale_MenschSensor = 7;
     }
   }
+  ///////////////////////////////////////////////////////////////
 
-  textFont(normal);
-  String temp = "A";
-  if (prob == 1) {
-    temp = "B";
-  } else if (prob == 2) {
-    temp = "C";
-  } else if (prob == 3) {
-    temp = "D";
-  } else if (prob == 4) {
-    temp = "E";
-  }
+  /////////////////////////  Hintergrund ////////////////////////
+  fill(255);
+  stroke(0);
+  rect(10, 240, 350, 310);
+  rect(500, 190, 700, 400);
+  fill(255, 200, 200);
+  rect(10, 310, 350, 50);
+  fill(200, 200, 255);
+  rect(10, 360, 350, 50);
+  fill(255, 255, 100);
+  rect(10, 410, 350, 50);
+  fill(200, 255, 200);
+  rect(10, 460, 350, 50);
+  fill(200);
+  rect(10, 510, 350, 50);
+  textSize(25);
+  textAlign(CORNER);
   textSize(20);
-  // if (MenschSensorMesswerte[prob+5][indexMenschSensor] > 60 || MenschSensorMesswerte[prob+5][indexMenschSensor] == 0) {
-  if (indexMenschSensor > 0) {
-    //println(MenschSensorMessen, (MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]));
-  }
-
-  if ((millis() - currentTime)/1000 > 60) {
-    MenschSensorMessen = false;
-    if (prob2 != 5) {
-      if (temp == "A") {
-        Station2_Aufgabentext_b1.show();
-        messen.text = "Messung A";
-      } else if (temp == "B") {
-        Station2_Aufgabentext_b2.show();
-        messen.text = "Messung B";
-      } else if (temp == "C") {
-        Station2_Aufgabentext_b3.show();
-        messen.text = "Messung C";
-      } else if (temp == "D") {
-        Station2_Aufgabentext_b4.show();
-        messen.text = "Messung D";
-      } else if (temp == "E") {
-        Station2_Aufgabentext_b5.show();
-        messen.text = "Messung E";
-      }
-      //text("Schraube Probe " + temp + " an die Platine und klicke anschließend auf 'Messen'. Eine Messung\ndauert 60 Sekunden.", 20, 120);
-      messen.show();
-      letzteWiederholen.show();
-    }
-  } else {
-    textSize(20);
-    textFont(bold);
-    text("Deine Reihenfolge 1. Versuch: " + myText[0] + " > " + myText[1] + " > " + myText[2] + " > " + myText[3] + " > " + myText[4], 20, 75);
-    text("\nDeine Reihenfolge 2. Versuch: " + myText2[0] + " > " + myText2[1] + " > " + myText2[2] + " > " +myText2[3] + " > " +myText2[4], 20, 75);
-    messen.hide();
-    letzteWiederholen.hide();
-    textFont(normal);
-  }
-
-  if (messen.isClicked()) {
-    currentTime = millis();
-    indexMenschSensor = 0;
-    MenschSensorMessen = true;
-    messen.hide();
-    if (prob < 5) {
-      prob += 1;
-    }
-  }
-
-
-
+  fill(0);
+  text("A", 60, 342);
+  text("B", 60, 392);
+  text("C", 60, 442);
+  text("D", 60, 492);
+  text("E", 60, 542);
+  textAlign(CENTER);
   float t1 = 60*(slider_Mensch_Sensor.x1-500)/700;
   float t2 = 60*(slider_Mensch_Sensor.x2-500)/700;
-  //  println(t1, t2, MesswertSensor[0]);
+  text("Gemessen im Zeitintervall\n[" + round(t1) + " s, " + round(t2) + " s]", 180, 592);
+  textAlign(CORNER);
+  text("Probe", 40, 280); 
+  text("   Durchschnittliche\nKonzentration in ppb", 140, 265);
+  text("Zeit in Sekunden", 750, 660);
+  text("Deine Reihenfolge 1. Versuch: " + myText[0] + " > " + myText[1] + " > " + myText[2] + " > " + myText[3] + " > " + myText[4], 20, 75);
+  text("\nDeine Reihenfolge 2. Versuch: " + myText2[0] + " > " + myText2[1] + " > " + myText2[2] + " > " +myText2[3] + " > " +myText2[4], 20, 75);
+  stroke(0);
+  strokeWeight(1);
+  text("60", 1200, 630);
+  for (int i = 5; i < 60; i+= 5) {
+    strokeWeight(2);
+    if (i % 10 == 0) {
+      stroke(0);
+    } else {
+      stroke(200);
+    }
+    line(500 + i*11.66667, 190, 500 + i*11.66667, 590);
+  }
+  stroke(200);
+  strokeWeight(1);
+  for (int i = 0; i < 4; i++) {
+    line(500, 270 + 80*i, 1200, 270 + 80*i);
+  }
+
+  stroke(0);
+  line(130, 240, 130, 560);
+  ////////////////////////////////////////
+
+
+  //////////// MAXIMUM BERECHNEN BZW. FESTLEGEN //////////
+  float max = 0;
+  if (scale_MenschSensor == 0) {
+    for (int i = 0; i < 500; i++) {
+      for (int j = 0; j < 5; j++) {
+        if ( MenschSensorMesswerte[j][i] > max) {
+          max = MenschSensorMesswerte[j][i];
+        }
+      }
+    }
+  } else if (scale_MenschSensor == 1) {
+    max = 100;
+  } else if (scale_MenschSensor == 2) {
+    max = 500;
+  } else if (scale_MenschSensor == 3) {
+    max = 1000;
+  } else if (scale_MenschSensor == 4) {
+    max = 5000;
+  } else if (scale_MenschSensor == 5) {
+    max = 10000;
+  } else if (scale_MenschSensor == 6) {
+    max = 50000;
+  } else {
+    max = 60000;
+  }
+  noStroke();
+  fill(0);
+  textAlign(RIGHT);
+  if (max == 100 || max == 500 || max == 1000 || max == 5000 || max == 10000 || max == 50000 || max == 60000) {
+    for (int i = 4; i > 0; i--) {
+      text(round(max - i*max/5), 470, 195 + 80*i);
+    }
+  }
+  text(nf(round(max), 0, 0), 470, 200);
+  text("0", 470, 590);
+  text("0", 500, 630);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(3*PI/2);
+  if (max <= 1000) {
+    text("TVOC in ppb", height/2 -320, -width/2 + 410);
+  } else {
+    text("TVOC in ppb", height/2 -320, -width/2 + 390);
+  }
+  popMatrix();
+  //////////////////////////////////////////////////////////
+
+  if (indexMenschSensor > maxIndexRiechen) {
+    maxIndexRiechen = indexMenschSensor;
+  }
+
+
+  slider_Mensch_Sensor.show();
+  slider_Mensch_Sensor.move();
+
+  ////////////////// MESSWERTE ZEICHNEN ////////////////////
+  for (int j = 0; j < 5; j++) {
+    for (int i = 1; i < maxIndexRiechen; i++) {
+      float x1, x2, y1, y2;
+
+      x1 = 500 + (MenschSensorMesswerte[j+5][i]-MenschSensorMesswerte[j+5][0])*700/60; 
+      x2 = 500 + (MenschSensorMesswerte[j+5][i-1]-MenschSensorMesswerte[j+5][0])*700/60;
+      y1 = 590 - MenschSensorMesswerte[j][i]*400/max;
+      y2 = 590 - MenschSensorMesswerte[j][i-1]*400/max;
+      if (x1 > 1200) {
+        x1 = 1200;
+      }
+      if (x2 <= 1200 && x1>=500) {
+        noFill();
+        if (j == 0) {
+          stroke(255, 0, 0);
+        } else if (j == 1) {
+          stroke(0, 0, 255);
+        } else if (j == 2) {
+          stroke(255, 215, 0);
+        } else if (j == 3) {
+          stroke(0, 155, 0);
+        } else if (j == 4) {
+          stroke(0);
+        }
+        float m = ((y2 - y1)/(x2 - x1));
+        if (x1 <= 500) {
+          y2 = m*175 + y1 - m*x1;
+        }
+        if (y2 <= 190) {
+          y2 = 190;
+          x2 = (190 + m*x1 - y1)/m;
+        }
+        if (y1 <= 190) {
+          y1 = 190;
+          x1 = (190 + m*x2 - y2)/m;
+        }
+
+
+        //  if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && MenschSensorMesswerte[j][i] != 0) {
+        if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && x1>=500) {
+          strokeWeight(3);
+          line(x1, y1, x2, y2);
+        }
+        if (MenschSensorMesswerte[j][i] <= max && MenschSensorMesswerte[j][i-1] <= max) {
+          dottedLine(500, 590 - MesswertSensor[j]*400/max, 1200, 190);
+          strokeWeight(1);
+        }
+        stroke(0);
+        fill(0);
+      }
+    }
+  }
+
+
+
+
+  /// WELCHE PROBE SOLL VERMESSEN WERDEN? //////
+  if (!messen_Station2) {
+    A_wiederholen.show();
+    B_wiederholen.show();
+    C_wiederholen.show();
+    D_wiederholen.show();
+    E_wiederholen.show();
+    abbruch_Station2.hide();
+  } else {
+    String temp = "A";
+    if (prob == 2) {
+      temp = "B";
+    } else if (prob == 3) {
+      temp = "C";
+    } else if (prob == 4) {
+      temp = "D";
+    } else if (prob == 5) {
+      temp = "E";
+    }
+    fill(0);
+    textSize(30);
+    text("Probe: " + temp, 900, 100);
+    textSize(20);
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+    abbruch_Station2.show();
+  }
+
+  println(messen_Station2);
+
+  if (abbruch_Station2.isClicked()) {
+    messen_Station2 = false;
+    MenschSensorMessen = false;
+  }
+
+  if (Proben_Vermessen[0] && Proben_Vermessen[1] && Proben_Vermessen[2]&& Proben_Vermessen[3]&& Proben_Vermessen[4]) {
+    ja_zufrieden.show();
+  } else {
+    ja_zufrieden.hide();
+  }
+
+  if (ja_zufrieden.isClicked()) {
+    page = 2.3;
+    float[] MesswertSensor_temp = MesswertSensor;
+    String[] Reihenfolge_Sensor_temp2 = Reihenfolge_Sensor;
+    Reihenfolge_Sensor = sortArray(MesswertSensor_temp, Reihenfolge_Sensor_temp2);
+  }
+
+  if (A_wiederholen.isClicked()) {
+    messen_Station2 = true;
+    prob = 1;
+    indexMenschSensor = 0;
+    MenschSensorMessen = true;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+  if (B_wiederholen.isClicked()) {
+    messen_Station2 = true;
+    prob = 2;
+    indexMenschSensor = 0;
+    MenschSensorMessen = true;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+  if (C_wiederholen.isClicked()) {
+    messen_Station2 = true;
+    prob = 3;
+    indexMenschSensor = 0;
+    MenschSensorMessen = true;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+
+  if (D_wiederholen.isClicked()) {
+    messen_Station2 = true;
+    prob = 4;
+    indexMenschSensor = 0;
+    MenschSensorMessen = true;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+
+  if (E_wiederholen.isClicked()) {
+    messen_Station2 = true;
+    prob = 5;
+    indexMenschSensor = 0;
+    MenschSensorMessen = true;
+    A_wiederholen.hide();
+    B_wiederholen.hide();
+    C_wiederholen.hide();
+    D_wiederholen.hide();
+    E_wiederholen.hide();
+  }
+
+  if (messen_Station2) {
+    for (int i = 0; i < 500; i++) {
+      if (MenschSensorMesswerte[prob + 4][i] <=  60) {
+        messen_Station2 = true;
+        Proben_Vermessen[prob-1] = true;
+        break;
+      } else {
+        Proben_Vermessen[prob-1] = false;
+      }
+    }
+  }
+
+  textAlign(CENTER);
+  for (int i = 0; i < 5; i++) {
+    if (MesswertSensor[i] != 0.0) {
+      text(nf(MesswertSensor[i], 0, 1), 240, 345 + 50*i);
+    } else if (MesswertSensor[i] != 0.0 || Float.isNaN(MesswertSensor[i]) || MesswertSensor[i] == 0) {
+      textSize(16);
+      text("noch nicht gemessen", 240, 340 + 50*i);
+    }
+  }
+
+
+  ///////// MITTELWERTE BERECHNEN //////////////////
   float indexMWProbe0 = 0;
   float indexMWProbe1 = 0;
   float indexMWProbe2 = 0;
@@ -506,363 +683,11 @@ void Station2_Sensor() {
   } else {
     MesswertSensor[4] = MesswertSensor[4]/indexMWProbe4;
   }
-
-
-  if (letzteWiederholen.isClicked()) {
-    if (prob > 0) {
-      MenschSensorMessen = true;
-      indexMenschSensorMax = 0;
-      indexMenschSensor = 0;
-      currentTime = millis();
-    }
-  }
-
-
-  if (A_wiederholen.isClicked()) {
-    prob = 1;
-    indexMenschSensor = 0;
-    MenschSensorMessen = true;
-    A_wiederholen.hide();
-    B_wiederholen.hide();
-    C_wiederholen.hide();
-    D_wiederholen.hide();
-    E_wiederholen.hide();
-    for (int i = 1; i < 500; i++) {
-      MenschSensorMesswerte[0+5][i] = 0;
-      MenschSensorMesswerte[0][i] = 0;
-    }
-    messen.show();
-  }
-
-  if (B_wiederholen.isClicked()) {
-    prob = 2;
-    indexMenschSensor = 0;
-    MenschSensorMessen = true;
-    A_wiederholen.hide();
-    B_wiederholen.hide();
-    C_wiederholen.hide();
-    D_wiederholen.hide();
-    E_wiederholen.hide();
-    messen.show();
-
-    for (int i = 1; i < 500; i++) {
-      MenschSensorMesswerte[1+5][i] = 0;
-      MenschSensorMesswerte[1][i] = 0;
-    }
-  }
-
-  if (C_wiederholen.isClicked()) {
-    prob = 3;
-    indexMenschSensor = 0;
-    MenschSensorMessen = true;
-    A_wiederholen.hide();
-    B_wiederholen.hide();
-    C_wiederholen.hide();
-    D_wiederholen.hide();
-    E_wiederholen.hide();
-    messen.show();
-
-    for (int i = 1; i < 500; i++) {
-      MenschSensorMesswerte[2+5][i] = 0;
-      MenschSensorMesswerte[2][i] = 0;
-    }
-  }
-
-  if (D_wiederholen.isClicked()) {
-    prob = 4;
-    indexMenschSensor = 0;
-    MenschSensorMessen = true;
-    A_wiederholen.hide();
-    B_wiederholen.hide();
-    C_wiederholen.hide();
-    D_wiederholen.hide();
-    E_wiederholen.hide();
-    messen.show();
-
-    for (int i = 1; i < 500; i++) {
-      MenschSensorMesswerte[3+5][i] = 0;
-      MenschSensorMesswerte[3][i] = 0;
-    }
-  }
-
-  if (E_wiederholen.isClicked()) {
-    prob = 5;
-    indexMenschSensor = 0;
-    MenschSensorMessen = true;
-    A_wiederholen.hide();
-    B_wiederholen.hide();
-    C_wiederholen.hide();
-    D_wiederholen.hide();
-    E_wiederholen.hide();
-    messen.show();
-
-    for (int i = 1; i < 500; i++) {
-      MenschSensorMesswerte[4+5][i] = 0;
-      MenschSensorMesswerte[4][i] = 0;
-    }
-  }
-
-  if (indexMenschSensor > 1) {
-    if (prob == 5 && (MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 57) {
-      MenschSensorAbgeschlossen = true;
-    }
-    if (prob == 5 && (MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 57 && MenschSensorAbgeschlossen) {
-      A_wiederholen.show();
-      B_wiederholen.show();
-      C_wiederholen.show();
-      D_wiederholen.show();
-      E_wiederholen.show();
-    }
-  }
-
-
-
-
-  if (MenschSensorAbgeschlossen) {
-    if (prob == 5) {
-      messen.hide();
-      text("Bist du mit der Messung zufrieden?", 20, 60);
-      ja_zufrieden.show();
-    }
-    if (indexMenschSensor > 1) {
-      if ((MenschSensorMesswerte[5+prob-1][indexMenschSensor-1] - MenschSensorMesswerte[5+prob-1][0]) > 60) {
-        text("Bist du mit der Messung zufrieden?", 20, 60);
-        A_wiederholen.show();
-        B_wiederholen.show();
-        C_wiederholen.show();
-        D_wiederholen.show();
-        E_wiederholen.show();
-
-        ja_zufrieden.show();
-        messen.hide();
-      }
-    }
-  } else {
-    ja_zufrieden.hide();
-  }
-
-  textSize(25);
-
-  fill(255);
-  stroke(0);
-  rect(10, 240, 350, 310);
-  rect(500, 190, 700, 400);
-
-  fill(255, 200, 200);
-  rect(10, 310, 350, 50);
-  fill(200, 200, 255);
-  rect(10, 360, 350, 50);
-  fill(255, 255, 100);
-  rect(10, 410, 350, 50);
-  fill(200, 255, 200);
-  rect(10, 460, 350, 50);
-  fill(200);
-  rect(10, 510, 350, 50);
-
-
-
-  fill(0);
-  textAlign(CENTER);
-
-  for (int i = 0; i < 5; i++) {
-
-    if (MesswertSensor[i] != 0.0) {
-      text(nf(MesswertSensor[i], 0, 1), 240, 345 + 50*i);
-    } else if (MesswertSensor[i] != 0.0 || Float.isNaN(MesswertSensor[i]) || MesswertSensor[i] == 0) {
-      textSize(16);
-      text("noch nicht gemessen", 240, 340 + 50*i);
-    }
-  }
-  textSize(25);
-  textAlign(CORNER);
-  textSize(20);
-  text("A", 60, 342);
-  text("B", 60, 392);
-  text("C", 60, 442);
-  text("D", 60, 492);
-  text("E", 60, 542);
-  textAlign(CENTER);
-  text("Gemessen im Zeitintervall\n[" + round(t1) + " s, " + round(t2) + " s]", 180, 592);
-  textAlign(CORNER);
-  text("Probe", 40, 280); 
-  text("   Durchschnittliche\nKonzentration in ppb", 140, 265);
-  text("Zeit in Sekunden", 750, 660);
-  if (prob == 1) {
-    strokeWeight(1);
-    text("60", 1200, 630);
-    for (int i = 5; i < 60; i+= 5) {
-      strokeWeight(2);
-      if (i % 10 == 0) {
-        stroke(0);
-      } else {
-        stroke(200);
-      }
-      line(500 + i*11.66667, 190, 500 + i*11.66667, 590);
-    }
-  } else {
-    strokeWeight(1);
-    text("60", 1200, 630);
-    if (prob != 0) {
-      for (int i = 5; i < 60; i+= 5) {
-        strokeWeight(2);
-        if (i % 10 == 0) {
-          stroke(0);
-        } else {
-          stroke(200);
-        }
-        line(500 + i*11.66667, 190, 500 + i*11.66667, 590);
-        strokeWeight(1);
-        if (490 + i*11.66667 < 1200 && i%10 == 0) {
-          text(i, 490 + i*11.66667, 620);
-        }
-      }
-    }
-  }
-  stroke(0);
-  line(130, 240, 130, 560);
-
-
-  float max = 0;
-  if (scale_MenschSensor == 0) {
-    for (int i = 0; i < 500; i++) {
-      for (int j = 0; j < 5; j++) {
-        if ( MenschSensorMesswerte[j][i] > max) {
-          max = MenschSensorMesswerte[j][i];
-        }
-      }
-    }
-  } else if (scale_MenschSensor == 1) {
-    max = 100;
-  } else if (scale_MenschSensor == 2) {
-    max = 500;
-  } else if (scale_MenschSensor == 3) {
-    max = 1000;
-  } else if (scale_MenschSensor == 4) {
-    max = 5000;
-  } else if (scale_MenschSensor == 5) {
-    max = 10000;
-  } else if (scale_MenschSensor == 6) {
-    max = 50000;
-  } else {
-    max = 60000;
-  }
-  noStroke();
-  fill(0);
-  textAlign(RIGHT);
-  if (max == 100 || max == 500 || max == 1000 || max == 5000 || max == 10000 || max == 50000 || max == 60000) {
-    for (int i = 4; i > 0; i--) {
-      text(round(max - i*max/5), 470, 195 + 80*i);
-    }
-  }
-
-
-  text(nf(round(max), 0, 0), 470, 200);
-  text("0", 470, 590);
-  text("0", 500, 630);
-
-  //for (int i = 0; i < 5; i++) {
-  //  for (int j = 0; j < 500; j++) {
-  //    if (MenschSensorMesswerte[i][j] != 0 && j > indexMenschSensorMax) {
-  //      indexMenschSensorMax = j + 1;
-  //    }
-  //  }
-  //}
-
-  slider_Mensch_Sensor.show();
-  slider_Mensch_Sensor.move();
-  fill(0);
-
-
-  if (scale_MenschSensor > 0) {
-    for (int i = 0; i < 4; i++) {
-      stroke(200);
-      line(500, 270 + 80*i, 1200, 270 + 80*i);
-    }
-  }
-  strokeWeight(4);
-
-  if (MenschSensorAbgeschlossen) {
-    prob2 = 5;
-  } else {
-    prob2 = prob;
-  }
-
-  if (indexMenschSensor > maxIndexRiechen) {
-    maxIndexRiechen = indexMenschSensor;
-  }
-
-
-  for (int j = 0; j < prob2; j++) {
-    for (int i = 1; i < maxIndexRiechen; i++) {
-      float x1, x2, y1, y2;
-
-      x1 = 500 + (MenschSensorMesswerte[j+5][i]-MenschSensorMesswerte[j+5][0])*700/60; 
-      x2 = 500 + (MenschSensorMesswerte[j+5][i-1]-MenschSensorMesswerte[j+5][0])*700/60;
-      y1 = 590 - MenschSensorMesswerte[j][i]*400/max;
-      y2 = 590 - MenschSensorMesswerte[j][i-1]*400/max;
-      if (x1 > 1200) {
-        x1 = 1200;
-      }
-      if (x2 <= 1200 && x1>=500) {
-        noFill();
-        if (j == 0) {
-          stroke(255, 0, 0);
-        } else if (j == 1) {
-          stroke(0, 0, 255);
-        } else if (j == 2) {
-          stroke(255, 215, 0);
-        } else if (j == 3) {
-          stroke(0, 155, 0);
-        } else if (j == 4) {
-          stroke(0);
-        }
-        float m = ((y2 - y1)/(x2 - x1));
-        if (x1 <= 500) {
-          y2 = m*175 + y1 - m*x1;
-        }
-        if (y2 <= 190) {
-          y2 = 190;
-          x2 = (190 + m*x1 - y1)/m;
-        }
-        if (y1 <= 190) {
-          y1 = 190;
-          x1 = (190 + m*x2 - y2)/m;
-        }
-
-
-        //  if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && MenschSensorMesswerte[j][i] != 0) {
-        if (y1 >= 190 && y2 >= 190 && x2 >= 500 && x1 <= 1200 && x2 <= 1200 && x1>=500) {
-          strokeWeight(3);
-          line(x1, y1, x2, y2);
-        }
-        if (MenschSensorMesswerte[j][i] <= max && MenschSensorMesswerte[j][i-1] <= max) {
-          dottedLine(500, 590 - MesswertSensor[j]*400/max, 1200, 190);
-          strokeWeight(1);
-        }
-        stroke(0);
-        fill(0);
-      }
-    }
-  }
-
-  if (ja_zufrieden.isClicked()) {
-    page = 2.3;
-    Reihenfolge_Sensor = sortArray(MesswertSensor, Reihenfolge_Sensor_temp);
-  }
-  strokeWeight(1);
-
-  pushMatrix();
-  translate(width/2, height/2);
-  rotate(3*PI/2);
-  if (max <= 1000) {
-    text("TVOC in ppb", height/2 -320, -width/2 + 410);
-  } else {
-    text("TVOC in ppb", height/2 -320, -width/2 + 390);
-  }
-  popMatrix();
 }
 
 
+boolean messen_Station2 = false;
+boolean[] Proben_Vermessen = {false, false, false, false, false};
 
 
 
