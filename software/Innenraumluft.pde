@@ -264,12 +264,13 @@ void Innenraumluft_a() {
   }
   fill(0);
   textAlign(CENTER);
+  fill(255, 0, 0);
   if (Rot != -1 && maxRot != 0) {
     for (int i = 0; i< 6; i++) {
       text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
     }
   }
-
+  fill(0, 0, 255);
   if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
       text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
@@ -361,11 +362,11 @@ void Innenraumluft_a() {
       Station4aFertig = false;
     }
   }
-  if (Station4aFertig) {
-    Station4b.show();
-  } else {
-    Station4b.hide();
-  }
+  // if (Station4aFertig) {
+  Station4b.show();
+  // } else {
+  //   Station4b.hide();
+  // }
   if (freie_stationen.name == "freigeben") {
     Station4b.show();
   }
@@ -973,11 +974,11 @@ void Innenraumluft_b() {
       Station4bFertig = false;
     }
   }
-  if (Station4bFertig) {
-    Station4Auswertung.show();
-  } else {
-    Station4Auswertung.hide();
-  }
+  // if (Station4bFertig) {
+  Station4Auswertung.show();
+  // } else {
+  //    Station4Auswertung.hide();
+  //  }
 
   if (freie_stationen.name == "freigeben") {
     Station4Auswertung.show();
