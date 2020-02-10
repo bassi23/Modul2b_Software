@@ -11,11 +11,11 @@ void SensorAuswahl() {
   textAlign(CORNER);
   textSize(20);
   textFont(bold);
-  text("SCD30 (Temperatur, Luftfeuchte, CO )", 20, 110);
+  text("SCD30 (Temperatur, rel. Luftfeuchte,\nCO )", 20, 110);
   text("SGP30 (TVOC, eCO )", 20, 330);
   text("SPS30 (Feinstaub)", 20, 550);
   textFont(bold3);
-  text("2", 400, 120);
+  text("2", 50, 150);
   text("2", 220, 340);
   stroke(0);
   line(450, 0, 450, 720);

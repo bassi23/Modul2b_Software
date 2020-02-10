@@ -74,7 +74,7 @@ void Tutorial2() {
     einheit_Rot = " in ppm";
   } else if (tutorial_Rot.name == "Temperatur") {
     einheit_Rot = " in °C";
-  } else if (tutorial_Rot.name == "Luftfeuchte") {
+  } else if (tutorial_Rot.name == "rel. Luftfeuchte") {
     einheit_Rot = " in %";
   } else if (tutorial_Rot.name == "CO") {
     einheit_Rot = " in ppm";
@@ -94,7 +94,7 @@ void Tutorial2() {
     einheit_Blau = " in ppm";
   } else if (tutorial_Blau.name == "Temperatur") {
     einheit_Blau = " in °C";
-  } else if (tutorial_Blau.name == "Luftfeuchte") {
+  } else if (tutorial_Blau.name == "rel. Luftfeuchte") {
     einheit_Blau = " in %";
   } else if (tutorial_Blau.name == "CO") {
     einheit_Blau = " in ppm";
@@ -191,7 +191,7 @@ void Tutorial3() {
   } else if (tutorial_Rot.name == "Temperatur") {
     einheit_Rot = " in °C";
     graph_links = 0;
-  } else if (tutorial_Rot.name == "Luftfeuchte") {
+  } else if (tutorial_Rot.name == "rel. Luftfeuchte") {
     einheit_Rot = " in %";
     graph_links = 1;
   } else if (tutorial_Rot.name == "CO") {
@@ -220,7 +220,7 @@ void Tutorial3() {
   } else if (tutorial_Blau.name == "Temperatur") {
     einheit_Blau = " in °C";
     graph_rechts = 0;
-  } else if (tutorial_Blau.name == "Luftfeuchte") {
+  } else if (tutorial_Blau.name == "rel. Luftfeuchte") {
     einheit_Blau = " in %";
     graph_rechts = 1;
   } else if (tutorial_Blau.name == "CO") {
@@ -347,7 +347,7 @@ void Tutorial4() {
   } else if (tutorial_Rot.name == "Temperatur") {
     einheit_Rot = " in °C";
     graph_links = 0;
-  } else if (tutorial_Rot.name == "Luftfeuchte") {
+  } else if (tutorial_Rot.name == "rel. Luftfeuchte") {
     einheit_Rot = " in %";
     graph_links = 1;
   } else if (tutorial_Rot.name == "CO") {
@@ -376,7 +376,7 @@ void Tutorial4() {
   } else if (tutorial_Blau.name == "Temperatur") {
     einheit_Blau = " in °C";
     graph_rechts = 0;
-  } else if (tutorial_Blau.name == "Luftfeuchte") {
+  } else if (tutorial_Blau.name == "rel. Luftfeuchte") {
     einheit_Blau = " in %";
     graph_rechts = 1;
   } else if (tutorial_Blau.name == "CO") {
@@ -542,7 +542,7 @@ void Tutorial5() {
   } else if (tutorial_Rot.name == "Temperatur") {
     einheit_Rot = " in °C";
     graph_links = 0;
-  } else if (tutorial_Rot.name == "Luftfeuchte") {
+  } else if (tutorial_Rot.name == "rel. Luftfeuchte") {
     einheit_Rot = " in %";
     graph_links = 1;
   } else if (tutorial_Rot.name == "CO") {
@@ -571,7 +571,7 @@ void Tutorial5() {
   } else if (tutorial_Blau.name == "Temperatur") {
     einheit_Blau = " in °C";
     graph_rechts = 0;
-  } else if (tutorial_Blau.name == "Luftfeuchte") {
+  } else if (tutorial_Blau.name == "rel. Luftfeuchte") {
     einheit_Blau = " in %";
     graph_rechts = 1;
   } else if (tutorial_Blau.name == "CO") {
@@ -727,7 +727,7 @@ void Tutorial6() {
   } else if (tutorial_Rot.name == "Temperatur") {
     einheit_Rot = " in °C";
     graph_links = 0;
-  } else if (tutorial_Rot.name == "Luftfeuchte") {
+  } else if (tutorial_Rot.name == "rel. Luftfeuchte") {
     einheit_Rot = " in %";
     graph_links = 1;
   } else if (tutorial_Rot.name == "CO") {
@@ -756,7 +756,7 @@ void Tutorial6() {
   } else if (tutorial_Blau.name == "Temperatur") {
     einheit_Blau = " in °C";
     graph_rechts = 0;
-  } else if (tutorial_Blau.name == "Luftfeuchte") {
+  } else if (tutorial_Blau.name == "rel. Luftfeuchte") {
     einheit_Blau = " in %";
     graph_rechts = 1;
   } else if (tutorial_Blau.name == "CO") {
@@ -933,7 +933,7 @@ void Tutorial7() {
   } else if (tutorial_Rot.name == "Temperatur") {
     einheit_Rot = " in °C";
     graph_links = 0;
-  } else if (tutorial_Rot.name == "Luftfeuchte") {
+  } else if (tutorial_Rot.name == "rel. Luftfeuchte") {
     einheit_Rot = " in %";
     graph_links = 1;
   } else if (tutorial_Rot.name == "CO") {
@@ -962,7 +962,7 @@ void Tutorial7() {
   } else if (tutorial_Blau.name == "Temperatur") {
     einheit_Blau = " in °C";
     graph_rechts = 0;
-  } else if (tutorial_Blau.name == "Luftfeuchte") {
+  } else if (tutorial_Blau.name == "rel. Luftfeuchte") {
     einheit_Blau = " in %";
     graph_rechts = 1;
   } else if (tutorial_Blau.name == "CO") {
@@ -1172,7 +1172,7 @@ void Tutorial8() {
   } else if (tutorial_Rot.name == "Temperatur") {
     einheit_Rot = " in °C";
     graph_links = 0;
-  } else if (tutorial_Rot.name == "Luftfeuchte") {
+  } else if (tutorial_Rot.name == "rel. Luftfeuchte") {
     einheit_Rot = " in %";
     graph_links = 1;
   } else if (tutorial_Rot.name == "CO") {
@@ -1201,7 +1201,7 @@ void Tutorial8() {
   } else if (tutorial_Blau.name == "Temperatur") {
     einheit_Blau = " in °C";
     graph_rechts = 0;
-  } else if (tutorial_Blau.name == "Luftfeuchte") {
+  } else if (tutorial_Blau.name == "rel. Luftfeuchte") {
     einheit_Blau = " in %";
     graph_rechts = 1;
   } else if (tutorial_Blau.name == "CO") {

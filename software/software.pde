@@ -44,19 +44,19 @@ Textfield22 Kalibrierung2_2;
 
 String[] Aufloesung_Strings = {"Niedrig (800x450)", "Mittel (1024x600)", "Standard (1280x720)", "Hoch (1440x810)", "Fullscreen", "frei"};
 //String[] Alle_Sensoren_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
-String[] Alle_Sensoren_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
+String[] Alle_Sensoren_Strings = {"", "TVOC", "Temperatur", "rel. Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 String[] strichdicke_Strings = {"1 (dünn)", "2 (Standard)", "3 (dick)"};
 
 String[] SPS_Strings_Station1 = {"", "PM2.5", "PM10"};
 String[] SPS_Strings_Station1_Auswertung = {"", "PM2.5 (Referenz)", "PM10 (Referenz)", "PM2.5 (trocken)", "PM10 (trocken)", "PM2.5 (nass)", "PM10 (nass)"};
 //String[] Station4_Strings = {"", "Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
-String[] Station4_Strings = {"", "Temperatur", "Luftfeuchte", "CO2", "TVOC"};
+String[] Station4_Strings = {"", "Temperatur", "rel. Luftfeuchte", "CO2", "TVOC"};
 
 //String[] Station4_Auswertung_Strings = {"Zeit", "Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
 //String[] Station4_Auswertung_Strings2 = {"Temperatur", "Luftfeuchte", "CO2", "TVOC", "eCO2"};
 
-String[] Station4_Auswertung_Strings = {"Zeit", "Temperatur", "Luftfeuchte", "CO2", "TVOC"};
-String[] Station4_Auswertung_Strings2 = {"Temperatur", "Luftfeuchte", "CO2", "TVOC"};
+String[] Station4_Auswertung_Strings = {"Zeit", "Temperatur", "rel. Luftfeuchte", "CO2", "TVOC"};
+String[] Station4_Auswertung_Strings2 = {"Temperatur", "rel. Luftfeuchte", "CO2", "TVOC"};
 String[] dateiformat_Strings = {"Format: .csv", "Format: .txt"};
 String[] autosave_Strings = {"nicht speichern", "speichern bei 'zurück'", "autosave (jede Minute)", "autosave (jede Stunde)", "autosave (jeden Tag)"};
 String[] connect_Strings = {"verbinden", "nicht verbinden"};
@@ -65,8 +65,8 @@ String[] freie_stationen_Strings = {"nicht freigeben", "freigeben"};
 
 //String[] tutorial_Rot_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 //String[] tutorial_Blau_Strings = {"", "TVOC", "eCO2", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
-String[] tutorial_Rot_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
-String[] tutorial_Blau_Strings = {"", "TVOC", "Temperatur", "Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
+String[] tutorial_Rot_Strings = {"", "TVOC", "Temperatur", "rel. Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
+String[] tutorial_Blau_Strings = {"", "TVOC", "Temperatur", "rel. Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 //Logos und Hintergrundbilder
 PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil;
 PImage Vorschau_Station1, Vorschau_Station2, Vorschau_Station2a, Vorschau_Station2b, Vorschau_Station3, Vorschau_Station4;
@@ -373,7 +373,7 @@ void setup() {
   table = new Table();
   table.addColumn("Zeit");
   table.addColumn("Temperatur");
-  table.addColumn("Luftfeuchte");
+  table.addColumn("rel. Luftfeuchte");
   table.addColumn("CO2");
   table.addColumn("eCO2");
   table.addColumn("TVOC");
@@ -444,7 +444,7 @@ void setup() {
   //
   SPS30 = new button(100, 50, 450, 300, "Feinstaub", 15, true, 50);
   SGP30 = new button(650, 50, 450, 300, "TVOC, eCO2", 15, true, 50);
-  SCD30 = new button(100, 375, 450, 300, "Temperatur,\nLuftfeuchte,\nCO2", -40, true, 50);
+  SCD30 = new button(100, 375, 450, 300, "Temperatur,\nrel. Luftfeuchte,\nCO2", -40, true, 50);
   alle_Sensoren = new button(720, 100, 300, 150, "Messwert gegen\nZeit", -10, true, 30);
   alle_Sensoren2 = new button(720, 400, 300, 150, "Messwert gegen\nMesswert", -10, true, 30);
 
@@ -1519,14 +1519,14 @@ void saveDataInnenraum() {
       if (i < indexInnenraumlufta) {
         newRow.setFloat("Zeit", Innenraumlufta[6][i]);
         newRow.setFloat("Temperatur", Innenraumlufta[0][i]);
-        newRow.setFloat("Luftfeuchte", Innenraumlufta[1][i]);
+        newRow.setFloat("rel. Luftfeuchte", Innenraumlufta[1][i]);
         newRow.setFloat("CO2", Innenraumlufta[4][i]);
         newRow.setFloat("eCO2", Innenraumlufta[5][i]);
         newRow.setFloat("TVOC", Innenraumlufta[3][i]);
       } else if (i < (indexInnenraumluftb + indexInnenraumlufta)) {
         newRow.setFloat("Zeit", Innenraumluftb[6][i - indexInnenraumlufta]);
         newRow.setFloat("Temperatur", Innenraumluftb[0][i - indexInnenraumlufta]);
-        newRow.setFloat("Luftfeuchte", Innenraumluftb[1][i - indexInnenraumlufta]);
+        newRow.setFloat("rel. Luftfeuchte", Innenraumluftb[1][i - indexInnenraumlufta]);
         newRow.setFloat("CO2", Innenraumluftb[4][i - indexInnenraumlufta]);
         newRow.setFloat("eCO2", Innenraumluftb[5][i - indexInnenraumlufta]);
         newRow.setFloat("TVOC", Innenraumluftb[3][i - indexInnenraumlufta]);
@@ -1610,7 +1610,7 @@ void saveData() {
         newRow.setString("Zeit", time_String[index - tagesIndex + i + 1]);
         //   newRow.setFloat("Zeit", (zeit[index - tagesIndex + i] - zeit[index - tagesIndex]));
         newRow.setFloat("Temperatur", scd_temperature_data[index - tagesIndex + i]);
-        newRow.setFloat("Luftfeuchte", scd_humidity_data[index - tagesIndex + i]);
+        newRow.setFloat("rel. Luftfeuchte", scd_humidity_data[index - tagesIndex + i]);
         newRow.setFloat("CO2", scd_co2_data[index - tagesIndex + i]);
         newRow.setFloat("eCO2", sgp_eco2_data[index - tagesIndex + i]);
         newRow.setFloat("TVOC", sgp_tvoc_data[index - tagesIndex + i]);
@@ -1649,7 +1649,7 @@ void exit() {
       newRow.setInt("Zeit", i);
       newRow.setString("Zeit", time_String[index - tagesIndex + i + 1]);
       newRow.setFloat("Temperatur", scd_temperature_data[index - tagesIndex + i]);
-      newRow.setFloat("Luftfeuchte", scd_humidity_data[index - tagesIndex + i]);
+      newRow.setFloat("rel. Luftfeuchte", scd_humidity_data[index - tagesIndex + i]);
       newRow.setFloat("CO2", scd_co2_data[index - tagesIndex + i]);
       newRow.setFloat("eCO2", sgp_eco2_data[index - tagesIndex + i]);
       newRow.setFloat("TVOC", sgp_tvoc_data[index - tagesIndex + i]);

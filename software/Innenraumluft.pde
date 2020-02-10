@@ -8,7 +8,7 @@ void Innenraumluft() {
   Station4_Aufgabentext_a2.show();
   textAlign(LEFT);
   text("1) 3 Minuten ruhig sitzen \n2) 3 Minuten Sport machen", 500, 165);
-  text("Nimm den Verlauf der Luftqualitätsparameter Temperatur, Luftfeuchte, CO2 und TVOC auf. Führe den Versuch ein-\nmal ohne, und einmal mit laufenden Ventilatoren durch.", 95, 240);
+  text("Nimm den Verlauf der Luftqualitätsparameter Temperatur, rel. Luftfeuchte, CO2 und TVOC auf. Führe den Versuch ein-\nmal ohne, und einmal mit laufenden Ventilatoren durch.", 95, 240);
   textSize(14);
   //  text("2                    2", 730, 140);
   stroke(0);
@@ -45,7 +45,7 @@ void Innenraumluft_a() {
   if (Station4_Rot.name == "Temperatur") {
     Rot = 0;
     maxRot = 10*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "Luftfeuchte") {
+  } else if (Station4_Rot.name == "rel. Luftfeuchte") {
     Rot = 1;
     maxRot = 20*(scale_Innenraum1);
   } else if (Station4_Rot.name == "CO") {
@@ -62,7 +62,7 @@ void Innenraumluft_a() {
   if (Station4_Blau.name == "Temperatur") {
     Blau = 0;
     maxBlau = 10*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "Luftfeuchte") {
+  } else if (Station4_Blau.name == "rel. Luftfeuchte") {
     Blau = 1;
     maxBlau = 20*(scale_Innenraum2);
   } else if (Station4_Blau.name == "CO") {
@@ -305,7 +305,7 @@ void Innenraumluft_a() {
   } else if (Rot == 0) {
     text("Temperatur in °C", height/2 -490, -width/2 + 50);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", height/2 -490, -width/2 + 50);
+    text("rel. Luftfeuchte in %", height/2 -490, -width/2 + 50);
   } else if (Rot == 2) {
     text("CO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
@@ -327,7 +327,7 @@ void Innenraumluft_a() {
   if (Blau == 0) {
     text("Temperatur in °C", -height/2 +300, width/2 - 1050);
   } else if (Blau == 1) {
-    text("Luftfeuchte in %", -height/2 +300, width/2 - 1050);
+    text("rel. Luftfeuchte in %", -height/2 +300, width/2 - 1050);
   } else if (Blau == 2) {
     text("CO  in ppm", -height/2 +300, width/2 - 1050);
     textSize(16);
@@ -598,7 +598,7 @@ void Innenraumluft_b() {
   if (Station4_Rot.name == "Temperatur") {
     Rot = 0;
     maxRot = 10*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "Luftfeuchte") {
+  } else if (Station4_Rot.name == "rel. Luftfeuchte") {
     Rot = 1;
     maxRot = 20*(scale_Innenraum1);
   } else if (Station4_Rot.name == "CO") {
@@ -615,7 +615,7 @@ void Innenraumluft_b() {
   if (Station4_Blau.name == "Temperatur") {
     Blau = 0;
     maxBlau = 10*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "Luftfeuchte") {
+  } else if (Station4_Blau.name == "rel. Luftfeuchte") {
     Blau = 1;
     maxBlau = 20*(scale_Innenraum2);
   } else if (Station4_Blau.name == "CO") {
@@ -845,7 +845,7 @@ void Innenraumluft_b() {
   } else if (Rot == 0) {
     text("Temperatur in °C", height/2 -490, -width/2 + 50);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", height/2 -490, -width/2 + 50);
+    text("rel. Luftfeuchte in %", height/2 -490, -width/2 + 50);
   } else if (Rot == 2) {
     text("CO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
@@ -867,7 +867,7 @@ void Innenraumluft_b() {
   if (Blau == 0) {
     text("Temperatur in °C", -height/2 +300, width/2 - 1050);
   } else if (Blau == 1) {
-    text("Luftfeuchte in %", -height/2 +300, width/2 - 1050);
+    text("rel. Luftfeuchte in %", -height/2 +300, width/2 - 1050);
   } else if (Blau == 2) {
     text("CO  in ppm", -height/2 +300, width/2 - 1050);
     textSize(16);
@@ -909,7 +909,7 @@ void Innenraumluft_c() {
   if (Station4_Rot.name == "Temperatur") {
     Rot = 0;
     maxRot = 10*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "Luftfeuchte") {
+  } else if (Station4_Rot.name == "rel. Luftfeuchte") {
     Rot = 1;
     maxRot = 20*(scale_Innenraum1);
   } else if (Station4_Rot.name == "CO") {
@@ -926,7 +926,7 @@ void Innenraumluft_c() {
   if (Station4_Blau.name == "Temperatur") {
     Blau = 0;
     maxBlau = 10*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "Luftfeuchte") {
+  } else if (Station4_Blau.name == "rel. Luftfeuchte") {
     Blau = 1;
     maxBlau = 20*(scale_Innenraum2);
   } else if (Station4_Blau.name == "CO") {
@@ -1154,7 +1154,7 @@ void Innenraumluft_c() {
   } else if (Rot == 0) {
     text("Temperatur in °C", height/2 -490, -width/2 + 50);
   } else if (Rot == 1) {
-    text("Luftfeuchte in %", height/2 -490, -width/2 + 50);
+    text("rel. Luftfeuchte in %", height/2 -490, -width/2 + 50);
   } else if (Rot == 2) {
     text("CO  in ppm", height/2 -490, -width/2 + 50);
     textSize(16);
@@ -1176,7 +1176,7 @@ void Innenraumluft_c() {
   if (Blau == 0) {
     text("Temperatur in °C", -height/2 +300, width/2 - 1050);
   } else if (Blau == 1) {
-    text("Luftfeuchte in %", -height/2 +300, width/2 - 1050);
+    text("rel. Luftfeuchte in %", -height/2 +300, width/2 - 1050);
   } else if (Blau == 2) {
     text("CO  in ppm", -height/2 +300, width/2 - 1050);
     textSize(16);

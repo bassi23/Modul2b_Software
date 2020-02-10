@@ -1262,8 +1262,9 @@ void Duell2_() {
 // Kleber
 void Duell3_() {
   Duell_Aufgabentext.show();
-  image(Stoff5_bild, 250, 150);
-  image(Stoff6_bild, 950, 150);
+  image(Stoff5_bild, 950, 150);
+  image(Stoff6_bild, 250, 150);
+  image(blauer_engel, 1050, 150);
 
   fill(255);
   stroke(200);
@@ -1294,8 +1295,8 @@ void Duell3_() {
 
   textAlign(CENTER);
   fill(0);
-  text("Retentionszeit / min", 350, 645);
-  text("Retentionszeit / min", 1010, 645);
+  text("Retentionszeit", 350, 645);
+  text("Retentionszeit", 1010, 645);
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
@@ -1349,20 +1350,21 @@ void Duell3_() {
     text("7", 175, 265);
   }
   stroke(0);
-  for (int i = 1; i < Bastelkleber_data.length; i++) {
-    float x1 = 100 + 500*(i-1)/Bastelkleber_data.length;
-    float x2 = 100 + 500*i/Bastelkleber_data.length;
-    float y1 = 600 - 300*Bastelkleber_data[i-1]/maxBastelkleber;
-    float y2 = 600 - 300*Bastelkleber_data[i]/maxBastelkleber;
+
+  for (int i = 1; i < Sekundenkleber_data.length; i++) {
+    float x1 = 100 + 500*(i-1)/Sekundenkleber_data.length;
+    float x2 = 100 + 500*i/Sekundenkleber_data.length;
+    float y1 = 600 - 300*Sekundenkleber_data[i-1]/maxSekundenkleber;
+    float y2 = 600 - 300*Sekundenkleber_data[i]/maxSekundenkleber;
 
     line(x1, y1, x2, y2);
   }
 
-  for (int i = 1; i < Sekundenkleber_data.length; i++) {
-    float x1 = 740 + 500*(i-1)/Sekundenkleber_data.length;
-    float x2 = 740 + 500*i/Sekundenkleber_data.length;
-    float y1 = 600 - 300*Sekundenkleber_data[i-1]/maxSekundenkleber;
-    float y2 = 600 - 300*Sekundenkleber_data[i]/maxSekundenkleber;
+  for (int i = 1; i < Bastelkleber_data.length; i++) {
+    float x1 = 740 + 500*(i-1)/Bastelkleber_data.length;
+    float x2 = 740 + 500*i/Bastelkleber_data.length;
+    float y1 = 600 - 300*Bastelkleber_data[i-1]/maxBastelkleber;
+    float y2 = 600 - 300*Bastelkleber_data[i]/maxBastelkleber;
 
     line(x1, y1, x2, y2);
   }
@@ -1370,28 +1372,30 @@ void Duell3_() {
   ///////////////////////////////////////
   fill(255);
   stroke(0);
-  rect(110, 300 + maxBastelkleber*5, 50, 50);
-  rect(300, 440+ maxBastelkleber*2, 50, 50);
-  rect(420, 390+ maxBastelkleber*3, 50, 50);
+  rect(750, 300 + maxBastelkleber*5, 50, 50);
+  rect(940, 440+ maxBastelkleber*2, 50, 50);
+  rect(1125, 390+ maxBastelkleber*3, 50, 50);
 
   fill(0);
   textAlign(CENTER);
   textSize(30);
-  text("?", 110 + 25, 300 + maxBastelkleber*5 + 35);
-  text("?", 300 + 25, 440+ maxBastelkleber*2 + 35);
-  text("?", 420 + 25, 390+ maxBastelkleber*3 + 35);
+  text("?", 750 + 25, 300 + maxBastelkleber*5 + 35);
+  text("?", 940 + 25, 440+ maxBastelkleber*2 + 35);
+  text("?", 1125 + 25, 390+ maxBastelkleber*3 + 35);
 
   fill(255);
   stroke(0);
-  rect(750, 500, 50, 50);
-  rect(940, 330, 50, 50);
-  rect(1125, 500, 50, 50);
+
+  
+  rect(110, 500, 50, 50);
+  rect(300, 330, 50, 50);
+  rect(420, 500, 50, 50);
   fill(0);
   textAlign(CENTER);
   textSize(30);
-  text("?", 750 + 25, 535);
-  text("?", 940 + 25, 365);
-  text("?", 1125 + 25, 535);
+  text("?", 110 + 25, 535);
+  text("?", 300 + 25, 365);
+  text("?", 420 + 25, 535);
   //////////////////////////////////////
   PImage[] Butanol = {entzuendlich, aetzend, gesundheitsschaedlich};
   PImage[] n_Butyl_Ester = {entzuendlich, reizend};
@@ -1401,15 +1405,15 @@ void Duell3_() {
   PImage[] Cyanacrylate = {reizend};
   PImage[] Undecane = {gesundheitsschaedlich};
 
-  GCMS_Peak(110, 300 + maxBastelkleber*5, "left", "1-Butanol", "1-Butanol (auch n-Butanol oder nach IUPAC Butan-1-ol)\nist eine chemische Verbindung aus der Gruppe der Al-\nkanole.", "Es wird als Lösungsmittel bei der Herstellung von Lacken\nverwendet. Es verhindert das Weißanlaufen beim Trock-\nnen der Lacke in feuchter Umgebung.", 3, Butanol);
-  GCMS_Peak(300, 440 + maxBastelkleber*2, "left", "Essigsäure-N-Butylester", "Es ist ein klares, farbloses Lösungsmittel mit eher ange-\nnehmem, fruchtartigem Geruch.", "Es ist ein weitverbreitetes Lacklösungsmittel. Aufgrund\nseiner starken Lösungskraft findet es auch als Bestandteil\nvon Nagellackentfernern und Verdünnern Verwendung. ", 2, n_Butyl_Ester);
-  GCMS_Peak(420, 390+ maxBastelkleber*3, "left", "Buttersäure", "Es ist der Trivialname der Butansäure, einer Carbonsäure\nund gleichzeitig der einfachsten Fettsäure. Sie entsteht\nin der Natur durch Buttersäuregärung.", "Es findet Anwendung in Biokraftstoffen, sowie in der\npharmazeutischen und chemischen Industrie.", 2, buttersaeure);
+  GCMS_Peak(750, 300 + maxBastelkleber*5, "right", "1-Butanol", "1-Butanol (auch n-Butanol oder nach IUPAC Butan-1-ol)\nist eine chemische Verbindung aus der Gruppe der Al-\nkanole.", "Es wird als Lösungsmittel bei der Herstellung von Lacken\nverwendet. Es verhindert das Weißanlaufen beim Trock-\nnen der Lacke in feuchter Umgebung.", 3, Butanol);
+  GCMS_Peak(940, 440 + maxBastelkleber*2, "right", "Essigsäure-N-Butylester", "Es ist ein klares, farbloses Lösungsmittel mit eher ange-\nnehmem, fruchtartigem Geruch.", "Es ist ein weitverbreitetes Lacklösungsmittel. Aufgrund\nseiner starken Lösungskraft findet es auch als Bestandteil\nvon Nagellackentfernern und Verdünnern Verwendung. ", 2, n_Butyl_Ester);
+  GCMS_Peak(1130, 390+ maxBastelkleber*3, "right", "Buttersäure", "Sie ist der Trivialname der Butansäure, einer Carbonsäure\nund gleichzeitig der einfachsten Fettsäure. Sie entsteht\nin der Natur durch Buttersäuregärung.", "Es findet Anwendung in Biokraftstoffen, sowie in der\npharmazeutischen und chemischen Industrie.", 2, buttersaeure);
 
 
   //////
-  GCMS_Peak(750, 500, "right", "Methacrylsäuremethylester", "Es ist eine farblose Flüssigkeit mit unangenehm ester-\nartigem Geruch. Es ist leicht entzündlich und verdunstet\nleicht.", "Es wird vornehmlich zur Herstellung von Acrylglas ver-\nwendet. Weiterhin ist es, in der Regel, der Hauptbestand-\nteil jeder Dentalprothese aus Kunststoff.", 2, Methacrylsaeuremethylester);
-  GCMS_Peak(940, 330, "right", "Cyanacrylate", "Es sind polymerisierbare, bei Raumtemperatur flüssige\nchemische Verbindungen (Monomere), die häufig als\nKlebstoffe verwendet werden.", "Früher wurde es verwendet, um menschliche Wunden zu\nkleben. Heute findet es hauptsächlich Einsatz in Sekun-\ndenklebern.", 1, Cyanacrylate);
-  GCMS_Peak(1130, 500, "right", "Undecane", "Die Stoffgruppe der Undecane umfasst insgesamt\n159 weitere, verzweigte Konstitutionsisomere.", "n-Undecan ist unter anderem ein Bestandteil von Benzin\nund Dieselkraftstoff. ", 1, Undecane);
+  GCMS_Peak(110, 500, "left", "Methacrylsäuremethylester", "Es ist eine farblose Flüssigkeit mit unangenehm ester-\nartigem Geruch. Es ist leicht entzündlich und verdunstet\nleicht.", "Es wird vornehmlich zur Herstellung von Acrylglas ver-\nwendet. Weiterhin ist es, in der Regel, der Hauptbestand-\nteil jeder Dentalprothese aus Kunststoff.", 2, Methacrylsaeuremethylester);
+  GCMS_Peak(300, 330, "left", "Cyanacrylate", "Es sind polymerisierbare, bei Raumtemperatur flüssige\nchemische Verbindungen (Monomere), die häufig als\nKlebstoffe verwendet werden.", "Früher wurde es verwendet, um menschliche Wunden zu\nkleben. Heute findet es hauptsächlich Einsatz in Sekun-\ndenklebern.", 1, Cyanacrylate);
+  GCMS_Peak(420, 500, "left", "Undecane", "Die Stoffgruppe der Undecane umfasst insgesamt\n159 weitere, verzweigte Konstitutionsisomere.", "n-Undecan ist unter anderem ein Bestandteil von Benzin\nund Dieselkraftstoff. ", 1, Undecane);
 }
 
 
@@ -1448,8 +1452,8 @@ void Duell4_() {
 
   textAlign(CENTER);
   fill(0);
-  text("Retentionszeit / min", 350, 645);
-  text("Retentionszeit / min", 1010, 645);
+  text("Retentionszeit", 350, 645);
+  text("Retentionszeit", 1010, 645);
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);

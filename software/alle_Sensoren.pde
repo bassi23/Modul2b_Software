@@ -32,7 +32,7 @@ void alleSensoren() {
     T_right = true;
     up2.show();
     down2.show();
-  } else if (Alle_Sensoren_Blau.name == "Luftfeuchte") {
+  } else if (Alle_Sensoren_Blau.name == "rel. Luftfeuchte") {
     H_right = true;
     up2.show();
     down2.show();
@@ -74,7 +74,7 @@ void alleSensoren() {
     T_left = true;
     up1.show();
     down1.show();
-  } else if (Alle_Sensoren_Rot.name == "Luftfeuchte") {
+  } else if (Alle_Sensoren_Rot.name == "rel. Luftfeuchte") {
     H_left = true;
     up1.show();
     down1.show();
@@ -336,7 +336,7 @@ void alleSensoren2() {
     y_up.show();
     y_down.show();
     y_achse = "Temperatur in °C";
-  } else if (Alle_Sensoren_Blau.name == "Luftfeuchte") {
+  } else if (Alle_Sensoren_Blau.name == "rel. Luftfeuchte") {
     H_right = true;
     y_up.show();
     y_down.show();
@@ -389,7 +389,7 @@ void alleSensoren2() {
     x_up.show();
     x_down.show();
     x_achse = "Temperatur in °C";
-  } else if (Alle_Sensoren_Rot.name == "Luftfeuchte") {
+  } else if (Alle_Sensoren_Rot.name == "rel. Luftfeuchte") {
     H_left = true;
     x_up.show();
     x_down.show();

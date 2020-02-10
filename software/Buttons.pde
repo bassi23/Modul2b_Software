@@ -69,9 +69,9 @@ class button {
         text("TVOC, eCO", x + dx/2, y + dy/2 + textOffset);
         textSize(30);
         text("2", 1015, 235);
-      } else if (text == "Temperatur,\nLuftfeuchte,\nCO2") {
+      } else if (text == "Temperatur,\nrel. Luftfeuchte,\nCO2") {
         textSize(size);
-        text("Temperatur,\nLuftfeuchte,\nCO", x + dx/2, y + dy/2 + textOffset);
+        text("Temperatur,\nrel. Luftfeuchte,\nCO", x + dx/2, y + dy/2 + textOffset);
         textSize(30);
         text("2", 365, 655);
       } else if (text == "zu Aufgabe b)" || text == "zu Aufgabe c)" || text == "zur Auswertung") {
