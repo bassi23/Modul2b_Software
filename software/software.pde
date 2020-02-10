@@ -113,6 +113,7 @@ button setBaseline;
 button zumObermenu2;
 button Station2_Riechen2, A_wiederholen, B_wiederholen, C_wiederholen, D_wiederholen, E_wiederholen;
 button abbruch_Station2;
+button Temperatur_Doppfelpfeil_down1, Temperatur_Doppfelpfeil_up1, Temperatur_Doppfelpfeil_down2, Temperatur_Doppfelpfeil_up2;
 
 button Duell1, Duell2, Duell3, Duell4;
 
@@ -388,6 +389,14 @@ void setup() {
   down1 = new button(25, 195, 30, 50, "down_arrow", 5, true, 20);
   up2 = new button(1025, 140, 30, 50, "up_arrow", 5, true, 20);
   down2 = new button(1025, 195, 30, 50, "down_arrow", 5, true, 20);
+  
+  
+  Temperatur_Doppfelpfeil_down1 = new button(25, 595, 30, 50, "down_arrow", 5, true, 20);
+  Temperatur_Doppfelpfeil_up1 = new button(25, 540, 30, 50, "up_arrow", 5, true, 20);
+  Temperatur_Doppfelpfeil_down2 = new button(1025, 595, 30, 50, "down_arrow", 5, true, 20);
+  Temperatur_Doppfelpfeil_up2 = new button(1025, 540, 30, 50, "up_arrow", 5, true, 20);
+  
+  
   left1 = new button(1115, 330, 50, 30, "left_arrow", 5, true, 20);
   right1 = new button(1200, 330, 50, 30, "right_arrow", 5, true, 20);
   start_stopp = new button(1115, 35, 140, 50, "Start/Stopp", 5, true, 20);
@@ -567,8 +576,8 @@ void setup() {
   zur_Auswertung = new button(1115, 500, 160, 75, "Zur Aus-\nwertung", -10, true, 20);
 
   // Station 4
-  Station4a = new button(570, 550, 140, 50, "zu Aufgabe a)", 5, true, 20); 
-  Station4b = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20); 
+  Station4a = new button(570, 540, 180, 70, "zur Messung ohne\nVentilator", -10, true, 20); 
+  Station4b = new button(1090, 370, 180, 70, "zur Messung mit\nVentilator", -10, true, 20); 
   Station4c = new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20); 
   Station4Auswertung = new button(1115, 365, 140, 70, "zur\nAuswertung", -12, true, 20); 
   Station4Start = new button(1115, 100, 140, 65, "Messung\nstarten", -5, true, 20); 

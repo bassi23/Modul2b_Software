@@ -29,11 +29,21 @@ boolean reset_bool_station4 = false;
 int scale_Innenraum1 = 0;
 int scale_Innenraum2 = 0;
 
+
+int index_unten_rot = 0;
+int index_unten_blau = 0;
+
+
 void Innenraumluft_a() {
   fill(0);
   zumObermenu.y = 605;
   textSize(20);
   image(fan_aus, 500, 35);
+
+
+
+
+
   int Rot = -1;
   int Blau = -1;
 
@@ -50,7 +60,7 @@ void Innenraumluft_a() {
     maxRot = 20*(scale_Innenraum1);
   } else if (Station4_Rot.name == "CO") {
     Rot = 2;
-    maxRot = 500*(scale_Innenraum1);
+    maxRot = 1000*(scale_Innenraum1);
   } else if (Station4_Rot.name == "TVOC") {
     Rot = 3;
     maxRot = 100*(scale_Innenraum1);
@@ -60,6 +70,57 @@ void Innenraumluft_a() {
   }
 
   if (Station4_Blau.name == "Temperatur") {
+    Temperatur_Doppfelpfeil_down2.show();
+    Temperatur_Doppfelpfeil_up2.show();
+  } else {
+    Temperatur_Doppfelpfeil_down2.hide();
+    Temperatur_Doppfelpfeil_up2.hide();
+  }
+
+  if (Station4_Rot.name == "Temperatur") {
+    Temperatur_Doppfelpfeil_down1.show();
+    Temperatur_Doppfelpfeil_up1.show();
+  } else {
+    Temperatur_Doppfelpfeil_down1.hide();
+    Temperatur_Doppfelpfeil_up1.hide();
+  }
+
+
+
+
+  if (Temperatur_Doppfelpfeil_down1.isClicked()) {
+    index_unten_rot -= 1;
+    if (index_unten_rot < 0) {
+      index_unten_rot = 5;
+    }
+  }
+  if (Temperatur_Doppfelpfeil_up1.isClicked()) {
+    index_unten_rot += 1;
+    if (index_unten_rot > 5) {
+      index_unten_rot = 0;
+    }
+  }
+  if (Temperatur_Doppfelpfeil_down2.isClicked()) {
+    index_unten_blau -= 1;
+    if (index_unten_blau < 0) {
+      index_unten_blau = 5;
+    }
+  }
+  if (Temperatur_Doppfelpfeil_up2.isClicked()) {
+    index_unten_blau += 1;
+    if (index_unten_blau > 5) {
+      index_unten_blau = 0;
+    }
+  }
+
+
+  float offset_rot = 0;
+  float offset_blau = 0;
+
+
+
+
+  if (Station4_Blau.name == "Temperatur") {
     Blau = 0;
     maxBlau = 10*(scale_Innenraum2);
   } else if (Station4_Blau.name == "rel. Luftfeuchte") {
@@ -67,7 +128,7 @@ void Innenraumluft_a() {
     maxBlau = 20*(scale_Innenraum2);
   } else if (Station4_Blau.name == "CO") {
     Blau = 2;
-    maxBlau = 500*(scale_Innenraum2);
+    maxBlau = 1000*(scale_Innenraum2);
   } else if (Station4_Blau.name == "TVOC") {
     Blau = 3;
     maxBlau = 100*(scale_Innenraum2);
@@ -76,7 +137,13 @@ void Innenraumluft_a() {
     maxBlau = 500*(scale_Innenraum2);
   }
 
+  if (Station4_Blau.name == "Temperatur") {
+    offset_blau = (index_unten_blau)*maxBlau/5;
+  }
 
+  if (Station4_Rot.name == "Temperatur") {
+    offset_rot = (index_unten_rot)*maxRot/5;
+  }
 
   if (up1.isClicked()) {
     scale_Innenraum1 += 1;
@@ -181,6 +248,15 @@ void Innenraumluft_a() {
       }
     }
   }
+  if (scale_Innenraum1 != 0) {
+    minRot = minRot+ offset_rot;
+    maxRot = maxRot+ offset_rot;
+  }
+  if (scale_Innenraum2 != 0) {
+    minBlau = minBlau+ offset_blau;
+    maxBlau = maxBlau+ offset_blau;
+  }
+
 
   stroke(200);
   for (int i = 0; i < 4; i++) {
@@ -219,7 +295,6 @@ void Innenraumluft_a() {
     text(nf(del, 0, 0) + " s", 1185, 565);
   }
   textAlign(CORNER);
-
 
 
 
@@ -603,7 +678,7 @@ void Innenraumluft_b() {
     maxRot = 20*(scale_Innenraum1);
   } else if (Station4_Rot.name == "CO") {
     Rot = 2;
-    maxRot = 500*(scale_Innenraum1);
+    maxRot = 1000*(scale_Innenraum1);
   } else if (Station4_Rot.name == "TVOC") {
     Rot = 3;
     maxRot = 100*(scale_Innenraum1);
@@ -620,7 +695,7 @@ void Innenraumluft_b() {
     maxBlau = 20*(scale_Innenraum2);
   } else if (Station4_Blau.name == "CO") {
     Blau = 2;
-    maxBlau = 500*(scale_Innenraum2);
+    maxBlau = 1000*(scale_Innenraum2);
   } else if (Station4_Blau.name == "TVOC") {
     Blau = 3;
     maxBlau = 100*(scale_Innenraum2);
@@ -628,6 +703,60 @@ void Innenraumluft_b() {
     Blau = 4;
     maxBlau = 500*(scale_Innenraum2);
   }
+
+
+
+
+  if (Station4_Blau.name == "Temperatur") {
+    Temperatur_Doppfelpfeil_down2.show();
+    Temperatur_Doppfelpfeil_up2.show();
+  } else {
+    Temperatur_Doppfelpfeil_down2.hide();
+    Temperatur_Doppfelpfeil_up2.hide();
+  }
+
+  if (Station4_Rot.name == "Temperatur") {
+    Temperatur_Doppfelpfeil_down1.show();
+    Temperatur_Doppfelpfeil_up1.show();
+  } else {
+    Temperatur_Doppfelpfeil_down1.hide();
+    Temperatur_Doppfelpfeil_up1.hide();
+  }
+
+
+
+
+  if (Temperatur_Doppfelpfeil_down1.isClicked()) {
+    index_unten_rot -= 1;
+    if (index_unten_rot < 0) {
+      index_unten_rot = 5;
+    }
+  }
+  if (Temperatur_Doppfelpfeil_up1.isClicked()) {
+    index_unten_rot += 1;
+    if (index_unten_rot > 5) {
+      index_unten_rot = 0;
+    }
+  }
+  if (Temperatur_Doppfelpfeil_down2.isClicked()) {
+    index_unten_blau -= 1;
+    if (index_unten_blau < 0) {
+      index_unten_blau = 5;
+    }
+  }
+  if (Temperatur_Doppfelpfeil_up2.isClicked()) {
+    index_unten_blau += 1;
+    if (index_unten_blau > 5) {
+      index_unten_blau = 0;
+    }
+  }
+
+  println(index_unten_blau, index_unten_rot);
+
+
+  float offset_rot = 0;
+  float offset_blau = 0;
+
 
 
 
@@ -722,6 +851,23 @@ void Innenraumluft_b() {
   }
 
 
+  if (Station4_Blau.name == "Temperatur") {
+    offset_blau = (index_unten_blau)*maxBlau/5;
+  }
+
+  if (Station4_Rot.name == "Temperatur") {
+    offset_rot = (index_unten_rot)*maxRot/5;
+  }
+
+  if (scale_Innenraum1 != 0) {
+    minRot = minRot+ offset_rot;
+    maxRot = maxRot+ offset_rot;
+  }
+  if (scale_Innenraum2 != 0) {
+    minBlau = minBlau+ offset_blau;
+    maxBlau = maxBlau+ offset_blau;
+  }
+
   stroke(200);
   for (int i = 0; i < 4; i++) {
     line(120, 240 +100*i, 950, 240 + 100*i);
@@ -759,6 +905,7 @@ void Innenraumluft_b() {
     text(nf(del, 0, 0) + " s", 1185, 565);
   }
   textAlign(CORNER);
+
 
 
 
@@ -1260,10 +1407,10 @@ void AuswertungInnenraum() {
   translate(width/2, height/2);
   rotate(PI/2);
   fill(0, 0, 255);
-  text("rel. Luftfeuchte in %", height/2 -240, -width/2 + 40);
-  text("TVOC in ppb", height/2 -540, -width/2 + 40);
-  text("rel. Luftfeuchte in %", height/2 -240, -width/2 + 670);
-  text("TVOC in ppb", height/2 -540, -width/2 + 670);
+  text("rel. Luftfeuchte in %", -height/2 +480, width/2 - 600);
+  text("TVOC in ppb", -height/2 + 180, width/2 - 600);
+  text("rel. Luftfeuchte in %", -height/2 +480, width/2 - 1230);
+  text("TVOC in ppb", -height/2 + 180, width/2 - 1230);
 
   popMatrix();
   fill(100, 100);
@@ -1288,7 +1435,7 @@ void AuswertungInnenraum() {
   float maxTemperatur = 36;
   float minTemperatur = 16;
   float maxLuftfeuchte = 100;
-  float maxCO2 = 2500;
+  float maxCO2 = 5000;
   float maxTVOC = 500;
   textSize(12);
   fill(255, 0, 0);
@@ -1318,44 +1465,59 @@ void AuswertungInnenraum() {
 
 
   for (int i = 1; i < indexInnenraumlufta; i++) {
-    float x1 = 100 + 440*Innenraumlufta[6][i-1]/480;
+    float x1 = 103 + 440*Innenraumlufta[6][i-1]/480;
     float y1 = 320 - 260*Innenraumlufta[2][i-1]/maxCO2;
-    float x2 = 100 + 440*Innenraumlufta[6][i]/480;
+    float x2 = 103 + 440*Innenraumlufta[6][i]/480;
     float y2 = 320 - 260*Innenraumlufta[2][i]/maxCO2;
     stroke(255, 0, 0);
-    line(x1, y1, x2, y2);
+    println(x1, y1);
+    if (y1 > 60 && y2 > 60) {
+      line(x1, y1, x2, y2);
+    }
     y1 =  610 - 260*(Innenraumlufta[0][i-1]-minTemperatur)/(maxTemperatur - minTemperatur);
     y2 =  610 - 260*(Innenraumlufta[0][i]-minTemperatur)/(maxTemperatur - minTemperatur);
-    ;
-    line(x1, y1, x2, y2);
+    if (y1 > 350 && y2 > 350) {
+      line(x1, y1, x2, y2);
+    }
     y1 =  320 - 260*Innenraumlufta[3][i-1]/maxTVOC;
     y2 =  320 - 260*Innenraumlufta[3][i]/maxTVOC;
     stroke(0, 0, 255);
-    line(x1, y1, x2, y2);
+    if (y1 > 60 && y2 > 60) {
+      line(x1, y1, x2, y2);
+    }
     y1 =  610 - 260*Innenraumlufta[1][i-1]/maxLuftfeuchte;
     y2 =  610 - 260*Innenraumlufta[1][i]/maxLuftfeuchte;
-    line(x1, y1, x2, y2);
+    if (y1 > 350 && y2 > 350) {
+      line(x1, y1, x2, y2);
+    }
   }
 
   for (int i = 1; i < indexInnenraumluftb; i++) {
-    float x1 = 740 + 440*Innenraumluftb[6][i-1]/480;
+    float x1 = 743 + 440*Innenraumluftb[6][i-1]/480;
     float y1 = 320 - 260*Innenraumluftb[2][i-1]/maxCO2;
-    float x2 = 740 + 440*Innenraumluftb[6][i]/480;
+    float x2 = 743 + 440*Innenraumluftb[6][i]/480;
     float y2 = 320 - 260*Innenraumluftb[2][i]/maxCO2;
     stroke(255, 0, 0);
-    line(x1, y1, x2, y2);
+    if (y1 > 60 && y2 > 60) {
+      line(x1, y1, x2, y2);
+    }
     y1 =  610 - 260*(Innenraumluftb[0][i-1]-minTemperatur)/(maxTemperatur - minTemperatur);
 
     y2 =  610 - 260*(Innenraumluftb[0][i]-minTemperatur)/(maxTemperatur - minTemperatur);
-
-    line(x1, y1, x2, y2);
+    if (y1 > 350 && y2 > 350) {
+      line(x1, y1, x2, y2);
+    }
     y1 =  320 - 260*Innenraumluftb[3][i-1]/maxTVOC;
     y2 =  320 - 260*Innenraumluftb[3][i]/maxTVOC;
     stroke(0, 0, 255);
-    line(x1, y1, x2, y2);
+    if (y1 > 60 && y2 > 60) {
+      line(x1, y1, x2, y2);
+    }
     y1 =  610 - 260*Innenraumluftb[1][i-1]/maxLuftfeuchte;
     y2 =  610 - 260*Innenraumluftb[1][i]/maxLuftfeuchte;
-    line(x1, y1, x2, y2);
+    if (y1 > 350 && y2 > 350) {
+      line(x1, y1, x2, y2);
+    }
   }
   strokeWeight(1);
 
@@ -1789,7 +1951,7 @@ void mouseReleased() {
     } else {
       Kalibrierung2_2.active = true;
     }
-  }else{
+  } else {
     Kalibrierung2_2.active = false;
   }
 
