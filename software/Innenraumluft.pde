@@ -2,7 +2,7 @@ void Innenraumluft() {
   fill(0);
   textSize(20);
   textFont(bold);
-  text("Station 3.2 - Dicke Luft", 20, 50);
+  text("Station 3.2 - Bitte lüften", 20, 50);
   textFont(normal);
   Station4_Aufgabentext_a.show();
   Station4_Aufgabentext_a2.show();
@@ -146,27 +146,72 @@ void Innenraumluft_a() {
   }
 
   if (up1.isClicked()) {
-    scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 5) {
-      scale_Innenraum1 = 0;
+    if (Station4_Rot.name == "Temperatur") {
+      scale_Innenraum1 += 1;
+      if (scale_Innenraum1 > 3) {
+        scale_Innenraum1 = 2;
+      }
+    } else {
+      scale_Innenraum1 += 1;
+      if (scale_Innenraum1 > 5) {
+        scale_Innenraum1 = 0;
+      }
+    }
+  }
+  if (Station4_Rot.name == "Temperatur") {
+    if (scale_Innenraum1 < 1) {
+      scale_Innenraum1 = 3;
+    }
+    if (scale_Innenraum1 > 3) {
+      scale_Innenraum1 = 2;
+    }
+  }
+
+  if (Station4_Blau.name == "Temperatur") {
+    if (scale_Innenraum2 < 2) {
+      scale_Innenraum2 = 3;
+    }
+    if (scale_Innenraum2 > 3) {
+      scale_Innenraum2 = 2;
     }
   }
   if (down1.isClicked()) {
-    scale_Innenraum1 -= 1;
-    if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 5;
+    if (Station4_Rot.name == "Temperatur") {
+      scale_Innenraum1 -= 1;
+      if (scale_Innenraum1 < 2) {
+        scale_Innenraum1 = 3;
+      }
+    } else {
+      scale_Innenraum1 -= 1;
+      if (scale_Innenraum1 < 0) {
+        scale_Innenraum1 = 5;
+      }
     }
   }
   if (up2.isClicked()) {
-    scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 5) {
-      scale_Innenraum2 = 0;
+    if (Station4_Blau.name == "Temperatur") {
+      scale_Innenraum2 += 1;
+      if (scale_Innenraum2 > 3) {
+        scale_Innenraum2 = 2;
+      }
+    } else {
+      scale_Innenraum2 += 1;
+      if (scale_Innenraum2 > 5) {
+        scale_Innenraum2 = 0;
+      }
     }
   }
   if (down2.isClicked()) {
-    scale_Innenraum2 -= 1;
-    if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 5;
+    if (Station4_Blau.name == "Temperatur") {
+      scale_Innenraum2 -= 1;
+      if (scale_Innenraum2 < 2) {
+        scale_Innenraum2 = 3;
+      }
+    } else {
+      scale_Innenraum2 -= 1;
+      if (scale_Innenraum2 < 0) {
+        scale_Innenraum2 = 5;
+      }
     }
   }
   if (Station4Start.isClicked()) {
@@ -273,7 +318,7 @@ void Innenraumluft_a() {
   fill(0, 0, 255);
   if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
-      text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
     }
   }
   textAlign(CORNER);
@@ -362,14 +407,7 @@ void Innenraumluft_a() {
       Station4aFertig = false;
     }
   }
-  // if (Station4aFertig) {
   Station4b.show();
-  // } else {
-  //   Station4b.hide();
-  // }
-  if (freie_stationen.name == "freigeben") {
-    Station4b.show();
-  }
 
   pushMatrix();
   translate(width/2, height/2);
@@ -752,7 +790,7 @@ void Innenraumluft_b() {
     }
   }
 
- 
+
 
 
   float offset_rot = 0;
@@ -762,27 +800,72 @@ void Innenraumluft_b() {
 
 
   if (up1.isClicked()) {
-    scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 5) {
-      scale_Innenraum1 = 0;
+    if (Station4_Rot.name == "Temperatur") {
+      scale_Innenraum1 += 1;
+      if (scale_Innenraum1 > 3) {
+        scale_Innenraum1 = 2;
+      }
+    } else {
+      scale_Innenraum1 += 1;
+      if (scale_Innenraum1 > 5) {
+        scale_Innenraum1 = 0;
+      }
+    }
+  }
+  if (Station4_Rot.name == "Temperatur") {
+    if (scale_Innenraum1 < 1) {
+      scale_Innenraum1 = 3;
+    }
+    if (scale_Innenraum1 > 3) {
+      scale_Innenraum1 = 2;
+    }
+  }
+
+  if (Station4_Blau.name == "Temperatur") {
+    if (scale_Innenraum2 < 2) {
+      scale_Innenraum2 = 3;
+    }
+    if (scale_Innenraum2 > 3) {
+      scale_Innenraum2 = 2;
     }
   }
   if (down1.isClicked()) {
-    scale_Innenraum1 -= 1;
-    if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 5;
+    if (Station4_Rot.name == "Temperatur") {
+      scale_Innenraum1 -= 1;
+      if (scale_Innenraum1 < 2) {
+        scale_Innenraum1 = 3;
+      }
+    } else {
+      scale_Innenraum1 -= 1;
+      if (scale_Innenraum1 < 0) {
+        scale_Innenraum1 = 5;
+      }
     }
   }
   if (up2.isClicked()) {
-    scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 5) {
-      scale_Innenraum2 = 0;
+    if (Station4_Blau.name == "Temperatur") {
+      scale_Innenraum2 += 1;
+      if (scale_Innenraum2 > 3) {
+        scale_Innenraum2 = 2;
+      }
+    } else {
+      scale_Innenraum2 += 1;
+      if (scale_Innenraum2 > 5) {
+        scale_Innenraum2 = 0;
+      }
     }
   }
   if (down2.isClicked()) {
-    scale_Innenraum2 -= 1;
-    if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 5;
+    if (Station4_Blau.name == "Temperatur") {
+      scale_Innenraum2 -= 1;
+      if (scale_Innenraum2 < 2) {
+        scale_Innenraum2 = 3;
+      }
+    } else {
+      scale_Innenraum2 -= 1;
+      if (scale_Innenraum2 < 0) {
+        scale_Innenraum2 = 5;
+      }
     }
   }
 
@@ -883,7 +966,7 @@ void Innenraumluft_b() {
 
   if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
-      text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
+      text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
     }
   }
   textAlign(CORNER);

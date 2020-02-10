@@ -309,7 +309,7 @@ void setup() {
   Station3_Aufgabentext_a2 = new Aufgabentext(" Ordne die Emission der folgenden Stoffe auf der unteren Skala an, indem du zunächst daran riechst. Vergib Punkte von 0 (nicht wahrnehmbar) bis 6 (extrem stark). Notiere deine Einschätzung auch in der Broschüre.", 20, 230, 1250, 90);
 
   Station3_Aufgabentext_b1 = new Aufgabentext(" Miss nun die verschiedenen Stoffe mit dem Sensor. Lege die Proben in die Plexiglasbox und stelle das Sensorboard darüber. Warte bis der Sensor ein Gleichgewicht erreicht hat und notiere die auch diese Einschätzung in der Broschüre.", 20, 60, 1250, 90);
-  TVOC_Duelle_uebertragen = new Aufgabentext(" Übernehmt bitte die Ergebnisse in die Tabelle in der Bröschüre.", 20, 10, 700, 55);
+  TVOC_Duelle_uebertragen = new Aufgabentext(" Falls noch nicht geschehen, übertragt die Ergebnisse in die Tabelle in der Bröschüre.", 20, 10, 980, 55);
 
   TVOC_Duelle_Analyse = new Aufgabentext(" Mal sehen, was die einzelnen Proben enthalten. Halten die alternativen Produkte, was sie versprechen? Wählt eines der Duelle aus und seht euch die Zusammensetzung der Proben genauer an.", 20, 20, 1240, 90);
   Duell_Aufgabentext = new Aufgabentext(" Hinweise: Wenn ihr mit der Maus über die (?) fahrt, könnt ihr zusätzliche Infos zu den Peaks einholen. Achtet bei eurer Einschätzung auch auf eine geeignete Skalierung.", 20, 20, 1240, 90);
