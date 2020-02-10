@@ -100,6 +100,8 @@ button Sensormessung, messen, letzteWiederholen, ja_zufrieden, reset_Station2;
 button reset_innenraum;
 button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, station4_MessungWiederholen, zero, fifty, hundred, genaueAnalyse, up2_Station4, down2_Station4;
 
+button auswertung_Geruchstest;
+
 button Feinstaub_weiter;
 button Geruchstest;
 
@@ -286,8 +288,8 @@ void setup() {
   A_wiederholen = new button(600, 20, 210, 35, "Probe A vermessen", 5, true, 20);
   B_wiederholen = new button(600, 60, 210, 35, "Probe B vermessen", 5, true, 20);
   C_wiederholen = new button(600, 100, 210, 35, "Probe C vermessen", 5, true, 20);
-  D_wiederholen = new button(830, 20, 210, 35, "Probe D vermessen", 5, true, 20);
-  E_wiederholen = new button(830, 60, 210, 35, "Probe E vermessen", 5, true, 20);
+  D_wiederholen = new button(870, 20, 210, 35, "Probe D vermessen", 5, true, 20);
+  E_wiederholen = new button(870, 60, 210, 35, "Probe E vermessen", 5, true, 20);
 
   Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
 
@@ -392,7 +394,7 @@ void setup() {
   aktualisierung_right = new button(1200, 500, 50, 30, "right_arrow", 5, true, 20);
   aktualisierung_left = new button(1115, 500, 50, 30, "left_arrow", 5, true, 20);
 
-  TVOC_analyse = new button(700, 350, 350, 150, "GCMS-Analysen", 5, true, 40);
+  TVOC_analyse = new button(700, 250, 350, 150, "GCMS-Analysen", 5, true, 40);
 
   Feinstaub_weiter = new button(1115, 600, 140, 50, "weiter", 5, true, 20);
 
@@ -403,7 +405,8 @@ void setup() {
   Duell3  = new button(250, 450, 200, 100, "Duell 3 - Kleber", 5, true, 20);
   Duell4 = new button(930, 450, 200, 100, "Duell 4 - Böden", 5, true, 20);
 
-  Geruchstest = new button(250, 350, 350, 150, "Geruchstest", 5, true, 40);
+  Geruchstest = new button(250, 250, 350, 150, "Geruchstest", 5, true, 40);
+  auswertung_Geruchstest = new button(250, 450, 350, 150, "Auswertung des\nGeruchstests", -20, true, 40);
   abbruch_Station2 = new button(1100, 20, 100, 50, "Abbruch", 5, true, 20);
   ja_zufrieden = new button(1100, 120, 100, 50, "Weiter", 5, true, 20);
 

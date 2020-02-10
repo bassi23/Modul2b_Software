@@ -159,7 +159,7 @@ void Datenaufnahme() {
           tagesIndex += 1;
         }
 
-        if (MenschSensorMessen && page == 2.2) {
+        if (MenschSensorMessen && page == 2.2 && messen_Station2) {
           if (index > 2 && prob > 0) {
             MenschSensorMesswerte[prob-1][indexMenschSensor] = sgp_tvoc_data[index-2];
             // Zeit 1.

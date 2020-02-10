@@ -533,9 +533,10 @@ void Station2_Sensor() {
 
   if (ja_zufrieden.isClicked()) {
     page = 2.3;
-    float[] MesswertSensor_temp = MesswertSensor;
-    String[] Reihenfolge_Sensor_temp2 = Reihenfolge_Sensor;
-    Reihenfolge_Sensor = sortArray(MesswertSensor_temp, Reihenfolge_Sensor_temp2);
+    ordnen();
+    //   float[] MesswertSensor_temp = MesswertSensor;
+    //   String[] Reihenfolge_Sensor_temp2 = Reihenfolge_Sensor;
+    //   Reihenfolge_Sensor = sortArray(MesswertSensor_temp, Reihenfolge_Sensor_temp2);
   }
 
   if (A_wiederholen.isClicked()) {
@@ -597,15 +598,21 @@ void Station2_Sensor() {
   }
 
   if (messen_Station2) {
-    for (int i = 0; i < 500; i++) {
-      if (MenschSensorMesswerte[prob + 4][i] <=  60) {
+    //for (int i = 0; i < 500; i++) {
+    if (indexMenschSensor > 0) {
+      if ((MenschSensorMesswerte[prob + 4][indexMenschSensor-1] - MenschSensorMesswerte[prob + 4][0]) <  60) {
         messen_Station2 = true;
-        Proben_Vermessen[prob-1] = true;
-        break;
-      } else {
         Proben_Vermessen[prob-1] = false;
+        //  break;
+      } else {
+        messen_Station2 = false;
+        Proben_Vermessen[prob-1] = true;
       }
     }
+    // }
+  }
+  if (indexMenschSensor > 0) {
+    println((MenschSensorMesswerte[prob + 4][indexMenschSensor-1] - MenschSensorMesswerte[prob + 4][0]));
   }
 
   textAlign(CENTER);
@@ -617,6 +624,57 @@ void Station2_Sensor() {
       text("noch nicht gemessen", 240, 340 + 50*i);
     }
   }
+
+
+  if (!messen_Station2) {
+    if (Proben_Vermessen[0]) {
+      stroke(0, 255, 0);
+      line(820, 30, 830, 40);
+      line(830, 40, 850, 20);
+    } else {
+      stroke(255, 0, 0);
+      line(825, 25, 845, 45);
+      line(825, 45, 845, 25);
+    }
+    if (Proben_Vermessen[1]) {
+      stroke(0, 255, 0);
+      line(820, 70, 830, 80);
+      line(830, 80, 850, 60);
+    } else {
+      stroke(255, 0, 0);
+      line(825, 65, 845, 85);
+      line(825, 85, 845, 65);
+    }
+    if (Proben_Vermessen[2]) {
+      stroke(0, 255, 0);
+      line(820, 110, 830, 120);
+      line(830, 120, 850, 100);
+    } else {
+      stroke(255, 0, 0);
+      line(825, 105, 845, 125);
+      line(825, 125, 845, 105);
+    }
+    if (Proben_Vermessen[3]) {
+      stroke(0, 255, 0);
+      line(1090, 30, 1100, 40);
+      line(1100, 40, 1120, 20);
+    } else {
+      stroke(255, 0, 0);
+      line(1095, 25, 1115, 45);
+      line(1095, 45, 1115, 25);
+    }
+
+    if (Proben_Vermessen[4]) {
+      stroke(0, 255, 0);
+      line(1090, 70, 1100, 80);
+      line(1100, 80, 1120, 60);
+    } else {
+      stroke(255, 0, 0);
+      line(1095, 65, 1115, 85);
+      line(1095, 85, 1115, 65);
+    }
+  }
+
 
 
   ///////// MITTELWERTE BERECHNEN //////////////////
@@ -692,6 +750,25 @@ boolean[] Proben_Vermessen = {false, false, false, false, false};
 
 
 
+void ordnen() {
+  if (MesswertSensor[0] > MesswertSensor[1] && MesswertSensor[0] > MesswertSensor[2] && MesswertSensor[0] > MesswertSensor[3] && MesswertSensor[0] > MesswertSensor[4]) {
+    Reihenfolge_Sensor[0] = "A";    
+  }
+  if (MesswertSensor[1] > MesswertSensor[0] && MesswertSensor[1] > MesswertSensor[2] && MesswertSensor[1] > MesswertSensor[3] && MesswertSensor[1] > MesswertSensor[4]) {
+    Reihenfolge_Sensor[0] = "B";
+  }
+  if (MesswertSensor[2] > MesswertSensor[0] && MesswertSensor[2] > MesswertSensor[1] && MesswertSensor[2] > MesswertSensor[3] && MesswertSensor[2] > MesswertSensor[4]) {
+    Reihenfolge_Sensor[0] = "C";
+  }
+  if (MesswertSensor[3] > MesswertSensor[0] && MesswertSensor[3] > MesswertSensor[1] && MesswertSensor[3] > MesswertSensor[2] && MesswertSensor[3] > MesswertSensor[4]) {
+    Reihenfolge_Sensor[0] = "D";
+  }
+  if (MesswertSensor[4] > MesswertSensor[0] && MesswertSensor[4] > MesswertSensor[1] && MesswertSensor[4] > MesswertSensor[2] && MesswertSensor[4] > MesswertSensor[3]) {
+    Reihenfolge_Sensor[0] = "E";
+  }
+}
+
+
 void dottedLine(float x1, float y1, float x2, float yMax) {
   float dx = (x2 - x1)/60;
   if (y1 >= yMax) {
@@ -745,6 +822,11 @@ void Station2_Vergleich() {
   //  dottedline(0, 400, 1280, 400);
 
   textSize(50);
+  for(int i = 0; i < 4; i++){
+   for(int j = 0; j < 4; j++){
+    text(">", 470 + 175*i, 260 + 100*j); 
+   }
+  }
   textAlign(LEFT);
   text(myText[0] + "         " + myText[1] + "         " + myText[2] + "         " +myText[3] + "        " +myText[4], 385, 265);
   text(myText2[0] + "         " + myText2[1] + "         " + myText2[2] + "         " +myText2[3] + "         " +myText2[4], 385, 365);

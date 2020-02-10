@@ -25,10 +25,18 @@ void TVOC_Duelle() {
 }
 
 int Duell_Runde = 1;
-
+boolean TVOC_Geruch_Absolviert = false;
 void ZwischenFolieTVOC() {
   TVOC_analyse.show();
   Geruchstest.show();
+  if (TVOC_Geruch_Absolviert) {
+    auswertung_Geruchstest.show();
+  }
+  
+  if(auswertung_Geruchstest.isClicked()){
+    page = 3.111;
+    auswertung_Geruchstest.hide();
+  }
 }
 
 
@@ -746,6 +754,7 @@ void Auswertung_Station3() {
 
   text("PVC", 1025, 405);
   text("Parkett", 1025, 570);
+  TVOC_Geruch_Absolviert = true;
 
 
   stroke(200);
