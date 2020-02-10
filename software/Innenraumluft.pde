@@ -2,7 +2,7 @@ void Innenraumluft() {
   fill(0);
   textSize(20);
   textFont(bold);
-  text("Station 4 - Dicke Luft", 20, 50);
+  text("Station 3.2 - Dicke Luft", 20, 50);
   textFont(normal);
   Station4_Aufgabentext_a.show();
   Station4_Aufgabentext_a2.show();
@@ -752,7 +752,7 @@ void Innenraumluft_b() {
     }
   }
 
-  println(index_unten_blau, index_unten_rot);
+ 
 
 
   float offset_rot = 0;
@@ -1471,7 +1471,6 @@ void AuswertungInnenraum() {
     float x2 = 103 + 440*Innenraumlufta[6][i]/480;
     float y2 = 320 - 260*Innenraumlufta[2][i]/maxCO2;
     stroke(255, 0, 0);
-    println(x1, y1);
     if (y1 > 60 && y2 > 60) {
       line(x1, y1, x2, y2);
     }

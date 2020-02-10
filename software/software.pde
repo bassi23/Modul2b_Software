@@ -206,7 +206,7 @@ void setup() {
   Vorschau_Station2 = loadImage("img/Vorschau_Station2.png");
   Vorschau_Station2a = loadImage("img/Vorschau_Station2a.png");
   Vorschau_Station2b = loadImage("img/Vorschau_Station2b.png");
-  Vorschau_Station3 = loadImage("img/Vorschau_Station3.png");
+  Vorschau_Station3 = loadImage("img/MenschInMesskammer.png");
   Vorschau_Station4 = loadImage("img/Vorschau_Station4.png");
   Versuchsaufbau_Feinstaub = loadImage("img/Versuchsaufbau_Feinstaub.png");
   Versuchsaufbau_Feinstaub2 = loadImage("img/Versuchsaufbau_Feinstaub2.png");
@@ -615,7 +615,6 @@ float mouse_time = 0;
 
 
 void draw() {
-  // println(page);
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }

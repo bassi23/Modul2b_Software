@@ -518,8 +518,6 @@ void Station2_Sensor() {
     abbruch_Station2.show();
   }
 
-  println(messen_Station2);
-
   if (abbruch_Station2.isClicked()) {
     messen_Station2 = false;
     MenschSensorMessen = false;
@@ -531,13 +529,7 @@ void Station2_Sensor() {
     ja_zufrieden.hide();
   }
 
-  if (ja_zufrieden.isClicked()) {
-    page = 2.3;
-    ordnen();
-    //   float[] MesswertSensor_temp = MesswertSensor;
-    //   String[] Reihenfolge_Sensor_temp2 = Reihenfolge_Sensor;
-    //   Reihenfolge_Sensor = sortArray(MesswertSensor_temp, Reihenfolge_Sensor_temp2);
-  }
+
 
   if (A_wiederholen.isClicked()) {
     messen_Station2 = true;
@@ -611,9 +603,7 @@ void Station2_Sensor() {
     }
     // }
   }
-  if (indexMenschSensor > 0) {
-    println((MenschSensorMesswerte[prob + 4][indexMenschSensor-1] - MenschSensorMesswerte[prob + 4][0]));
-  }
+
 
   textAlign(CENTER);
   for (int i = 0; i < 5; i++) {
@@ -741,6 +731,20 @@ void Station2_Sensor() {
   } else {
     MesswertSensor[4] = MesswertSensor[4]/indexMWProbe4;
   }
+  Reihenfolge_Sensor[0] = "A";
+  Reihenfolge_Sensor[1] = "B";
+  Reihenfolge_Sensor[2] = "C";
+  Reihenfolge_Sensor[3] = "D";
+  Reihenfolge_Sensor[4] = "E";
+
+
+  if (ja_zufrieden.isClicked()) {
+    page = 2.3;
+    bubbleSort(MesswertSensor, Reihenfolge_Sensor);
+    //   float[] MesswertSensor_temp = MesswertSensor;
+    //   String[] Reihenfolge_Sensor_temp2 = Reihenfolge_Sensor;
+    //   Reihenfolge_Sensor = sortArray(MesswertSensor_temp, Reihenfolge_Sensor_temp2);
+  }
 }
 
 
@@ -752,7 +756,7 @@ boolean[] Proben_Vermessen = {false, false, false, false, false};
 
 void ordnen() {
   if (MesswertSensor[0] > MesswertSensor[1] && MesswertSensor[0] > MesswertSensor[2] && MesswertSensor[0] > MesswertSensor[3] && MesswertSensor[0] > MesswertSensor[4]) {
-    Reihenfolge_Sensor[0] = "A";    
+    Reihenfolge_Sensor[0] = "A";
   }
   if (MesswertSensor[1] > MesswertSensor[0] && MesswertSensor[1] > MesswertSensor[2] && MesswertSensor[1] > MesswertSensor[3] && MesswertSensor[1] > MesswertSensor[4]) {
     Reihenfolge_Sensor[0] = "B";
@@ -767,6 +771,24 @@ void ordnen() {
     Reihenfolge_Sensor[0] = "E";
   }
 }
+
+
+void bubbleSort(float arr[], String arr2[]) { 
+  int n = arr.length; 
+  for (int i = 0; i < n-1; i++) 
+    for (int j = 0; j < n-i-1; j++) 
+      if (arr[j] > arr[j+1]) { 
+        // swap arr[j+1] and arr[i] 
+        float temp = arr[j]; 
+        arr[j] = arr[j+1]; 
+        arr[j+1] = temp;
+
+        String temp2 = arr2[j]; 
+        arr2[j] = arr2[j+1]; 
+        arr2[j+1] = temp2;
+      }
+} 
+
 
 
 void dottedLine(float x1, float y1, float x2, float yMax) {
@@ -822,10 +844,10 @@ void Station2_Vergleich() {
   //  dottedline(0, 400, 1280, 400);
 
   textSize(50);
-  for(int i = 0; i < 4; i++){
-   for(int j = 0; j < 4; j++){
-    text(">", 470 + 175*i, 260 + 100*j); 
-   }
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      text(">", 470 + 175*i, 260 + 100*j);
+    }
   }
   textAlign(LEFT);
   text(myText[0] + "         " + myText[1] + "         " + myText[2] + "         " +myText[3] + "        " +myText[4], 385, 265);

@@ -723,8 +723,8 @@ void Auswertung_Station3() {
   image(Stoff3_bild, 975, 80);
   image(Stoff4_bild, 975, 240);
 
-  image(Stoff5_bild, 435, 430);
-  image(Stoff6_bild, 435, 595);
+  image(Stoff5_bild, 435, 595);
+  image(Stoff6_bild, 435, 430);
 
   image(Stoff7_bild, 975, 595);
   image(Stoff8_bild, 975, 430);
@@ -853,8 +853,8 @@ void Analyse() {
   image(Stoff2_bild, 450, 200);
   image(Stoff3_bild, 830, 200);
   image(Stoff4_bild, 1130, 200);
-  image(Stoff5_bild, 150, 450);
-  image(Stoff6_bild, 450, 450);
+  image(Stoff6_bild, 150, 450);
+  image(Stoff5_bild, 450, 450);
   image(Stoff7_bild, 825, 450);
   image(Stoff8_bild, 1135, 450);
 
@@ -1407,12 +1407,12 @@ void Duell3_() {
 
   GCMS_Peak(750, 300 + maxBastelkleber*5, "right", "1-Butanol", "1-Butanol (auch n-Butanol oder nach IUPAC Butan-1-ol)\nist eine chemische Verbindung aus der Gruppe der Al-\nkanole.", "Es wird als Lösungsmittel bei der Herstellung von Lacken\nverwendet. Es verhindert das Weißanlaufen beim Trock-\nnen der Lacke in feuchter Umgebung.", 3, Butanol);
   GCMS_Peak(940, 440 + maxBastelkleber*2, "right", "Essigsäure-N-Butylester", "Es ist ein klares, farbloses Lösungsmittel mit eher ange-\nnehmem, fruchtartigem Geruch.", "Es ist ein weitverbreitetes Lacklösungsmittel. Aufgrund\nseiner starken Lösungskraft findet es auch als Bestandteil\nvon Nagellackentfernern und Verdünnern Verwendung. ", 2, n_Butyl_Ester);
-  GCMS_Peak(1130, 390+ maxBastelkleber*3, "right", "Buttersäure", "Sie ist der Trivialname der Butansäure, einer Carbonsäure\nund gleichzeitig der einfachsten Fettsäure. Sie entsteht\nin der Natur durch Buttersäuregärung.", "Es findet Anwendung in Biokraftstoffen, sowie in der\npharmazeutischen und chemischen Industrie.", 2, buttersaeure);
+  GCMS_Peak(1130, 390+ maxBastelkleber*3, "right", "Buttersäure", "Sie ist der Trivialname der Butansäure, einer Carbonsäure\nund gleichzeitig der einfachsten Fettsäure. Sie entsteht\nin der Natur durch Buttersäuregärung.", "Sie findet Anwendung in Biokraftstoffen, sowie in der\npharmazeutischen und chemischen Industrie.", 2, buttersaeure);
 
 
   //////
   GCMS_Peak(110, 500, "left", "Methacrylsäuremethylester", "Es ist eine farblose Flüssigkeit mit unangenehm ester-\nartigem Geruch. Es ist leicht entzündlich und verdunstet\nleicht.", "Es wird vornehmlich zur Herstellung von Acrylglas ver-\nwendet. Weiterhin ist es, in der Regel, der Hauptbestand-\nteil jeder Dentalprothese aus Kunststoff.", 2, Methacrylsaeuremethylester);
-  GCMS_Peak(300, 330, "left", "Cyanacrylate", "Es sind polymerisierbare, bei Raumtemperatur flüssige\nchemische Verbindungen (Monomere), die häufig als\nKlebstoffe verwendet werden.", "Früher wurde es verwendet, um menschliche Wunden zu\nkleben. Heute findet es hauptsächlich Einsatz in Sekun-\ndenklebern.", 1, Cyanacrylate);
+  GCMS_Peak(300, 330, "left", "Cyanacrylate", "Das sind polymerisierbare, bei Raumtemperatur flüssige\nchemische Verbindungen (Monomere), die häufig als\nKlebstoffe verwendet werden.", "Früher wurden sie verwendet, um menschliche Wunden zu\nkleben. Heute finden sie hauptsächlich Einsatz in Sekun-\ndenklebern.", 1, Cyanacrylate);
   GCMS_Peak(420, 500, "left", "Undecane", "Die Stoffgruppe der Undecane umfasst insgesamt\n159 weitere, verzweigte Konstitutionsisomere.", "n-Undecan ist unter anderem ein Bestandteil von Benzin\nund Dieselkraftstoff. ", 1, Undecane);
 }
 
@@ -1649,8 +1649,8 @@ void Zusammenfassung_Mensch_Sensor() {
   image(Stoff2_bild, 950, 170);
   image(Stoff3_bild, 230, 275);
   image(Stoff4_bild, 950, 275);
-  image(Stoff5_bild, 230, 380);
-  image(Stoff6_bild, 950, 380);
+  image(Stoff5_bild, 950, 380);
+  image(Stoff6_bild, 230, 380);
   image(Stoff7_bild, 230, 485);
   image(Stoff8_bild, 950, 485);
   zur_Auswertung.show();  

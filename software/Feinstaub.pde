@@ -287,7 +287,7 @@ void Station1() {
   fill(0);
   textSize(20);
   textFont(bold);
-  text("Station 4 - Feinstaubmessung", 20, 50);
+  text("Station 4.2 - Feinstaubmessung", 20, 50);
   text("Aufgabe 1 - Versuchsaufbau", 120, 240);
   textFont(normal);
   text("Für diesen Versuch benötigst du:\n\n- Sensorboard\n- Tafel\n- Kreidesorten A und B\n- Zwei Schwämme (feucht und trocken)\n\nBefestige das Board, an der Tafel.\nAchte dabei darauf, dass die Öffnung des Fein-\nstaubsensors in Richtung der Tafel zeigt.\n\n          Klicke anschließend auf ‚weiter‘.", 50, 290);

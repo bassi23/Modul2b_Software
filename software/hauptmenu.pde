@@ -41,7 +41,7 @@ void hauptmenu() {
     textFont(normal);
     noStroke();
     text("Sollte man die Schultafel lieber nass abwischen? Unter-\nsuche die Feinstaubemission von trockenen und nassen\nSchwämmen!", 600, 120);
-    image(Vorschau_Station4, 600, 250);
+    image(Vorschau_Station4, 780, 200);
   }
 
   if (two.isOver()) {
@@ -84,7 +84,7 @@ void hauptmenu() {
     textFont(normal);
     noStroke();
     text("Setze dich in eine Messkammer, und untersuche, wie sich\ndie Luftqualität ändert.", 600, 120);
-    image(Vorschau_Station3, 700, 250);
+    image(Vorschau_Station3, 780, 175);
   }
   strokeWeight(3);
   stroke(0);
