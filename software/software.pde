@@ -389,14 +389,14 @@ void setup() {
   down1 = new button(25, 195, 30, 50, "down_arrow", 5, true, 20);
   up2 = new button(1025, 140, 30, 50, "up_arrow", 5, true, 20);
   down2 = new button(1025, 195, 30, 50, "down_arrow", 5, true, 20);
-  
-  
+
+
   Temperatur_Doppfelpfeil_down1 = new button(25, 595, 30, 50, "down_arrow", 5, true, 20);
   Temperatur_Doppfelpfeil_up1 = new button(25, 540, 30, 50, "up_arrow", 5, true, 20);
   Temperatur_Doppfelpfeil_down2 = new button(1025, 595, 30, 50, "down_arrow", 5, true, 20);
   Temperatur_Doppfelpfeil_up2 = new button(1025, 540, 30, 50, "up_arrow", 5, true, 20);
-  
-  
+
+
   left1 = new button(1115, 330, 50, 30, "left_arrow", 5, true, 20);
   right1 = new button(1200, 330, 50, 30, "right_arrow", 5, true, 20);
   start_stopp = new button(1115, 35, 140, 50, "Start/Stopp", 5, true, 20);
@@ -699,6 +699,7 @@ void draw() {
   Duell3.hide();
   Duell4.hide();
   tutorial_reset.hide();
+
 
   if (page != 0) {
     one.hide();

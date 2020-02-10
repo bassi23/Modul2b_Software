@@ -608,6 +608,7 @@ void Station2_Sensor() {
   textAlign(CENTER);
   for (int i = 0; i < 5; i++) {
     if (MesswertSensor[i] != 0.0) {
+      textSize(20);
       text(nf(MesswertSensor[i], 0, 1), 240, 345 + 50*i);
     } else if (MesswertSensor[i] != 0.0 || Float.isNaN(MesswertSensor[i]) || MesswertSensor[i] == 0) {
       textSize(16);
@@ -753,26 +754,6 @@ boolean[] Proben_Vermessen = {false, false, false, false, false};
 
 
 
-
-void ordnen() {
-  if (MesswertSensor[0] > MesswertSensor[1] && MesswertSensor[0] > MesswertSensor[2] && MesswertSensor[0] > MesswertSensor[3] && MesswertSensor[0] > MesswertSensor[4]) {
-    Reihenfolge_Sensor[0] = "A";
-  }
-  if (MesswertSensor[1] > MesswertSensor[0] && MesswertSensor[1] > MesswertSensor[2] && MesswertSensor[1] > MesswertSensor[3] && MesswertSensor[1] > MesswertSensor[4]) {
-    Reihenfolge_Sensor[0] = "B";
-  }
-  if (MesswertSensor[2] > MesswertSensor[0] && MesswertSensor[2] > MesswertSensor[1] && MesswertSensor[2] > MesswertSensor[3] && MesswertSensor[2] > MesswertSensor[4]) {
-    Reihenfolge_Sensor[0] = "C";
-  }
-  if (MesswertSensor[3] > MesswertSensor[0] && MesswertSensor[3] > MesswertSensor[1] && MesswertSensor[3] > MesswertSensor[2] && MesswertSensor[3] > MesswertSensor[4]) {
-    Reihenfolge_Sensor[0] = "D";
-  }
-  if (MesswertSensor[4] > MesswertSensor[0] && MesswertSensor[4] > MesswertSensor[1] && MesswertSensor[4] > MesswertSensor[2] && MesswertSensor[4] > MesswertSensor[3]) {
-    Reihenfolge_Sensor[0] = "E";
-  }
-}
-
-
 void bubbleSort(float arr[], String arr2[]) { 
   int n = arr.length; 
   for (int i = 0; i < n-1; i++) {
@@ -789,7 +770,6 @@ void bubbleSort(float arr[], String arr2[]) {
       }
     }
   }
-  arr2 = reverse(arr2);
 } 
 
 
@@ -856,7 +836,7 @@ void Station2_Vergleich() {
   text(myText[0] + "         " + myText[1] + "         " + myText[2] + "         " +myText[3] + "        " +myText[4], 385, 265);
   text(myText2[0] + "         " + myText2[1] + "         " + myText2[2] + "         " +myText2[3] + "         " +myText2[4], 385, 365);
   text("C         A         B         E         D", 385, 461);
-  text(Reihenfolge_Sensor[0] + "         " + Reihenfolge_Sensor[1] + "         " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[3] + "         " +Reihenfolge_Sensor[4], 385, 565);
+  text(Reihenfolge_Sensor[4] + "         " + Reihenfolge_Sensor[3] + "         " + Reihenfolge_Sensor[2] + "         " +Reihenfolge_Sensor[1] + "         " +Reihenfolge_Sensor[0], 385, 565);
   zumObermenu.x = 940;
   zumObermenu.y = 660;
   zumObermenu.show();
