@@ -1,4 +1,4 @@
-float page = -1;
+float page = 1.91111;
 
 /*
 Software zur Aufnahme von Sensordaten und Durchführung verschiedener Messstationen im Rahmen des DBU-Projekts "SUSmobil: Modul 2b) - Umweltmesstechnik".
@@ -75,6 +75,7 @@ PImage Vorschau_Station1, Vorschau_Station2, Vorschau_Station2a, Vorschau_Statio
 PImage Versuchsaufbau_Feinstaub, Versuchsaufbau_Feinstaub2;
 // Bilder der zu messenden Stoffe für Station 3 - TVOC-Duelle
 PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild;
+PImage nasserSchwamm, trockenerSchwamm;
 
 // Tabelle, in der Messdaten gespeichert werden
 Table table;
@@ -104,7 +105,7 @@ button Station4a, Station4b, Station4c, Station4Auswertung, Station4Start, stati
 
 button auswertung_Geruchstest;
 
-button Feinstaub_weiter;
+button Feinstaub_weiter, zurAuswertung_Feinstaub;
 button Geruchstest;
 
 button tutorial_ueberspringen, tutorial_weiter, tutorial_zum, tutorial_back, tutorial_Start_Stopp;
@@ -231,7 +232,8 @@ void setup() {
   Schwaemme = loadImage("img/Schwaemme.png");
 
   Aufbau_Feinstaub = loadImage("img/Aufbau_Feinstaub.png");
-
+  nasserSchwamm =  loadImage("img/Schwamm_nass.png");
+  trockenerSchwamm = loadImage("img/Schwamm_trocken.png");
 
   aetzend = loadImage("img/ätzend.png");
   entzuendlich = loadImage("img/entzündlich.png");
@@ -431,12 +433,12 @@ void setup() {
   y_down = new button(25, 195, 30, 50, "down_arrow", 5, true, 20);
 
 
-  up_Feinstaub1 = new button(1000, 30, 30, 50, "up_arrow", 5, true, 20);
-  down_Feinstaub1 = new button(1000, 85, 30, 50, "down_arrow", 5, true, 20);
+  up_Feinstaub1 = new button(635, 200, 30, 50, "up_arrow", 5, true, 20);
+  down_Feinstaub1 = new button(635, 255, 30, 50, "down_arrow", 5, true, 20);
   up_Feinstaub2 = new button(1000, 380, 30, 50, "up_arrow", 5, true, 20);
   down_Feinstaub2 = new button(1000, 435, 30, 50, "down_arrow", 5, true, 20);
 
-
+  zurAuswertung_Feinstaub = new button(1000, 50, 100, 50, "zur Auswertung", 5, true, 20);
 
   //
   reset = new button(1115, 90, 140, 50, "Reset", 5, true, 20);
@@ -707,6 +709,11 @@ void draw() {
   Duell4.hide();
   tutorial_reset.hide();
 
+  verbinde.x = 1225;
+  fehler.x = 1225;
+  verbinde.y = 200;
+  fehler.y = 160;
+  println(page);
 
   if (page != 0) {
     one.hide();
@@ -906,23 +913,15 @@ void draw() {
   } else if (page == 1.8) {
     Feinstaub9();
   } else if (page == 1.9) {
-    Feinstaub10();
+    Feinstaub_KreideA();
   } else if (page == 1.91) {
     Feinstaub11();
   } else if (page == 1.911) {
-    Feinstaub12();
+    Feinstaub_KreideB();
   } else if (page == 1.9111) {
     Feinstaub13();
-  } else if (page == 1.11) {
-    Feinstaub_KreideA();
-  } else if (page == 1.111) {
-    // nasserSchwamm();
-    Feinstaub_Aufgabe2b();
-  } else if (page == 1.1111) {
-    // Vergleich_Feinstaub();
-    Feinstaub_KreideB();
-  } else if (page == 1.11111) {
-    Vergleich_Feinstaub_Graphen();
+  } else if (page == 1.91111) {
+    Feinstaub14();
   } else if (page == 2) {
     MenschSensor();
     zumObermenu.hide();
@@ -1257,8 +1256,12 @@ void draw() {
 
 
   if (station1_MessungStarten.isClicked()) {
-    Station1Start = true;
-    time_station1 = millis();
+    if (page == 1.9) {
+      Station1Start = true;
+      time_station1 = millis();
+    } else if (page == 1.911) {
+      Station1_trocken_Start = true;
+    }
     if (page == 1.11) {
       zeroTime3 = millis();
     } else if (page == 1.1111) {
@@ -1268,11 +1271,7 @@ void draw() {
     }
   }
 
-  if (station1_weiter_ab.isClicked()) {
-    page = 1.111;
-    station1_weiter_ab.hide();
-    Station1Start = false;
-  }
+
 
   if (station1_zur_Auswertung.isClicked()) {
     page = 1.11111;
@@ -1289,19 +1288,11 @@ void draw() {
   if (station1_MessungWiederholen.isClicked()) {
     Station1Start = true;
     if (page == 1.9) {
+      KreideAAbgeschlossen = false;
       indexStation1 = 0;
       for (int i = 0; i < 500; i++) {
         Station1_PM25[i] = 0;
         Station1_PM10[i] = 0;
-      }
-    }
-    if (page == 1.1111) {
-      zeroTime4 = millis();
-      indexStation1_trocken = 0;
-      station1_trocken_abgeschlossen = false;
-      for (int i = 0; i < 999999; i++) {
-        Station1_PM25_trocken[i] = 0;
-        Station1_PM10_trocken[i] = 0;
       }
     }
   }
