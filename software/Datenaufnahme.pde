@@ -26,18 +26,18 @@ float[] zwischenSpeicher_SPS_PM10 = new float[999];
 
 
 
-float[] Station1_PM1 = new float[999999];
-float[] Station1_PM25 = new float[999999];
-float[] Station1_PM4 = new float[999999];
-float[] Station1_PM10 = new float[999999];
-float[] Station1_zeit = new float[999999];
+float[] Station1_PM1 = new float[500];
+float[] Station1_PM25 = new float[500];
+float[] Station1_PM4 = new float[500];
+float[] Station1_PM10 = new float[500];
+float[] Station1_zeit = new float[500];
 
 
-float[] Station1_PM1_trocken = new float[999999];
-float[] Station1_PM25_trocken = new float[999999];
-float[] Station1_PM4_trocken = new float[999999];
-float[] Station1_PM10_trocken = new float[999999];
-float[] Station1_zeit_trocken = new float[999999];
+float[] Station1_PM1_trocken = new float[9999];
+float[] Station1_PM25_trocken = new float[9999];
+float[] Station1_PM4_trocken = new float[9999];
+float[] Station1_PM10_trocken = new float[9999];
+float[] Station1_zeit_trocken = new float[9999];
 
 float[] Station1_PM1_nass = new float[999999];
 float[] Station1_PM25_nass = new float[999999];
@@ -223,16 +223,19 @@ void Datenaufnahme() {
 
 
         if (Station1Start) {
-          if (page == 1.11) {// Kreide A
+          if (page == 1.9) {// Kreide A
+          println("HI");
             Station1_PM1[indexStation1] = sps_pm1_data[index-2];
             Station1_PM25[indexStation1] = sps_pm25_data[index-2];
             Station1_PM4[indexStation1] = sps_pm4_data[index-2];
             Station1_PM10[indexStation1] = sps_pm10_data[index-2];
-            Station1_zeit[indexStation1] = (millis() - zeroTime3)/1000;
-            if (Station1_zeit[indexStation1] > gesamtzeit_station1) {
+            Station1_zeit[indexStation1] = (millis())/1000;
+            if (Station1_zeit[indexStation1] - Station1_zeit[0] > gesamtzeit_station1) {
               Station1Start = false;
             }
-            indexStation1 += 1;
+            if (indexStation1 < 499) {
+              indexStation1 += 1;
+            }
           } else if (page == 1.1111) { // trockener Schwamm
 
             Station1_PM1_trocken[indexStation1_trocken] = sps_pm1_data[index-2];

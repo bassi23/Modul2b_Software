@@ -1549,9 +1549,9 @@ void AuswertungInnenraum() {
 
 
   for (int i = 1; i < indexInnenraumlufta; i++) {
-    float x1 = 103 + 440*Innenraumlufta[6][i-1]/480;
+    float x1 = 101 + 440*Innenraumlufta[6][i-1]/480;
     float y1 = 320 - 260*Innenraumlufta[2][i-1]/maxCO2;
-    float x2 = 103 + 440*Innenraumlufta[6][i]/480;
+    float x2 = 101 + 440*Innenraumlufta[6][i]/480;
     float y2 = 320 - 260*Innenraumlufta[2][i]/maxCO2;
     stroke(255, 0, 0);
     if (y1 > 60 && y2 > 60) {
@@ -1576,9 +1576,9 @@ void AuswertungInnenraum() {
   }
 
   for (int i = 1; i < indexInnenraumluftb; i++) {
-    float x1 = 743 + 440*Innenraumluftb[6][i-1]/480;
+    float x1 = 741 + 440*Innenraumluftb[6][i-1]/480;
     float y1 = 320 - 260*Innenraumluftb[2][i-1]/maxCO2;
-    float x2 = 743 + 440*Innenraumluftb[6][i]/480;
+    float x2 = 741 + 440*Innenraumluftb[6][i]/480;
     float y2 = 320 - 260*Innenraumluftb[2][i]/maxCO2;
     stroke(255, 0, 0);
     if (y1 > 60 && y2 > 60) {

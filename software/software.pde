@@ -1,3 +1,5 @@
+float page = -1;
+
 /*
 Software zur Aufnahme von Sensordaten und Durchführung verschiedener Messstationen im Rahmen des DBU-Projekts "SUSmobil: Modul 2b) - Umweltmesstechnik".
  Um die Software zu verwenden muss der beiliegende Arduino Code auf den Mikrocontroller geladen werden.
@@ -131,7 +133,7 @@ boolean tutorial_Start = false;
 boolean tutorial_Start_first_time = false;
 boolean tutorial_resettet = false;
 
-float page = -1;
+
 boolean gotSerial = false;
 float zeroTime2 = 0;
 float zeroTime3 = 0; //Feinstaubzeit
@@ -151,6 +153,7 @@ PImage Board, KreideA, KreideB, Tafel, Schwaemme;
 PImage Eco_Boden, Eco_Edding, Eco_Kleber, Kork, Sekundenkleber, Edding, Stinkelack, Eco_Lack;
 PImage blauer_engel;
 PImage aetzend, entzuendlich, gesundheitsschaedlich, giftig, reizend, umweltschaedlich;
+PImage Aufbau_Feinstaub;
 
 
 // Das Programm ist in Seiten unterteilt
@@ -226,6 +229,9 @@ void setup() {
   KreideB= loadImage("img/KreideB.png");
   Tafel= loadImage("img/Tafel.png");
   Schwaemme = loadImage("img/Schwaemme.png");
+
+  Aufbau_Feinstaub = loadImage("img/Aufbau_Feinstaub.png");
+
 
   aetzend = loadImage("img/ätzend.png");
   entzuendlich = loadImage("img/entzündlich.png");
@@ -615,6 +621,7 @@ float mouse_time = 0;
 
 
 void draw() {
+
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
@@ -879,11 +886,33 @@ void draw() {
     reset.hide();
   } else if (page == 1) {
     //Feinstaub();
-    Station1();
+    Feinstaub1();
     Sensoren.hide();
     zumObermenu.hide();
   } else if (page == 1.1) {
-    Feinstaub_Aufgabe2();
+    Feinstaub2();
+  } else if (page == 1.2) {
+    Feinstaub3();
+  } else if (page == 1.3) {
+    Feinstaub4();
+  } else if (page == 1.4) {
+    Feinstaub5();
+  } else if (page == 1.5) {
+    Feinstaub6();
+  } else if (page == 1.6) {
+    Feinstaub7();
+  } else if (page == 1.7) {
+    Feinstaub8();
+  } else if (page == 1.8) {
+    Feinstaub9();
+  } else if (page == 1.9) {
+    Feinstaub10();
+  } else if (page == 1.91) {
+    Feinstaub11();
+  } else if (page == 1.911) {
+    Feinstaub12();
+  } else if (page == 1.9111) {
+    Feinstaub13();
   } else if (page == 1.11) {
     Feinstaub_KreideA();
   } else if (page == 1.111) {
@@ -1055,7 +1084,31 @@ void draw() {
       saveData();
     }
     if (page > 0 && page != 10) {
-      if (page == 1.1 || page == 1.11 || page == 1.111 || page == 1.1111) {
+      if (page == 1.1) {
+        page = 1;
+      } else if (page == 1.2) {
+        page = 1.1;
+      } else if (page == 1.3) {
+        page = 1.2;
+      } else if (page == 1.4) {
+        page = 1.3;
+      } else if (page == 1.5) {
+        page = 1.4;
+      } else if (page == 1.6) {
+        page = 1.5;
+      } else if (page == 1.7) {
+        page = 1.6;
+      } else if (page == 1.8) {
+        page = 1.7;
+      } else if (page == 1.9) {
+        page = 1.8;
+      } else if (page == 1.91) {
+        page = 1.9;
+      } else if (page == 1.911) {
+        page = 1.91;
+      } else if (page == 1.9111) {
+        page = 1.911;
+      } else if (page == 1.1 || page == 1.11 || page == 1.111 || page == 1.1111) {
         Station1Start = false;
         page = 1;
       } else if (page == 1.11111) {
@@ -1176,9 +1229,29 @@ void draw() {
     if (page == 1) {
       page = 1.1;
     } else if (page == 1.1) {
-      page = 1.11;
-    } else if (page == 1.111) {
-      page = 1.1111;
+      page = 1.2;
+    } else if (page == 1.2) {
+      page = 1.3;
+    } else if (page == 1.3) {
+      page = 1.4;
+    } else if (page == 1.4) {
+      page = 1.5;
+    } else if (page == 1.5) {
+      page = 1.6;
+    } else if (page == 1.6) {
+      page = 1.7;
+    } else if (page == 1.7) {
+      page = 1.8;
+    } else if (page == 1.8) {
+      page = 1.9;
+    } else if (page == 1.9) {
+      page = 1.91;
+    } else if (page == 1.91) {
+      page = 1.911;
+    } else if (page == 1.911) {
+      page = 1.9111;
+    } else if (page == 1.9111) {
+      page = 1.91111;
     }
   }
 
@@ -1215,12 +1288,9 @@ void draw() {
 
   if (station1_MessungWiederholen.isClicked()) {
     Station1Start = true;
-    time_station1 = millis();
-    if (page == 1.11) {
-      zeroTime3 = millis();
+    if (page == 1.9) {
       indexStation1 = 0;
-      station1_referenz_abgeschlossen = false;
-      for (int i = 0; i < 999999; i++) {
+      for (int i = 0; i < 500; i++) {
         Station1_PM25[i] = 0;
         Station1_PM10[i] = 0;
       }
