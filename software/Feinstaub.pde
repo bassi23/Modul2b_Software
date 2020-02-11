@@ -512,15 +512,21 @@ void Feinstaub_KreideB() {
       rect(613, 165, 156, 450);
     } else if ((Station1_zeit_trocken[indexStation1_trocken-1] -Station1_zeit_trocken[0])  > 120 && (Station1_zeit_trocken[indexStation1_trocken-1] - Station1_zeit_trocken[0]) < 150) {
       rect(769, 165, 156, 450);
+    }else{
+      Feinstaub_weiter.show();
     }
-    if ((Station1_zeit_trocken[indexStation1_trocken-1] - Station1_zeit_trocken[0]) > 150) {
+    if ((Station1_zeit_trocken[indexStation1_trocken-1] - Station1_zeit_trocken[0]) > 149) {
       Feinstaub_weiter.show();
       Station1_trocken_Start = false;
       KreideBAbgeschlossen = true;
       station1_MessungWiederholen.show();
+      station1_MessungWiederholen.text = "Messung\nwiederholen";
     } else {
-      station1_MessungWiederholen.hide();
+      station1_MessungWiederholen.show();
+      station1_MessungWiederholen.text = "Messung\nneu starten";
     }
+  }else{
+    station1_MessungWiederholen.show();
   }
   if (indexStation1_trocken == 0) {
     station1_MessungStarten.show();
@@ -846,10 +852,10 @@ void Feinstaub14() {
     if (Station1_PM10[i] != 0) {
       float x1 = 100 + 450*(Station1_zeit[i]-Station1_zeit[0])/150;
       float x2 = 100 + 450*(Station1_zeit[i-1]-Station1_zeit[0])/150;
-      float y1 = 100 - 350*(Station1_PM10[i] - min)/(max - min);
-      float y2 = 100 - 350*(Station1_PM10[i-1] - min)/(max - min);
-      float e1 = 100 - 350*(Station1_PM10[i] - 10 - min)/(max-min);
-      float e2 = 100 - 350*(Station1_PM10[i] + 10 - min)/(max-min);
+      float y1 = 550 - 350*(Station1_PM10[i] - min)/(max - min);
+      float y2 = 550 - 350*(Station1_PM10[i-1] - min)/(max - min);
+      float e1 = 550 - 350*(Station1_PM10[i] - 10 - min)/(max-min);
+      float e2 = 550 - 350*(Station1_PM10[i] + 10 - min)/(max-min);
       if (x1 > 550) {
         x1 = 550;
       }
@@ -1263,10 +1269,13 @@ void Feinstaub_KreideA() {
     }
     if ((Station1_zeit[indexStation1-1] -Station1_zeit[0]) > 150) {
       Feinstaub_weiter.show();
-      println("HJI");
       Station1Start = false;
       KreideAAbgeschlossen = true;
       station1_MessungWiederholen.show();
+      station1_MessungWiederholen.text = "Messung\nwiederholen";
+    } else {
+      station1_MessungWiederholen.show();
+      station1_MessungWiederholen.text = "Messung\nneu starten";
     }
   } else {
     station1_MessungStarten.show();

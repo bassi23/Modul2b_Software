@@ -240,13 +240,13 @@ void Datenaufnahme() {
         }
         if (Station1_trocken_Start) {
           if (page == 1.911) { // KreideB
-            
+
             Station1_PM1_trocken[indexStation1_trocken] = sps_pm1_data[index-2];
             Station1_PM25_trocken[indexStation1_trocken] = sps_pm25_data[index-2];
             Station1_PM4_trocken[indexStation1_trocken] = sps_pm4_data[index-2];
             Station1_PM10_trocken[indexStation1_trocken] = sps_pm10_data[index-2];
             Station1_zeit_trocken[indexStation1_trocken] = (millis())/1000;
-            if (Station1_zeit[indexStation1_trocken] - Station1_zeit[0] > gesamtzeit_station1) {
+            if (Station1_zeit[indexStation1_trocken] - Station1_zeit_trocken[0] > gesamtzeit_station1) {
               Station1_trocken_Start = false;
             }
             if (indexStation1_trocken < 499) {
