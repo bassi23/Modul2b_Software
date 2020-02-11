@@ -647,7 +647,8 @@ void Feinstaub14() {
 
   verbinde.show();
   fehler.show();
-
+  image(KreideA, 230, 70);
+  image(KreideB, 827, 80);
   textSize(20);
   fill(0);
   textAlign(CENTER);
@@ -843,16 +844,16 @@ void Feinstaub14() {
   stroke(0, 0, 255);
   for (int i = 1; i < 500; i++) {
     if (Station1_PM10[i] != 0) {
-      float x1 = 740 + 450*(Station1_zeit[i]-Station1_zeit[0])/150;
-      float x2 = 740 + 450*(Station1_zeit[i-1]-Station1_zeit[0])/150;
-      float y1 = 550 - 350*(Station1_PM10[i] - min)/(max - min);
-      float y2 = 550 - 350*(Station1_PM10[i-1] - min)/(max - min);
-      float e1 = 550 - 350*(Station1_PM10[i] - 10 - min)/(max-min);
-      float e2 = 550- 350*(Station1_PM10[i] + 10 - min)/(max-min);
-      if (x1 > 1190) {
-        x1 = 1190;
+      float x1 = 100 + 450*(Station1_zeit[i]-Station1_zeit[0])/150;
+      float x2 = 100 + 450*(Station1_zeit[i-1]-Station1_zeit[0])/150;
+      float y1 = 100 - 350*(Station1_PM10[i] - min)/(max - min);
+      float y2 = 100 - 350*(Station1_PM10[i-1] - min)/(max - min);
+      float e1 = 100 - 350*(Station1_PM10[i] - 10 - min)/(max-min);
+      float e2 = 100 - 350*(Station1_PM10[i] + 10 - min)/(max-min);
+      if (x1 > 550) {
+        x1 = 550;
       }
-      if (x1 >=740 && x2 >= 740 && x1 <= 1190 && x2 <= 1190 && y1 >= 200 && y2 >= 200) {
+      if (x1 >=100 && x2 >= 100 && x1 <= 550 && x2 <= 550 && y1 >= 200 && y2 >= 200) {
         strokeWeight(3);
         if (verbinde.checked) {
           line(x1, y1, x2, y2);
@@ -885,16 +886,16 @@ void Feinstaub14() {
   stroke(255, 0, 0);
   for (int i = 1; i < 500; i++) {
     if (Station1_PM25[i] != 0) {
-      float x1 = 740 + 450*(Station1_zeit[i]-Station1_zeit[0])/150;
-      float x2 = 740 + 450*(Station1_zeit[i-1]-Station1_zeit[0])/150;
+      float x1 = 100 + 450*(Station1_zeit[i]-Station1_zeit[0])/150;
+      float x2 = 100 + 450*(Station1_zeit[i-1]-Station1_zeit[0])/150;
       float y1 = 550 - 350*(Station1_PM25[i] - min)/(max - min);
       float y2 = 550 - 350*(Station1_PM25[i-1] - min)/(max - min);
       float e1 = 550 - 350*(Station1_PM25[i] - 10 - min)/(max-min);
       float e2 = 550- 350*(Station1_PM25[i] + 10 - min)/(max-min);
-      if (x1 > 1190) {
-        x1 = 1190;
+      if (x1 > 550) {
+        x1 = 550;
       }
-      if (x1 >=740 && x2 >= 740 && x1 <= 1190 && x2 <= 1190 && y1 >= 200 && y2 >= 200) {
+      if (x1 >=100 && x2 >= 100 && x1 <= 550 && x2 <= 550 && y1 >= 200 && y2 >= 200) {
         strokeWeight(3);
         if (verbinde.checked) {
           line(x1, y1, x2, y2);
@@ -964,7 +965,7 @@ void Feinstaub14() {
     text(round(pm) + " µg/m³", mouseX + 75, mouseY - 8);
   }
 
-  Feinstaub_weiter.show();
+  //Feinstaub_weiter.show();
 }
 
 

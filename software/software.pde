@@ -438,7 +438,7 @@ void setup() {
   up_Feinstaub2 = new button(1000, 380, 30, 50, "up_arrow", 5, true, 20);
   down_Feinstaub2 = new button(1000, 435, 30, 50, "down_arrow", 5, true, 20);
 
-  zurAuswertung_Feinstaub = new button(1000, 50, 100, 50, "zur Auswertung", 5, true, 20);
+  zurAuswertung_Feinstaub = new button(1050, 20, 160, 50, "zur Auswertung", 5, true, 20);
 
   //
   reset = new button(1115, 90, 140, 50, "Reset", 5, true, 20);
@@ -1107,6 +1107,8 @@ void draw() {
         page = 1.91;
       } else if (page == 1.9111) {
         page = 1.911;
+      }else if (page == 1.91111) {
+        page = 1.9111;
       } else if (page == 1.1 || page == 1.11 || page == 1.111 || page == 1.1111) {
         Station1Start = false;
         page = 1;
