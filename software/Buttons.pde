@@ -16,16 +16,16 @@ class button {
   void show() {
     visible = true;
     pushMatrix();
-    if (mouseX > x*scale_factor && mouseX < (x+dx)*scale_factor && (mouseY - scroll) > y*scale_factor && (mouseY - scroll) < (y + dy)*scale_factor) {
+        if (mouseX > x*scale_factor && mouseX < (x+dx)*scale_factor && (mouseY - scroll) > y*scale_factor && (mouseY - scroll) < (y + dy)*scale_factor) {
       for (float i = 0; i<dy; i += 1/scale_factor) {
-        stroke(210 + i*50/dy);
+        stroke(205 + i*50/dy);
         line(x, y+i, x + dx, y+i);
       }
       fill(255);
     } else {
       fill(200);
       for (float i = 0; i<dy; i+=1/scale_factor) {
-        stroke(190 + (i)*50/dy);
+        stroke(255 - (i)*50/dy);
         line(x, y+(i), x + dx, y+(i));
       }
     }
