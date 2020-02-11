@@ -1,4 +1,4 @@
-float page = 1.91111;
+float page = -1;
 
 /*
 Software zur Aufnahme von Sensordaten und Durchführung verschiedener Messstationen im Rahmen des DBU-Projekts "SUSmobil: Modul 2b) - Umweltmesstechnik".
