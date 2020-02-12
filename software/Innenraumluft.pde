@@ -21,7 +21,7 @@ void Innenraumluft() {
   textAlign(CENTER);
   text("SITZEN\n3 Minuten", 200, 350);
   text("SPORT MACHEN\n3 Minuten", 640, 350);
-  text("TÜR ÖFFNEN\n3 Minuten", 1040, 350);
+  text("TÜR ÖFFNEN\n2 Minuten", 1040, 350);
   textSize(14);
   text("2", 262, 165);
   stroke(0);
