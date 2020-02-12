@@ -4,17 +4,29 @@ void Innenraumluft() {
   textFont(bold);
   text("Station 3.2 - Bitte lüften", 20, 50);
   textFont(normal);
-  Station4_Aufgabentext_a.show();
+  fill(150, 150, 255, 100);
+  noStroke();
+  bezierRect(20, 80, 1240, 170, 5, 5);
+  fill(0);
   Station4_Aufgabentext_a2.show();
   textAlign(LEFT);
-  text("1) 3 Minuten ruhig sitzen \n2) 3 Minuten Sport machen", 500, 165);
-  text("Nimm den Verlauf der Luftqualitätsparameter Temperatur, rel. Luftfeuchte, CO2 und TVOC auf. Führe den Versuch ein-\nmal ohne, und einmal mit laufenden Ventilatoren durch.", 95, 240);
+  fill(255);
+  stroke(0);
+  rect(100, 310, 200, 100);
+  rect(540, 310, 200, 100);
+  rect(940, 310, 200, 100);
+  fill(0);
+
+  text("Eine Person begibt sich in die begehbare Messkammer. Nehmt den Verlauf der Luftqualitätsparameter Temperatur,\nrel. Luftfeuchte, CO  und TVOC auf. Führt den Versuch einmal ohne, und einmal mit laufenden Ventilatoren durch.\n\nEine Messung dauert dabei 8 Minuten und setzt sich aus 3 Phasen zusammen:", 70, 125);
+  textAlign(CENTER);
+  text("SITZEN\n3 Minuten", 200, 350);
+  text("SPORT MACHEN\n3 Minuten", 640, 350);
+  text("TÜR ÖFFNEN\n3 Minuten", 1040, 350);
   textSize(14);
-  //  text("2                    2", 730, 140);
+  text("2", 262, 165);
   stroke(0);
   Station4a.show();
   Station4agestartet = false;
-  
 }
 
 int t = 300;
@@ -421,7 +433,7 @@ void Innenraumluft_a() {
     }
   }
   println(indexInnenraumlufta);
-  
+
   if (indexInnenraumlufta >0) {
     if (Innenraumlufta[6][indexInnenraumlufta-1] > 479) {
       Station4b.show();
@@ -896,11 +908,11 @@ void Innenraumluft_b() {
 
 
   if (Station4Start.isClicked()) {
-  //  for (int i = 0; i < 5000; i++) {
-  //    for (int j = 0; j < 7; j++) {
-  //      Innenraumluftb[j][i] = 0;
-  //    }
-  //  }
+    //  for (int i = 0; i < 5000; i++) {
+    //    for (int j = 0; j < 7; j++) {
+    //      Innenraumluftb[j][i] = 0;
+    //    }
+    //  }
     Station4bgestartet = true;
     currentTime4b = millis();
     indexInnenraumluftb = 0;

@@ -1411,6 +1411,8 @@ void draw() {
     if (sicher_ja.isClicked()) {
       Station1Start = false;
       back_bool_Innenraum = false;
+      Station4bgestartet = false;
+      Station4agestartet = false;
       if (page == 4.1) {
         page = 4;
         indexInnenraumlufta = 0;
