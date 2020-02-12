@@ -1153,15 +1153,15 @@ void draw() {
         page = 2.75;
       } else if (page == 3.2 || page == 3.3 || page == 3.4 || page == 3.5) {
         page = 3.11111;
-      } else if (page == 4.1) {
+      }else if (page == 4.1) {
         //page = 4;
-        if (Station4aFertig) {
+        if (Station4aFertig || !Station4agestartet) {
           page = 4;
         } else {
           back_bool_Innenraum = true;
         }
       } else if (page == 4.11) {
-        if (Station4bFertig) {
+        if (Station4bFertig || !Station4bgestartet) {
           page = 4.1;
         } else {
           back_bool_Innenraum = true;
