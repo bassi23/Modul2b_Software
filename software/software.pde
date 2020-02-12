@@ -1155,10 +1155,17 @@ void draw() {
         page = 3.11111;
       } else if (page == 4.1) {
         //page = 4;
-        back_bool_Innenraum = true;
+        if (Station4aFertig) {
+          page = 4;
+        } else {
+          back_bool_Innenraum = true;
+        }
       } else if (page == 4.11) {
-        //page = 4.1;
-        back_bool_Innenraum = true;
+        if (Station4bFertig) {
+          page = 4.1;
+        } else {
+          back_bool_Innenraum = true;
+        }
       } else if (page == 4.111) {
         page = 4.11;
       } else if (page == 4.1111) {
