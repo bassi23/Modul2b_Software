@@ -32,8 +32,8 @@ void ZwischenFolieTVOC() {
   if (TVOC_Geruch_Absolviert) {
     auswertung_Geruchstest.show();
   }
-  
-  if(auswertung_Geruchstest.isClicked()){
+
+  if (auswertung_Geruchstest.isClicked()) {
     page = 3.111;
     auswertung_Geruchstest.hide();
   }
@@ -1386,7 +1386,7 @@ void Duell3_() {
   fill(255);
   stroke(0);
 
-  
+
   rect(110, 500, 50, 50);
   rect(300, 330, 50, 50);
   rect(420, 500, 50, 50);
@@ -1583,6 +1583,7 @@ void Duell4_() {
 void Zusammenfassung_Mensch_Sensor() {
   TVOC_Duelle_uebertragen.show();
   translate(0, 40);
+
   noFill();
   stroke(0);
   rect(200, 50, 400, 550);  
@@ -1636,8 +1637,8 @@ void Zusammenfassung_Mensch_Sensor() {
   text(nf(tvoc_duelle_werte_sensor[1], 0, 1), 875, 225 + 105*0);
   text(nf(tvoc_duelle_werte_sensor[2], 0, 1), 535, 225 + 105*1); 
   text(nf(tvoc_duelle_werte_sensor[3], 0, 1), 875, 225 + 105*1); 
-  text(nf(tvoc_duelle_werte_sensor[4], 0, 1), 875, 225 + 105*2); 
-  text(nf(tvoc_duelle_werte_sensor[5], 0, 1), 535, 225 + 105*2); 
+  text(nf(tvoc_duelle_werte_sensor[4], 0, 1), 535, 225 + 105*2); 
+  text(nf(tvoc_duelle_werte_sensor[5], 0, 1), 875, 225 + 105*2); 
   text(nf(tvoc_duelle_werte_sensor[6], 0, 1), 535, 225 + 105*3); 
   text(nf(tvoc_duelle_werte_sensor[7], 0, 1), 875, 225 + 105*3); 
 

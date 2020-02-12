@@ -41,7 +41,8 @@ void hauptmenu() {
     textFont(normal);
     noStroke();
     text("Sollte man die Schultafel lieber nass abwischen? Unter-\nsuche die Feinstaubemission von trockenen und nassen\nSchwämmen!", 600, 120);
-    image(Vorschau_Station4, 780, 200);
+    imageMode(CENTER);
+    image(Aufbau_Feinstaub_Vorschau, 900, 415);
   }
 
   if (two.isOver()) {
@@ -68,7 +69,7 @@ void hauptmenu() {
     image(blauer_engel, 1025, 420);
     image(blauer_engel, 1160, 420);
     strokeWeight(4);
-    stroke(255,0,0);
+    stroke(255, 0, 0);
     line(1020, 420, 1120, 520);
     line(1120, 420, 1020, 520);
     noStroke();
@@ -90,9 +91,9 @@ void hauptmenu() {
   stroke(0);
   line(520, 0, 520, 720);
   zumObermenu2.y = 650;
-  if(zumObermenu2.isClicked()){
+  if (zumObermenu2.isClicked()) {
     delay(200);
-    page = 1;    
+    page = 1;
   }
-zumObermenu.y = 650;
+  zumObermenu.y = 650;
 }

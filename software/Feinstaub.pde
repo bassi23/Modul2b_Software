@@ -72,15 +72,36 @@ void Feinstaub1() {
   imageMode(CENTER);
   image(Aufbau_Feinstaub, 640, 400);
   textAlign(CENTER);
-  text("Zwei Kreidearten\nsind zu untersuchen.", 150, 440);
+  
+  stroke(0);
+  fill(255);
+  rect(95, 185, 155, 30);
+  rect(45, 460, 210, 60);
+  rect(1015, 185, 200, 30);
+  rect(1000, 418, 240, 60);
+  
+  
+  
+  
+  
+  fill(0);
+  
+  
+  text("Zwei Kreidearten\nsind zu untersuchen.", 150, 480);
   text("Es soll trocken und nass\ngewischt werden.", 1120, 440);
+  text("Kleine Schreibtafel", 1115, 207);
+  text("Sensorboard", 170, 207);
   stroke(0);
 
-  line(250, 450, 515, 450);
-  line(250, 450, 470, 480);
+  line(255, 480, 440, 480);
+  line(255, 480, 470, 550);
 
-  line(750, 550, 1000, 450);
-  line(790, 450, 1000, 450);
+  line(850, 550, 1000, 450);
+  line(850, 450, 1000, 450);
+
+  line(750, 200, 1015, 200);
+
+  line(250, 205, 580, 440);
   //stroke(0);
   //fill(255);
   //rect(100, 150, 980, 500);
@@ -108,14 +129,30 @@ void Feinstaub2() {
   text("In diesem Versuch werdet ihr die Feinstaubemission beim Schreiben mit Kreide und anschließendem Wischen untersuchen.", 20, 100);
 
 
-  text("Bevor es losgeht: Fädelt das Board an den Füßen durch die Schlaufen der Tafel.", 20, 160); 
-  stroke(0);
-  fill(255);
-  rect(200, 250, 780, 400);
-  fill(0);
-  textSize(40);
-  text("Platzhalter", 550, 400);
+  text("Bevor es losgeht: Fädelt das Board an den Füßen durch die Schlaufen der Tafel. Achtet dabei darauf, dass die Öffnung des Fein-\nstaubsensors in Richtung der Tafel zeigt:", 20, 160); 
+
   Feinstaub_weiter.show();
+
+  image(Feinstaub_Oeffnung, 520, 180);
+  image(Feinstaub_Einfaedeln1, 300, 380);
+  image(Feinstaub_Einfaedeln2, 700, 380);
+  
+  
+  stroke(0);
+  strokeWeight(3);
+  line(400, 270, 630, 270);
+  
+  line(550, 540, 670, 540);
+  line(660, 530, 670, 540);
+  line(670, 540, 660, 550);
+  
+
+  strokeWeight(1);
+    fill(255);
+    rect(70, 250, 335, 38);
+    fill(0);
+  text("Öffnung des Feinstaubsensors", 90, 275);
+  text("Einfädeln", 565, 510);
 }
 void Feinstaub3() {
   textSize(20);
@@ -315,7 +352,7 @@ void Feinstaub_KreideB() {
   fill(255);
   stroke(0);
   //rect(470, 20, 130, 50);
-  image(KreideB, 450, 20);
+  image(KreideB, 400, 0);
   rect(1105, 155, 155, 80);
 
 
@@ -512,7 +549,7 @@ void Feinstaub_KreideB() {
       rect(613, 165, 156, 450);
     } else if ((Station1_zeit_trocken[indexStation1_trocken-1] -Station1_zeit_trocken[0])  > 120 && (Station1_zeit_trocken[indexStation1_trocken-1] - Station1_zeit_trocken[0]) < 150) {
       rect(769, 165, 156, 450);
-    }else{
+    } else {
       Feinstaub_weiter.show();
     }
     if ((Station1_zeit_trocken[indexStation1_trocken-1] - Station1_zeit_trocken[0]) > 149) {
@@ -525,7 +562,7 @@ void Feinstaub_KreideB() {
       station1_MessungWiederholen.show();
       station1_MessungWiederholen.text = "Messung\nneu starten";
     }
-  }else{
+  } else {
     station1_MessungWiederholen.show();
   }
   if (indexStation1_trocken == 0) {
@@ -1070,7 +1107,7 @@ void Feinstaub_KreideA() {
   fill(255);
   stroke(0);
   //rect(470, 20, 130, 50);
-  image(KreideA, 450, 20);
+  image(KreideA, 440, 20);
   rect(1105, 155, 155, 80);
 
 

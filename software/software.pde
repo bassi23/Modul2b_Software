@@ -75,10 +75,12 @@ PImage Vorschau_Station1, Vorschau_Station2, Vorschau_Station2a, Vorschau_Statio
 PImage Versuchsaufbau_Feinstaub, Versuchsaufbau_Feinstaub2;
 // Bilder der zu messenden Stoffe für Station 3 - TVOC-Duelle
 PImage Stoff1_bild, Stoff2_bild, Stoff3_bild, Stoff4_bild, Stoff5_bild, Stoff6_bild, Stoff7_bild, Stoff8_bild;
-PImage nasserSchwamm, trockenerSchwamm;
+PImage nasserSchwamm, trockenerSchwamm, Aufbau_Feinstaub_Vorschau;
 
 // Tabelle, in der Messdaten gespeichert werden
 Table table;
+
+PImage Feinstaub_Oeffnung, Feinstaub_Einfaedeln1, Feinstaub_Einfaedeln2;
 
 
 
@@ -234,6 +236,7 @@ void setup() {
   Aufbau_Feinstaub = loadImage("img/Aufbau_Feinstaub.png");
   nasserSchwamm =  loadImage("img/Schwamm_nass.png");
   trockenerSchwamm = loadImage("img/Schwamm_trocken.png");
+  Aufbau_Feinstaub_Vorschau = loadImage("img/Aufbau_Feinstaub_Vorschau.png");
 
   aetzend = loadImage("img/ätzend.png");
   entzuendlich = loadImage("img/entzündlich.png");
@@ -241,6 +244,10 @@ void setup() {
   giftig = loadImage("img/giftig.png");
   reizend = loadImage("img/reizend.png");
   umweltschaedlich  = loadImage("img/umweltschädlich.png");
+  
+  Feinstaub_Oeffnung = loadImage("img/Feinstaub_Oeffnung.png");
+  Feinstaub_Einfaedeln1 = loadImage("img/Feinstaub_Einfaedeln1.png");
+  Feinstaub_Einfaedeln2 = loadImage("img/Feinstaub_Einfaedeln2.png");
 
 
 
@@ -1107,7 +1114,7 @@ void draw() {
         page = 1.91;
       } else if (page == 1.9111) {
         page = 1.911;
-      }else if (page == 1.91111) {
+      } else if (page == 1.91111) {
         page = 1.9111;
       } else if (page == 1.1 || page == 1.11 || page == 1.111 || page == 1.1111) {
         Station1Start = false;
@@ -1322,13 +1329,6 @@ void draw() {
 
   if (reset_Station2.isClicked()) {
     reset_bool_station2 = true;
-    messen_Station2 = false;
-    prob = 1;
-    indexMenschSensor = 0;
-    MenschSensorMessen = false;
-    for (int i = 0; i < 5; i++) {
-      Proben_Vermessen[i] = false;
-    }
   }
 
   if (tutorial_reset.isClicked()) {
@@ -1355,6 +1355,11 @@ void draw() {
         for (int j = 0; j < 500; j++) {
           MenschSensorMesswerte[i][j] = 0;
         }
+      }
+      messen_Station2 = false;
+      MenschSensorMessen = false;
+      for (int i = 0; i < 5; i++) {
+        Proben_Vermessen[i] = false;
       }
       reset_bool_station2 = false;
       indexMenschSensor = 0;
@@ -1520,8 +1525,14 @@ void sicher() {
   endShape();
   textSize(100);
   fill(0);
-  text("!", 189, 417);
-  text("!", 849, 417);
+  println(page);
+  if (page == 2.2) {
+    text("!", 204, 417);
+    text("!", 864, 417);
+  } else {
+    text("!", 189, 417);
+    text("!", 849, 417);
+  }
   fill(0);
   textSize(30);
   textAlign(CORNER);

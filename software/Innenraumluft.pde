@@ -574,17 +574,20 @@ void plotStation4(float[][] array, int index, float min, float max, color c, boo
             if (connect) {
               line(x1, y1, x2, y2);
               if (error) {
+                strokeWeight(1);
                 line(x1, e11, x1, e21);
                 line(x1-2, e11, x1+2, e11);
                 line(x1-2, e21, x1+2, e21);
               }
             } else {
               if (error) {
+                strokeWeight(1);
                 line(x1, e11, x1, e21);
                 line(x1-2, e11, x1+2, e11);
                 line(x1-2, e21, x1+2, e21);
               }
               if (plot_first) {
+                strokeWeight(1);
                 plot_first = false;
                 line(x2-2, y2, x2+2, y2);
                 line(x2, y2-2, x2, y2+2);

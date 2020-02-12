@@ -126,7 +126,7 @@ class Probe {
         this.inPlace = false;
       }
     }
-    if (text == "A2" || text == "B2" || text == "C2" || text == "D2" || text == "E2") {
+    if (text == "A2" || text == "B2" || text == "C2" || text == "D2" || text == "E2") {    
       if (this.y > 350*scale_factor && this.y < 450*scale_factor && this.x > 300*scale_factor && this.x < 1000*scale_factor) {
         this.inPlace = true;
       } else {
