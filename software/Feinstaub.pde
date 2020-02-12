@@ -272,8 +272,8 @@ void Feinstaub11() {
   text("ordentlich ausklopfen\n(z.B. am Fenster)", 640, 650);
   text("Waschen und\ngut auswirgen", 960, 650);
   image(Tafel, 320, 450);
-  image(nasserSchwamm, 640, 450);
-  image(trockenerSchwamm, 960, 450);
+  image(nasserSchwamm, 960, 450);
+  image(trockenerSchwamm, 640, 450);
   image(KreideB, 640, 150);
   Feinstaub_weiter.show();
 }
@@ -675,8 +675,8 @@ void Feinstaub13() {
   text("ordentlich ausklopfen\n(z.B. am Fenster)", 640, 650);
   text("Waschen und\ngut auswirgen", 960, 650);
   image(Tafel, 320, 450);
-  image(nasserSchwamm, 640, 450);
-  image(trockenerSchwamm, 960, 450);
+  image(nasserSchwamm, 960, 450);
+  image(trockenerSchwamm, 640, 450);
   image(KreideB, 640, 150);
   FeinstaubAbgeschlossen = true;
   Feinstaub_weiter.show();
