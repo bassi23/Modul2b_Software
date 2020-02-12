@@ -14,7 +14,7 @@ void Innenraumluft() {
   stroke(0);
   Station4a.show();
   Station4agestartet = false;
-  indexInnenraumlufta = 0;
+  
 }
 
 int t = 300;
@@ -420,6 +420,8 @@ void Innenraumluft_a() {
       Station4aFertig = false;
     }
   }
+  println(indexInnenraumlufta);
+  
   if (indexInnenraumlufta >0) {
     if (Innenraumlufta[6][indexInnenraumlufta-1] > 479) {
       Station4b.show();
@@ -893,16 +895,16 @@ void Innenraumluft_b() {
   }
 
 
-  if (Station4Start.isClicked()) {
-    for (int i = 0; i < 5000; i++) {
-      for (int j = 0; j < 7; j++) {
-        Innenraumluftb[j][i] = 0;
-      }
-    }
-    Station4bgestartet = true;
-    currentTime4b = millis();
-    indexInnenraumluftb = 0;
-  }
+  //if (Station4Start.isClicked()) {
+  //  for (int i = 0; i < 5000; i++) {
+  //    for (int j = 0; j < 7; j++) {
+  //      Innenraumluftb[j][i] = 0;
+  //    }
+  //  }
+  //  Station4bgestartet = true;
+  //  currentTime4b = millis();
+  //  indexInnenraumluftb = 0;
+  //}
 
   // Zeichne den Hintergrund
   fill(255);
@@ -1154,306 +1156,6 @@ boolean Station4cFertig = false;
 int indexInnenraumluftc = 0;
 int indexInnenraumluftcMax = 0;
 float currentTime4c = -10000000;
-
-
-void Innenraumluft_c() {
-  fill(0);
-  textSize(20);
-  int Rot = -1;
-  int Blau = -1;
-
-  float maxRot = 0;
-  float minRot = 0;
-  float maxBlau = 0;
-  float minBlau = 0;
-
-  if (Station4_Rot.name == "Temperatur") {
-    Rot = 0;
-    maxRot = 10*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "rel. Luftfeuchte") {
-    Rot = 1;
-    maxRot = 20*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "CO") {
-    Rot = 2;
-    maxRot = 500*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "TVOC") {
-    Rot = 3;
-    maxRot = 100*(scale_Innenraum1);
-  } else if (Station4_Rot.name == "eCO") {
-    Rot = 4;
-    maxRot = 500*(scale_Innenraum1);
-  }
-
-  if (Station4_Blau.name == "Temperatur") {
-    Blau = 0;
-    maxBlau = 10*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "rel. Luftfeuchte") {
-    Blau = 1;
-    maxBlau = 20*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "CO") {
-    Blau = 2;
-    maxBlau = 500*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "TVOC") {
-    Blau = 3;
-    maxBlau = 100*(scale_Innenraum2);
-  } else if (Station4_Blau.name == "eCO") {
-    Blau = 4;
-    maxBlau = 500*(scale_Innenraum2);
-  }
-
-
-
-  if (up1.isClicked()) {
-    scale_Innenraum1 += 1;
-    if (scale_Innenraum1 > 5) {
-      scale_Innenraum1 = 0;
-    }
-  }
-  if (down1.isClicked()) {
-    scale_Innenraum1 -= 1;
-    if (scale_Innenraum1 < 0) {
-      scale_Innenraum1 = 5;
-    }
-  }
-  if (up2.isClicked()) {
-    scale_Innenraum2 += 1;
-    if (scale_Innenraum2 > 5) {
-      scale_Innenraum2 = 0;
-    }
-  }
-  if (down2.isClicked()) {
-    scale_Innenraum2 -= 1;
-    if (scale_Innenraum2 < 0) {
-      scale_Innenraum2 = 5;
-    }
-  }
-
-  if (Station4Start.isClicked()) {
-    for (int i = 0; i < 5000; i++) {
-      for (int j = 0; j < 7; j++) {
-        Innenraumluftc[j][i] = 0;
-      }
-    }
-    Station4cgestartet = true;
-    currentTime4c = millis();
-    indexInnenraumluftc = 0;
-  }
-  if (station4_MessungWiederholen.isClicked()) {
-    for (int i = 0; i < 5000; i++) {
-      for (int j = 0; j < 7; j++) {
-        Innenraumluftc[j][i] = 0;
-      }
-    }
-    currentTime4c = millis();
-    indexInnenraumluftc = 0;
-  }
-
-  // Zeichne den Hintergrund
-  fill(255);
-  stroke(0);
-  rect(120, 140, 830, 500);
-  fill(230);
-  rect(1080, -1, 200, 720);
-  stroke(100, 100);
-
-
-  stroke(200);
-  for (int i = 0; i < 4; i++) {
-    line(120, 240 +100*i, 950, 240 + 100*i);
-  }
-  fill(0);
-  textAlign(CENTER);
-
-
-  if (scale_Innenraum1 == 0 && Rot!=-1) {
-    minRot = 99999;
-    maxRot = 0;
-    for (int i = 0; i < 5000; i++) {
-      if (Innenraumluftc[Rot][i] < minRot && Innenraumluftc[Rot][i] != 0) {
-        minRot = Innenraumluftc[Rot][i];
-      }
-      if (Innenraumluftc[Rot][i] > maxRot) {
-        maxRot = Innenraumluftc[Rot][i];
-      }
-    }
-  }
-  if (scale_Innenraum2 == 0 && Blau != -1) {
-    minBlau = 99999;
-    maxBlau = 0;
-    for (int i = 0; i < 5000; i++) {
-      if (Innenraumluftc[Blau][i] < minBlau && Innenraumluftc[Blau][i] != 0) {
-        minBlau = Innenraumluftc[Blau][i];
-      }
-      if (Innenraumluftc[Blau][i] > maxBlau && Blau!=-1) {
-        maxBlau = Innenraumluftc[Blau][i];
-      }
-    }
-  }
-  if (Rot != -1 && maxRot != 0) {
-
-    for (int i = 0; i< 6; i++) {
-      if (Rot != 0 && Rot != 1) {
-        text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
-      } else {
-        text(nf(minRot + i*(maxRot-minRot)/(5), 0, 1), 85, 650 - 100*i);
-      }
-    }
-  }
-
-  if (Blau != -1 && maxBlau != 0) {
-    for (int i = 0; i< 6; i++) {
-      if (Blau != 0 && Blau != 1) {
-        text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
-      } else {
-        text(nf(minBlau + i*(maxBlau-minBlau)/(5), 0, 1), 985, 650 - 100*i);
-      }
-    }
-  }
-  textAlign(CORNER);
-  fill(0);
-  noStroke();
-  textSize(30);
-  text("Optionen", 1120, 50);
-  fill(240);
-  stroke(0);
-  rect(1105, 450, 155, 140);
-  fill(0);
-  noStroke();
-  textSize(20);
-  textAlign(CENTER);
-  if (del == 0) {
-    text("Messintervall", 1185, 480);
-    text("Maximum", 1190, 565);
-  } else {
-    text("Messintervall", 1185, 480);
-    text(nf(del, 0, 0) + " s", 1185, 565);
-  }
-  textAlign(CORNER);
-
-
-
-
-
-  plotStation4(Innenraumluftc, Rot, minRot, maxRot, color(255, 0, 0), verbinde_innenraum.checked, fehler_innenraum.checked, "c");
-  plotStation4(Innenraumluftc, Blau, minBlau, maxBlau, color(0, 0, 255), verbinde_innenraum.checked, fehler_innenraum.checked, "c");
-
-  fill(0);
-  textSize(20);
-  text("0", 115, 670);
-  text(nf(time_Station4, 0, 0), 938, 670);
-  strokeWeight(1);
-  fill(240);
-  stroke(0);
-  rect(1105, 190, 155, 85);
-  fill(0);
-  textSize(15);
-  textAlign(LEFT);
-  text("Fehlerbalken", 1110, 217);
-  text("verbinden", 1110, 260);
-  textSize(20);
-  textAlign(CENTER);
-  text("100% Ventilator", 550, 40);
-  text("Zeit in Sekunden", 550, 700);
-  fill(0);
-  back.show();
-  zumObermenu.show();
-  if (Blau != -1) {
-    up2.show();
-    down2.show();
-  } else {
-    up2.hide();
-    down2.hide();
-  }
-
-  if (Rot != -1) {
-    up1.show();
-    down1.show();
-  } else {
-    up1.hide();
-    down1.hide();
-  }
-
-  if (!Station4cgestartet) {
-    Station4Start.show();
-
-    station4_MessungWiederholen.hide();
-  } else {
-    Station4Start.hide();
-    station4_MessungWiederholen.show();
-  }
-  Station4_Rot.show();
-  Station4_Blau.show();
-  aktualisierung_right.show();
-  aktualisierung_left.show();
-  fehler_innenraum.show();
-  verbinde_innenraum.show();
-
-  for (int i = 0; i < 5000; i++) {
-    if (Innenraumluftc[6][i] > time_Station4) {
-      Station4cFertig = true;
-      Station4cgestartet = false;
-      break;
-    } else {
-      Station4cFertig = false;
-    }
-  }
-  if (Station4cFertig) {
-    Station4Auswertung.show();
-  } else {
-    Station4Auswertung.hide();
-  }
-  if (freie_stationen.name == "freigeben") {
-    Station4Auswertung.show();
-  }
-  pushMatrix();
-  translate(width/2, height/2);
-  rotate(3*PI/2);
-  fill(255, 0, 0);
-  if (Rot == 6) {
-    text(nf(time_Station4, 0, 0), 938, 660);
-    text("Zeit in Sekunden", -100, -595);
-  } else if (Rot == 0) {
-    text("Temperatur in °C", height/2 -490, -width/2 + 50);
-  } else if (Rot == 1) {
-    text("rel. Luftfeuchte in %", height/2 -490, -width/2 + 50);
-  } else if (Rot == 2) {
-    text("CO  in ppm", height/2 -490, -width/2 + 50);
-    textSize(16);
-    text("2", height/2 -462, -width/2 + 60);
-    textSize(20);
-  } else if (Rot == 3) {
-    text("TVOC in ppb", height/2 -490, -width/2 + 50);
-  } else if (Rot == 4) {
-    text("eCO  in ppm", height/2 -490, -width/2 + 50);
-    textSize(16);
-    text("2", height/2 -455, -width/2 + 60);
-    textSize(20);
-  }
-  popMatrix();
-  pushMatrix();
-  translate(width/2, height/2);
-  rotate(PI/2);
-  fill(0, 0, 255);
-  if (Blau == 0) {
-    text("Temperatur in °C", -height/2 +300, width/2 - 1050);
-  } else if (Blau == 1) {
-    text("rel. Luftfeuchte in %", -height/2 +300, width/2 - 1050);
-  } else if (Blau == 2) {
-    text("CO  in ppm", -height/2 +300, width/2 - 1050);
-    textSize(16);
-    text("2", -height/2 +330, width/2 - 1040);
-    textSize(20);
-  } else if (Blau == 3) {
-    text("TVOC in ppb", -height/2 +300, width/2 - 1050);
-  } else if (Blau == 4) {
-    text("eCO  in ppm", -height/2 +300, width/2 - 1050);
-    textSize(16);
-    text("2", -height/2 +343, width/2 - 1040);
-    textSize(20);
-  }
-  popMatrix();
-}
-
 
 
 

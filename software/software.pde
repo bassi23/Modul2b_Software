@@ -29,8 +29,8 @@ Aufgabentext TVOC_Duelle_Analyse, Duell_Aufgabentext;
 dropdown tutorial_Rot, tutorial_Blau;
 checkbox skalierung_angleichen;
 
-String[] myText = {"A", "B", "C", "D", "E"};
-String[] myText2 = {"D", "A", "C", "B", "E"};
+String[] myText = {"", "", "", "", ""};
+String[] myText2 = {"", "", "", "", ""};
 String[] myText_Sorted = {"", "", "", "", ""};
 String[] myText2_Sorted = {"", "", "", "", ""};
 
@@ -975,9 +975,6 @@ void draw() {
   } else if (page == 4.11) {
     Innenraumluft_b();
     reset.hide();
-  } else if (page == 4.111) {
-    Innenraumluft_c();
-    reset.hide();
   } else if (page == 4.1111) {
     AuswertungInnenraum(); 
     reset.hide();
@@ -1157,9 +1154,11 @@ void draw() {
       } else if (page == 3.2 || page == 3.3 || page == 3.4 || page == 3.5) {
         page = 3.11111;
       } else if (page == 4.1) {
-        page = 4;
+        //page = 4;
+        back_bool_Innenraum = true;
       } else if (page == 4.11) {
-        page = 4.1;
+        //page = 4.1;
+        back_bool_Innenraum = true;
       } else if (page == 4.111) {
         page = 4.11;
       } else if (page == 4.1111) {
@@ -1399,6 +1398,45 @@ void draw() {
   }
 
 
+
+  if (back_bool_Innenraum) {
+    sicher2();
+    if (sicher_ja.isClicked()) {
+      Station1Start = false;
+      back_bool_Innenraum = false;
+      if (page == 4.1) {
+        page = 4;
+        indexInnenraumlufta = 0;
+        for (int i = 0; i < Innenraumlufta.length; i++) {
+          Innenraumlufta[0][i] = 0;
+          Innenraumlufta[1][i] = 0;
+          Innenraumlufta[2][i] = 0;
+          Innenraumlufta[3][i] = 0;
+          Innenraumlufta[4][i] = 0;
+          Innenraumlufta[5][i] = 0;
+          Innenraumlufta[6][i] = 0;
+        }
+      }
+      if (page == 4.11) {
+        page = 4.1;
+        indexInnenraumluftb = 0;
+        for (int i = 0; i < Innenraumluftb.length; i++) {
+          Innenraumluftb[0][i] = 0;
+          Innenraumluftb[1][i] = 0;
+          Innenraumluftb[2][i] = 0;
+          Innenraumluftb[3][i] = 0;
+          Innenraumluftb[4][i] = 0;
+          Innenraumluftb[5][i] = 0;
+          Innenraumluftb[6][i] = 0;
+        }
+      }
+    }
+    if (sicher_nein.isClicked()) {
+      back_bool_Innenraum = false;
+    }
+  }
+
+
   if (back_bool_Feinstaub2) {
     sicher2();
     if (sicher_ja.isClicked()) {
@@ -1427,12 +1465,8 @@ void draw() {
       }
     }
     if (sicher_nein.isClicked()) {
+      back_bool_Feinstaub2 = false;
       reset_bool_Feinstaub = false;
-      if (page == 1.9) {
-        Station1Start = true;
-      } else if (page == 1.911) {
-        Station1_trocken_Start = true;
-      }
     }
   }
 
@@ -1601,6 +1635,7 @@ boolean reset_bool_station2 = false;
 boolean reset_bool_Feinstaub = false;
 boolean back_bool_Feinstaub2 = false;
 boolean reset_bool_Innenraum = false;
+boolean back_bool_Innenraum = false;
 
 
 void sicher2() {
