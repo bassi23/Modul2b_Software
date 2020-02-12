@@ -72,21 +72,21 @@ void Feinstaub1() {
   imageMode(CENTER);
   image(Aufbau_Feinstaub, 640, 400);
   textAlign(CENTER);
-  
+
   stroke(0);
   fill(255);
   rect(95, 185, 155, 30);
   rect(45, 460, 210, 60);
   rect(1015, 185, 200, 30);
   rect(1000, 418, 240, 60);
-  
-  
-  
-  
-  
+
+
+
+
+
   fill(0);
-  
-  
+
+
   text("Zwei Kreidearten\nsind zu untersuchen.", 150, 480);
   text("Es soll trocken und nass\ngewischt werden.", 1120, 440);
   text("Kleine Schreibtafel", 1115, 207);
@@ -133,26 +133,27 @@ void Feinstaub2() {
 
   Feinstaub_weiter.show();
 
-  image(Feinstaub_Oeffnung, 520, 180);
+  image(Feinstaub_Oeffnung, 500, 180);
   image(Feinstaub_Einfaedeln1, 300, 380);
-  image(Feinstaub_Einfaedeln2, 700, 380);
-  
-  
+  image(Feinstaub_Einfaedeln2, 780, 380);
+
+
   stroke(0);
   strokeWeight(3);
-  line(400, 270, 630, 270);
-  
-  line(550, 540, 670, 540);
-  line(660, 530, 670, 540);
-  line(670, 540, 660, 550);
-  
+  line(400, 270, 610, 270);
+
+  line(550, 540, 760, 540);
+  line(750, 530, 760, 540);
+  line(760, 540, 750, 550);
+
 
   strokeWeight(1);
-    fill(255);
-    rect(70, 250, 335, 38);
-    fill(0);
+  fill(255);
+  rect(70, 250, 335, 38);
+  rect(590, 488, 115, 30);
+  fill(0);
   text("Öffnung des Feinstaubsensors", 90, 275);
-  text("Einfädeln", 565, 510);
+  text("Einfädeln", 605, 510);
 }
 void Feinstaub3() {
   textSize(20);
