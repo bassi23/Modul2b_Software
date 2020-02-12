@@ -277,7 +277,7 @@ void alleSensoren() {
   verbinde.show();
   fehler.show();
   zumObermenu.y = 600;
-  
+
 
   if (fehler.checked) {
     error_bars.name = "anzeigen";
@@ -784,6 +784,7 @@ void alleSensoren2() {
   zumObermenu.show();
   verbinde.show();
   fehler.show();
+  zumObermenu.y = 600;
 }
 
 
@@ -1064,8 +1065,8 @@ void freePlot(float[] arr_X, float[] arr_Y, int time_scale, int x_scale, int y_s
   textAlign(LEFT);
   textSize(16);
   fill(0);
-  
-  
+
+
   if (errorX != 0.5 && index > 1) {
     text("Aktueller Wert: (" + str(round(arr_X[index-1])).replace(".", ",") + " +/- " + round(errorX) + ") " + EinheitX, 120, 75);
   } else {
@@ -1073,8 +1074,8 @@ void freePlot(float[] arr_X, float[] arr_Y, int time_scale, int x_scale, int y_s
       text("Aktueller Wert: (" + str(round(arr_X[index-1])).replace(".", ",") + " +/- 0,5) " + EinheitX, 150, 75);
     }
   }
-  
-    if (errorY != 0.5 && index > 1) {
+
+  if (errorY != 0.5 && index > 1) {
     text("Aktueller Wert: (" + str(round(arr_Y[index-1])).replace(".", ",") + " +/- " + round(errorY) + ") " + EinheitY, 675, 75);
   } else {
     if (index > 1) {

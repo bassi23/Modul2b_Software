@@ -107,10 +107,7 @@ class button {
   }
 }
 
-
-
-
-// Weil ControlP5 Probleme macht, wenn man scale oder translate anwendet, musste ich meine eigene dropdown Klasse schreiben
+// eigene dropdown klasse
 class dropdown {
   float x, y, dx, dy;
   String[] options = new String[16];

@@ -5,11 +5,11 @@ Software zur Aufnahme von Sensordaten und Durchführung verschiedener Messstatio
  Um die Software zu verwenden muss der beiliegende Arduino Code auf den Mikrocontroller geladen werden.
  */
 
-// Dieses Programm nutzt die beiden Bibliotheken "processing.serial." (Herstellung einer seriellen Verbindung) und "controlP5" (Dropdwon Menüs).
+// Dieses Programm nutzt die beiden Bibliotheken "processing.serial." (Herstellung einer seriellen Verbindung).
 import processing.serial.*;
 Serial myPort;
 
-import controlP5.*;
+//import controlP5.*;
 
 
 PImage[] fan = new PImage[8];
@@ -27,8 +27,6 @@ Aufgabentext Station4_Aufgabentext_a, Station4_Aufgabentext_a2, Station4_Aufgabe
 Aufgabentext TVOC_Duelle_Analyse, Duell_Aufgabentext;
 
 dropdown tutorial_Rot, tutorial_Blau;
-
-
 checkbox skalierung_angleichen;
 
 String[] myText = {"A", "B", "C", "D", "E"};
@@ -487,7 +485,7 @@ void setup() {
   zur_Auswertung2 = new button(500, 570, 300, 140, "zur Auswertung", 5, true, 30);
 
   station1_MessungStarten = new button(1115, 70, 140, 65, "Messung\nstarten", -5, true, 20);
-  station1_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederholen", -5, true, 20);
+  station1_MessungWiederholen = new button(1115, 310, 140, 65, "Messung \nwiederholen", -5, false, 20);
   station1_weiter_ab = new button(1115, 390, 140, 50, "zu Aufgabe b)", 5, true, 20);
   station1_weiter_bc =  new button(1115, 390, 140, 50, "zu Aufgabe c)", 5, true, 20);
   station1_zur_Auswertung = new button(1105, 390, 160, 50, "zur Auswertung", 5, true, 20);
@@ -564,11 +562,11 @@ void setup() {
   Sensormessung = new button(557, 615, 200, 100, "Sensormessung", 5, true, 20);
   Station2_Riechen2 = new button(557, 615, 200, 100, "2. Versuch", 5, false, 20);
   messen = new button(875, 70, 150, 100, "Messen", 5, true, 20);
-  letzteWiederholen = new button(1050, 70, 150, 100, "letzte Messung\nwiederholen", -9, true, 20);
-  reset_Station2 =  new button(970, 660, 140, 50, "Reset", 5, true, 20);
+  letzteWiederholen = new button(1050, 70, 150, 100, "letzte Messung\nwiederholen", -9, false, 20);
+  reset_Station2 =  new button(970, 660, 140, 50, "Reset", 5, false, 20);
 
 
-  station4_MessungWiederholen = new button(1115, 290, 140, 65, "Messung \nwiederholen", -5, true, 20);
+  station4_MessungWiederholen = new button(1115, 290, 140, 65, "Messung \nwiederholen", -5, false, 20);
 
 
 
@@ -705,6 +703,7 @@ void draw() {
   zur_Auswertung2.hide();
   zur_Auswertung3.hide();
   TVOC_analyse.hide();
+
   //one.hide();
   //two.hide();
   //three.hide();
@@ -1304,13 +1303,17 @@ void draw() {
     page = -7;
   }
 
+
+
+
+  if (station4_MessungWiederholen.isClicked()) {
+
+    reset_bool_Innenraum = true;
+  }
+
+
   if (station1_MessungWiederholen.isClicked()) {
     reset_bool_Feinstaub = true;
-    //if (page == 1.9) {// Kreide A
-    //  Station1Start = false;
-    //} else if (page == 1.911) {
-    //  Station1_trocken_Start = false;
-    //}
     sicher();
   }
   if (Station2_Riechen2.isClicked()) {
@@ -1353,6 +1356,38 @@ void draw() {
     }
     if (sicher_nein_reset.isClicked()) {
       reset_bool_tutorial = false;
+    }
+  }
+
+
+  if (reset_bool_Innenraum) {
+    Geruchstest.hide();
+    sicher(); 
+    if (sicher_ja.isClicked()) {
+      if (page == 4.1) {
+        reset_bool_Innenraum = false;
+        for (int i = 0; i < 5000; i++) {
+          for (int j = 0; j < 7; j++) {
+            Innenraumlufta[j][i] = 0;
+          }
+        }
+        currentTime4a = millis();
+        indexInnenraumlufta = 0;
+      } else if (page == 4.11) {
+        println("HI");
+        reset_bool_Innenraum = false;
+        for (int i = 0; i < 5000; i++) {
+          for (int j = 0; j < 7; j++) {
+            Innenraumluftb[j][i] = 0;
+          }
+        }
+        currentTime4b = millis();
+        indexInnenraumluftb = 0;
+      }
+    }
+
+    if (sicher_nein.isClicked()) {
+      reset_bool_Innenraum = false;
     }
   }
 
@@ -1565,6 +1600,7 @@ boolean reset_bool_tutorial = false;
 boolean reset_bool_station2 = false;
 boolean reset_bool_Feinstaub = false;
 boolean back_bool_Feinstaub2 = false;
+boolean reset_bool_Innenraum = false;
 
 
 void sicher2() {
@@ -1642,7 +1678,7 @@ void sicher() {
   fill(0);
   textSize(30);
   textAlign(CORNER);
-  if (page == 1.9 || page == 1.911) {
+  if (page == 1.9 || page == 1.911 || page == 4.1 || page == 4.11) {
     text("Bist du sicher, dass du die Messung neu starten möchtest?", 115, 300);
   } else {
     text("Bist du sicher, dass du die Daten löschen möchtest?", 150, 300);

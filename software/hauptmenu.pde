@@ -17,7 +17,7 @@ void hauptmenu() {
   strokeWeight(5);
   noFill();
 
-
+  zumObermenu2.hide();
   if (one.isOver()) {
     strokeWeight(2);
     fill(0);

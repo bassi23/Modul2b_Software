@@ -232,23 +232,23 @@ void Innenraumluft_a() {
       indexInnenraumluftc = 0;
     }
   }
-  if (station4_MessungWiederholen.isClicked()) {
-    if (page == 4.1) {
-      currentTime4a = millis();
-      indexInnenraumlufta = 0;
-      for (int i = 0; i < 5000; i++) {
-        for (int j = 0; j < 7; j++) {
-          Innenraumlufta[j][i] = 0;
-        }
-      }
-    } else if (page == 4.11) {
-      currentTime4a = millis();
-      indexInnenraumlufta = 0;
-    } else if (page == 4.111) {
-      currentTime4c = millis();
-      indexInnenraumluftc = 0;
-    }
-  }
+  //if (station4_MessungWiederholen.isClicked()) {
+  //  if (page == 4.1) {
+  //    currentTime4a = millis();
+  //    indexInnenraumlufta = 0;
+  //    for (int i = 0; i < 5000; i++) {
+  //      for (int j = 0; j < 7; j++) {
+  //        Innenraumlufta[j][i] = 0;
+  //      }
+  //    }
+  //  } else if (page == 4.11) {
+  //    currentTime4a = millis();
+  //    indexInnenraumlufta = 0;
+  //  } else if (page == 4.111) {
+  //    currentTime4c = millis();
+  //    indexInnenraumluftc = 0;
+  //  }
+  //}
 
   // Zeichne den Hintergrund
   fill(255);
@@ -397,6 +397,19 @@ void Innenraumluft_a() {
   aktualisierung_left.show();
   fehler_innenraum.show();
   verbinde_innenraum.show();
+  //rect(120, 140, 830, 500);
+  fill(255, 100, 100, 50);
+  noStroke();
+  if (indexInnenraumlufta >0) {
+    if (Innenraumlufta[6][indexInnenraumlufta-1] < 180) {
+      rect(120, 140, 311.25, 500);
+    } else if (Innenraumlufta[6][indexInnenraumlufta-1] < 360) {
+      rect(431.25, 140, 311.25, 500);
+    } else if (Innenraumlufta[6][indexInnenraumlufta-1] < 480) {
+      rect(741.5, 140, 207.5, 500);
+    }
+  }
+
 
   for (int i = 0; i < 5000; i++) {
     if (Innenraumlufta[6][i] > time_Station4) {
@@ -407,7 +420,14 @@ void Innenraumluft_a() {
       Station4aFertig = false;
     }
   }
-  Station4b.show();
+  if (indexInnenraumlufta >0) {
+    if (Innenraumlufta[6][indexInnenraumlufta-1] > 479) {
+      Station4b.show();
+    } else {
+      Station4b.hide();
+    }
+  }
+
 
   pushMatrix();
   translate(width/2, height/2);
@@ -883,15 +903,6 @@ void Innenraumluft_b() {
     currentTime4b = millis();
     indexInnenraumluftb = 0;
   }
-  if (station4_MessungWiederholen.isClicked()) {
-    for (int i = 0; i < 5000; i++) {
-      for (int j = 0; j < 7; j++) {
-        Innenraumluftb[j][i] = 0;
-      }
-    }
-    currentTime4b = millis();
-    indexInnenraumluftb = 0;
-  }
 
   // Zeichne den Hintergrund
   fill(255);
@@ -961,12 +972,13 @@ void Innenraumluft_b() {
   }
   fill(0);
   textAlign(CENTER);
+  fill(255, 0, 0);
   if (Rot != -1 && maxRot != 0) {
     for (int i = 0; i< 6; i++) {
       text(round(minRot + i*(maxRot-minRot)/(5)), 85, 650 - 100*i);
     }
   }
-
+  fill(0, 0, 255);
   if (Blau != -1 && maxBlau != 0) {
     for (int i = 0; i< 6; i++) {
       text(round(minBlau + i*(maxBlau-minBlau)/(5)), 985, 650 - 100*i);
@@ -1051,6 +1063,21 @@ void Innenraumluft_b() {
   verbinde_innenraum.show();
 
 
+  fill(255, 100, 100, 50);
+  noStroke();
+  if (indexInnenraumluftb >0) {
+    if (Innenraumluftb[6][indexInnenraumluftb-1] < 180) {
+      rect(120, 140, 311.25, 500);
+    } else if (Innenraumluftb[6][indexInnenraumluftb-1] < 360) {
+      rect(431.25, 140, 311.25, 500);
+    } else if (Innenraumluftb[6][indexInnenraumluftb-1] < 480) {
+      rect(741.5, 140, 207.5, 500);
+    }
+  }
+
+
+
+
   for (int i = 0; i < 5000; i++) {
     if (Innenraumluftb[6][i] > time_Station4) {
       Station4bFertig = true;
@@ -1060,15 +1087,15 @@ void Innenraumluft_b() {
       Station4bFertig = false;
     }
   }
-  // if (Station4bFertig) {
-  Station4Auswertung.show();
-  // } else {
-  //    Station4Auswertung.hide();
-  //  }
-
-  if (freie_stationen.name == "freigeben") {
+  if (Station4bFertig) {
     Station4Auswertung.show();
+  } else {
+    Station4Auswertung.hide();
   }
+
+  //if (freie_stationen.name == "freigeben") {
+  //  Station4Auswertung.show();
+  //}
   pushMatrix();
   translate(width/2, height/2);
   rotate(3*PI/2);
@@ -2215,69 +2242,5 @@ void mouseReleased() {
   }
   if (mouseX > (s.x2 - 10)*scale_factor && mouseX < (s.x2 + 10)*scale_factor) {
     s.active2 = false;
-  }
-}
-
-
-
-
-
-
-
-
-
-void onlyTwo2(CheckBox check, String state1, String state2, String state3) {
-  boolean st1 = check.getState(state1);
-  boolean st2 = check.getState(state2);
-  boolean st3 = check.getState(state3);
-  if (st1 && st2) {
-    check.deactivate(state3);
-  }
-  if (st1 && st3) {
-    check.deactivate(state2);
-  }
-  if (st2 && st3) {
-    check.deactivate(state1);
-  }
-}
-
-
-void onlyOne(CheckBox check, String state1, String state2, String state3, String state4, String state5) {
-  boolean st1 = check.getState(state1);
-  boolean st2 = check.getState(state2);
-  boolean st3 = check.getState(state3);
-  boolean st4 = check.getState(state4);
-  boolean st5 = check.getState(state5);
-
-
-  if (st1) {
-    check.deactivate(state2);
-    check.deactivate(state3);
-    check.deactivate(state4);
-    check.deactivate(state5);
-  }
-  if (st2) {
-    check.deactivate(state1);
-    check.deactivate(state3);
-    check.deactivate(state4);
-    check.deactivate(state5);
-  }
-  if (st3) {
-    check.deactivate(state1);
-    check.deactivate(state2);
-    check.deactivate(state4);
-    check.deactivate(state5);
-  }
-  if (st4) {
-    check.deactivate(state1);
-    check.deactivate(state2);
-    check.deactivate(state3);
-    check.deactivate(state5);
-  }
-  if (st5) {
-    check.deactivate(state1);
-    check.deactivate(state2);
-    check.deactivate(state3);
-    check.deactivate(state4);
   }
 }

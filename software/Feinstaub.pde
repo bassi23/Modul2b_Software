@@ -2,54 +2,8 @@ int[] y_scale = {0, 0};
 int[] y_scale1 = {0, 0};
 int[] y_scale2 = {0, 0};
 int x_scale = 0;
-
-
-void onlyTwo(CheckBox check, String state1, String state2, String state3, String state4) {
-  boolean st1 = check.getState(state1);
-  boolean st2 = check.getState(state2);
-  boolean st3 = check.getState(state3);
-  boolean st4 = check.getState(state4);
-
-  if (st1 && st2) {
-    check.deactivate(state3);
-    check.deactivate(state4);
-  }
-  if (st1 && st3) {
-    check.deactivate(state2);
-    check.deactivate(state4);
-  }
-  if (st1 && st4) {
-    check.deactivate(state2);
-    check.deactivate(state3);
-  }
-  if (st2 && st3) {
-    check.deactivate(state1);
-    check.deactivate(state4);
-  }
-  if (st2 && st4) {
-    check.deactivate(state1);
-    check.deactivate(state3);
-  }
-  if (st3 && st4) {
-    check.deactivate(state1);
-    check.deactivate(state2);
-  }
-}
-
-
-
 float gesamtzeit_station1 = 150;
-
-
 boolean ersterStart_Station1 = false;
-
-void Station1() {
-}
-
-
-
-
-
 
 void Feinstaub1() {
   up1.hide();
@@ -121,39 +75,43 @@ void Feinstaub1() {
   ////////////////// HIER NACH ABSCHLUSS DES VERSUCHS EIN "Zur Auswertung" Button erscheinen lassen!!!!! ///////////////////////////////////////////////////////////
 }
 void Feinstaub2() {
+  
+  fill(255);
+  stroke(0);
+  rect(10, 75, 820, 108);
   fill(0);
   textSize(20);
   textFont(bold);
   text("Station 4.2 - Kreidestaub", 20, 50);
+  text("Bevor es losgeht", 20, 100); 
   textFont(normal);
-  text("In diesem Versuch werdet ihr die Feinstaubemission beim Schreiben mit Kreide und anschließendem Wischen untersuchen.", 20, 100);
+  text("Fädelt das Board an den Füßen durch die Schlaufen der Tafel. Achtet dabei darauf,\ndass die Öffnung des Feinstaubsensors in Richtung der Tafel zeigt:", 20, 140); 
 
-
-  text("Bevor es losgeht: Fädelt das Board an den Füßen durch die Schlaufen der Tafel. Achtet dabei darauf, dass die Öffnung des Fein-\nstaubsensors in Richtung der Tafel zeigt:", 20, 160); 
 
   Feinstaub_weiter.show();
 
-  image(Feinstaub_Oeffnung, 500, 180);
-  image(Feinstaub_Einfaedeln1, 300, 380);
-  image(Feinstaub_Einfaedeln2, 780, 380);
+  image(Feinstaub_Oeffnung, 900, 75);
+  image(Feinstaub_Einfaedeln1, 300, 330);
+  image(Feinstaub_Einfaedeln2, 780, 330);
 
 
   stroke(0);
   strokeWeight(3);
-  line(400, 270, 610, 270);
+  line(830, 224, 1050, 224);
+  line(1050, 224, 1050, 180);
 
-  line(550, 540, 760, 540);
-  line(750, 530, 760, 540);
-  line(760, 540, 750, 550);
+  line(550, 490, 760, 490);
+  line(750, 480, 760, 490);
+  line(760, 490, 750, 500);
 
 
   strokeWeight(1);
   fill(255);
-  rect(70, 250, 335, 38);
-  rect(590, 488, 115, 30);
+  rect(500, 205, 330, 38);
+  rect(590, 438, 115, 30);
   fill(0);
-  text("Öffnung des Feinstaubsensors", 90, 275);
-  text("Einfädeln", 605, 510);
+  text("Öffnung des Feinstaubsensors", 515, 230);
+  text("Einfädeln", 605, 460);
 }
 void Feinstaub3() {
   textSize(20);
@@ -566,7 +524,7 @@ void Feinstaub_KreideB() {
       station1_MessungWiederholen.text = "Messung\nneu starten";
     }
   } else {
-    station1_MessungWiederholen.show();
+    station1_MessungWiederholen.hide();
   }
   if (indexStation1_trocken == 0) {
     station1_MessungStarten.show();
@@ -675,16 +633,16 @@ void Feinstaub13() {
   textAlign(CENTER);
   text("Säubert bitte erneut Tafel, Schwamm und Tuch, so gut es geht.", 640, 100);
   imageMode(CENTER);
-  text("...säubert so gut es geht Tafel, Schwamm und Tuch.", 640, 220);
-  text("Ohne Kreidereste\nund trocken", 320, 650);
-  text("ordentlich ausklopfen\n(z.B. am Fenster)", 640, 650);
-  text("Waschen und\ngut auswirgen", 960, 650);
-  image(Tafel, 320, 450);
-  image(nasserSchwamm, 960, 450);
-  image(trockenerSchwamm, 640, 450);
-  image(KreideB, 640, 150);
+  text("Ohne Kreidereste\nund trocken", 320, 550);
+  text("ordentlich ausklopfen\n(z.B. am Fenster)", 640, 550);
+  text("Waschen und\ngut auswirgen", 960, 550);
+  image(Tafel, 320, 320);
+  image(nasserSchwamm, 960, 320);
+  image(trockenerSchwamm, 640, 320);
+  //  image(KreideB, 640, 150);
   FeinstaubAbgeschlossen = true;
   Feinstaub_weiter.show();
+  zumObermenu2.hide();
 }
 
 void Feinstaub14() {
@@ -806,8 +764,8 @@ void Feinstaub14() {
       text(round(i*max/5), 1225, 555- 70*i);
     }
   } else {
-    text(nf(max,0,1), 60, 200);
-    text(nf(max,0,1), 1225, 200);
+    text(nf(max, 0, 1), 60, 200);
+    text(nf(max, 0, 1), 1225, 200);
     text("0", 60, 555);
     text("0", 1225, 555);
   }
@@ -1020,7 +978,11 @@ void Feinstaub14() {
     textAlign(CENTER);
     text(round(pm) + " µg/m³", mouseX + 75, mouseY - 8);
   }
-
+  zumObermenu2.show();
+  zumObermenu2.y = 600;
+  if (zumObermenu2.isClicked()) {
+    page = 0;
+  }
   //Feinstaub_weiter.show();
 }
 
@@ -1556,36 +1518,4 @@ void analyseFeinstaub(float[] array, String string, int index, int posY) {
   text("Steigung: " + nf(SteigungA, 0, 1) + " in " + Einheit + "s", 1150, 225+ 150*posY);
 
   textAlign(CORNER);
-}
-
-
-
-
-
-
-void onlyOne(CheckBox check, String state1, String state2, String state3, String state4) {
-  boolean st1 = check.getState(state1);
-  boolean st2 = check.getState(state2);
-  boolean st3 = check.getState(state3);
-  boolean st4 = check.getState(state4);
-  if (st1) {
-    check.deactivate(state2);
-    check.deactivate(state3);
-    check.deactivate(state4);
-  }
-  if (st2) {
-    check.deactivate(state1);
-    check.deactivate(state3);
-    check.deactivate(state4);
-  }
-  if (st3) {
-    check.deactivate(state1);
-    check.deactivate(state2);
-    check.deactivate(state4);
-  }
-  if (st4) {
-    check.deactivate(state1);
-    check.deactivate(state2);
-    check.deactivate(state3);
-  }
 }
