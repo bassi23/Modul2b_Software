@@ -224,7 +224,6 @@ void Datenaufnahme() {
 
         if (Station1Start) {
           if (page == 1.9) {// Kreide A
-            println("HI");
             Station1_PM1[indexStation1] = sps_pm1_data[index-2];
             Station1_PM25[indexStation1] = sps_pm25_data[index-2];
             Station1_PM4[indexStation1] = sps_pm4_data[index-2];

@@ -432,7 +432,7 @@ void Innenraumluft_a() {
       Station4aFertig = false;
     }
   }
-  println(indexInnenraumlufta);
+
 
   if (indexInnenraumlufta >0) {
     if (Innenraumlufta[6][indexInnenraumlufta-1] > 479) {

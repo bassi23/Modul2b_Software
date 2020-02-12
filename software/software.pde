@@ -628,7 +628,7 @@ float mouse_time = 0;
 
 
 void draw() {
-  println(page);
+ 
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
@@ -1153,7 +1153,7 @@ void draw() {
         page = 2.75;
       } else if (page == 3.2 || page == 3.3 || page == 3.4 || page == 3.5) {
         page = 3.11111;
-      }else if (page == 4.1) {
+      } else if (page == 4.1) {
         //page = 4;
         if (Station4aFertig || !Station4agestartet) {
           page = 4;
@@ -1313,13 +1313,14 @@ void draw() {
 
 
   if (station4_MessungWiederholen.isClicked()) {
-
+  println("station4_MessungWiederholen");
     reset_bool_Innenraum = true;
   }
 
 
   if (station1_MessungWiederholen.isClicked()) {
     reset_bool_Feinstaub = true;
+    println("station1_MessungWiederholen");
     sicher();
   }
   if (Station2_Riechen2.isClicked()) {
@@ -1380,7 +1381,6 @@ void draw() {
         currentTime4a = millis();
         indexInnenraumlufta = 0;
       } else if (page == 4.11) {
-        println("HI");
         reset_bool_Innenraum = false;
         for (int i = 0; i < 5000; i++) {
           for (int j = 0; j < 7; j++) {
@@ -1670,7 +1670,7 @@ void sicher2() {
   endShape();
   textSize(100);
   fill(0);
-  println(page);
+
   if (page == 2.2) {
     text("!", 204, 417);
     text("!", 864, 417);
@@ -1711,7 +1711,7 @@ void sicher() {
   endShape();
   textSize(100);
   fill(0);
-  println(page);
+ 
   if (page == 2.2) {
     text("!", 204, 417);
     text("!", 864, 417);
