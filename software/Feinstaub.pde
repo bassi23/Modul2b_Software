@@ -288,7 +288,9 @@ void Feinstaub_KreideB() {
   zumObermenu.y = 605;
   up2.show();
   down2.show();
-
+  Feinstaub_weiter.y = 385;
+  Feinstaub_weiter.size = 16;
+  Feinstaub_weiter.text = "zur Auswertung";
   // println(page);
   strokeWeight(1);
   fill(0);
@@ -353,7 +355,7 @@ void Feinstaub_KreideB() {
   fill(255);
   stroke(0);
   //rect(470, 20, 130, 50);
-  image(KreideB, 400, 80);
+  image(KreideB, 400, 60);
   rect(1105, 155, 155, 80);
 
 
@@ -571,10 +573,13 @@ void Feinstaub_KreideB() {
   } else {
     station1_MessungStarten.hide();
   }
+
   if (KreideBAbgeschlossen) {
     Feinstaub_weiter.show();
+  } else {
+    Feinstaub_weiter.hide();
   }
-
+  Feinstaub_weiter.size = 20;
   // graphFeinstaub(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);
   // graphFeinstaub(Station1_PM10, 1, "Feinstaub PM10 in μg/m³", x_scale, y_scale, false);
 
@@ -793,11 +798,18 @@ void Feinstaub14() {
     max = 2000;
   }
   textAlign(CENTER);
+  text("µg/m³", 65, 165);
+  text("µg/m³", 1230, 165);
   if (y_scale[1] != 0) {
     for (int i = 0; i < 6; i++) {
-      text(round(i*max/5), 60, 550- 70*i);
-      text(round(i*max/5), 1225, 550- 70*i);
+      text(round(i*max/5), 60, 555- 70*i);
+      text(round(i*max/5), 1225, 555- 70*i);
     }
+  } else {
+    text(nf(max,0,1), 60, 200);
+    text(nf(max,0,1), 1225, 200);
+    text("0", 60, 555);
+    text("0", 1225, 555);
   }
   /////////
   //rect(740, 200, 450, 350);
@@ -986,7 +998,7 @@ void Feinstaub14() {
 
   text("Zeit in Sekunden", 325, 610);
   text("Zeit in Sekunden", 965, 610);
-
+  strokeWeight(1);
   if (mouseX > 100 && mouseX < 550 && mouseY > 200 && mouseY < 550) {
     fill(255);
     stroke(0);
@@ -1047,7 +1059,9 @@ void Feinstaub_KreideA() {
   up2.show();
   down2.show();
 
-
+  Feinstaub_weiter.y = 385;
+  Feinstaub_weiter.size = 16;
+  Feinstaub_weiter.text = "zum Kreidestift";
   fill(0);
   textSize(20);
   reset.hide();
@@ -1318,9 +1332,15 @@ void Feinstaub_KreideA() {
   } else {
     station1_MessungStarten.show();
   }
+
   if (KreideAAbgeschlossen) {
     Feinstaub_weiter.show();
+  } else {
+    Feinstaub_weiter.hide();
   }
+  Feinstaub_weiter.size = 20;
+
+
 
 
   // graphFeinstaub(Station1_PM25, 1, "Feinstaub PM2.5 in μg/m³", x_scale, y_scale, true);

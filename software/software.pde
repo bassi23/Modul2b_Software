@@ -244,7 +244,7 @@ void setup() {
   giftig = loadImage("img/giftig.png");
   reizend = loadImage("img/reizend.png");
   umweltschaedlich  = loadImage("img/umweltschädlich.png");
-  
+
   Feinstaub_Oeffnung = loadImage("img/Feinstaub_Oeffnung.png");
   Feinstaub_Einfaedeln1 = loadImage("img/Feinstaub_Einfaedeln1.png");
   Feinstaub_Einfaedeln2 = loadImage("img/Feinstaub_Einfaedeln2.png");
@@ -630,7 +630,7 @@ float mouse_time = 0;
 
 
 void draw() {
-
+  println(page);
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
@@ -675,7 +675,8 @@ void draw() {
   //textSize(16);
   //text(nf(frameRate, 0, 0), 20, 20);
   //text("Aufgenommene Messwerte: " + index, 420, 20);
-
+  Feinstaub_weiter.y = 600;
+  Feinstaub_weiter.text = "weiter";
   // Buttons werden zunächst alle "versteckt", und nur die benötigten an den entsprechenden Stellen "sichtbar" gemacht.
   sicher_ja.hide();
   einstellungen.hide();
@@ -720,7 +721,7 @@ void draw() {
   fehler.x = 1225;
   verbinde.y = 200;
   fehler.y = 160;
-  println(page);
+
 
   if (page != 0) {
     one.hide();
@@ -1107,11 +1108,25 @@ void draw() {
       } else if (page == 1.8) {
         page = 1.7;
       } else if (page == 1.9) {
-        page = 1.8;
+        if (KreideAAbgeschlossen) {
+          page = 1.8;
+          Station1Start = false;
+        } else {
+          //page = 1.8;
+          //Station1Start = false;
+          back_bool_Feinstaub2 = true;
+        }
       } else if (page == 1.91) {
         page = 1.9;
       } else if (page == 1.911) {
-        page = 1.91;
+        if (KreideBAbgeschlossen) {
+          page = 1.91;
+          Station1_trocken_Start = false;
+        } else {
+          //page = 1.8;
+          //Station1Start = false;
+          back_bool_Feinstaub2 = true;
+        }
       } else if (page == 1.9111) {
         page = 1.911;
       } else if (page == 1.91111) {
@@ -1192,15 +1207,17 @@ void draw() {
   if (zumObermenu.isClicked()) {
     page = -1;
   }
-  if (sicher_ja.isClicked()) {
-    reset_bool = false; 
-    index = 0;
-    tagesIndex = 0;
-    zeroTime2 = millis();
-    table.clearRows();
-  }
-  if (sicher_nein.isClicked()) {
-    reset_bool = false;
+  if (page != 1.9 && page != 1.911) {
+    if (sicher_ja.isClicked()) {
+      reset_bool = false; 
+      index = 0;
+      tagesIndex = 0;
+      zeroTime2 = millis();
+      table.clearRows();
+    }
+    if (sicher_nein.isClicked()) {
+      reset_bool = false;
+    }
   }
   if (aktualisierung_right.isClicked()) {
     if (del < 5) {
@@ -1271,13 +1288,6 @@ void draw() {
     } else if (page == 1.911) {
       Station1_trocken_Start = true;
     }
-    if (page == 1.11) {
-      zeroTime3 = millis();
-    } else if (page == 1.1111) {
-      zeroTime4 = millis();
-    } else if (page == 1.111) {
-      zeroTime5 = millis();
-    }
   }
 
 
@@ -1295,15 +1305,13 @@ void draw() {
   }
 
   if (station1_MessungWiederholen.isClicked()) {
-    Station1Start = true;
-    if (page == 1.9) {
-      KreideAAbgeschlossen = false;
-      indexStation1 = 0;
-      for (int i = 0; i < 500; i++) {
-        Station1_PM25[i] = 0;
-        Station1_PM10[i] = 0;
-      }
-    }
+    reset_bool_Feinstaub = true;
+    //if (page == 1.9) {// Kreide A
+    //  Station1Start = false;
+    //} else if (page == 1.911) {
+    //  Station1_trocken_Start = false;
+    //}
+    sicher();
   }
   if (Station2_Riechen2.isClicked()) {
     page = 2.1;
@@ -1350,26 +1358,80 @@ void draw() {
 
   if (reset_bool_station2) {
     sicher();
-    if (sicher_ja.isClicked()) {
-      for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 500; j++) {
-          MenschSensorMesswerte[i][j] = 0;
-        }
-      }
-      messen_Station2 = false;
-      MenschSensorMessen = false;
-      for (int i = 0; i < 5; i++) {
-        Proben_Vermessen[i] = false;
-      }
-      reset_bool_station2 = false;
-      indexMenschSensor = 0;
-      prob = 1;
-      currentTime = millis();
-      indexMenschSensorMax = 0;
-    }
-
     if (sicher_nein.isClicked()) {
       reset_bool_station2 = false;
+    }
+  }
+
+
+  if (back_bool_Feinstaub2) {
+    sicher2();
+    if (sicher_ja.isClicked()) {
+      reset_bool_Feinstaub = false;
+      Station1Start = false;
+      back_bool_Feinstaub2 = false;
+      if (page == 1.9) {
+        page = 1.8;
+        KreideAAbgeschlossen = false;
+        indexStation1 = 0;
+        for (int i = 0; i < 500; i++) {
+          Station1_PM25[i] = 0;
+          Station1_PM10[i] = 0;
+        }
+      }
+      if (page == 1.911) {
+        page = 1.91;
+        KreideBAbgeschlossen = false;
+        indexStation1_trocken = 0;
+        Station1_trocken_Start = false;
+        back_bool_Feinstaub2 = false;
+        for (int i = 0; i < 500; i++) {
+          Station1_PM25_trocken[i] = 0;
+          Station1_PM10_trocken[i] = 0;
+        }
+      }
+    }
+    if (sicher_nein.isClicked()) {
+      reset_bool_Feinstaub = false;
+      if (page == 1.9) {
+        Station1Start = true;
+      } else if (page == 1.911) {
+        Station1_trocken_Start = true;
+      }
+    }
+  }
+
+
+  if (reset_bool_Feinstaub) {
+    sicher();
+    if (sicher_ja.isClicked()) {
+      reset_bool_Feinstaub = false;
+      Station1Start = true;
+      if (page == 1.9) {
+        KreideAAbgeschlossen = false;
+        indexStation1 = 0;
+        for (int i = 0; i < 500; i++) {
+          Station1_PM25[i] = 0;
+          Station1_PM10[i] = 0;
+        }
+      }
+      if (page == 1.911) {
+        KreideBAbgeschlossen = false;
+        indexStation1_trocken = 0;
+        Station1_trocken_Start = true;
+        for (int i = 0; i < 500; i++) {
+          Station1_PM25_trocken[i] = 0;
+          Station1_PM10_trocken[i] = 0;
+        }
+      }
+    }
+    if (sicher_nein.isClicked()) {
+      reset_bool_Feinstaub = false;
+      if (page == 1.9) {
+        Station1Start = true;
+      } else if (page == 1.911) {
+        Station1_trocken_Start = true;
+      }
     }
   }
 
@@ -1501,6 +1563,50 @@ void draw() {
 boolean reset_bool = false;
 boolean reset_bool_tutorial = false;
 boolean reset_bool_station2 = false;
+boolean reset_bool_Feinstaub = false;
+boolean back_bool_Feinstaub2 = false;
+
+
+void sicher2() {
+  fill(240);
+  stroke(150);
+  strokeWeight(4);
+  rect(90, 250, 890, 200);
+  strokeWeight(1);
+  stroke(255, 0, 0);
+  beginShape();
+  fill(255, 50, 50);
+  vertex(135, 425);
+  vertex(205, 325);
+  vertex(265, 425);
+  vertex(135, 425);
+  endShape();
+  beginShape();
+  fill(255, 0, 0);
+  vertex(795, 425);
+  vertex(865, 325);
+  vertex(925, 425);
+  vertex(795, 425);
+  endShape();
+  textSize(100);
+  fill(0);
+  println(page);
+  if (page == 2.2) {
+    text("!", 204, 417);
+    text("!", 864, 417);
+  } else {
+    text("!", 189, 417);
+    text("!", 849, 417);
+  }
+  fill(0);
+  textSize(20);
+  textAlign(CENTER);
+  text("Die Messung ist noch nicht abgeschlossen! Wenn du auf 'ja' klickst,\nwerden die bisherigen Daten gelöscht.", 535, 290);
+
+  sicher_ja.show();
+  sicher_nein.show();
+}
+
 
 void sicher() {
   fill(240);
@@ -1536,7 +1642,11 @@ void sicher() {
   fill(0);
   textSize(30);
   textAlign(CORNER);
-  text("Bist du sicher, dass du die Daten löschen möchtest?", 150, 300);
+  if (page == 1.9 || page == 1.911) {
+    text("Bist du sicher, dass du die Messung neu starten möchtest?", 115, 300);
+  } else {
+    text("Bist du sicher, dass du die Daten löschen möchtest?", 150, 300);
+  }
   sicher_ja.show();
   sicher_nein.show();
 }
