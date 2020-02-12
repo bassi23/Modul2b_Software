@@ -895,16 +895,16 @@ void Innenraumluft_b() {
   }
 
 
-  //if (Station4Start.isClicked()) {
+  if (Station4Start.isClicked()) {
   //  for (int i = 0; i < 5000; i++) {
   //    for (int j = 0; j < 7; j++) {
   //      Innenraumluftb[j][i] = 0;
   //    }
   //  }
-  //  Station4bgestartet = true;
-  //  currentTime4b = millis();
-  //  indexInnenraumluftb = 0;
-  //}
+    Station4bgestartet = true;
+    currentTime4b = millis();
+    indexInnenraumluftb = 0;
+  }
 
   // Zeichne den Hintergrund
   fill(255);
