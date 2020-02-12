@@ -353,7 +353,7 @@ void Feinstaub_KreideB() {
   fill(255);
   stroke(0);
   //rect(470, 20, 130, 50);
-  image(KreideB, 400, 0);
+  image(KreideB, 400, 80);
   rect(1105, 155, 155, 80);
 
 
