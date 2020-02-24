@@ -495,6 +495,7 @@ void Station2_Sensor() {
     D_wiederholen.show();
     E_wiederholen.show();
     abbruch_Station2.hide();
+    Station2_Werte_konstant.hide();
   } else {
     String temp = "A";
     if (prob == 2) {
@@ -516,6 +517,16 @@ void Station2_Sensor() {
     D_wiederholen.hide();
     E_wiederholen.hide();
     abbruch_Station2.show();
+    if (indexMenschSensor > 1) {
+      if ((MenschSensorMesswerte[prob+4][indexMenschSensor - 1]  - MenschSensorMesswerte[prob + 4][0]) > 20) {
+        Station2_Werte_konstant.show();
+        if (Station2_Werte_konstant.isClicked()) {
+          Proben_Vermessen[prob - 1] = true;
+          messen_Station2 = false;
+          MenschSensorMessen = false;
+        }
+      }
+    }
   }
 
   if (abbruch_Station2.isClicked()) {

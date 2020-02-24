@@ -26,6 +26,7 @@ Aufgabentext Station3_Aufgabentext_a1, Station3_Aufgabentext_a2, Station3_Aufgab
 Aufgabentext Station4_Aufgabentext_a, Station4_Aufgabentext_a2, Station4_Aufgabentext_b, Station4_Aufgabentext_c;
 Aufgabentext TVOC_Duelle_Analyse, Duell_Aufgabentext;
 
+
 dropdown tutorial_Rot, tutorial_Blau;
 checkbox skalierung_angleichen;
 
@@ -68,7 +69,7 @@ String[] freie_stationen_Strings = {"nicht freigeben", "freigeben"};
 String[] tutorial_Rot_Strings = {"", "TVOC", "Temperatur", "rel. Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 String[] tutorial_Blau_Strings = {"", "TVOC", "Temperatur", "rel. Luftfeuchte", "CO2", "PM1", "PM2.5", "PM4", "PM10"};
 //Logos und Hintergrundbilder
-PImage sps, sgp, scd, nodemcu, DBU, iPhysicsLab, LMT, SFZSLS, SUSmobil;
+PImage sps, sgp, scd, nodemcu, DBU, SUSmobil;
 PImage Vorschau_Station1, Vorschau_Station2, Vorschau_Station2a, Vorschau_Station2b, Vorschau_Station3, Vorschau_Station4;
 PImage Versuchsaufbau_Feinstaub, Versuchsaufbau_Feinstaub2;
 // Bilder der zu messenden Stoffe für Station 3 - TVOC-Duelle
@@ -124,6 +125,7 @@ Probe A, B, C, D, E;
 Probe A2, B2, C2, D2, E2;
 TVOC_Kandidat Stoff1, Stoff2, Stoff3, Stoff4, Stoff5, Stoff6, Stoff7, Stoff8, Stoff9, Stoff10;
 
+button Station2_Werte_konstant;
 
 slider s, sFeinstaub;
 slider_MS slider_Mensch_Sensor;
@@ -155,7 +157,7 @@ PImage Eco_Boden, Eco_Edding, Eco_Kleber, Kork, Sekundenkleber, Edding, Stinkela
 PImage blauer_engel;
 PImage aetzend, entzuendlich, gesundheitsschaedlich, giftig, reizend, umweltschaedlich;
 PImage Aufbau_Feinstaub;
-
+PImage alle_Logos;
 
 // Das Programm ist in Seiten unterteilt
 
@@ -206,6 +208,7 @@ PImage Aufbau_Feinstaub;
 void setup() {
   size(1280, 720);
   PImage icon = loadImage("img/SUSmobil.png");
+  alle_Logos = loadImage("img/Alle_Logos.png");
   Vorschau_Station1 = loadImage("img/Vorschau_Station1.png");
   Vorschau_Station2 = loadImage("img/Vorschau_Station2.png");
   Vorschau_Station2a = loadImage("img/Vorschau_Station2a.png");
@@ -304,6 +307,7 @@ void setup() {
   C_wiederholen = new button(600, 100, 210, 35, "Probe C vermessen", 5, true, 20);
   D_wiederholen = new button(870, 20, 210, 35, "Probe D vermessen", 5, true, 20);
   E_wiederholen = new button(870, 60, 210, 35, "Probe E vermessen", 5, true, 20);
+
 
   Station1_Aufgabentext = new Aufgabentext(" In diesem Versuch wirst du die Feinstaubemission von Kreide messen. Dir stehen zwei unterschiedliche Kreidearten zur Verfügung (fein und grob). ", 25, 75, 1200, 85);
 
@@ -430,6 +434,9 @@ void setup() {
   Geruchstest = new button(250, 250, 350, 150, "Geruchstest", 5, true, 40);
   auswertung_Geruchstest = new button(250, 450, 350, 150, "Auswertung des\nGeruchstests", -20, true, 40);
   abbruch_Station2 = new button(1100, 20, 100, 50, "Abbruch", 5, true, 20);
+  Station2_Werte_konstant = new button(1100, 100, 100, 50, "Verlauf ist\nkonstant", -7, true, 15);
+
+
   ja_zufrieden = new button(1100, 120, 100, 50, "Weiter", 5, true, 20);
 
   x_up = new button(900, 680, 50, 30, "right_arrow", 5, true, 20);
@@ -457,8 +464,8 @@ void setup() {
   left_tutorial = new button(1097, 375, 50, 30, "left_arrow", 5, true, 20);
   right_tutorial = new button(1187, 375, 50, 30, "right_arrow", 5, true, 20);
   //
-  Stationen = new button(100, 100, 500, 400, "Stationen", 20, true, 70);
-  Sensoren = new button(650, 100, 500, 400, "Sensoren", 20, true, 70);
+  Stationen = new button(60, 100, 480, 420, "Stationen", 20, true, 70);
+  Sensoren = new button(740, 100, 480, 420, "Sensoren", 20, true, 70);
   zumObermenu = new button(1125, 655, 140, 50, "Hauptmenü", 5, true, 20);
   zumObermenu2 =  new button(1115, 600, 140, 50, "Stationsmenü", 5, true, 20);
   zumObermenu.hide();
@@ -471,7 +478,7 @@ void setup() {
   alle_Sensoren2 = new button(720, 400, 300, 150, "Messwert gegen\nMesswert", -10, true, 30);
 
   //
-  einstellungen = new button(20, 630, 150, 75, "Einstellungen", 5, true, 20);
+  einstellungen = new button(565, 445, 150, 75, "Einstellungen", 5, true, 20);
   Port1 = new button(730, 335, 30, 30, " x ", 5, true, 20);
   Port2 = new button(730, 370, 30, 30, " x ", 5, true, 20);
   Port3 = new button(730, 405, 30, 30, " x ", 5, true, 20);
@@ -493,7 +500,7 @@ void setup() {
 
   tutorial_ueberspringen = new button(550, 635, 170, 70, "Tutorial\nüberspringen", -10, true, 20);
   tutorial_weiter = new button(1120, 650, 140, 50, "weiter", 5, true, 20);
-  tutorial_zum = new button(1075, 630, 150, 75, "zum Tutorial", 5, true, 20);
+  tutorial_zum = new button(565, 100, 150, 75, "zum Tutorial", 5, true, 20);
   tutorial_back = new button(20, 650, 140, 50, "zurück", 5, true, 20);
   tutorial_Start_Stopp = new button(1100, 140, 130, 40, "Start/Stopp", 5, true, 20);
 
@@ -513,9 +520,6 @@ void setup() {
   nodemcu = loadImage("img/nodemcu.png");
   SUSmobil = loadImage("img/SUSmobil.png");
   DBU = loadImage("img/DBU.png");
-  iPhysicsLab = loadImage("img/iPhysicsLab.png");
-  LMT = loadImage("img/LMT.png");
-  SFZSLS = loadImage("img/SFZSLS.png");
 
   //
   Stoff1_bild = loadImage("/img/Stoff1.png");
@@ -628,7 +632,6 @@ float mouse_time = 0;
 
 
 void draw() {
- 
   if (mouseX - pmouseX != 0 && !mousePressed && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     mouse_time = millis();
   }
@@ -703,6 +706,7 @@ void draw() {
   zur_Auswertung2.hide();
   zur_Auswertung3.hide();
   TVOC_analyse.hide();
+  Station2_Werte_konstant.hide();
 
   //one.hide();
   //two.hide();
@@ -1313,7 +1317,7 @@ void draw() {
 
 
   if (station4_MessungWiederholen.isClicked()) {
-  println("station4_MessungWiederholen");
+    println("station4_MessungWiederholen");
     reset_bool_Innenraum = true;
   }
 
@@ -1711,7 +1715,7 @@ void sicher() {
   endShape();
   textSize(100);
   fill(0);
- 
+
   if (page == 2.2) {
     text("!", 204, 417);
     text("!", 864, 417);
@@ -2082,8 +2086,8 @@ void keyPressed() {
     }
     if (c2.active) {
       if (keyCode == BACKSPACE) {
-        if (myText[2].length() > 0 ) {
-          myText[2] = myText[2].substring( 0, myText[2].length()- 1 );
+        if (myText2[2].length() > 0 ) {
+          myText2[2] = myText2[2].substring( 0, myText2[2].length()- 1 );
         }
       } else if (keyCode == DELETE) {
         myText2[2] = "" ;

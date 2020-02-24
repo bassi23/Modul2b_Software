@@ -252,8 +252,9 @@ void alleSensoren() {
   }
   text("Anzeige\nMesswerte", 1185, 280);
   text(intervall, 1185, 390);
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
+  textSize(13);
+  text("Messunsicherheit", 1165, 180);
+  textSize(16);
   text("verbinden", 1165, 220);
   textAlign(CORNER);
   stroke(0);
@@ -566,8 +567,9 @@ void alleSensoren2() {
     text(suby, height/2 -422, -width/2 + 90);
   }
   popMatrix();
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
+  textSize(13);
+  text("Messunsicherheit", 1165, 180);
+  textSize(16);
   text("verbinden", 1165, 220);
 
   textAlign(CORNER);

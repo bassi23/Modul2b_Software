@@ -700,7 +700,7 @@ void Tutorial6() {
   textAlign(CENTER);
   textSize(21);
   fill(0);
-  text("Jede Messgröße ist fehlerbehaftet, und es ist nicht immer sinnvoll Messwerte zu verbinden.\nAufgabe: Lasse die Fehlerbalken anzeigen!", 640, 40);
+  text("Jede Messgröße ist fehlerbehaftet, und es ist nicht immer sinnvoll Messwerte zu verbinden.\nAufgabe: Lasse die Messunsicherheit anzeigen!", 640, 40);
   textSize(16);
   text("Zeit in Sekunden", 540, 595);
 
@@ -826,8 +826,11 @@ void Tutorial6() {
   stroke(0);
   rect(1080, 235, 170, 70);
   fill(0);
-  text("Fehlerbalken", 1135, 260);
-  text("verbinden", 1135, 290);
+  textSize(13);
+  textAlign(CENTER);
+  text("Messunsicherheit", 1145, 255);
+  textSize(16);
+  text("verbinden", 1145, 290);
 
 
   if (tutorial_skalierung_rot_up.isClicked()) {
@@ -1033,8 +1036,11 @@ void Tutorial7() {
   rect(1080, 235, 170, 70);
   rect(1080, 315, 170, 150);
   fill(0);
-  text("Fehlerbalken", 1135, 260);
-  text("verbinden", 1135, 290);
+  textSize(13);
+  textAlign(CENTER);
+  text("Messunsicherheit", 1145, 255);
+  textSize(16);
+  text("verbinden", 1145, 290);
   textSize(18);
   text("Anzeige\nMesswerte", 1163, 335);
   String txt = "";
@@ -1273,8 +1279,11 @@ void Tutorial8() {
   rect(1080, 315, 170, 150);
   rect(1080, 475, 170, 130);
   fill(0);
-  text("Fehlerbalken", 1135, 260);
-  text("verbinden", 1135, 290);
+  textSize(13);
+  textAlign(CENTER);
+  text("Messunsicherheit", 1145, 255);
+  textSize(16);
+  text("verbinden", 1145, 290);
   textSize(18);
   text("Anzeige\nMesswerte", 1163, 335);
   text("Messintervall", 1163, 500);

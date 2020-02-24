@@ -369,10 +369,11 @@ void Innenraumluft_a() {
   stroke(0);
   rect(1105, 190, 155, 85);
   fill(0);
-  textAlign(LEFT);
-
-  text("Fehlerbalken", 1110, 217);
-  text("verbinden", 1110, 260);
+  textSize(13);
+  textAlign(CENTER);
+  text("Messunsicherheit", 1165, 215);
+  textSize(16);
+  text("verbinden", 1165, 260);
   textAlign(CENTER);
   textSize(20);
   text("Ventilator ausgeschaltet lassen!", 550, 25);
@@ -1034,10 +1035,11 @@ void Innenraumluft_b() {
   stroke(0);
   rect(1105, 190, 155, 85);
   fill(0);
-  textAlign(LEFT);
-  textSize(15);
-  text("Fehlerbalken", 1110, 217);
-  text("verbinden", 1110, 260);
+  textSize(13);
+  textAlign(CENTER);
+  text("Messunsicherheit", 1165, 215);
+  textSize(16);
+  text("verbinden", 1165, 260);
   textSize(20);
   textAlign(CENTER);
   text("Ventilator anschalten!", 550, 25);

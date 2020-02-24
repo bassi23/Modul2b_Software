@@ -85,7 +85,7 @@ void hauptmenu() {
     textFont(normal);
     noStroke();
     text("Setze dich in eine Messkammer, und untersuche, wie sich\ndie Luftqualität ändert.", 600, 120);
-    image(Vorschau_Station3, 780, 175);
+    image(Vorschau_Station3, 750, 200);
   }
   strokeWeight(3);
   stroke(0);

@@ -601,8 +601,9 @@ void Feinstaub_KreideB() {
     text("Messintervall", 1185, 480);
     text(nf(del, 0, 0) + " s", 1185, 565);
   }
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
+  textSize(13);
+  text("Messunsicherheit", 1165, 180);
+  textSize(16);
   text("verbinden", 1165, 220);
   textAlign(CORNER);
   back.show();
@@ -1369,8 +1370,9 @@ void Feinstaub_KreideA() {
     text("Messintervall", 1185, 480);
     text(nf(del, 0, 0) + " s", 1185, 565);
   }
-  textSize(15);
-  text("Fehlerbalken", 1165, 180);
+  textSize(13);
+  text("Messunsicherheit", 1165, 180);
+  textSize(16);
   text("verbinden", 1165, 220);
   textAlign(CORNER);
   back.show();
